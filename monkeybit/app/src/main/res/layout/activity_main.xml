@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navigationbarmenu"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="416dp" />
 </android.support.constraint.ConstraintLayout>
