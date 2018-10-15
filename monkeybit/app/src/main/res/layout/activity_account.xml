@@ -18,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="email"
             android:inputType="textEmailAddress"
-            android:text="e-mail" />
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/passAut"
@@ -27,8 +28,23 @@
             android:layout_height="wrap_content"
             android:contentDescription="password"
             android:ems="10"
+            android:hint="password"
             android:inputType="textPassword"
             android:selectAllOnFocus="false"
             android:singleLine="false" />
+
+        <Button
+            android:id="@+id/SignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onSignIn"
+            android:text="SignIn" />
+
+        <Button
+            android:id="@+id/LogOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onLogOut"
+            android:text="LogOut" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
