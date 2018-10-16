@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Routability</string>
+    <string name="sign_in">Sign In</string>
+    <string name="logout">Log Out</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="signed_in_succesfully">SignIn succesfully!</string>
+    <string name="signed_in_fail">Authentication fail!</string>
+    <string name="empty_fields">The text fields are empty</string>
+    <string name="logged_out">Log Out</string>
+    <string name="logged_out_fail">You aren\'t signed in!</string>
+    <string name="look_profile">Profile</string>
+    <string name="new_user">Haven\'t got an account? Register Here</string>
+    <string name="user_name">User name</string>
+    <string name="create_account">Create Account</string>
+    <string name="passwords_not_equal">Password aren\'t equals. Check this.</string>
+    <string name="create_account_succesfully">Created new account!</string>
+    <string name="create_account_fail">Account creation fail!</string>
+    <string name="deleted_account">Your account has been deleted.</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_fail">For security you must reauthenticate before delete the account. Please sign in and then come here to delete the account.</string>
 </resources>
