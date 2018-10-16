@@ -1,12 +1,15 @@
 package com.monkeybit.routability;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -30,8 +33,6 @@ public class UserProfileActivity extends AppCompatActivity {
         //updateUI(currentUser);
         if (currentUser == null) {
             Log.e("Debug:", "Error, no debería haber aparecido esta pantalla porque el usuario no ha iniciado sesión");
-            Toast toast = Toast.makeText(getApplicationContext(), "Error, no debería haber aparecido esta pantalla porque el usuario no ha iniciado sesión", Toast.LENGTH_SHORT);
-            toast.show();
             LoadActivityWithoutArguments(MainActivity.class);
         }
         UpdateUI();
@@ -74,6 +75,26 @@ public class UserProfileActivity extends AppCompatActivity {
             toast.show();
         }
         LoadActivityWithoutArguments(MainActivity.class);
+    }
+
+    public void OnDeleteAccount(android.view.View view) {
+        currentUser.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Debug:", "User account deleted.");
+                            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.delete_account), Toast.LENGTH_SHORT);
+                            toast.show();
+                            LoadActivityWithoutArguments(MainActivity.class);
+                        } else {
+                            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.delete_account_fail), Toast.LENGTH_SHORT);
+                            toast.show();
+                            mAuth.signOut();
+                            LoadActivityWithoutArguments(AccountActivity.class);
+                        }
+                    }
+                });
     }
 
     private void LoadActivityWithoutArguments(Class<?> newActivityName) {

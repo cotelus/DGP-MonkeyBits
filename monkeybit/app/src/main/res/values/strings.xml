@@ -17,4 +17,7 @@
     <string name="passwords_not_equal">Password aren\'t equals. Check this.</string>
     <string name="create_account_succesfully">Created new account!</string>
     <string name="create_account_fail">Account creation fail!</string>
+    <string name="deleted_account">Your account has been deleted.</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_fail">For security you must reauthenticate before delete the account. Please sign in and then come here to delete the account.</string>
 </resources>

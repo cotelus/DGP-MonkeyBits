@@ -2,12 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_home"
-        android:title="test"/>
+        style="@style/CustomTheme"
+        android:title="test" />
     <item
         android:id="@+id/menu_search"
+        style="@style/CustomTheme"
         android:title="Rutas"/>
 
     <item
         android:id="@+id/menu_notifications"
-        android:title="qewr"/>
+        style="@style/CustomTheme"
+        android:title="test2"/>
 </menu>

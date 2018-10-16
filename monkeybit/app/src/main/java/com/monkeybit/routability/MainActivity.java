@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnLookProfile(android.view.View view) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if (currentUser != null) {
-            //@TODO: show user"s profile
             LoadActivityWithoutArguments(UserProfileActivity.class);
         } else {
             LoadActivityWithoutArguments(AccountActivity.class);
