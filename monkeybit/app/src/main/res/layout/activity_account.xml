@@ -16,36 +16,47 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <EditText
             android:id="@+id/eMailAut"
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:autofillHints=""
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:autofillHints="" tools:targetApi="o" />
+            tools:targetApi="o" />
 
         <EditText
             android:id="@+id/passAut"
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:autofillHints=""
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:selectAllOnFocus="false"
             android:singleLine="false"
-            android:autofillHints="" tools:targetApi="o"/>
+            tools:targetApi="o" />
 
         <Button
             android:id="@+id/SignIn"
             android:layout_width="match_parent"
             android:layout_height="77dp"
             android:onClick="OnSignIn"
-            android:text="@string/signin" />
+            android:text="@string/sign_in" />
+
+        <Button
+            android:id="@+id/NewUser"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:onClick="OnNewUser"
+            android:text="@string/new_user" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

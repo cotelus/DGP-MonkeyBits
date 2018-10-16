@@ -22,21 +22,9 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             //@TODO: show user"s profile
-            Toast toast = Toast.makeText(getApplicationContext(), "Show your profile.", Toast.LENGTH_SHORT);
-            toast.show();
+            LoadActivityWithoutArguments(UserProfileActivity.class);
         } else {
             LoadActivityWithoutArguments(AccountActivity.class);
-        }
-    }
-
-    public void OnLogOut(android.view.View view) {
-        if (mAuth.getCurrentUser() != null) {
-            mAuth.signOut();
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.logedout), Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.logedoutfail), Toast.LENGTH_SHORT);
-            toast.show();
         }
     }
 

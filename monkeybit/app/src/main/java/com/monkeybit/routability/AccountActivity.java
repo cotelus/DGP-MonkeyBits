@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -41,42 +40,35 @@ public class AccountActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.eMailAut)).getText().toString();
         String password = ((EditText) findViewById(R.id.passAut)).getText().toString();
 
-        if (!(email.isEmpty() && password.isEmpty())) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        if (email.isEmpty() || password.isEmpty()) {
+            //Show error on screen
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.signedsuccesfully), Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.signed_in_succesfully), Toast.LENGTH_SHORT);
                                 toast.show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //updateUI(user);
                                 LoadActivityWithoutArguments(MainActivity.class);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.signedfail), Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.signed_in_fail), Toast.LENGTH_SHORT);
                                 toast.show();
                                 //updateUI(null);
                             }
                         }
                     });
-        } else {
-            //Show error on screen
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.emptyfields), Toast.LENGTH_SHORT);
-            toast.show();
-        }
     }
 
-    public void OnLogOut(android.view.View view) {
-        if (mAuth.getCurrentUser() != null) {
-            mAuth.signOut();
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.logedout), Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.logedoutfail), Toast.LENGTH_SHORT);
-            toast.show();
-        }
+    public void OnNewUser(android.view.View view) {
+        LoadActivityWithoutArguments(RegisterAccountActivity.class);
     }
 
     private void LoadActivityWithoutArguments(Class<?> newActivityName) {
