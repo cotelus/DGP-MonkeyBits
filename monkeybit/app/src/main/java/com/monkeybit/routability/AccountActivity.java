@@ -1,5 +1,6 @@
 package com.monkeybit.routability;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private static final Object TAG = "Debug";
     private FirebaseAuth mAuth;
-    public String email;
-    public String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +24,6 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
         mAuth = FirebaseAuth.getInstance();
-        email = null;
-        password = null;
     }
 
     @Override
@@ -37,52 +33,55 @@ public class AccountActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
         if (currentUser != null) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Currently signed in!", Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(),"You should sign in", Toast.LENGTH_SHORT);
-            toast.show();
+            LoadActivityWithoutArguments(MainActivity.class);
         }
     }
 
-    public void onSignIn(android.view.View view) {
+    public void OnSignIn(android.view.View view) {
+        String email = ((EditText) findViewById(R.id.eMailAut)).getText().toString();
+        String password = ((EditText) findViewById(R.id.passAut)).getText().toString();
 
-        //@TODO: Si no tiene los valores válidos, la aplicación crashea...
-        email = ((EditText) findViewById(R.id.eMailAut)).getText().toString();
-        password = ((EditText) findViewById(R.id.passAut)).getText().toString();
-
-        if (email == null || password == null) {
-            return;
-        }
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast toast = Toast.makeText(getApplicationContext(), "SignIn succesfully!", Toast.LENGTH_SHORT);
-                            toast.show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast toast = Toast.makeText(getApplicationContext(), "Authentication fail!", Toast.LENGTH_SHORT);
-                            toast.show();
-                            //updateUI(null);
+        if (!(email.isEmpty() && password.isEmpty())) {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.signedsuccesfully), Toast.LENGTH_SHORT);
+                                toast.show();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                                LoadActivityWithoutArguments(MainActivity.class);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.signedfail), Toast.LENGTH_SHORT);
+                                toast.show();
+                                //updateUI(null);
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            //Show error on screen
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.emptyfields), Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
-    public void onLogOut(android.view.View view) {
+    public void OnLogOut(android.view.View view) {
         if (mAuth.getCurrentUser() != null) {
             mAuth.signOut();
-            Toast toast = Toast.makeText(getApplicationContext(), "LogOut!", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.logedout), Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.logedoutfail), Toast.LENGTH_SHORT);
             toast.show();
         }
-        Toast toast = Toast.makeText(getApplicationContext(), "You are ready LogOut!", Toast.LENGTH_SHORT);
-        toast.show();
+    }
+
+    private void LoadActivityWithoutArguments(Class<?> newActivityName) {
+        Intent intent = new Intent(this, newActivityName);
+        startActivity(intent);
     }
 
 }

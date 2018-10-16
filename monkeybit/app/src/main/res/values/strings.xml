@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Routability</string>
+    <string name="signin">Sign In</string>
+    <string name="logout">Log Out</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signedsuccesfully">SignIn succesfully!</string>
+    <string name="signedfail">Authentication fail!</string>
+    <string name="emptyfields">The text fields are empty</string>
+    <string name="logedout">Log Out</string>
+    <string name="logedoutfail">You aren\'t signed in!</string>
+    <string name="lookprofile">Profile</string>
 </resources>
