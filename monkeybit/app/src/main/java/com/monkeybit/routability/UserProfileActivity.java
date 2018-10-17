@@ -14,9 +14,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
-public class UserProfileActivity extends AppCompatActivity {
+public abstract class UserProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
+    protected FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,4 +101,22 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(this, newActivityName);
         startActivity(intent);
     }
+
+    public void DeleteAccountManager(){
+        //an admin can delete an user
+        //until de DB is done i can't connect both apps
+        currentUser.delete();
+    }
+
+    protected void OnChangeUI(){
+        //start changeUI
+        if (currentUser != null) {
+            //go to the class ChangeUI
+            LoadActivityWithoutArguments(ChangeUI.class);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.noUser), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
 }
