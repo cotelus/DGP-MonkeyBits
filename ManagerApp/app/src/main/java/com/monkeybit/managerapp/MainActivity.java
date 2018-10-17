@@ -3,8 +3,10 @@ package com.monkeybit.managerapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,23 +34,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void AddManager(String name){
-        if(admins.contains(name) == false)
+    private void AddManager(String name) {
+        if (admins.contains(name) == false)
             admins.add(name);
     }
 
-    private void DeleteManager(String name){
-        if(admins.contains(name) == true)
+    private void DeleteManager(String name) {
+        if (admins.contains(name) == true)
             admins.remove(name);
 
     }
 
-    private void RefreshList(){
+    private void RefreshList() {
         //change the list
         String listaAux = new String();
-        for(int i=0;i<admins.size();i++){
-            listaAux+=admins.get(i);
-            listaAux+="/n";
+
+        for (int i = 0; i < admins.size(); i++) {
+            listaAux += admins.get(i);
+            listaAux += "\n";
         }
 
         list.setText(listaAux);
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setButtonAdd() {
         // Reference the speak button
-        Button addBt = findViewById(R.id.delete);
+        Button addBt = findViewById(R.id.add);
 
         // Set up click listener
         addBt.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-    });
+        });
+
+    }
 
 }
