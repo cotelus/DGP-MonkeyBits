@@ -44,6 +44,7 @@ public class AccountActivity extends AppCompatActivity {
             //Show error on screen
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT);
             toast.show();
+            return;
         }
 
         mAuth.signInWithEmailAndPassword(email, password)
