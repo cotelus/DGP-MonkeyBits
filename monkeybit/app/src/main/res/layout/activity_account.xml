@@ -55,6 +55,7 @@
             android:layout_width="match_parent"
             android:onClick="OnNewUser"
             android:text="@string/new_user" />
-
     </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>
