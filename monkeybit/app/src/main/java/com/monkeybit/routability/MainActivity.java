@@ -21,21 +21,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-
-        bottomNavigationView =  findViewById(R.id.bottonNavigationView);
+        LoadNewFragment(new MenuActivity());
+        bottomNavigationView =  findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment selectedFragment = null;
         switch (item.getItemId()) {
             case R.id.menu_profile:
-                OnLookProfile(item.getActionView());
+                //OnLookProfile(item.getActionView());
+                if (mAuth.getCurrentUser() == null) {
+                    selectedFragment = new AccountActivity();
+                } else {
+                    selectedFragment = new UserProfileActivity();
+                }
                 break;
             case R.id.menu_rutas:
-                Toast toast = Toast.makeText(getApplicationContext(), "Se cargarían las rutas.", Toast.LENGTH_SHORT);
-                toast.show();
+                selectedFragment = new MenuActivity();
                 break;
+        }
+        if (selectedFragment != null) {
+            LoadNewFragment(selectedFragment);
         }
         return true;
     }
@@ -53,5 +61,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void LoadActivityWithoutArguments(Class<?> newActivityName) {
         Intent intent = new Intent(this, newActivityName);
         startActivity(intent);
+    }
+
+    public void LoadNewFragment(Fragment newFragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newFragment).commit();
     }
 }
