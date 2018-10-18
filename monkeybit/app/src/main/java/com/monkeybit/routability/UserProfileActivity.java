@@ -28,6 +28,7 @@ public class UserProfileActivity extends Fragment {
     TextView nameText;
     Button logOut;
     Button deleteAccount;
+    Button btChange;
 
 
     @Nullable
@@ -56,6 +57,16 @@ public class UserProfileActivity extends Fragment {
             public void onClick(View v)
             {
                 OnDeleteAccount(v);
+            }
+        });
+
+        btChange = view.findViewById(R.id.changeName);
+        btChange.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                OnChangeUI();
             }
         });
 
@@ -132,11 +143,6 @@ public class UserProfileActivity extends Fragment {
                 });
     }
 
-  
-    private void LoadActivityWithoutArguments(Class<?> newActivityName) {
-        Intent intent = new Intent(this, newActivityName);
-        startActivity(intent);
-    }
 
     public void DeleteAccountManager(){
         //an admin can delete an user
@@ -148,9 +154,9 @@ public class UserProfileActivity extends Fragment {
         //start changeUI
         if (currentUser != null) {
             //go to the class ChangeUI
-            LoadActivityWithoutArguments(ChangeUI.class);
+            ((MainActivity)getActivity()).LoadNewFragment(new ChangeUI()); //call the constructor
         } else {
-            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.noUser), Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.noUser), Toast.LENGTH_SHORT);
             toast.show();
         }
     }

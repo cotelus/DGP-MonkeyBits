@@ -16,9 +16,10 @@
             android:id="@+id/newName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:accessibilityPaneTitle="Change Name"
             android:ems="10"
+            android:hint="@string/newName"
             android:inputType="textPersonName"
-            android:text="@string/newName"
             android:textAlignment="center" />
 
         <Button

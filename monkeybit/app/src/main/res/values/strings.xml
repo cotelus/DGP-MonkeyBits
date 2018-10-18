@@ -22,6 +22,7 @@
     <string name="delete_account_fail">For security you must reauthenticate before delete the account. Please sign in and then come here to delete the account.</string>
     <string name="noUser">the user is not authenticated</string>
     <string name="newName">Type the new name</string>
+    <string name="btChange"> Change the name </string>
 
 
     <string name="emqrew">test</string>
