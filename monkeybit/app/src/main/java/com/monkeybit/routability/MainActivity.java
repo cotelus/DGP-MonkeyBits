@@ -48,21 +48,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return true;
     }
 
-    public void OnLookProfile(android.view.View view) {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser != null) {
-            LoadActivityWithoutArguments(UserProfileActivity.class);
-        } else {
-            LoadActivityWithoutArguments(AccountActivity.class);
-        }
-    }
-
-    private void LoadActivityWithoutArguments(Class<?> newActivityName) {
-        Intent intent = new Intent(this, newActivityName);
-        startActivity(intent);
-    }
-
     public void LoadNewFragment(Fragment newFragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newFragment).commit();
     }
