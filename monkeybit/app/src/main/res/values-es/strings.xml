@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Routability</string>
+    <string name="sign_in">Iniciar Sesión</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="repeat_password">Repita Contraseña</string>
+    <string name="signed_in_succesfully">Sesión iniciada correctamente</string>
+    <string name="signed_in_fail">Fallo al iniciar sesión</string>
+    <string name="empty_fields">No ha rellenado todos los campos</string>
+    <string name="logged_out">Sesión cerrada</string>
+    <string name="logged_out_fail">No tienes sesión iniciada</string>
+    <string name="look_profile">Perfil</string>
+    <string name="new_user">¿No tienes una cuenta? Registrate aquí</string>
+    <string name="user_name">Nombre de usuario</string>
+    <string name="create_account">Crear cuenta</string>
+    <string name="passwords_not_equal">Las contraseñas no coinciden</string>
+    <string name="create_account_succesfully">Cuenta creada correctamente</string>
+    <string name="create_account_fail">Fallo al crear la cuenta</string>
+    <string name="deleted_account">Tu cuenta ha sido eliminada</string>
+    <string name="delete_account">Eliminar Cuenta</string>
+    <string name="delete_account_fail">Por seguridad, deberás iniciar sesión de nuevo antes de eliminar la cuenta.Inténtalo de nuevo cuando hayas iniciado sesión</string>
+    <string name="rutes">Rutas</string>
+</resources>
