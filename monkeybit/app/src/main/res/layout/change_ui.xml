@@ -15,7 +15,7 @@
         <EditText
             android:id="@+id/newName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:accessibilityPaneTitle="Change Name"
             android:ems="10"
             android:hint="@string/newName"
@@ -25,7 +25,11 @@
         <Button
             android:id="@+id/Update"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="update" />
+            android:layout_height="68dp"
+            android:contentDescription="update the name"
+            android:text="update"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="22sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -30,7 +30,7 @@
                 android:id="@+id/eMailAut"
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
-                android:inputType="textEmailAddress|textCapSentences|textAutoCorrect"/>
+                android:inputType="textEmailAddress|textCapSentences|textAutoCorrect" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout

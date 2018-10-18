@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Manager´s id"
             android:inputType="textPersonName"
-            android:text="Manager´s id"
             android:textAlignment="center" />
 
         <Button
