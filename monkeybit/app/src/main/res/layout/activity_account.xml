@@ -30,7 +30,7 @@
                 android:id="@+id/eMailAut"
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress|textCapSentences|textAutoCorrect"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -46,7 +46,7 @@
                 android:id="@+id/passAut"
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword|textCapSentences|textAutoCorrect"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button

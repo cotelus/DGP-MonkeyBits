@@ -12,7 +12,7 @@
     <string name="logged_out">Sesión cerrada</string>
     <string name="logged_out_fail">No tienes sesión iniciada</string>
     <string name="look_profile">Perfil</string>
-    <string name="new_user">¿No tienes una cuenta? Registrate aquí</string>
+    <string name="new_user">¿No tienes cuenta? Registrate aquí</string>
     <string name="user_name">Nombre de usuario</string>
     <string name="create_account">Crear cuenta</string>
     <string name="passwords_not_equal">Las contraseñas no coinciden</string>
