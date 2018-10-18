@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
+
 public class UserProfileActivity extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -27,6 +28,7 @@ public class UserProfileActivity extends Fragment {
     TextView nameText;
     Button logOut;
     Button deleteAccount;
+
 
     @Nullable
     @Override
@@ -129,4 +131,30 @@ public class UserProfileActivity extends Fragment {
                     }
                 });
     }
+
+  
+    private void LoadActivityWithoutArguments(Class<?> newActivityName) {
+        Intent intent = new Intent(this, newActivityName);
+        startActivity(intent);
+    }
+
+    public void DeleteAccountManager(){
+        //an admin can delete an user
+        //until de DB is done i can't connect both apps
+        currentUser.delete();
+    }
+
+    protected void OnChangeUI(){
+        //start changeUI
+        if (currentUser != null) {
+            //go to the class ChangeUI
+            LoadActivityWithoutArguments(ChangeUI.class);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.noUser), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+
+  
 }
