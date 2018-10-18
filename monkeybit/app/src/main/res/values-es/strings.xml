@@ -6,7 +6,7 @@
     <string name="email">Correo</string>
     <string name="password">Contraseña</string>
     <string name="repeat_password">Repita Contraseña</string>
-    <string name="signed_in_succesfully">Sesión iniciada correctamente</string>
+    <string name="signed_in_successfully">Sesión iniciada correctamente</string>
     <string name="signed_in_fail">Fallo al iniciar sesión</string>
     <string name="empty_fields">No ha rellenado todos los campos</string>
     <string name="logged_out">Sesión cerrada</string>
