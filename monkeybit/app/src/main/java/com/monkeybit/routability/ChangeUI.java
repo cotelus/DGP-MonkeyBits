@@ -41,6 +41,8 @@ class ChangeUI extends UserProfileActivity {
                                     Toast.makeText(getApplicationContext(), "profile update success = " + task.isSuccessful(),
                                             Toast.LENGTH_SHORT)
                                             .show();
+                                    Intent intent = new Intent(getApplicationContext(),UserProfileActivity.class);
+                                    startActivity(intent);
                                 }
                             });
                 }
@@ -49,8 +51,7 @@ class ChangeUI extends UserProfileActivity {
             });
         }
         //go to the profile
-        Intent intent = new Intent(this,RegisterAccountActivity.class);
-        startActivity(intent);
+
 
     }
 
