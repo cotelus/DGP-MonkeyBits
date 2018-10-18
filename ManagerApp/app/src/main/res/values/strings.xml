@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">ManagerApp</string>
     <string name="port">3306</string>
     <string name="server">127.0.0.1</string>
@@ -7,4 +8,6 @@
     <string name="descrp_bt_Man">ID of the manager</string>
     <string name="descrp_Manager">Type the new manager´s name</string>
     <string name="listOfMan">List of the managers</string>
+
+
 </resources>

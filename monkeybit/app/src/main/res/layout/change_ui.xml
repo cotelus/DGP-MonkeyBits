@@ -26,10 +26,10 @@
             android:id="@+id/Update"
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:contentDescription="update the name"
-            android:text="update"
+            android:contentDescription="@string/btUpdateDesc"
+            android:text="@string/btUpdate"
             android:textAlignment="center"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textSize="22sp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
