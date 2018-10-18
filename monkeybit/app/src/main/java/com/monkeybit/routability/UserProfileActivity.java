@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
+
 public class UserProfileActivity extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
@@ -27,6 +28,8 @@ public class UserProfileActivity extends Fragment {
     TextView nameText;
     Button logOut;
     Button deleteAccount;
+    Button btChange;
+
 
     @Nullable
     @Override
@@ -54,6 +57,16 @@ public class UserProfileActivity extends Fragment {
             public void onClick(View v)
             {
                 OnDeleteAccount(v);
+            }
+        });
+
+        btChange = view.findViewById(R.id.changeName);
+        btChange.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                OnChangeUI();
             }
         });
 
@@ -133,4 +146,25 @@ public class UserProfileActivity extends Fragment {
                     }
                 });
     }
+
+
+    public void DeleteAccountManager(){
+        //an admin can delete an user
+        //until de DB is done i can't connect both apps
+        currentUser.delete();
+    }
+
+    protected void OnChangeUI(){
+        //start changeUI
+        if (currentUser != null) {
+            //go to the class ChangeUI
+            ((MainActivity)getActivity()).LoadNewFragment(new ChangeUI()); //call the constructor
+        } else {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.noUser), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+
+  
 }
