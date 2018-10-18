@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_home"
+        android:id="@+id/menu_rutas"
         style="@style/CustomTheme"
-        android:title="test" />
-    <item
-        android:id="@+id/menu_search"
-        style="@style/CustomTheme"
+        android:icon="@drawable/ic_directions_walk_white_24dp"
         android:title="Rutas"/>
 
     <item
-        android:id="@+id/menu_notifications"
+        android:id="@+id/menu_profile"
         style="@style/CustomTheme"
-        android:title="test2"/>
+        android:icon="@drawable/ic_person_white_24dp"
+        android:title="@string/look_profile" />
 </menu>

@@ -23,4 +23,7 @@
     <string name="noUser">the user is not authenticated</string>
     <string name="newName">Type the new name</string>
 
+
+    <string name="emqrew">test</string>
+
 </resources>
