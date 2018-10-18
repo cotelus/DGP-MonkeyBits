@@ -5,7 +5,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat Password</string>
-    <string name="signed_in_succesfully">SignIn succesfully!</string>
+    <string name="signed_in_successfully">SignIn successfully!</string>
     <string name="signed_in_fail">Authentication fail!</string>
     <string name="empty_fields">The text fields are empty</string>
     <string name="logged_out">Log Out</string>
