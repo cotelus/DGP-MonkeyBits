@@ -3,12 +3,14 @@
     <item
         android:id="@+id/menu_rutas"
         style="@style/CustomTheme"
+        android:clickable="true"
         android:icon="@drawable/ic_directions_walk_white_24dp"
-        android:title="Rutas"/>
+        android:title="@string/rutes"/>
 
     <item
         android:id="@+id/menu_profile"
         style="@style/CustomTheme"
+        android:clickable="true"
         android:icon="@drawable/ic_person_white_24dp"
         android:title="@string/look_profile" />
 </menu>

@@ -24,7 +24,5 @@
     <string name="newName">Type the new name</string>
     <string name="btChange"> Change the name </string>
 
-
-    <string name="emqrew">test</string>
-
+    <string name="rutes">Rutes</string>
 </resources>

@@ -114,8 +114,8 @@ public class RegisterAccountActivity extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "User profile updated.");
-                            Toast toast = Toast.makeText(getActivity(), "User profile updated.", Toast.LENGTH_SHORT);
-                            toast.show();
+                            //Toast toast = Toast.makeText(getActivity(), "User profile updated.", Toast.LENGTH_SHORT);
+                            //toast.show();
                         } else {
                             Log.d(TAG, "Something fail when updating user profile.");
                         }

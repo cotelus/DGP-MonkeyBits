@@ -105,6 +105,10 @@ public class UserProfileActivity extends Fragment {
         if (emailText != null && nameText != null) {
             emailText.setText(email);
             nameText.setText(name);
+
+            // Accesibility
+            emailText.setContentDescription(getString(R.string.email) + email);
+            nameText.setContentDescription(getString(R.string.user_name) + name);
         } else {
             Toast toast = Toast.makeText(getActivity(), "No se ha podido acceder al TextView.", Toast.LENGTH_SHORT);
             toast.show();
@@ -137,7 +141,7 @@ public class UserProfileActivity extends Fragment {
                             Toast toast = Toast.makeText(getActivity(), getString(R.string.delete_account_fail), Toast.LENGTH_SHORT);
                             toast.show();
                             mAuth.signOut();
-                            ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
+                            ((MainActivity)getActivity()).LoadNewFragment(new AccountActivity());
                         }
                     }
                 });
