@@ -25,6 +25,7 @@
     <string name="btChange"> Change the name </string>
     <string name="btUpdate"> Update </string>
     <string name="btUpdateDesc"> Click to update the name </string>
-
     <string name="rutes">Rutes</string>
+    <string name="updateNameToast">profile update success</string>
+    <string name="updateNameToastCancel">Profile not update</string>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="port">3306</string>
+    <string name="server">127.0.0.1</string>
+    <string name="userDB">root</string>
+    <string name="nameDB">userApp</string>
+    <string name="descrp_bt_Man">Identificador del manager</string>
+    <string name="descrp_Manager">Escribe el nuevo nombre del manager</string>
+    <string name="listOfMan">Lista de todos los managers</string>
+    <string name="btAdd">Añade un nuevo nombre</string>
+</resources>

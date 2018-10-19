@@ -1,19 +1,19 @@
 package com.monkeybit.routability;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,7 +24,7 @@ public class ChangeUI extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
-    EditText userNameTextView;
+    TextInputEditText userNameTextView;
     Button butUpdate;
 
 
@@ -72,10 +72,22 @@ public class ChangeUI extends Fragment {
                     builder.setDisplayName(String.valueOf(aux));
                     UserProfileChangeRequest request = builder.build();
                     currentUser.updateProfile(request)
+                            .addOnCanceledListener( new OnCanceledListener(){
+
+                                @Override
+                                public void onCanceled() {
+                                    Toast.makeText(getActivity(), R.string.updateNameToastCancel,
+                                            Toast.LENGTH_SHORT)
+                                            .show();
+                                    ((MainActivity)getActivity()).LoadNewFragment(new UserProfileActivity());
+                                }
+
+                            })
+
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(getActivity(), "profile update success = " + task.isSuccessful(),
+                                    Toast.makeText(getActivity(), R.string.updateNameToast,
                                             Toast.LENGTH_SHORT)
                                             .show();
                                     ((MainActivity)getActivity()).LoadNewFragment(new UserProfileActivity());
