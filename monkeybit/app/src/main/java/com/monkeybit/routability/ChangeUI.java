@@ -72,25 +72,23 @@ public class ChangeUI extends Fragment {
                     builder.setDisplayName(String.valueOf(aux));
                     UserProfileChangeRequest request = builder.build();
                     currentUser.updateProfile(request)
-                            .addOnCanceledListener( new OnCanceledListener(){
-
-                                @Override
-                                public void onCanceled() {
-                                    Toast.makeText(getActivity(), R.string.updateNameToastCancel,
-                                            Toast.LENGTH_SHORT)
-                                            .show();
-                                    ((MainActivity)getActivity()).LoadNewFragment(new UserProfileActivity());
-                                }
-
-                            })
 
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(getActivity(), R.string.updateNameToast,
-                                            Toast.LENGTH_SHORT)
-                                            .show();
-                                    ((MainActivity)getActivity()).LoadNewFragment(new UserProfileActivity());
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(getActivity(), R.string.updateNameToast,
+                                                Toast.LENGTH_SHORT)
+                                                .show();
+                                        ((MainActivity)getActivity()).LoadNewFragment(new UserProfileActivity());
+                                    }
+                                    else{
+                                        Toast.makeText(getActivity(), R.string.updateNameToastCancel,
+                                                Toast.LENGTH_SHORT)
+                                                .show();
+                                        ((MainActivity)getActivity()).LoadNewFragment(new UserProfileActivity());
+                                    }
+
                                 }
                             });
             }
