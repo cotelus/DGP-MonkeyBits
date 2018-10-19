@@ -29,12 +29,14 @@
             android:textAlignment="center"
             android:textSize="22sp" />
 
+
+
         <Button
             android:id="@+id/add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/btAdd"
-            android:text="ADD"
+            android:contentDescription="@string/btAddDesc"
+            android:text="@string/btAdd"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="22sp" />
@@ -43,9 +45,10 @@
             android:id="@+id/delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="delete manager"
-            android:text="Delete"
+            android:contentDescription="@string/btDeleteDesc"
+            android:text="@string/btDelete"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="22sp" />
 
         <TextView

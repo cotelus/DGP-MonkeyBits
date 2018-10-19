@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> admins = new ArrayList<String>();
     private EditText textIDManager;
     private TextView list;
-
+//@TODO cambiar lo de flotante
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

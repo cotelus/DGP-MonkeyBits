@@ -6,8 +6,12 @@
     <string name="userDB">root</string>
     <string name="nameDB">userApp</string>
     <string name="descrp_bt_Man">ID of the manager</string>
-    <string name="descrp_Manager">Type the new manager´s name</string>
+    <string name="descrp_Manager">Type the manager´s name</string>
     <string name="listOfMan">List of the managers</string>
-    <string name="btAdd">Add new manager</string>
+    <string name="btAddDesc">Add new manager</string>
+    <string name="btDeleteDesc">Delete manager</string>
+    <string name="btAdd">Add </string>
+    <string name="btDelete">Delete</string>
+
 
 </resources>

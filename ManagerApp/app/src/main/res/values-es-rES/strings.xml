@@ -5,7 +5,10 @@
     <string name="userDB">root</string>
     <string name="nameDB">userApp</string>
     <string name="descrp_bt_Man">Identificador del manager</string>
-    <string name="descrp_Manager">Escribe el nuevo nombre del manager</string>
+    <string name="descrp_Manager">Escribe el nombre del manager</string>
     <string name="listOfMan">Lista de todos los managers</string>
-    <string name="btAdd">Añade un nuevo nombre</string>
+    <string name="btAddDesc">Añade manager</string>
+    <string name="btDeleteDesc">Quitar manager</string>
+    <string name="btAdd">Añadir</string>
+    <string name="btDelete">Quitar</string>
 </resources>
