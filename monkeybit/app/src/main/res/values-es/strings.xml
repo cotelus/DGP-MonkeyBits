@@ -28,4 +28,7 @@
     <string name="btUpdateDesc"> Clica para actualizar los datos del perfil </string>
     <string name="updateNameToast">Actualizado correctamente</string>
     <string name="updateNameToastCancel">No se ha podido actualizar</string>
+    <string name="look_fav">Favoritos</string>
+    <string name="look_maps">Mapas</string>
+    <string name="accesibility_options">Opciones de Accesibilidad</string>
 </resources>

@@ -28,4 +28,7 @@
     <string name="rutes">Rutes</string>
     <string name="updateNameToast">profile update success</string>
     <string name="updateNameToastCancel">Profile not update</string>
+    <string name="look_fav">Favorites</string>
+    <string name="look_maps">Maps</string>
+    <string name="accesibility_options">Accesibility Options</string>
 </resources>
