@@ -31,4 +31,5 @@
     <string name="look_fav">Favorites</string>
     <string name="look_maps">Maps</string>
     <string name="accesibility_options">Accesibility Options</string>
+    <string name="options_menu">Options Menu</string>
 </resources>
