@@ -9,8 +9,37 @@
     tools:context=".MainActivity">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+            <ImageButton
+                style="@style/CustomTheme"
+                android:src="@drawable/ic_menu_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="OnShowOptionMenu"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/options_menu" />
+
+            <TextView
+                style="@style/CustomTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:textAlignment="viewStart"
+                tools:layout_editor_absoluteX="64dp"
+                tools:layout_editor_absoluteY="4dp" />
+
+        </android.support.v7.widget.Toolbar>
 
         <FrameLayout
             android:id="@+id/fragmentContainer"
@@ -18,9 +47,8 @@
             android:layout_height="0dp"
             android:layout_marginTop="0dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintEnd_toEndOf="@+id/constraint_layout"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
         </FrameLayout>
 
         <android.support.design.widget.BottomNavigationView

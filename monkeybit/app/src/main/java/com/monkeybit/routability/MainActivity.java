@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -80,6 +81,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             LoadNewFragment(selectedFragment);
         }
         return true;
+    }
+
+    public void OnShowOptionMenu(View view) {
+        if (!(mainDrawerLayout.isDrawerOpen(navigationView))) {
+            mainDrawerLayout.openDrawer(navigationView);
+        }
     }
 
     public void LogOut() {
