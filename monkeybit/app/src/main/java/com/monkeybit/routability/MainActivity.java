@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private FirebaseAuth mAuth;
     public BottomNavigationView bottomNavigationView;
     public NavigationView navigationView;
+    public DrawerLayout mainDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         LoadNewFragment(new MenuActivity());
+        mainDrawerLayout = findViewById(R.id.main_drawer);
         bottomNavigationView =  findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         navigationView = findViewById(R.id.nav_view);
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         }
                         break;
                     case R.id.nav_logout:
-                        mAuth.signOut();
+                        LogOut();
                         selectedFragment = new MenuActivity();
                         break;
                     case R.id.nav_accesibility:
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         break;
                 }
                 if (selectedFragment != null) {
+                    mainDrawerLayout.closeDrawer(navigationView);
                     LoadNewFragment(selectedFragment);
                 }
                 return true;
@@ -76,6 +80,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             LoadNewFragment(selectedFragment);
         }
         return true;
+    }
+
+    public void LogOut() {
+        if (mAuth.getCurrentUser() != null) {
+            mAuth.signOut();
+            Toast toast = Toast.makeText(this, getString(R.string.logged_out), Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(this, getString(R.string.logged_out_fail), Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     public void LoadNewFragment(Fragment newFragment) {
