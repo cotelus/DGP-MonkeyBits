@@ -1,11 +1,12 @@
 package com.monkeybit.routability;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,9 +14,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener, AlertDialogResponseInterface {
     private FirebaseAuth mAuth;
     public BottomNavigationView bottomNavigationView;
     public NavigationView navigationView;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         }
                         break;
                     case R.id.nav_logout:
-                        LogOut();
+                        onLogOut();
                         selectedFragment = new MenuActivity();
                         break;
                     case R.id.nav_accesibility:
@@ -89,7 +89,53 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    public void LogOut() {
+    public void onLogOut() {
+        //@TODO pasar a string
+        this.newAlertDialog(this, "LogOut", "cerrar sesión");
+    }
+
+    public void LoadNewFragment(Fragment newFragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newFragment).commit();
+    }
+
+    public void newAlertDialog(final AlertDialogResponseInterface caller, final String alertID, String dialog) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(R.string.alert_dialog_tittle);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage( "¿" + "Estás seguro de que deseas " + dialog + "?");
+        alertDialog.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                caller.PositiveResponse(alertID);
+            }
+        });
+        alertDialog.setNegativeButton("Refuse", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                caller.NegativeResponse(alertID);
+            }
+        });
+        alertDialog.show();
+    }
+
+    @Override
+    public void PositiveResponse(String alertID) {
+        switch (alertID) {
+            case "onLogOut":
+                logOut();
+                break;
+        }
+    }
+
+    @Override
+    public void NegativeResponse(String alertID) {
+        switch (alertID) {
+            case "onLogOut":
+                break;
+        }
+    }
+
+    public void logOut() {
         if (mAuth.getCurrentUser() != null) {
             mAuth.signOut();
             Toast toast = Toast.makeText(this, getString(R.string.logged_out), Toast.LENGTH_SHORT);
@@ -99,17 +145,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             toast.show();
         }
     }
-
-    public void LoadNewFragment(Fragment newFragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newFragment).commit();
-    }
 }
 
-/*
-     if (mAuth.getCurrentUser() == null) {
-                    selectedFragment = new AccountActivity();
-     } else {
-                    selectedFragment = new UserProfileActivity();
-                }
-
-                */

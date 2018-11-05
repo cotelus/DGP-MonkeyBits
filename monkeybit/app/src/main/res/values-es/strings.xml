@@ -32,4 +32,5 @@
     <string name="look_maps">Mapas</string>
     <string name="accesibility_options">Opciones de Accesibilidad</string>
     <string name="options_menu">Menú de Opciones</string>
+    <string name="alert_dialog_tittle">Atención</string>
 </resources>
