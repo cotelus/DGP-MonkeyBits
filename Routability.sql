@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 05-11-2018 a las 18:29:53
+-- Tiempo de generación: 05-11-2018 a las 22:47:48
 -- Versión del servidor: 5.7.24-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.32-0ubuntu0.16.04.1
 
@@ -98,7 +98,9 @@ CREATE TABLE `FavoritesRoutes` (
 CREATE TABLE `Place` (
   `IdPlace` int(8) NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Localitation` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `Localitation` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `Name` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -121,7 +123,9 @@ CREATE TABLE `PlaceComments` (
 --
 
 CREATE TABLE `Route` (
-  `IdRoute` int(8) NOT NULL
+  `IdRoute` int(8) NOT NULL,
+  `Name` varchar(40) COLLATE utf8_spanish2_ci NOT NULL,
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
