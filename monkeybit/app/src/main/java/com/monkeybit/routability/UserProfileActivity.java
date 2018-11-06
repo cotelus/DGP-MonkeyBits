@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
 
-public class UserProfileActivity extends Fragment {
+public class UserProfileActivity extends Fragment implements AlertDialogResponseInterface {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     TextView emailText;
@@ -116,6 +116,48 @@ public class UserProfileActivity extends Fragment {
     }
 
     public void OnLogOut(android.view.View view) {
+        ((MainActivity)getActivity()).newAlertDialog(this, AlertID.LOGOUT, getString(R.string.close_session_dialog));
+    }
+
+    public void OnDeleteAccount(android.view.View view) {
+        ((MainActivity)getActivity()).newAlertDialog(this, AlertID.DELETEACCOUNT, getString(R.string.delete_account_dialog));
+    }
+
+    protected void OnChangeUI(){
+        //start changeUI
+        if (currentUser != null) {
+            //go to the class ChangeUI
+            ((MainActivity)getActivity()).LoadNewFragment(new ChangeUI()); //call the constructor
+        } else {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.noUser), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+
+    @Override
+    public void PositiveResponse(AlertID alertID) {
+        switch (alertID) {
+            case LOGOUT:
+                logOut();
+                break;
+            case DELETEACCOUNT:
+                deleteAccount();
+                break;
+        }
+    }
+
+    @Override
+    public void NegativeResponse(AlertID alertID) {
+        switch (alertID) {
+            case LOGOUT:
+                break;
+            case DELETEACCOUNT:
+                break;
+        }
+    }
+
+    public void logOut() {
         if (mAuth.getCurrentUser() != null) {
             mAuth.signOut();
             Toast toast = Toast.makeText(getActivity(), getString(R.string.logged_out), Toast.LENGTH_SHORT);
@@ -127,7 +169,7 @@ public class UserProfileActivity extends Fragment {
         ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
     }
 
-    public void OnDeleteAccount(android.view.View view) {
+    public void deleteAccount() {
         currentUser.delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -146,25 +188,4 @@ public class UserProfileActivity extends Fragment {
                     }
                 });
     }
-
-
-    public void DeleteAccountManager(){
-        //an admin can delete an user
-        //until de DB is done i can't connect both apps
-        currentUser.delete();
-    }
-
-    protected void OnChangeUI(){
-        //start changeUI
-        if (currentUser != null) {
-            //go to the class ChangeUI
-            ((MainActivity)getActivity()).LoadNewFragment(new ChangeUI()); //call the constructor
-        } else {
-            Toast toast = Toast.makeText(getActivity(), getString(R.string.noUser), Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
-
-
-  
 }
