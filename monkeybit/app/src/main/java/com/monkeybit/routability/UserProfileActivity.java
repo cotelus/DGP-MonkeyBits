@@ -116,41 +116,11 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
     }
 
     public void OnLogOut(android.view.View view) {
-        //@TODO pasar a string
-        ((MainActivity)getActivity()).newAlertDialog(this, "onLogOut", "cerrar sesión");
-        /*
-        if (mAuth.getCurrentUser() != null) {
-            mAuth.signOut();
-            Toast toast = Toast.makeText(getActivity(), getString(R.string.logged_out), Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(getActivity(), getString(R.string.logged_out_fail), Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
-        */
+        ((MainActivity)getActivity()).newAlertDialog(this, AlertID.LOGOUT, getString(R.string.close_session_dialog));
     }
 
     public void OnDeleteAccount(android.view.View view) {
-        //@TODO pasar a string
-        ((MainActivity)getActivity()).newAlertDialog(this, "DeleteAccount", "eliminar tu cuenta");
-        /*currentUser.delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("Debug:", "User account deleted.");
-                            Toast toast = Toast.makeText(getActivity(), getString(R.string.delete_account), Toast.LENGTH_SHORT);
-                            toast.show();
-                            ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
-                        } else {
-                            Toast toast = Toast.makeText(getActivity(), getString(R.string.delete_account_fail), Toast.LENGTH_SHORT);
-                            toast.show();
-                            mAuth.signOut();
-                            ((MainActivity)getActivity()).LoadNewFragment(new AccountActivity());
-                        }
-                    }
-                });*/
+        ((MainActivity)getActivity()).newAlertDialog(this, AlertID.DELETEACCOUNT, getString(R.string.delete_account_dialog));
     }
 
     protected void OnChangeUI(){
@@ -166,23 +136,23 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
 
 
     @Override
-    public void PositiveResponse(String alertID) {
+    public void PositiveResponse(AlertID alertID) {
         switch (alertID) {
-            case "onLogOut":
+            case LOGOUT:
                 logOut();
                 break;
-            case "DeleteAccount":
+            case DELETEACCOUNT:
                 deleteAccount();
                 break;
         }
     }
 
     @Override
-    public void NegativeResponse(String alertID) {
+    public void NegativeResponse(AlertID alertID) {
         switch (alertID) {
-            case "onLogOut":
+            case LOGOUT:
                 break;
-            case "DeleteAccount":
+            case DELETEACCOUNT:
                 break;
         }
     }

@@ -1,6 +1,6 @@
 package com.monkeybit.routability;
 
 public interface AlertDialogResponseInterface {
-    public void PositiveResponse(String alertID);
-    public void NegativeResponse(String alertID);
+    public void PositiveResponse(AlertID alertID);
+    public void NegativeResponse(AlertID alertID);
 }

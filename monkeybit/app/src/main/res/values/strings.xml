@@ -33,4 +33,9 @@
     <string name="accesibility_options">Accesibility Options</string>
     <string name="options_menu">Options Menu</string>
     <string name="alert_dialog_tittle">Attention</string>
+    <string name="dialog_alert_question_body">Are you sure you want to</string>
+    <string name="alert_dialog_positive">Accept</string>
+    <string name="alert_dialog_negative">Refuse</string>
+    <string name="close_session_dialog">logout</string>
+    <string name="delete_account_dialog">delete account</string>
 </resources>

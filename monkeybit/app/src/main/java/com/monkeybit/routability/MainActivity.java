@@ -89,27 +89,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    public void onLogOut() {
-        //@TODO pasar a string
-        this.newAlertDialog(this, "LogOut", "cerrar sesión");
-    }
-
     public void LoadNewFragment(Fragment newFragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, newFragment).commit();
     }
 
-    public void newAlertDialog(final AlertDialogResponseInterface caller, final String alertID, String dialog) {
+    public void onLogOut() {
+        if (mAuth.getCurrentUser() != null) {
+            this.newAlertDialog(this, AlertID.LOGOUT, getString(R.string.close_session_dialog));
+        } else {
+            Toast toast = Toast.makeText(this, getString(R.string.logged_out_fail), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    public void newAlertDialog(final AlertDialogResponseInterface caller, final AlertID alertID, String dialog) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(R.string.alert_dialog_tittle);
         alertDialog.setCancelable(false);
-        alertDialog.setMessage( "¿" + "Estás seguro de que deseas " + dialog + "?");
-        alertDialog.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+        alertDialog.setMessage(getString(R.string.dialog_alert_question_body) + " " + dialog + "?");
+        alertDialog.setPositiveButton(R.string.alert_dialog_positive, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 caller.PositiveResponse(alertID);
             }
         });
-        alertDialog.setNegativeButton("Refuse", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(R.string.alert_dialog_negative, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 caller.NegativeResponse(alertID);
@@ -119,18 +123,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    public void PositiveResponse(String alertID) {
+    public void PositiveResponse(AlertID alertID) {
         switch (alertID) {
-            case "onLogOut":
+            case LOGOUT:
                 logOut();
                 break;
         }
     }
 
     @Override
-    public void NegativeResponse(String alertID) {
+    public void NegativeResponse(AlertID alertID) {
         switch (alertID) {
-            case "onLogOut":
+            case LOGOUT:
                 break;
         }
     }
