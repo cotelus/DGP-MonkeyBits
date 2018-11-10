@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 05-11-2018 a las 22:47:48
--- Versión del servidor: 5.7.24-0ubuntu0.16.04.1
--- Versión de PHP: 7.0.32-0ubuntu0.16.04.1
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-11-2018 a las 11:54:13
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,16 +19,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `Routability`
+-- Base de datos: `routability`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Accesibility`
+-- Estructura de tabla para la tabla `accesibility`
 --
 
-CREATE TABLE `Accesibility` (
+CREATE TABLE `accesibility` (
   `IdPlace` int(8) NOT NULL,
   `RedMovility` tinyint(1) NOT NULL,
   `RedVision` tinyint(1) NOT NULL,
@@ -38,20 +40,20 @@ CREATE TABLE `Accesibility` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `AdminUser`
+-- Estructura de tabla para la tabla `adminuser`
 --
 
-CREATE TABLE `AdminUser` (
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+CREATE TABLE `adminuser` (
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Appear`
+-- Estructura de tabla para la tabla `appear`
 --
 
-CREATE TABLE `Appear` (
+CREATE TABLE `appear` (
   `IdPlace` int(8) NOT NULL,
   `IdRoute` int(8) NOT NULL,
   `Sequence` int(3) NOT NULL
@@ -60,58 +62,58 @@ CREATE TABLE `Appear` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `CommonUser`
+-- Estructura de tabla para la tabla `commonuser`
 --
 
-CREATE TABLE `CommonUser` (
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+CREATE TABLE `commonuser` (
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `FavoritesPlaces`
+-- Estructura de tabla para la tabla `favoritesplaces`
 --
 
-CREATE TABLE `FavoritesPlaces` (
+CREATE TABLE `favoritesplaces` (
   `IdPlace` int(8) NOT NULL,
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `FavoritesRoutes`
+-- Estructura de tabla para la tabla `favoritesroutes`
 --
 
-CREATE TABLE `FavoritesRoutes` (
+CREATE TABLE `favoritesroutes` (
   `IdRoute` int(8) NOT NULL,
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Place`
+-- Estructura de tabla para la tabla `place`
 --
 
-CREATE TABLE `Place` (
+CREATE TABLE `place` (
   `IdPlace` int(8) NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Localitation` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
-  `Name` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `PlaceComments`
+-- Estructura de tabla para la tabla `placecomments`
 --
 
-CREATE TABLE `PlaceComments` (
+CREATE TABLE `placecomments` (
   `IdPlace` int(8) NOT NULL,
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Content` text COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -119,24 +121,25 @@ CREATE TABLE `PlaceComments` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Route`
+-- Estructura de tabla para la tabla `route`
 --
 
-CREATE TABLE `Route` (
+CREATE TABLE `route` (
   `IdRoute` int(8) NOT NULL,
-  `Name` varchar(40) COLLATE utf8_spanish2_ci NOT NULL,
+  `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Description` text COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `RouteComments`
+-- Estructura de tabla para la tabla `routecomments`
 --
 
-CREATE TABLE `RouteComments` (
+CREATE TABLE `routecomments` (
   `IdRoute` int(8) NOT NULL,
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Content` text COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -144,69 +147,69 @@ CREATE TABLE `RouteComments` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `SuggestedPlace`
+-- Estructura de tabla para la tabla `suggestedplace`
 --
 
-CREATE TABLE `SuggestedPlace` (
+CREATE TABLE `suggestedplace` (
   `IdPlace` int(8) NOT NULL,
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
-  `MadeBy` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `SuggestedRoute`
+-- Estructura de tabla para la tabla `suggestedroute`
 --
 
-CREATE TABLE `SuggestedRoute` (
+CREATE TABLE `suggestedroute` (
   `IdRoute` int(8) NOT NULL,
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
-  `MadeBy` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `User`
+-- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE `User` (
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+CREATE TABLE `user` (
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `VerifiedPlace`
+-- Estructura de tabla para la tabla `verifiedplace`
 --
 
-CREATE TABLE `VerifiedPlace` (
+CREATE TABLE `verifiedplace` (
   `IdPlace` int(8) NOT NULL,
-  `MadeBy` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `VerifiedRoute`
+-- Estructura de tabla para la tabla `verifiedroute`
 --
 
-CREATE TABLE `VerifiedRoute` (
+CREATE TABLE `verifiedroute` (
   `IdRoute` int(8) NOT NULL,
-  `MadeBy` varchar(25) COLLATE utf8_spanish2_ci NOT NULL
+  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Visit`
+-- Estructura de tabla para la tabla `visit`
 --
 
-CREATE TABLE `Visit` (
+CREATE TABLE `visit` (
   `IdRoute` int(8) NOT NULL,
   `IdPlace` int(8) NOT NULL,
-  `Email` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL,
   `Rating` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -216,100 +219,101 @@ CREATE TABLE `Visit` (
 --
 
 --
--- Indices de la tabla `Accesibility`
+-- Indices de la tabla `accesibility`
 --
-ALTER TABLE `Accesibility`
+ALTER TABLE `accesibility`
   ADD PRIMARY KEY (`IdPlace`);
 
 --
--- Indices de la tabla `AdminUser`
+-- Indices de la tabla `adminuser`
 --
-ALTER TABLE `AdminUser`
+ALTER TABLE `adminuser`
   ADD PRIMARY KEY (`Email`);
 
 --
--- Indices de la tabla `Appear`
+-- Indices de la tabla `appear`
 --
-ALTER TABLE `Appear`
+ALTER TABLE `appear`
   ADD PRIMARY KEY (`IdPlace`,`IdRoute`);
 
 --
--- Indices de la tabla `CommonUser`
+-- Indices de la tabla `commonuser`
 --
-ALTER TABLE `CommonUser`
+ALTER TABLE `commonuser`
   ADD PRIMARY KEY (`Email`);
 
 --
--- Indices de la tabla `FavoritesPlaces`
+-- Indices de la tabla `favoritesplaces`
 --
-ALTER TABLE `FavoritesPlaces`
+ALTER TABLE `favoritesplaces`
   ADD PRIMARY KEY (`IdPlace`,`Email`);
 
 --
--- Indices de la tabla `FavoritesRoutes`
+-- Indices de la tabla `favoritesroutes`
 --
-ALTER TABLE `FavoritesRoutes`
+ALTER TABLE `favoritesroutes`
   ADD PRIMARY KEY (`IdRoute`,`Email`);
 
 --
--- Indices de la tabla `Place`
+-- Indices de la tabla `place`
 --
-ALTER TABLE `Place`
+ALTER TABLE `place`
   ADD PRIMARY KEY (`IdPlace`);
 
 --
--- Indices de la tabla `PlaceComments`
+-- Indices de la tabla `placecomments`
 --
-ALTER TABLE `PlaceComments`
+ALTER TABLE `placecomments`
   ADD PRIMARY KEY (`IdPlace`,`Email`);
 
 --
--- Indices de la tabla `Route`
+-- Indices de la tabla `route`
 --
-ALTER TABLE `Route`
+ALTER TABLE `route`
   ADD PRIMARY KEY (`IdRoute`);
 
 --
--- Indices de la tabla `RouteComments`
+-- Indices de la tabla `routecomments`
 --
-ALTER TABLE `RouteComments`
+ALTER TABLE `routecomments`
   ADD PRIMARY KEY (`IdRoute`,`Email`);
 
 --
--- Indices de la tabla `SuggestedPlace`
+-- Indices de la tabla `suggestedplace`
 --
-ALTER TABLE `SuggestedPlace`
+ALTER TABLE `suggestedplace`
   ADD PRIMARY KEY (`IdPlace`);
 
 --
--- Indices de la tabla `SuggestedRoute`
+-- Indices de la tabla `suggestedroute`
 --
-ALTER TABLE `SuggestedRoute`
+ALTER TABLE `suggestedroute`
   ADD PRIMARY KEY (`IdRoute`);
 
 --
--- Indices de la tabla `User`
+-- Indices de la tabla `user`
 --
-ALTER TABLE `User`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`Email`);
 
 --
--- Indices de la tabla `VerifiedPlace`
+-- Indices de la tabla `verifiedplace`
 --
-ALTER TABLE `VerifiedPlace`
+ALTER TABLE `verifiedplace`
   ADD PRIMARY KEY (`IdPlace`);
 
 --
--- Indices de la tabla `VerifiedRoute`
+-- Indices de la tabla `verifiedroute`
 --
-ALTER TABLE `VerifiedRoute`
+ALTER TABLE `verifiedroute`
   ADD PRIMARY KEY (`IdRoute`);
 
 --
--- Indices de la tabla `Visit`
+-- Indices de la tabla `visit`
 --
-ALTER TABLE `Visit`
+ALTER TABLE `visit`
   ADD PRIMARY KEY (`IdRoute`,`IdPlace`,`Email`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
