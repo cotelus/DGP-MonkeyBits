@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2018 a las 11:54:13
+-- Tiempo de generación: 11-11-2018 a las 15:54:56
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -66,8 +66,16 @@ CREATE TABLE `appear` (
 --
 
 CREATE TABLE `commonuser` (
-  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Banned` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `commonuser`
+--
+
+INSERT INTO `commonuser` (`Email`, `Banned`) VALUES
+('usuario1@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -115,8 +123,20 @@ CREATE TABLE `placecomments` (
   `IdPlace` int(8) NOT NULL,
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Content` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Date` date NOT NULL
+  `Date` date NOT NULL,
+  `Time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `placecomments`
+--
+
+INSERT INTO `placecomments` (`IdPlace`, `Email`, `Content`, `Date`, `Time`) VALUES
+(1, 'afsfasef@gmail.com', 'holaa', '2018-11-11', '00:00:00'),
+(1, 'elmonetereshulon@hotmail.com', 'A este sitio le falta calefacción', '2018-11-11', '00:00:00'),
+(3, 'afsfasef@gmail.com', 'faseaesase', '2018-11-11', '00:00:00'),
+(4, 'afsfasef@gmail.com', 'que mas pongo?', '2018-11-11', '00:00:00'),
+(7, 'afsfasef@gmail.com', 'que ansiedad de comentarios', '2018-11-11', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -143,6 +163,17 @@ CREATE TABLE `routecomments` (
   `Content` text COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `routecomments`
+--
+
+INSERT INTO `routecomments` (`IdRoute`, `Email`, `Content`, `Date`) VALUES
+(1, 'fasefas@hotmail.com', 'vamoo', '2018-11-11'),
+(5, 'afsfasef@gmail.com', 'afseasf', '2018-11-11'),
+(9, 'afsfasef@gmail.com', 'tengo hambre', '2018-11-11'),
+(1000, 'afsfasef@gmail.com', 'fasefasefs', '2018-11-11'),
+(8000, 'usuario1@gmail.com', 'fasefas', '2018-11-11');
 
 -- --------------------------------------------------------
 
@@ -177,6 +208,13 @@ CREATE TABLE `suggestedroute` (
 CREATE TABLE `user` (
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`Email`) VALUES
+('usuario1@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -264,7 +302,7 @@ ALTER TABLE `place`
 -- Indices de la tabla `placecomments`
 --
 ALTER TABLE `placecomments`
-  ADD PRIMARY KEY (`IdPlace`,`Email`);
+  ADD PRIMARY KEY (`IdPlace`,`Email`,`Date`,`Time`);
 
 --
 -- Indices de la tabla `route`
