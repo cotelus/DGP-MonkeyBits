@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2018 a las 14:47:27
+-- Tiempo de generación: 13-11-2018 a las 14:57:09
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -62,25 +62,6 @@ CREATE TABLE `appear` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `commonuser`
---
-
-CREATE TABLE `commonuser` (
-  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Banned` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `commonuser`
---
-
-INSERT INTO `commonuser` (`Email`, `Banned`) VALUES
-('usuario1@gmail.com', 1),
-('usuariobloqueado@gmail.com', 1);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `favoritesplaces`
 --
 
@@ -103,6 +84,22 @@ CREATE TABLE `favoritesroutes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `place`
+--
+
+CREATE TABLE `place` (
+  `IdPlace` int(8) NOT NULL,
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Description` text COLLATE utf8_spanish2_ci NOT NULL,
+  `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `placecomments`
 --
 
@@ -112,6 +109,21 @@ CREATE TABLE `placecomments` (
   `Content` text COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL,
   `Time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `route`
+--
+
+CREATE TABLE `route` (
+  `IdRoute` int(8) NOT NULL,
+  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `Description` text COLLATE utf8_spanish2_ci NOT NULL,
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -136,7 +148,6 @@ CREATE TABLE `routecomments` (
 
 CREATE TABLE `suggestedplace` (
   `IdPlace` int(8) NOT NULL,
-  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
@@ -148,9 +159,9 @@ CREATE TABLE `suggestedplace` (
 -- Volcado de datos para la tabla `suggestedplace`
 --
 
-INSERT INTO `suggestedplace` (`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`) VALUES
-(2, 'paquito@hotmail.com', 'admin@gmail.com', '', '', '', ''),
-(4, 'paquito@hotmail.com', 'admin@gmail.com', '', '', '', '');
+INSERT INTO `suggestedplace` (`IdPlace`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`) VALUES
+(2, 'admin@gmail.com', '', '', '', ''),
+(4, 'admin@gmail.com', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -160,7 +171,6 @@ INSERT INTO `suggestedplace` (`IdPlace`, `Email`, `MadeBy`, `Description`, `Loca
 
 CREATE TABLE `suggestedroute` (
   `IdRoute` int(8) NOT NULL,
-  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
@@ -171,40 +181,28 @@ CREATE TABLE `suggestedroute` (
 -- Volcado de datos para la tabla `suggestedroute`
 --
 
-INSERT INTO `suggestedroute` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
-(6, 'paquito@hotmail.com', 'admin@gmail.com', '', '', ''),
-(10, 'madredepaquito@gmail.com', 'admin@gmail.com', '', '', '');
+INSERT INTO `suggestedroute` (`IdRoute`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
+(6, 'admin@gmail.com', '', '', ''),
+(10, 'admin@gmail.com', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `verifiedplace`
+-- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE `verifiedplace` (
-  `IdPlace` int(8) NOT NULL,
+CREATE TABLE `user` (
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Description` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Image` text COLLATE utf8_spanish2_ci NOT NULL
+  `Banned` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `verifiedroute`
+-- Volcado de datos para la tabla `user`
 --
 
-CREATE TABLE `verifiedroute` (
-  `IdRoute` int(8) NOT NULL,
-  `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Description` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Image` text COLLATE utf8_spanish2_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+INSERT INTO `user` (`Email`, `Banned`) VALUES
+('usuario1@gmail.com', 1),
+('usuariobloqueado@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -244,12 +242,6 @@ ALTER TABLE `appear`
   ADD KEY `IdRoute` (`IdRoute`);
 
 --
--- Indices de la tabla `commonuser`
---
-ALTER TABLE `commonuser`
-  ADD PRIMARY KEY (`Email`);
-
---
 -- Indices de la tabla `favoritesplaces`
 --
 ALTER TABLE `favoritesplaces`
@@ -264,11 +256,23 @@ ALTER TABLE `favoritesroutes`
   ADD KEY `Email` (`Email`);
 
 --
+-- Indices de la tabla `place`
+--
+ALTER TABLE `place`
+  ADD PRIMARY KEY (`IdPlace`);
+
+--
 -- Indices de la tabla `placecomments`
 --
 ALTER TABLE `placecomments`
   ADD PRIMARY KEY (`IdPlace`,`Email`,`Date`,`Time`),
   ADD KEY `Email` (`Email`);
+
+--
+-- Indices de la tabla `route`
+--
+ALTER TABLE `route`
+  ADD PRIMARY KEY (`IdRoute`);
 
 --
 -- Indices de la tabla `routecomments`
@@ -290,16 +294,10 @@ ALTER TABLE `suggestedroute`
   ADD PRIMARY KEY (`IdRoute`);
 
 --
--- Indices de la tabla `verifiedplace`
+-- Indices de la tabla `user`
 --
-ALTER TABLE `verifiedplace`
-  ADD PRIMARY KEY (`IdPlace`);
-
---
--- Indices de la tabla `verifiedroute`
---
-ALTER TABLE `verifiedroute`
-  ADD PRIMARY KEY (`IdRoute`);
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`Email`);
 
 --
 -- Indices de la tabla `visit`
@@ -317,52 +315,52 @@ ALTER TABLE `visit`
 -- Filtros para la tabla `accesibility`
 --
 ALTER TABLE `accesibility`
-  ADD CONSTRAINT `accesibility_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `verifiedplace` (`IdPlace`);
+  ADD CONSTRAINT `accesibility_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`);
 
 --
 -- Filtros para la tabla `appear`
 --
 ALTER TABLE `appear`
-  ADD CONSTRAINT `appear_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `verifiedplace` (`IdPlace`),
+  ADD CONSTRAINT `appear_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`),
   ADD CONSTRAINT `appear_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `suggestedplace` (`IdPlace`),
   ADD CONSTRAINT `appear_ibfk_3` FOREIGN KEY (`IdRoute`) REFERENCES `suggestedroute` (`IdRoute`),
-  ADD CONSTRAINT `appear_ibfk_4` FOREIGN KEY (`IdRoute`) REFERENCES `verifiedroute` (`IdRoute`);
+  ADD CONSTRAINT `appear_ibfk_4` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`);
 
 --
 -- Filtros para la tabla `favoritesplaces`
 --
 ALTER TABLE `favoritesplaces`
-  ADD CONSTRAINT `favoritesplaces_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `commonuser` (`Email`),
-  ADD CONSTRAINT `favoritesplaces_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `verifiedplace` (`IdPlace`);
+  ADD CONSTRAINT `favoritesplaces_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`),
+  ADD CONSTRAINT `favoritesplaces_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`);
 
 --
 -- Filtros para la tabla `favoritesroutes`
 --
 ALTER TABLE `favoritesroutes`
-  ADD CONSTRAINT `favoritesroutes_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `commonuser` (`Email`),
-  ADD CONSTRAINT `favoritesroutes_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `verifiedroute` (`IdRoute`);
+  ADD CONSTRAINT `favoritesroutes_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`),
+  ADD CONSTRAINT `favoritesroutes_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`);
 
 --
 -- Filtros para la tabla `placecomments`
 --
 ALTER TABLE `placecomments`
-  ADD CONSTRAINT `placecomments_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `commonuser` (`Email`),
-  ADD CONSTRAINT `placecomments_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `verifiedplace` (`IdPlace`);
+  ADD CONSTRAINT `placecomments_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`),
+  ADD CONSTRAINT `placecomments_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`);
 
 --
 -- Filtros para la tabla `routecomments`
 --
 ALTER TABLE `routecomments`
-  ADD CONSTRAINT `routecomments_ibfk_1` FOREIGN KEY (`IdRoute`) REFERENCES `verifiedroute` (`IdRoute`),
-  ADD CONSTRAINT `routecomments_ibfk_2` FOREIGN KEY (`Email`) REFERENCES `commonuser` (`Email`);
+  ADD CONSTRAINT `routecomments_ibfk_1` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`),
+  ADD CONSTRAINT `routecomments_ibfk_2` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`);
 
 --
 -- Filtros para la tabla `visit`
 --
 ALTER TABLE `visit`
-  ADD CONSTRAINT `visit_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `verifiedplace` (`IdPlace`),
-  ADD CONSTRAINT `visit_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `verifiedroute` (`IdRoute`),
-  ADD CONSTRAINT `visit_ibfk_3` FOREIGN KEY (`Email`) REFERENCES `commonuser` (`Email`);
+  ADD CONSTRAINT `visit_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`),
+  ADD CONSTRAINT `visit_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`),
+  ADD CONSTRAINT `visit_ibfk_3` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
