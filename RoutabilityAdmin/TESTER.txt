@@ -1,0 +1,16 @@
+Errores:
+
+-Al iniciar sesion, no te lleva a la pagina principal [error al redireccionar "HEADER("LOCATION: ADMIN.PHP")"]
+Por lo que si quieres ir a la pagina principal vete a la barra de busqueda y pon en la URL: "http://localhost:8080/RoutabilityAdmin/admin.php"
+-Al modificar Ruta hace que los nuevos lugares que se añadan sobreescriban la tabla de la BBDD,
+haciendo que los antiguos lugares que habia en esa ruta desaparezcan.
+
+
+Se puede probar:
+
+-Añadir Lugar
+-Añadir Ruta
+-Modificar Lugar
+-Comments
+-User
+-Suggestions
