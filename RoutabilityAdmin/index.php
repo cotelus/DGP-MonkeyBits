@@ -27,8 +27,6 @@
 </head>
 
 <?php
-
-
 if(isset($_POST["login"])){
  
     if(!empty($_POST['Email']) && !empty($_POST['Password'])) {
@@ -68,7 +66,7 @@ if(isset($_POST["login"])){
             if(exito){
               
                 <?php        
-                    //header("Location: admin.php");
+                    header("Location: Home.php");
                 ?>
                 } 
           });
@@ -81,12 +79,20 @@ if(isset($_POST["login"])){
 ?>    
     
 <body class="bg-primary" style="">
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"><img class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
+        <div class="col-md-7">
+          <h1 class="display-3">Routability:Granada</h1>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="py-5" style="">
     <div class="container">
       <div class="row">
-        <div class="col-md-12"><img class="img-fluid d-block float-left m-1 mx-auto p-1 px-1 py-1" src="./img/monkeybits2.png" width="120" height="120">
-          <h1 class="w-25 text-left text-dark">MonkeyBits</h1>
-          <h3 class="display-1 text-right text-dark" id="titulo" style="  transform:  translateY(-150px) ;"><b>Routability: Granada</b></h3>
+        <div class="col-md-12">
           <div class="mx-auto col-md-12 col-10 bg-white p-5 border border-dark rounded-0" style=" transform:  translateY(-120px) ;">
             <h1 class="mb-4 w-25" style=" transform:  translateX(50px)  translateY(-20px)  scale(1.5);"><b>Log in</b></h1>
             

@@ -44,12 +44,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RoutabilityAdmin</title>
+  <link rel="shortcut icon" href="./img/monkeybits2.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
   <link rel="stylesheet" href="theme.css">
   
 </head>
-<body class="bg-primary">
+<body class="bg-primario">
   <div class="py-2">
     <div class="row">
       <div class="col-md-12">

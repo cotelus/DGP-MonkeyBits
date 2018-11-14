@@ -2,20 +2,57 @@
 <html>
 
 <head>
+  <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RoutabilityAdmin</title>
+  <link rel="shortcut icon" href="./img/monkeybits2.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
-  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="theme.css" type="text/css">
+  <link rel="stylesheet" href="fonts.css" type="text/css">
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyALMvr5CqpG1Et8qP8BNQ0uFt6P_H0kvhI",
+      authDomain: "adminroutability.firebaseapp.com",
+      databaseURL: "https://adminroutability.firebaseio.com",
+      projectId: "adminroutability",
+      storageBucket: "adminroutability.appspot.com",
+      messagingSenderId: "253774242478"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script>
+    function cerrarSesion() {
+      firebase.auth().signOut().then(function() {
+        alert("Usted ha cerrado sesión");
+      }).cath(function(error) {
+        alert("Error cerrando sesión");
+      })
+    }
+  </script>
+
+</head>
 </head>
 
-<body class="bg-primary">
+<body class="bg-primario">
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"><img class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
+        <div class="col-md-7">
+          <h1 class="display-3">Routability:Granada</h1>
+        </div>
+        <div class="col-md-2"><a class="btn btn-light w-100 p-2 align-items-center" href="index.php" onClick="cerrarSesion()">Cerrar Sesión</a></div>
+      </div>
+    </div>
+  </div>
   <div class="py-5" style="">
     <div class="container">
       <div class="row">
-        <div class="col-md-12"><img class="img-fluid d-block float-left m-1 mx-auto p-1 px-1 py-1" src="./img/monkeybits2.png" width="120" height="120">
-          <h1 class="w-25 text-left text-dark">MonkeyBits</h1>
-          <h3 class="display-1 text-right text-dark" style="  transform:  translateY(-150px) ;"><b>Routability: Granada</b></h3>
+        <div class="col-md-12">
           <div class="mx-auto col-md-12 col-10 bg-white p-5 border border-dark rounded-0" style=" transform:  translateY(-120px) ;">
               <div class="py-1">
                 <div class="container">
@@ -24,7 +61,7 @@
                       <h1 class="">Rutas:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group"> <a href="addRoutes.php" class="btn btn-primary">Añadir ruta</a> <a href="editRoutes.php" class="btn btn-primary" style="">Ver ruta&nbsp; &nbsp;</a> </div>
+                      <div class="btn-group"> <a href="addRoutes.php" class="btn btn-primary bg-primario">Añadir ruta</a> <a href="editRoutes.php" class="btn btn-primary bg-primario" style="">Ver ruta&nbsp; &nbsp;</a> </div>
                     </div>
                   </div>
                 </div>
@@ -36,7 +73,7 @@
                       <h1 class="">Lugares:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group ancho"> <a href="addPlaces.php" class="btn btn-primary">Añadir lugar</a> <a href="editPlaces.php" class="btn btn-primary">Ver lugar</a> </div>
+                      <div class="btn-group ancho"> <a href="addPlaces.php" class="btn btn-primary bg-primario">Añadir lugar</a> <a href="editPlaces.php" class="btn btn-primary bg-primario">Ver lugar</a> </div>
                     </div>
                   </div>
                 </div>
@@ -48,10 +85,12 @@
                       <h1 class="">Feedback:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group"> <a href="Comments.php" class="btn btn-primary ancho">Comentarios</a> <a href="Suggestions.php" class="btn btn-primary ancho">Sugerencias</a> <a href="Users.php" class="btn btn-primary ancho">Usuarios</a> </div>
+                      <div class="btn-group"> <a href="Comments.php" class="btn btn-primary bg-primario ancho">Comentarios</a> <a href="Suggestions.php" class="btn btn-primary bg-primario ancho">Sugerencias</a> <a href="Users.php" class="btn btn-primary bg-primario ancho">Usuarios</a> </div>
                     </div>
                   </div>
                 </div>
+                </div>
+              </div>
               </div>
           </div>
         </div>
