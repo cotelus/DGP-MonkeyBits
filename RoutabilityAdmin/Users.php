@@ -69,7 +69,11 @@
                 }
                 header("Location: Users.php");
               }
-              for ($k = 0; $k < 10; $k++) {
+              if ($numUsers < 10)
+                $maxLista = 10;
+              else 
+                $maxLista = $numUsers;
+              for ($k = 0; $k < $maxLista; $k++) {
                 $usuarios = NULL;
                 if ($resUsuarios != NULL)
                   $usuarios = mysqli_fetch_array($resUsuarios);

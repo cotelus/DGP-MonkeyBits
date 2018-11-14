@@ -77,7 +77,11 @@
                 }
                 header("Location: Comments.php");
               }
-              for ($k = 0; $k < 10; $k++) {
+              if ($numeroComentarios < 10)
+                $maxLista = 10;
+              else 
+                $maxLista = $numeroComentarios;
+              for ($k = 0; $k < $maxLista; $k++) {
                 $comentarios = NULL;
                 if ($resComRutas != NULL)
                   $comentarios = mysqli_fetch_array($resComRutas);

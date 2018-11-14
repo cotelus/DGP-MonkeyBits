@@ -93,7 +93,11 @@
                 }
               header("Location: Suggestions.php");
               }
-              for ($k = 0; $k < 10; $k++) {
+              if ($numeroSugerencias < 10)
+                $maxLista = 10;
+              else 
+                $maxLista = $numeroSugerencias;
+              for ($k = 0; $k < $maxLista; $k++) {
                 $sugerencias = NULL;
                 if ($resRutas != NULL)
                   $sugerencias = mysqli_fetch_array($resRutas);
