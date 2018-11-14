@@ -1,8 +1,9 @@
+<?php session_start();?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-  <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RoutabilityAdmin</title>
@@ -27,6 +28,7 @@
   <script>
     function cerrarSesion() {
       firebase.auth().signOut().then(function() {
+        $_SESSION['EMAIL'] = null;
         alert("Usted ha cerrado sesión");
       }).cath(function(error) {
         alert("Error cerrando sesión");
@@ -34,7 +36,6 @@
     }
   </script>
 
-</head>
 </head>
 
 <body class="bg-primario">
@@ -45,7 +46,7 @@
         <div class="col-md-7">
           <h1 class="display-3">Routability:Granada</h1>
         </div>
-        <div class="col-md-2"><a class="btn btn-light w-100 p-2 align-items-center" href="index.php" onClick="cerrarSesion()">Cerrar Sesión</a></div>
+        <div class="col-md-2"><a class="btn btn-light w-100 p-2 align-items-center icon-enter" href="index.php" onClick="cerrarSesion()">&nbsp;Cerrar Sesión</a></div>
       </div>
     </div>
   </div>
@@ -61,7 +62,7 @@
                       <h1 class="">Rutas:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group"> <a href="addRoutes.php" class="btn btn-primary bg-primario">Añadir ruta</a> <a href="editRoutes.php" class="btn btn-primary bg-primario" style="">Ver ruta&nbsp; &nbsp;</a> </div>
+                      <div class="btn-group"> <a href="addRoutes.php" class="btn btn-primary bg-primario icon-plus">&nbsp;Añadir ruta</a> <a href="viewRoutes.php" class="btn btn-primary bg-primario icon-map" style="">&nbsp;Ver ruta&nbsp; &nbsp;</a> </div>
                     </div>
                   </div>
                 </div>
@@ -73,7 +74,7 @@
                       <h1 class="">Lugares:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group ancho"> <a href="addPlaces.php" class="btn btn-primary bg-primario">Añadir lugar</a> <a href="editPlaces.php" class="btn btn-primary bg-primario">Ver lugar</a> </div>
+                      <div class="btn-group ancho"> <a href="addPlaces.php" class="btn btn-primary bg-primario icon-plus">&nbsp;Añadir lugar</a> <a href="viewPlaces.php" class="btn btn-primary bg-primario icon-library">&nbsp;Ver lugar</a> </div>
                     </div>
                   </div>
                 </div>
@@ -85,7 +86,7 @@
                       <h1 class="">Feedback:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group"> <a href="Comments.php" class="btn btn-primary bg-primario ancho">Comentarios</a> <a href="Suggestions.php" class="btn btn-primary bg-primario ancho">Sugerencias</a> <a href="Users.php" class="btn btn-primary bg-primario ancho">Usuarios</a> </div>
+                      <div class="btn-group"> <a href="Comments.php" class="btn btn-primary bg-primario ancho icon-bubble">&nbsp;Comentarios</a> <a href="Suggestions.php" class="btn btn-primary bg-primario ancho icon-drawer">&nbsp;Sugerencias</a> <a href="Users.php" class="btn btn-primary bg-primario ancho icon-users">&nbsp;Usuarios</a> </div>
                     </div>
                   </div>
                 </div>
@@ -95,8 +96,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

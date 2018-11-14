@@ -6,7 +6,7 @@ session_start();
 
 //Consultamos los datos de la obra
 
-$conexion = mysqli_connect("localhost", "ramon", "ramon");
+$conexion = mysqli_connect("localhost", "root", "");
 $BD = mysqli_select_db($conexion, "routability");
 
 //Comprueba conexion
@@ -27,23 +27,31 @@ if(isset($_POST["aniadir"])){
  
     if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['lugares']) && !empty($_POST['imagen'])){
          
-         $id=1;
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
+         $email = $_SESSION['EMAIL'];
 
-        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Name`, `Description`, `Image`) VALUES ($id, '$nombre', '$descripcion', '$imagen')"))){
+        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen')"))){
 
             echo "Fallo del query de rutas";
             exit();
         }
         
+        if(!($ruta = mysqli_query($conexion, "SELECT * FROM `route` WHERE `Name`='".$nombre."'"))){
+
+            echo "Fallo del query de obtención de id de ruta";
+            exit();
+        }
+        
+        $route = mysqli_fetch_assoc($ruta);
+        $id = $route["IdRoute"];
         $sequence=1;
         $lugares = $_POST['lugares'];
 
         foreach ($lugares as $lugar=>$value) {
 
-            if(!($QUERY = mysqli_query($conexion, "INSERT INTO `appear`(`IdPlace`, `IdRoute`, `Sequence`) VALUES ('$value', '$id', '$sequence')"))){
+            if(!($QUERY = mysqli_query($conexion, "INSERT INTO `appearverified`(`IdPlace`, `IdRoute`, `Sequence`) VALUES ('$value', '$id', '$sequence')"))){
 
                 echo "Fallo del query de adición de lugares";
                 exit();
@@ -80,7 +88,7 @@ if(isset($_POST["aniadir"])){
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn-secondary" href="admin.php" style="	transform:  translateX(900px)  translateY(-60px) ;">Volver a administración</a>
+                    <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn-secondary" href="Home.php" style="	transform:  translateX(900px)  translateY(-60px) ;">Volver a administración</a>
                 </div>
             </div>
 

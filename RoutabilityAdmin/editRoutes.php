@@ -7,7 +7,7 @@ session_start();
 
 //Consultamos los datos de la obra
 
-$conexion = mysqli_connect("localhost", "ramon", "ramon");
+$conexion = mysqli_connect("localhost", "root", "");
 $BD = mysqli_select_db($conexion, "routability");
 
 //Comprueba conexion
@@ -40,7 +40,7 @@ if(isset($_POST["editar"])){
         }
     
         //EDITAMOS TABLA APPEAR
-        if(!($text_result2 = mysqli_query($conexion, "SELECT Sequence FROM appear WHERE IdRoute=".$id." ORDER BY Sequence ASC"))){
+        if(!($text_result2 = mysqli_query($conexion, "SELECT Sequence FROM appearverified WHERE IdRoute=".$id." ORDER BY Sequence ASC"))){
     
             echo "Fallo del query de selección de puntos de ruta";
             exit();
@@ -54,7 +54,7 @@ if(isset($_POST["editar"])){
 
         foreach ($lugares as $lugar=>$value) {
 
-            if(!($QUERY2 = mysqli_query($conexion, "UPDATE `appear` SET `IdPlace`='".$value."', `Sequence`='".$sequence."' WHERE `IdRoute` =".$id))){
+            if(!($QUERY2 = mysqli_query($conexion, "UPDATE `appearverified` SET `IdPlace`='".$value."', `Sequence`='".$sequence."' WHERE `IdRoute` =".$id))){
 
                 $MESSAGE = "ERROR AL EDITAR LOS PUNTOS DE RUTA";
                 echo "Fallo del query de edición de lugares";
@@ -107,7 +107,7 @@ if(isset($_POST["editar"])){
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn-secondary" href="admin.php" style="	transform:  translateX(900px)  translateY(-60px) ;">Volver a administración</a>
+                    <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn-secondary" href="Home.php" style="	transform:  translateX(900px)  translateY(-60px) ;">Volver a administración</a>
                 </div>
             </div>
 
@@ -141,7 +141,7 @@ if(isset($_POST["editar"])){
                                     $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
                                     
                                     //SE OBTIENEN DE LA BBDD LOS LUGARES DE LA RUTA
-                                    $resultado_lugares_appear = mysqli_query($conexion, "SELECT * FROM `appear` WHERE IdRoute=".$id);
+                                    $resultado_lugares_appear = mysqli_query($conexion, "SELECT * FROM `appearverified` WHERE IdRoute=".$id);
 
                                     if ($resultado_lugares->num_rows > 0) {
                                     

@@ -6,7 +6,7 @@ session_start();
 
 //Consultamos los datos de la obra
 
-$conexion = mysqli_connect("localhost", "ramon", "ramon");
+$conexion = mysqli_connect("localhost", "root", "");
 $BD = mysqli_select_db($conexion, "routability");
 
 //Comprueba conexion
@@ -27,13 +27,13 @@ if(isset($_POST["aniadir"])){
  
     if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['localization']) && !empty($_POST['imagen'])){
          
-         $id=2;
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $localization=$_POST['localization'];
          $imagen=$_POST['imagen'];
-
-    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Description`, `Localitation`, `Name`, `Image`) VALUES ($id, '$descripcion', '$localization', '$nombre', '$imagen')"))){
+         $email = $_SESSION['EMAIL'];
+        
+    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`) VALUES (null, '$email', null, '$descripcion', '$localization', '$nombre', '$imagen')"))){
     
         echo "Fallo del query de lugares";
         exit();
@@ -67,7 +67,7 @@ if(isset($_POST["aniadir"])){
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn-secondary" href="admin.php" style="	transform:  translateX(900px)  translateY(-60px) ;">Volver a administración</a>
+          <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn-secondary" href="Home.php" style="	transform:  translateX(900px)  translateY(-60px) ;">Volver a administración</a>
         </div>
       </div>
         

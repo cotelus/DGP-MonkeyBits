@@ -27,6 +27,11 @@
 </head>
 
 <?php
+    
+    session_start();
+    
+    $_SESSION['EMAIL'] = null;
+    
 if(isset($_POST["login"])){
  
     if(!empty($_POST['Email']) && !empty($_POST['Password'])) {
@@ -65,7 +70,8 @@ if(isset($_POST["login"])){
                 
             if(exito){
               
-                <?php        
+                <?php
+                    $_SESSION['EMAIL'] = $EMAIL;
                     header("Location: Home.php");
                 ?>
                 } 

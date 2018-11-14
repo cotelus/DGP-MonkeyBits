@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
   <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="fonts.css" type="text/css">
   
 </head>
 
@@ -49,7 +50,7 @@
   <div class="py-2">
     <div class="row">
       <div class="col-md-12">
-        <a href="Home.php" class="btn btn-light margenes">Volver a home</a>
+        <a href="Home.php" class="btn btn-light margenes icon-home">&nbsp;Volver a administración</a>
       </div>
     </div>
   </div>
@@ -58,7 +59,7 @@
       <div class="row">
         <div class="col-md-12" style="">
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active list-group-item-info">Usuarios </a>
+            <a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-users">&nbsp;Usuarios </a>
             <?php
               if (isset($_GET['email'])) {
                 $email = $_GET['email'];
@@ -87,10 +88,10 @@
                   $banned = $usuarios["Banned"];
                   echo '<p class="list-group-item list-group-item-action">'.$usuarios["Email"];
                   if ($banned == 0) {
-                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img class="icono" src="./img/bloquear.png" /></a></p>';
+                    echo '<a class="icon-lock" href="Users.php?email='.$email.'&banned='.$banned.'"></a></p>';
                   }
                   else {
-                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img class="icono2" src="./img/desbloquear.png"/></a></p>';
+                    echo '<a class="icon-unlocked" href="Users.php?email='.$email.'&banned='.$banned.'"></a></p>';
                   }
                 }
               }

@@ -49,13 +49,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
   <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="fonts.css" type="text/css">
   
 </head>
 <body class="bg-primario">
   <div class="py-2">
     <div class="row">
       <div class="col-md-12">
-        <a href="Home.php" class="btn btn-light margenes">Volver a home</a>
+        <a href="Home.php" class="btn btn-light margenes icon-home">&nbsp;Volver a administración</a>
       </div>
     </div>
   </div>
@@ -64,7 +65,7 @@
       <div class="row">
         <div class="col-md-12" style="">
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active list-group-item-info">Comentarios </a>
+            <a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-bubble">&nbsp;Comentarios </a>
             <?php
               if (isset($_GET['id'])) {
                 $id = $_GET['id'];
