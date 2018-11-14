@@ -44,7 +44,14 @@
 </head>
 
 <body class="bg-primary">
-  <div class="py-5" style="">
+  <div class="py-2">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="Home.php" class="btn btn-light margenes">Volver a home</a>
+      </div>
+    </div>
+  </div>
+  <div class="py-3" style="">
     <div class="container">
       <div class="row">
         <div class="col-md-12" style="">
@@ -74,7 +81,7 @@
                   $banned = $usuarios["Banned"];
                   echo '<p class="list-group-item list-group-item-action">'.$usuarios["Email"];
                   if ($banned == 0) {
-                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img class="icono" src="./img/cruz.svg" /></a></p>';
+                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img class="icono" src="./img/bloquear.png" /></a></p>';
                   }
                   else {
                     echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img class="icono2" src="./img/desbloquear.png"/></a></p>';

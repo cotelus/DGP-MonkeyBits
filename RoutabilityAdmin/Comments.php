@@ -50,7 +50,14 @@
   
 </head>
 <body class="bg-primary">
-  <div class="py-5" style="">
+  <div class="py-2">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="Home.php" class="btn btn-light margenes">Volver a home</a>
+      </div>
+    </div>
+  </div>
+  <div class="py-2" style="">
     <div class="container">
       <div class="row">
         <div class="col-md-12" style="">
@@ -97,7 +104,7 @@
                   $time = $comentarios["Time"];
 
                   echo '<p class="list-group-item list-group-item-action miembro-lista">'.$comentarios["Email"].': '. $comentarios["Content"];
-                  echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img class="icono" src="./img/cruz.svg" /></a></p>';
+                  echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img name="eliminar" class="icono" src="./img/cruz.svg" /></a></p>';
                 }
               }
               

@@ -50,7 +50,14 @@
   
 </head>
 <body class="bg-primary">
-  <div class="py-5" style="">
+  <div class="py-2">
+    <div class="row">
+      <div class="col-md-12">
+        <a href="Home.php" class="btn btn-light margenes">Volver a home</a>
+      </div>
+    </div>
+  </div>
+  <div class="py-2" style="">
     <div class="container">
       <div class="row">
         <div class="col-md-12" style="">
@@ -72,7 +79,7 @@
                   $description = $_GET['description'];
                   $image = $_GET['image'];
                   $email = "admin1@gmail.com";    //Aquí hay que usar el nombre del admin que tiene iniciada la sesión
-                  mysqli_query($conexion, "Insert into place(IdPlace, Email, MadeBy, Name, Description, Localitation, Image) values('$id', '$email', '$madeby', '$name', '$description', '$localitation', '$image')");
+                  mysqli_query($conexion, "Insert into place(IdPlace, Email, MadeBy, Name, Description, Localitation, Image) values('NULL', '$email', '$madeby', '$name', '$description', '$localitation', '$image')");
                   mysqli_query($conexion, "DELETE from suggestedplace where IdPlace='".$id."'");
                 }
                 else {
@@ -81,7 +88,7 @@
                   $description = $_GET['description'];
                   $image = $_GET['image'];
                   $email = "admin1@gmail.com";
-                  mysqli_query($conexion, "Insert into route(IdRoute, Email, MadeBy, Name, Description, Image) values('$id', '$email', '$madeby', '$name', '$description', '$image')");
+                  mysqli_query($conexion, "Insert into route(IdRoute, Email, MadeBy, Name, Description, Image) values('NULL', '$email', '$madeby', '$name', '$description', '$image')");
                   mysqli_query($conexion, "DELETE from suggestedroute where IdRoute='".$id."'");      
                 }
               header("Location: Suggestions.php");
