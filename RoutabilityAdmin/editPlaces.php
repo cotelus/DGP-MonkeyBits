@@ -30,8 +30,8 @@ if(isset($_POST["editar"])){
          $descripcion=$_POST['descripcion'];
          $localization=$_POST['localization'];
          $imagen=$_POST['imagen'];
-
-    if(!($QUERY = mysqli_query($conexion, "UPDATE `place` SET `Description`='".$descripcion."', `Localitation`='".$localization."', `Name`='".$nombre."', `Image`='".$imagen."' WHERE `IdPlace`=".$id))){
+    
+    if(!($QUERY = mysqli_query($conexion, "UPDATE `place` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Localitation`='".$localization."', `Image`='".$imagen."' WHERE `IdPlace`=".$id))){
     
         $MESSAGE = "ERROR AL EDITAR EL LUGAR";
         
@@ -58,9 +58,9 @@ if(isset($_POST["editar"])){
         }
     
         $texto = mysqli_fetch_assoc($text_result);
+        $nomb=$texto['Name'];
         $desc=$texto['Description'];
         $loc=$texto['Localitation'];
-        $nomb=$texto['Name'];
         $img=$texto['Image'];
     
 
@@ -97,7 +97,7 @@ if(isset($_POST["editar"])){
 
             <h1>Información del lugar</h1>
 
-            <?php echo "<form action='editPlaces.php?id='".$id."' method='post'>"; ?>
+            <?php echo "<form action='editPlaces.php?id=".$id."' method='post'>"; ?>
       <div class="row">
           
         <div class="col-md-6">

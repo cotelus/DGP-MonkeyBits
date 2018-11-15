@@ -87,8 +87,8 @@
 
                     echo '<p class="list-group-item list-group-item-action miembro-lista">'.$nombre;  
                       
-                    echo '<a href="viewRoutes.php?id='.$id.'"><img class="icono" alt="eliminar" src="./img/cruz.svg" /></a>';
-                    echo '<a href="editRoutes.php?id='.$id.'"><img class="icono3" alt="editar" src="./img/editar.png" /></a></p>';   
+                    echo '<a href="viewRoutes.php?id='.$id.'"><img class="icono" alt="eliminar" src="./img/cruz.svg" /></a></p>';
+                    //echo '<a href="editRoutes.php?id='.$id.'"><img class="icono3" alt="editar" src="./img/editar.png" /></a></p>';   
                   }
                 }
               }
