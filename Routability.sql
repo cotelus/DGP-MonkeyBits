@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2018 a las 10:40:45
+-- Tiempo de generación: 16-11-2018 a las 12:24:22
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -38,7 +38,8 @@ CREATE TABLE `adminuser` (
 
 INSERT INTO `adminuser` (`Email`) VALUES
 ('admin1@gmail.com'),
-('admin2@hotmail.com');
+('admin2@hotmail.com'),
+('dgp.monkeybits@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,9 @@ CREATE TABLE `appearverified` (
 --
 
 INSERT INTO `appearverified` (`IdPlace`, `IdRoute`, `Sequence`) VALUES
-(2, 1, 2);
+(1, 8, 1),
+(2, 1, 2),
+(2, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -137,14 +140,7 @@ CREATE TABLE `place` (
 
 INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Localitation`, `Image`, `Accesibility`) VALUES
 (1, 'admin1@gmail.com', 'usuario1@gmail.com', 'Lugar bonito', 'fasefas', 'asefas', 'afsesa', ''),
-(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'asfas', 'asfeasef', 'afsesa', 'afsef', ''),
-(9, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaaa', 'asfeeasf', 'afsefsa', 'afses', ''),
-(10, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaa', 'fasfees', 'fasefasef', 'afsefas', ''),
-(11, 'admin1@gmail.com', 'usuario1@gmail.com', 'sitio de prueba', 'asfaesf', 'asfeasf', 'fasefas', ''),
-(12, 'admin1@gmail.com', 'usuario1@gmail.com', 'mi casa', 'afsefs', 'afsefsa', 'fasefas', ''),
-(13, 'admin1@gmail.com', 'usuario1@gmail.com', 'tu casa', 'fasefsa', 'fasfesef', 'asfeeas', ''),
-(14, 'admin1@gmail.com', 'usuario1@gmail.com', 'bar comida rica', 'fasefs', 'afsfs', 'asefsa', ''),
-(15, 'admin1@gmail.com', 'usuario1@gmail.com', 'restaurante mexicano', 'aseffs', 'afses', 'afsef', '');
+(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'Cansado del nombre asfas', 'asfeasef', 'afsesa', 'afsef', '');
 
 -- --------------------------------------------------------
 
@@ -185,7 +181,8 @@ INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image
 (2, 'admin2@hotmail.com', 'usuariobloqueado@gmail.com', 'Ruta interesante', 'asfasef', 'asfeasef', ''),
 (3, 'admin1@gmail.com', 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes', ''),
 (4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses', ''),
-(5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs', '');
+(5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs', ''),
+(8, 'dgp.monkeybits@gmail.com', NULL, 'fasefasfesasefsa', 'asefasfsea', 'fsafease', '');
 
 -- --------------------------------------------------------
 
@@ -337,6 +334,7 @@ ALTER TABLE `favoriteroutes`
 --
 ALTER TABLE `place`
   ADD PRIMARY KEY (`IdPlace`),
+  ADD UNIQUE KEY `Localitation` (`Localitation`),
   ADD KEY `Email` (`Email`),
   ADD KEY `place_ibfk_2` (`MadeBy`);
 
@@ -352,6 +350,7 @@ ALTER TABLE `placecomments`
 --
 ALTER TABLE `route`
   ADD PRIMARY KEY (`IdRoute`),
+  ADD UNIQUE KEY `Name` (`Name`),
   ADD KEY `Email` (`Email`),
   ADD KEY `MadeBy` (`MadeBy`);
 
@@ -404,7 +403,7 @@ ALTER TABLE `place`
 -- AUTO_INCREMENT de la tabla `route`
 --
 ALTER TABLE `route`
-  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `suggestedplace`
