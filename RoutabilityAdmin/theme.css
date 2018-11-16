@@ -6540,6 +6540,10 @@ html, body {
       background-color: #00574B;
     }
 
+    .tam-letra {
+      font-size: 150%;
+    }
+
 .scroll {
   
   display: block;
