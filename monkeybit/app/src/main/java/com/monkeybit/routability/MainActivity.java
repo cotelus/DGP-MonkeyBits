@@ -1,6 +1,8 @@
 package com.monkeybit.routability;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public BottomNavigationView bottomNavigationView;
     public NavigationView navigationView;
     public DrawerLayout mainDrawerLayout;
+    private SharedPreferences userPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             }
         });
+
+        //MODAL
+        Boolean cookiesAccepted = userPreferences.getBoolean("cookiesAccepted", false);
+        if (cookiesAccepted == false){
+            this.newAlertDialog(this, AlertID.COOKIESACCEPTED, "¿Desea aceptar las cookies y política de privacidad?");
+        }
     }
 
     @Override
@@ -125,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void PositiveResponse(AlertID alertID) {
         switch (alertID) {
+            case COOKIESACCEPTED:
+                userPreferences.edit().putBoolean("cookiesAccepted", true).commit();
             case LOGOUT:
                 logOut();
                 break;
