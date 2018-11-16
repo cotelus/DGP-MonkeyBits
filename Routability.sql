@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2018 a las 10:49:07
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.3
+-- Tiempo de generación: 16-11-2018 a las 10:21:35
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -98,44 +98,42 @@ CREATE TABLE `appearverified` (
 --
 
 INSERT INTO `appearverified` (`IdPlace`, `IdRoute`, `Sequence`) VALUES
-(2, 1, 2),
-(11, 1250, 1),
-(12, 1250, 2);
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `favoritesplaces`
+-- Estructura de tabla para la tabla `favoriteplaces`
 --
 
-CREATE TABLE `favoritesplaces` (
+CREATE TABLE `favoriteplaces` (
   `IdPlace` int(8) NOT NULL,
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `favoritesplaces`
+-- Volcado de datos para la tabla `favoriteplaces`
 --
 
-INSERT INTO `favoritesplaces` (`IdPlace`, `Email`) VALUES
+INSERT INTO `favoriteplaces` (`IdPlace`, `Email`) VALUES
 (1111, 'usuario1@gmail.com');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `favoritesroutes`
+-- Estructura de tabla para la tabla `favoriteroutes`
 --
 
-CREATE TABLE `favoritesroutes` (
+CREATE TABLE `favoriteroutes` (
   `IdRoute` int(8) NOT NULL,
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `favoritesroutes`
+-- Volcado de datos para la tabla `favoriteroutes`
 --
 
-INSERT INTO `favoritesroutes` (`IdRoute`, `Email`) VALUES
+INSERT INTO `favoriteroutes` (`IdRoute`, `Email`) VALUES
 (1, 'usuario1@gmail.com');
 
 -- --------------------------------------------------------
@@ -163,8 +161,11 @@ INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Local
 (2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'asfas', 'asfeasef', 'afsesa', 'afsef'),
 (9, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaaa', 'asfeeasf', 'afsefsa', 'afses'),
 (10, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaa', 'fasfees', 'fasefasef', 'afsefas'),
-(11, 'dgp.monkeybits@gmail.com', NULL, 'Parque Almunia', 'Tiene una distribución triangular rodeado por una valla y muro, además de existir distintas pantallas vegetales en cada uno de los lados: ciprés, pruno, espino de fuego y laurel. Se desarrolla a partir de diversos paseos que se complementan y relacionan a lo largo de todo su recorrido, delimitando numerosas zonas de estancia con elementos característicos como el quiosco de música o la fuente con pérgola de glicinas en su parte posterior. Uno de los elementos principales del parque es la acequia, atravesada por puentecillos de piedra que dan paso a cuadros de aromáticas, hacia un lado, y a una paseo de arces, al otro.', 'Delimitado por los viales Avda. de Andalucía, Calle Periodista Eugenio Selles y Calle Periodista Jos', 'http://www.besarsengranada.es/wp-content/uploads/2015/05/besarse-en-granada-flores-parque-almunia-5_21390.jpg'),
-(12, 'dgp.monkeybits@gmail.com', NULL, 'Parque Federico García Lorca', 'El parque está constituido por diversos paseos , destacando dos avenidas: el paseo de la alameda , el cual se desarrolla paralelamente al río y se dirige al estanque , y el paseo de tilos, desde la entrada principal hasta las zonas de servicios Delimitados por estos paseos y caminos, existen diversos sectores que terminan de configurar este parque: los jardines neoplasticistas, las acequias, la fuente cibernética, el bosque de ribera, la rosaleda y las huertas', 'Entre las calles Arabial , Virgen Blanca y el Camino de Purchil, el Parque García Lorca, con cuatro ', 'https://www.conmishijos.com/assets/planes/4000/4120-parque-federico-garcia-lorca-granada.jpg');
+(11, 'admin1@gmail.com', 'usuario1@gmail.com', 'sitio de prueba', 'asfaesf', 'asfeasf', 'fasefas'),
+(12, 'admin1@gmail.com', 'usuario1@gmail.com', 'mi casa', 'afsefs', 'afsefsa', 'fasefas'),
+(13, 'admin1@gmail.com', 'usuario1@gmail.com', 'tu casa', 'fasefsa', 'fasfesef', 'asfeeas'),
+(14, 'admin1@gmail.com', 'usuario1@gmail.com', 'bar comida rica', 'fasefs', 'afsfs', 'asefsa'),
+(15, 'admin1@gmail.com', 'usuario1@gmail.com', 'restaurante mexicano', 'aseffs', 'afses', 'afsef');
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,9 @@ CREATE TABLE `route` (
 INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
 (1, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasefas', 'fasefasef', 'asfasefa'),
 (2, 'admin2@hotmail.com', 'usuariobloqueado@gmail.com', 'Ruta interesante', 'asfasef', 'asfeasef'),
-(1250, 'dgp.monkeybits@gmail.com', NULL, 'Parques y Jardines', 'Una ruta por los mejores parques y jardines de Granada, pudiendo disfrutar de las vistas de la arquitectura y flora que en estos hay.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg');
+(3, 'admin1@gmail.com', 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes'),
+(4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses'),
+(5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs');
 
 -- --------------------------------------------------------
 
@@ -218,13 +221,6 @@ CREATE TABLE `routecomments` (
   `Time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `routecomments`
---
-
-INSERT INTO `routecomments` (`IdRoute`, `Email`, `Content`, `Date`, `Time`) VALUES
-(2, 'usuariobloqueado@gmail.com', 'fasfeasef', '2018-11-14', '20:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -239,6 +235,13 @@ CREATE TABLE `suggestedplace` (
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `suggestedplace`
+--
+
+INSERT INTO `suggestedplace` (`IdPlace`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`) VALUES
+(3, 'usuario1@gmail.com', 'faef', 'asfe', 'fase', 'afsfs');
 
 -- --------------------------------------------------------
 
@@ -259,7 +262,15 @@ CREATE TABLE `suggestedroute` (
 --
 
 INSERT INTO `suggestedroute` (`IdRoute`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
-(1236, 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes');
+(1240, 'usuariobloqueado@gmail.com', 'fasef', 'fasef', 'asfes'),
+(1241, 'usuariobloqueado@gmail.com', 'fsfsefa', 'asfsae', 'fsefs'),
+(1242, 'usuario1@gmail.com', 'fsfa', 'fasef', 'sasfes'),
+(1243, 'usuario1@gmail.com', 'afsfe', 'asef', 'asfes'),
+(1244, 'usuario1@gmail.com', 'fasfe', 'asfeasf', 'afses'),
+(1245, 'usuariobloqueado@gmail.com', 'afsefas', 'asfas', 'asfesf'),
+(1246, 'usuario1@gmail.com', 'fasef', 'asefas', 'fasfesf'),
+(1247, 'usuario1@gmail.com', 'fasef', 'afsef', 'fasfe'),
+(1248, 'usuariobloqueado@gmail.com', 'fsfa', 'afsfe', 'asfe');
 
 -- --------------------------------------------------------
 
@@ -332,16 +343,16 @@ ALTER TABLE `appearverified`
   ADD KEY `appearverified_ibfk_2` (`IdRoute`);
 
 --
--- Indices de la tabla `favoritesplaces`
+-- Indices de la tabla `favoriteplaces`
 --
-ALTER TABLE `favoritesplaces`
+ALTER TABLE `favoriteplaces`
   ADD PRIMARY KEY (`IdPlace`,`Email`),
   ADD KEY `favoritesplaces_ibfk_1` (`Email`);
 
 --
--- Indices de la tabla `favoritesroutes`
+-- Indices de la tabla `favoriteroutes`
 --
-ALTER TABLE `favoritesroutes`
+ALTER TABLE `favoriteroutes`
   ADD PRIMARY KEY (`IdRoute`,`Email`),
   ADD KEY `favoritesroutes_ibfk_1` (`Email`);
 
@@ -411,25 +422,25 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT de la tabla `place`
 --
 ALTER TABLE `place`
-  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `route`
 --
 ALTER TABLE `route`
-  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1251;
+  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `suggestedplace`
 --
 ALTER TABLE `suggestedplace`
-  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `suggestedroute`
 --
 ALTER TABLE `suggestedroute`
-  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1237;
+  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1249;
 
 --
 -- Restricciones para tablas volcadas
@@ -456,11 +467,66 @@ ALTER TABLE `appearverified`
   ADD CONSTRAINT `appearverified_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `favoritesroutes`
+-- Filtros para la tabla `favoriteplaces`
 --
-ALTER TABLE `favoritesroutes`
-  ADD CONSTRAINT `favoritesroutes_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `favoritesroutes_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `favoriteplaces`
+  ADD CONSTRAINT `favoriteplaces_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `favoriteplaces_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `favoriteroutes`
+--
+ALTER TABLE `favoriteroutes`
+  ADD CONSTRAINT `favoriteroutes_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `favoriteroutes_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `place`
+--
+ALTER TABLE `place`
+  ADD CONSTRAINT `place_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `adminuser` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `place_ibfk_2` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `placecomments`
+--
+ALTER TABLE `placecomments`
+  ADD CONSTRAINT `placecomments_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `placecomments_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `route`
+--
+ALTER TABLE `route`
+  ADD CONSTRAINT `route_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `adminuser` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `route_ibfk_2` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `routecomments`
+--
+ALTER TABLE `routecomments`
+  ADD CONSTRAINT `routecomments_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `routecomments_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `suggestedplace`
+--
+ALTER TABLE `suggestedplace`
+  ADD CONSTRAINT `suggestedplace_ibfk_1` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `suggestedroute`
+--
+ALTER TABLE `suggestedroute`
+  ADD CONSTRAINT `suggestedroute_ibfk_1` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `visit`
+--
+ALTER TABLE `visit`
+  ADD CONSTRAINT `visit_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `visit_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `visit_ibfk_3` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
