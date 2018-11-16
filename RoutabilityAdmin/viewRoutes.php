@@ -59,7 +59,7 @@
       <div class="row">
         <div class="col-md-12" style="">
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-map">&nbsp;Rutas </a>
+              <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-map">&nbsp;Lista de Rutas</a></h3>
             <?php
               if (isset($_GET['id'])) {
                 
@@ -78,23 +78,30 @@
                 if ($rutas == NULL) {
                   if ($Routes != NULL)
                     $rutas = mysqli_fetch_array($Routes);
-                  if ($rutas == NULL) {
-                    echo '<a href="#" class="list-group-item list-group-item-action">(Espacio vacío)</a>';
-                  }
-                  else {
+                  if ($rutas != NULL) {
+
                     $id = $rutas["IdRoute"];
                     $nombre = $rutas["Name"];
 
                     echo '<p class="list-group-item list-group-item-action miembro-lista">'.$nombre;  
                       
-                    echo '<a href="viewRoutes.php?id='.$id.'"><img class="icono" alt="eliminar" src="./img/cruz.svg" /></a></p>';
-                    //echo '<a href="editRoutes.php?id='.$id.'"><img class="icono3" alt="editar" src="./img/editar.png" /></a></p>';   
+                    echo '<a href="viewRoutes.php?id='.$id.'"><img class="icono" title="Eliminar ruta" alt="Eliminar ruta" src="./img/cruz.svg" /></a></p>';
+                    //echo '<a href="editRoutes.php?id='.$id.'"><img class="icono3" title="Editar ruta" alt="Editar ruta" src="./img/editar.png" /></a></p>';   
                   }
                 }
               }
               
             ?>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="py-3 bg-secundario" style="position: absolute; bottom: 0; width: 100%;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
         </div>
       </div>
     </div>

@@ -59,7 +59,7 @@
       <div class="row">
         <div class="col-md-12" style="">
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-library">&nbsp;Lugares </a>
+              <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-library">&nbsp;Lista de Lugares</a></h3>
             <?php
               if (isset($_GET['id'])) {
                 
@@ -78,23 +78,31 @@
                 if ($lugares == NULL) {
                   if ($Places != NULL)
                     $lugares = mysqli_fetch_array($Places);
-                  if ($lugares == NULL) {
-                    echo '<a href="#" class="list-group-item list-group-item-action">(Espacio vacío)</a>';
-                  }
-                  else {
+                  
+                    if ($lugares != NULL) {
+
                     $id = $lugares["IdPlace"];
                     $nombre = $lugares["Name"];
 
                     echo '<p class="list-group-item list-group-item-action miembro-lista">'.$nombre;  
                       
-                    echo '<a href="viewPlaces.php?id='.$id.'"><img class="icono" alt="eliminar" src="./img/cruz.svg" /></a>';
-                    echo '<a href="editPlaces.php?id='.$id.'"><img class="icono3" alt="editar" src="./img/editar.png" /></a></p>';   
+                    echo '<a href="viewPlaces.php?id='.$id.'"><img class="icono" title="Eliminar Lugar" alt="Eliminar Lugar" src="./img/cruz.svg" /></a>';
+                    echo '<a href="editPlaces.php?id='.$id.'"><img class="icono3" title="Editar Lugar" alt="Editar Lugar" src="./img/editar.png" /></a></p>';   
                   }
                 }
               }
               
             ?>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="py-3 bg-secundario" style="position: absolute; bottom: 0; width: 100%;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
         </div>
       </div>
     </div>

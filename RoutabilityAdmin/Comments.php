@@ -65,7 +65,7 @@
       <div class="row">
         <div class="col-md-12" style="">
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-bubble">&nbsp;Comentarios </a>
+              <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-bubble">&nbsp;Lista de Comentarios </a></h3>
             <?php
               if (isset($_GET['id'])) {
                 $id = $_GET['id'];
@@ -91,17 +91,15 @@
                 if ($comentarios == NULL) {
                   if ($resComPlaces != NULL)
                     $comentarios = mysqli_fetch_array($resComPlaces);
-                  if ($comentarios == NULL) {
-                    echo '<a href="#" class="list-group-item list-group-item-action">(Espacio vacío)</a>';
-                  }
-                  else {
+                  if ($comentarios != NULL) {
+                      
                     $email = $comentarios["Email"];
                     $id = $comentarios["IdPlace"];
                     $date = $comentarios["Date"];
                     $time = $comentarios["Time"];
 
                     echo '<p class="list-group-item list-group-item-action miembro-lista">'.$comentarios["Email"].': '. $comentarios["Content"];
-                    echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img class="icono" src="./img/cruz.svg" /></a></p>';
+                    echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
                   }
                 }
                 else {
@@ -111,12 +109,21 @@
                   $time = $comentarios["Time"];
 
                   echo '<p class="list-group-item list-group-item-action miembro-lista">'.$comentarios["Email"].': '. $comentarios["Content"];
-                  echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img name="eliminar" class="icono" src="./img/cruz.svg" /></a></p>';
+                  echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img name="eliminar" title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
                 }
               }
               
             ?>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="py-3 bg-secundario" style="position: absolute; bottom: 0; width: 100%;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
         </div>
       </div>
     </div>

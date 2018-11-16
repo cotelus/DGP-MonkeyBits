@@ -65,7 +65,7 @@
       <div class="row">
         <div class="col-md-12" style="">
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-drawer">&nbsp;Sugerencias </a>
+              <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-drawer">&nbsp;Lista de Sugerencias</a></h3>
             <?php
               if (isset($_GET['id'])) {
                 $id = $_GET['id'];
@@ -107,20 +107,18 @@
                 if ($sugerencias == NULL) {
                   if ($resLugares != NULL)
                     $sugerencias = mysqli_fetch_array($resLugares);
-                  if ($sugerencias == NULL) {
-                    echo '<a href="#" class="list-group-item list-group-item-action">(Espacio vacío)</a>';
-                  }
-                  else {
+                  if ($sugerencias != NULL) {
+                      
                     $id = $sugerencias["IdPlace"];
                     $madeby = $sugerencias["MadeBy"];
                     $description = $sugerencias["Description"];
                     $name = $sugerencias["Name"];
                     $localitation = $sugerencias["Localitation"];
                     $image = $sugerencias["Image"];
-                    echo '<p class="list-group-item list-group-item-action">Lugar';
+                    echo '<p class="list-group-item list-group-item-action"><b>Lugar: </b>';
                     echo '('.$sugerencias["IdPlace"].'):'. $sugerencias["Name"];
-                    echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img class="icono" src="./img/cruz.svg" /></a>';
-                    echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&localitation='.$localitation.'&image='.$image.'&tipo=2" alt="eliminar"><img class="icono" src="./img/incluir.png" /></a></p>';
+                    echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
+                    echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&localitation='.$localitation.'&image='.$image.'&tipo=2" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
                     
                   }
                 }
@@ -130,16 +128,25 @@
                   $description = $sugerencias["Description"];
                   $name = $sugerencias["Name"];
                   $image = $sugerencias["Image"];
-                  echo '<p class="list-group-item list-group-item-action">Ruta';
+                  echo '<p class="list-group-item list-group-item-action"><b>Ruta: </b>';
                   echo '('.$sugerencias["IdRoute"].'):'. $sugerencias["Name"];
-                  echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img class="icono" src="./img/cruz.svg" /></a>';
-                  echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img class="icono" src="./img/incluir.png" /></a></p>';
+                  echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
+                  echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
                   
                 }
               }
               
             ?>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="py-3 bg-secundario" style="position: absolute; bottom: 0; width: 100%;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
         </div>
       </div>
     </div>

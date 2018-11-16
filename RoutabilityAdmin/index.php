@@ -84,11 +84,11 @@ if(isset($_POST["login"])){
    }
 ?>    
     
-<body class="bg-primary" style="">
+<body class="bg-primario" style="">
   <div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-3"><img class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
+        <div class="col-md-3"><img alt="Logo MonkeyBits" class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
         <div class="col-md-7">
           <h1 class="display-3">Routability:Granada</h1>
         </div>
@@ -100,15 +100,24 @@ if(isset($_POST["login"])){
       <div class="row">
         <div class="col-md-12">
           <div class="mx-auto col-md-12 col-10 bg-white p-5 border border-dark rounded-0" style=" transform:  translateY(-120px) ;">
-            <h1 class="mb-4 w-25" style=" transform:  translateX(50px)  translateY(-20px)  scale(1.5);"><b>Log in</b></h1>
+            <h1 class="mb-4 w-25" style=" transform:  translateX(50px)  translateY(-20px)  scale(1.5);"><b>Iniciar Sesión</b></h1>
             
             <form action="index.php" method="post" autocomplete="on">
                 
               <div class="form-group"> <input type="email" required value="Email" name="Email" onBlur="if(this.value=='')this.value='Email'" onFocus="if(this.value=='Email')this.value='' " class="form-control" placeholder="Enter email" id="form9"> </div>
-              <div class="form-group mb-3"> <input type="password" required value="Password" name="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' " class="form-control" placeholder="Password" id="form10"> <small class="form-text text-muted text-right"></small> </div> <button type="submit" name="login" value="Login" class="btn btn-secondary">Iniciar Sesión</button>
+                <div class="form-group mb-3"> <input type="password" required value="Password" name="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' " class="form-control" placeholder="Password" id="form10"> <small class="form-text text-muted text-right"></small> </div> <button type="submit" name="login" value="Login" class="btn bg-primario"><b>Iniciar Sesión</b></button>
             </form>
               
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="py-3 bg-secundario" style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
         </div>
       </div>
     </div>

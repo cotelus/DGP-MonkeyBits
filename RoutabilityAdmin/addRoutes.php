@@ -83,12 +83,12 @@ if(isset($_POST["aniadir"])){
     <link rel="stylesheet" href="./fonts.css" type="text/css">
 </head>
 
-<body class="bg-primary">
+<body class="bg-primario">
     <div class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn-secondary" href="Home.php" style="	transform:  translateX(900px)  translateY(-60px) ;">Volver a administración</a>
+                    <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn btn-primary btn-light icon-home" href="Home.php" style="	transform:  translateX(900px)  translateY(-60px) ;">&nbsp;Volver a administración</a>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@ if(isset($_POST["aniadir"])){
 
             <fieldset>
 
-                <h1>Información de la ruta</h1>
+                <h1>Añadir una ruta</h1>
 
                 <form action="addRoutes.php" method="post">
                     <div class="row">
@@ -127,7 +127,7 @@ if(isset($_POST["aniadir"])){
                                     ?>
                                     </div>
                                     <div>
-                                        <input class="bg-secondary" type="submit" name="aniadir" value="Añadir">
+                                        <input class="bg-light" type="submit" name="aniadir" value="Añadir">
                                     </div>
                             </div>
                         </div>
@@ -136,11 +136,11 @@ if(isset($_POST["aniadir"])){
             </fieldset>
         </div>
     </div>
-    <div class="py-3 bg-secondary" style="">
+    <div class="py-3 bg-secundario" style="">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p class="mb-0"><b>© 2018 MonkeyBits. All rights reserved</b></p>
+                    <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
                 </div>
             </div>
         </div>
