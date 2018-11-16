@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2018 a las 10:21:35
+-- Tiempo de generación: 16-11-2018 a las 10:40:45
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -21,28 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `routability`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `accesibility`
---
-
-CREATE TABLE `accesibility` (
-  `IdPlace` int(8) NOT NULL,
-  `RedMovility` tinyint(1) NOT NULL,
-  `RedVision` tinyint(1) NOT NULL,
-  `Foreigner` tinyint(1) NOT NULL,
-  `Deaf` tinyint(1) NOT NULL,
-  `ColourBlind` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `accesibility`
---
-
-INSERT INTO `accesibility` (`IdPlace`, `RedMovility`, `RedVision`, `Foreigner`, `Deaf`, `ColourBlind`) VALUES
-(1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -149,23 +127,24 @@ CREATE TABLE `place` (
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
-  `Image` text COLLATE utf8_spanish2_ci NOT NULL
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL,
+  `Accesibility` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `place`
 --
 
-INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Localitation`, `Image`) VALUES
-(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'Lugar bonito', 'fasefas', 'asefas', 'afsesa'),
-(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'asfas', 'asfeasef', 'afsesa', 'afsef'),
-(9, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaaa', 'asfeeasf', 'afsefsa', 'afses'),
-(10, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaa', 'fasfees', 'fasefasef', 'afsefas'),
-(11, 'admin1@gmail.com', 'usuario1@gmail.com', 'sitio de prueba', 'asfaesf', 'asfeasf', 'fasefas'),
-(12, 'admin1@gmail.com', 'usuario1@gmail.com', 'mi casa', 'afsefs', 'afsefsa', 'fasefas'),
-(13, 'admin1@gmail.com', 'usuario1@gmail.com', 'tu casa', 'fasefsa', 'fasfesef', 'asfeeas'),
-(14, 'admin1@gmail.com', 'usuario1@gmail.com', 'bar comida rica', 'fasefs', 'afsfs', 'asefsa'),
-(15, 'admin1@gmail.com', 'usuario1@gmail.com', 'restaurante mexicano', 'aseffs', 'afses', 'afsef');
+INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Localitation`, `Image`, `Accesibility`) VALUES
+(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'Lugar bonito', 'fasefas', 'asefas', 'afsesa', ''),
+(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'asfas', 'asfeasef', 'afsesa', 'afsef', ''),
+(9, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaaa', 'asfeeasf', 'afsefsa', 'afses', ''),
+(10, 'admin1@gmail.com', 'usuario1@gmail.com', 'holaa', 'fasfees', 'fasefasef', 'afsefas', ''),
+(11, 'admin1@gmail.com', 'usuario1@gmail.com', 'sitio de prueba', 'asfaesf', 'asfeasf', 'fasefas', ''),
+(12, 'admin1@gmail.com', 'usuario1@gmail.com', 'mi casa', 'afsefs', 'afsefsa', 'fasefas', ''),
+(13, 'admin1@gmail.com', 'usuario1@gmail.com', 'tu casa', 'fasefsa', 'fasfesef', 'asfeeas', ''),
+(14, 'admin1@gmail.com', 'usuario1@gmail.com', 'bar comida rica', 'fasefs', 'afsfs', 'asefsa', ''),
+(15, 'admin1@gmail.com', 'usuario1@gmail.com', 'restaurante mexicano', 'aseffs', 'afses', 'afsef', '');
 
 -- --------------------------------------------------------
 
@@ -193,19 +172,20 @@ CREATE TABLE `route` (
   `MadeBy` varchar(50) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Image` text COLLATE utf8_spanish2_ci NOT NULL
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL,
+  `Accesibility` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `route`
 --
 
-INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
-(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasefas', 'fasefasef', 'asfasefa'),
-(2, 'admin2@hotmail.com', 'usuariobloqueado@gmail.com', 'Ruta interesante', 'asfasef', 'asfeasef'),
-(3, 'admin1@gmail.com', 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes'),
-(4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses'),
-(5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs');
+INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`, `Accesibility`) VALUES
+(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasefas', 'fasefasef', 'asfasefa', ''),
+(2, 'admin2@hotmail.com', 'usuariobloqueado@gmail.com', 'Ruta interesante', 'asfasef', 'asfeasef', ''),
+(3, 'admin1@gmail.com', 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes', ''),
+(4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses', ''),
+(5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs', '');
 
 -- --------------------------------------------------------
 
@@ -233,15 +213,16 @@ CREATE TABLE `suggestedplace` (
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Image` text COLLATE utf8_spanish2_ci NOT NULL
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL,
+  `Accesibility` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `suggestedplace`
 --
 
-INSERT INTO `suggestedplace` (`IdPlace`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`) VALUES
-(3, 'usuario1@gmail.com', 'faef', 'asfe', 'fase', 'afsfs');
+INSERT INTO `suggestedplace` (`IdPlace`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `Accesibility`) VALUES
+(3, 'usuario1@gmail.com', 'faef', 'asfe', 'fase', 'afsfs', '');
 
 -- --------------------------------------------------------
 
@@ -254,23 +235,24 @@ CREATE TABLE `suggestedroute` (
   `MadeBy` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Image` text COLLATE utf8_spanish2_ci NOT NULL
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL,
+  `Accesibility` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `suggestedroute`
 --
 
-INSERT INTO `suggestedroute` (`IdRoute`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
-(1240, 'usuariobloqueado@gmail.com', 'fasef', 'fasef', 'asfes'),
-(1241, 'usuariobloqueado@gmail.com', 'fsfsefa', 'asfsae', 'fsefs'),
-(1242, 'usuario1@gmail.com', 'fsfa', 'fasef', 'sasfes'),
-(1243, 'usuario1@gmail.com', 'afsfe', 'asef', 'asfes'),
-(1244, 'usuario1@gmail.com', 'fasfe', 'asfeasf', 'afses'),
-(1245, 'usuariobloqueado@gmail.com', 'afsefas', 'asfas', 'asfesf'),
-(1246, 'usuario1@gmail.com', 'fasef', 'asefas', 'fasfesf'),
-(1247, 'usuario1@gmail.com', 'fasef', 'afsef', 'fasfe'),
-(1248, 'usuariobloqueado@gmail.com', 'fsfa', 'afsfe', 'asfe');
+INSERT INTO `suggestedroute` (`IdRoute`, `MadeBy`, `Name`, `Description`, `Image`, `Accesibility`) VALUES
+(1240, 'usuariobloqueado@gmail.com', 'fasef', 'fasef', 'asfes', ''),
+(1241, 'usuariobloqueado@gmail.com', 'fsfsefa', 'asfsae', 'fsefs', ''),
+(1242, 'usuario1@gmail.com', 'fsfa', 'fasef', 'sasfes', ''),
+(1243, 'usuario1@gmail.com', 'afsfe', 'asef', 'asfes', ''),
+(1244, 'usuario1@gmail.com', 'fasfe', 'asfeasf', 'afses', ''),
+(1245, 'usuariobloqueado@gmail.com', 'afsefas', 'asfas', 'asfesf', ''),
+(1246, 'usuario1@gmail.com', 'fasef', 'asefas', 'fasfesf', ''),
+(1247, 'usuario1@gmail.com', 'fasef', 'afsef', 'fasfe', ''),
+(1248, 'usuariobloqueado@gmail.com', 'fsfa', 'afsfe', 'asfe', '');
 
 -- --------------------------------------------------------
 
@@ -315,12 +297,6 @@ INSERT INTO `visit` (`IdRoute`, `IdPlace`, `Email`, `Date`, `Rating`) VALUES
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `accesibility`
---
-ALTER TABLE `accesibility`
-  ADD PRIMARY KEY (`IdPlace`);
 
 --
 -- Indices de la tabla `adminuser`
@@ -445,12 +421,6 @@ ALTER TABLE `suggestedroute`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `accesibility`
---
-ALTER TABLE `accesibility`
-  ADD CONSTRAINT `accesibility_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `appearsuggested`
