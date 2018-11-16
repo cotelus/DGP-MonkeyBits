@@ -42,7 +42,7 @@
   <div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-3"><img class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
+        <div class="col-md-3"><img title="Logo MonkeyBits" alt="Logo MonkeyBits" class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
         <div class="col-md-7">
           <h1 class="display-3">Routability:Granada</h1>
         </div>
@@ -96,15 +96,6 @@
           </div>
         </div>
       </div>
-    <div class="py-3 bg-secundario" style="">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
-        </div>
-      </div>
-    </div>
-  </div>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

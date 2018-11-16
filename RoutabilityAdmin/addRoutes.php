@@ -25,14 +25,15 @@ if (!$conexion->set_charset("utf8")) {
 
 if(isset($_POST["aniadir"])){
  
-    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['lugares']) && !empty($_POST['imagen'])){
+    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['lugares']) && !empty($_POST['accesibilidad']) && !empty($_POST['imagen'])){
          
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
          $email = $_SESSION['EMAIL'];
+         $accesibilidad = $_POST['accesibilidad'];
 
-        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen')"))){
+        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`, `Accesibility`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen', '$accesibilidad')"))){
 
             echo "Fallo del query de rutas";
             exit();
@@ -112,6 +113,9 @@ if(isset($_POST["aniadir"])){
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group"> <label><b>Descripción de la ruta:</b></label><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción de la ruta..." maxlength="10000" rows="10" cols="50" onFocus="if(this.value=='descripcion')this.value='' "></textarea></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group"> <label><b>Accesibilidad de la ruta:</b></label><br /><textarea required value="" name="accesibilidad" placeholder="Escribe la accesibilidad de la ruta..." maxlength="10000" rows="10" cols="50" onFocus="if(this.value=='accesibilidad')this.value='' "></textarea></div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group"> <label><b>Lugares:</b></label><br />

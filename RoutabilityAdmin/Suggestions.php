@@ -81,7 +81,7 @@
                   $name = $_GET['name'];
                   $description = $_GET['description'];
                   $image = $_GET['image'];
-                  $email = "admin1@gmail.com";    //Aquí hay que usar el nombre del admin que tiene iniciada la sesión
+                  $email = $_SESSION['EMAIL'];    //Aquí hay que usar el nombre del admin que tiene iniciada la sesión
                   mysqli_query($conexion, "Insert into place(IdPlace, Email, MadeBy, Name, Description, Localitation, Image) values('NULL', '$email', '$madeby', '$name', '$description', '$localitation', '$image')");
                   mysqli_query($conexion, "DELETE from suggestedplace where IdPlace='".$id."'");
                 }
@@ -90,7 +90,7 @@
                   $name = $_GET['name'];
                   $description = $_GET['description'];
                   $image = $_GET['image'];
-                  $email = "admin1@gmail.com";
+                  $email = $_SESSION['EMAIL'];
                   mysqli_query($conexion, "Insert into route(IdRoute, Email, MadeBy, Name, Description, Image) values('NULL', '$email', '$madeby', '$name', '$description', '$image')");
                   mysqli_query($conexion, "DELETE from suggestedroute where IdRoute='".$id."'");      
                 }
@@ -138,15 +138,6 @@
               
             ?>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <div class="py-3 bg-secundario" style="position: absolute; bottom: 0; width: 100%;">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
         </div>
       </div>
     </div>

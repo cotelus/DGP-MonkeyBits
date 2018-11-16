@@ -98,15 +98,7 @@
       </div>
     </div>
   </div>
-    <div class="py-3 bg-secundario" style="position: absolute; bottom: 0; width: 100%;">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
-        </div>
-      </div>
-    </div>
-  </div>
+    
 </body>
 <?php
   mysqli_close($conexion);

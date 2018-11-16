@@ -88,7 +88,7 @@ if(isset($_POST["login"])){
   <div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-3"><img alt="Logo MonkeyBits" class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
+        <div class="col-md-3"><img title="Logo MonkeyBits" alt="Logo MonkeyBits" class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
         <div class="col-md-7">
           <h1 class="display-3">Routability:Granada</h1>
         </div>
@@ -109,15 +109,6 @@ if(isset($_POST["login"])){
             </form>
               
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    <div class="py-3 bg-secundario" style="">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
         </div>
       </div>
     </div>

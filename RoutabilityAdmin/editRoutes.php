@@ -30,9 +30,10 @@ if(isset($_POST["editar"])){
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
+         $accesibilidad=$_POST['accesibilidad'];
 
         //EDITAMOS TABLA RUTA
-        if(!($QUERY = mysqli_query($conexion, "UPDATE `route` SET `Name`='".$nombre."',`Description`='".$descripcion."',`Image`='".$imagen."' WHERE `IdRoute` =".$id))){
+        if(!($QUERY = mysqli_query($conexion, "UPDATE `route` SET `Name`='".$nombre."',`Description`='".$descripcion."',`Image`='".$imagen."', `Accesibility`='".$accesibilidad."' WHERE `IdRoute` =".$id))){
 
             $MESSAGE = "ERROR AL EDITAR LA RUTA";
             echo "Fallo del query de rutas";
@@ -67,6 +68,7 @@ if(isset($_POST["editar"])){
             $nomb=$nombre;
             $desc=$descripcion;
             $img=$imagen;
+            $acc=$accesibilidad;
             
             $MESSAGE = "RUTA EDITADA";
 
@@ -83,7 +85,8 @@ if(isset($_POST["editar"])){
         $texto = mysqli_fetch_assoc($text_result);
         $nomb=$texto['Name'];
         $desc=$texto['Description'];
-        $img=$texto['Image'];    
+        $img=$texto['Image'];  
+        $acc=$texto['Accesibility'];  
 
 }
        
@@ -132,6 +135,9 @@ if(isset($_POST["editar"])){
                         <div class="col-md-6">
                             <?php echo "<div class='form-group'> <label>Descripción de la ruta</label><br/><textarea name='descripcion' placeholder='Escribe la descripción de la ruta...' maxlength='10000' rows='10' cols='50' onFocus='if(this.value=='descripcion')this.value='' '>".$desc."</textarea></div>";?>
                         </div>
+                        <div class="col-md-6">
+                            <?php echo "<div class='form-group'> <label>Accesibilidad de la ruta</label><br/><textarea name='accesibilidad' placeholder='Escribe la accesibilidad de la ruta...' maxlength='10000' rows='10' cols='50' onFocus='if(this.value=='accesibilidad')this.value='' '>".$acc."</textarea></div>";?>
+                        </div>
                         <!-- AQUI ES DONDE PUEDE ESTAR EL PROBLEMA -->
                         <div class="col-md-6">
                             <div class="form-group"> <label><b>Lugares:</b></label><br />
@@ -175,15 +181,6 @@ if(isset($_POST["editar"])){
                     </div>
                 <?php echo"</form>";?>
             </fieldset>
-        </div>
-    </div>
-    <div class="py-3 bg-secundario" style="">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
-                </div>
-            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

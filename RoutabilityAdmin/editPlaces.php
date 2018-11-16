@@ -30,8 +30,9 @@ if(isset($_POST["editar"])){
          $descripcion=$_POST['descripcion'];
          $localization=$_POST['localization'];
          $imagen=$_POST['imagen'];
+         $accesibilidad=$_POST['accesibilidad'];
     
-    if(!($QUERY = mysqli_query($conexion, "UPDATE `place` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Localitation`='".$localization."', `Image`='".$imagen."' WHERE `IdPlace`=".$id))){
+    if(!($QUERY = mysqli_query($conexion, "UPDATE `place` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Localitation`='".$localization."', `Image`='".$imagen."', `Accesibility`='".$accesibilidad."' WHERE `IdPlace`=".$id))){
     
         $MESSAGE = "ERROR AL EDITAR EL LUGAR";
         
@@ -44,6 +45,7 @@ if(isset($_POST["editar"])){
         $desc=$descripcion;
         $loc=$localization;
         $img=$imagen;
+        $acc=$accesibilidad;
         
         $MESSAGE = "LUGAR EDITADO";
     }
@@ -62,6 +64,7 @@ if(isset($_POST["editar"])){
         $desc=$texto['Description'];
         $loc=$texto['Localitation'];
         $img=$texto['Image'];
+        $acc=$texto['Accesibility'];
     
 
 }
@@ -110,6 +113,9 @@ if(isset($_POST["editar"])){
       <div class="row">
         <div class="col-md-6">
             <?php echo "<div class='form-group'> <label>Descripción del lugar</label><br/><textarea name='descripcion' placeholder='Escribe la descripción del lugar...' maxlength='10000' rows='10' cols='50' onFocus='if(this.value=='descripcion')this.value='' '>".$desc."</textarea></div>"?>    
+        </div>
+        <div class="col-md-6">
+            <?php echo "<div class='form-group'> <label>Accesibilidad del lugar</label><br/><textarea name='accesibilidad' placeholder='Escribe la accesibilidad del lugar...' maxlength='10000' rows='10' cols='50' onFocus='if(this.value=='accesibilidad')this.value='' '>".$acc."</textarea></div>"?>    
         </div>
         <div class="col-md-6">
             <?php echo "<div class='form-group'> <label>Localización del lugar</label><br/><textarea  name='localization' placeholder='Escribe la localización del lugar...' maxlength='10000' rows='10' cols='50' onFocus='if(this.value=='localization')this.value='' '>".$loc."</textarea></div>"?>

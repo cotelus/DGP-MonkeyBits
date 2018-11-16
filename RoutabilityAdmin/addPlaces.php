@@ -25,15 +25,16 @@ if (!$conexion->set_charset("utf8")) {
 
 if(isset($_POST["aniadir"])){
  
-    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['localization']) && !empty($_POST['imagen'])){
+    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['localization']) && !empty($_POST['imagen']) && !empty($_POST['accesibilidad'])){
          
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $localization=$_POST['localization'];
          $imagen=$_POST['imagen'];
          $email = $_SESSION['EMAIL'];
+         $accesibilidad = $_POST['accesibilidad'];
         
-    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`) VALUES (null, '$email', null, '$descripcion', '$localization', '$nombre', '$imagen')"))){
+    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `Accesibility`) VALUES (null, '$email', null, '$descripcion', '$localization', '$nombre', '$imagen', '$accesibilidad')"))){
     
         echo "Fallo del query de lugares";
         exit();
@@ -93,21 +94,15 @@ if(isset($_POST["aniadir"])){
             <div class="form-group"> <label><b>Descripción del lugar</b></label><br/><textarea required value="" name="descripcion" placeholder="Escribe la descripción del lugar..." maxlength="10000" rows="10" cols="50" onFocus="if(this.value=='descripcion')this.value='' "></textarea></div>    
         </div>
         <div class="col-md-6">
+            <div class="col-md-6">
+            <div class="form-group"> <label><b>Accesibilidad del lugar</b></label><br/><textarea required value="" name="accesibilidad" placeholder="Escribe la accesibilidad del lugar..." maxlength="10000" rows="10" cols="50" onFocus="if(this.value=='accesibilidad')this.value='' "></textarea></div>    
+            </div>
             <div class="form-group"> <label><b>Localización del lugar</b></label><br/><textarea required value="" name="localization" placeholder="Escribe la localización del lugar..." maxlength="10000" rows="10" cols="50" onFocus="if(this.value=='localization')this.value='' "></textarea></div>
             <input class="bg-light" type="submit" name="aniadir" value="Añadir">
         </div>
       </div>
             </form>
         </fieldset>
-    </div>
-  </div>
-  <div class="py-3 bg-secundario" style="">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
-        </div>
-      </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
