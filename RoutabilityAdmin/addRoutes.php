@@ -89,7 +89,7 @@ if(isset($_POST["aniadir"])){
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="display-3"><b>Routability: Granada</b></h1><a class="btn btn btn-primary btn-light icon-home" href="Home.php" style="	transform:  translateX(900px)  translateY(-60px) ;">&nbsp;Volver a administración</a>
+                    <h1 class="display-3"><b>Routability: Granada</b></h1>
                 </div>
             </div>
 
@@ -104,21 +104,30 @@ if(isset($_POST["aniadir"])){
                     <div class="row">
 
                         <div class="col-md-6">
-                            <div class="form-group"> <label><b>Nombre de la ruta:</b></label><input type="nombre" class="form-control" required value="" name="nombre" placeholder="Introducir el nombre" onBlur="if(this.value=='')this.value='nombre'" onFocus="if(this.value=='nombre')this.value='' "></div>
+                            <div class="form-group">
+                                <h4><b>Nombre de la ruta:</b></h4><input type="nombre" class="form-control" required value="" name="nombre" placeholder="Introducir el nombre" onBlur="if(this.value=='')this.value='nombre'" onFocus="if(this.value=='nombre')this.value='' ">
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"> <label><b>Imagen de la ruta:</b></label><input type="imagen" class="form-control" required value="" name="imagen" placeholder="Introducir la imagen" onBlur="if(this.value=='')this.value='imagen'" onFocus="if(this.value=='imagen')this.value='' "></div>
+                            <div class="form-group">
+                                <h4><b>Imagen de la ruta:</b></h4><input type="imagen" class="form-control" required value="" name="imagen" placeholder="Introducir la imagen" onBlur="if(this.value=='')this.value='imagen'" onFocus="if(this.value=='imagen')this.value='' ">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group"> <label><b>Descripción de la ruta:</b></label><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción de la ruta..." maxlength="10000" rows="10" cols="50" onFocus="if(this.value=='descripcion')this.value='' "></textarea></div>
+                            <div class="form-group">
+                                <h4><b>Descripción de la ruta:</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción de la ruta..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"> <label><b>Accesibilidad de la ruta:</b></label><br /><textarea required value="" name="accesibilidad" placeholder="Escribe la accesibilidad de la ruta..." maxlength="10000" rows="10" cols="50" onFocus="if(this.value=='accesibilidad')this.value='' "></textarea></div>
+                            <div class="form-group">
+                                <h4><b>Accesibilidad de la ruta:</b></h4><br /><textarea required value="" name="accesibilidad" placeholder="Escribe la accesibilidad de la ruta..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='accesibilidad')this.value='' "></textarea>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"> <label><b>Lugares:</b></label><br />
+                            <div class="form-group">
+                                <h4><b>Lugares:</b></h4><br />
                                 <div class="scroll" style="border-radius:5px; background-color:white;">
                                     <?php
                                     $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
@@ -129,10 +138,12 @@ if(isset($_POST["aniadir"])){
                                         }
                                     }
                                     ?>
-                                    </div>
-                                    <div>
-                                        <input class="bg-light" type="submit" name="aniadir" value="Añadir">
-                                    </div>
+                                </div>
+                                <hr>
+                                <div>
+                                    <input class="bg-light" type="submit" name="aniadir" value="Añadir">
+                                    &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
+                                </div>
                             </div>
                         </div>
                     </div>
