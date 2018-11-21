@@ -3,6 +3,7 @@ package com.monkeybit.routability;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,10 +27,10 @@ public class RegisterAccountActivity extends Fragment {
 
     private FirebaseAuth mAuth;
     Button newUserButton;
-    EditText emailText;
-    EditText passwordText;
-    EditText repeatPasswordText;
-    EditText nameText;
+    TextInputEditText emailText;
+    TextInputEditText passwordText;
+    TextInputEditText repeatPasswordText;
+    TextInputEditText nameText;
 
     @Nullable
     @Override
@@ -114,8 +115,8 @@ public class RegisterAccountActivity extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "User profile updated.");
-                            Toast toast = Toast.makeText(getActivity(), "User profile updated.", Toast.LENGTH_SHORT);
-                            toast.show();
+                            //Toast toast = Toast.makeText(getActivity(), "User profile updated.", Toast.LENGTH_SHORT);
+                            //toast.show();
                         } else {
                             Log.d(TAG, "Something fail when updating user profile.");
                         }

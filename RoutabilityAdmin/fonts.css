@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?dutua4');
+  src:  url('fonts/icomoon.eot?dutua4#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?dutua4') format('truetype'),
+    url('fonts/icomoon.woff?dutua4') format('woff'),
+    url('fonts/icomoon.svg?dutua4#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home:before {
+  content: "\e900";
+  font-size: 120%;
+}
+.icon-pencil:before {
+  content: "\e905";
+  font-size: 120%;
+}
+.icon-library:before {
+  content: "\e921";
+  font-size: 120%;
+}
+.icon-map:before {
+  content: "\e94b";
+  font-size: 120%;
+}
+.icon-bell:before {
+  content: "\e951";
+  font-size: 120%;
+}
+.icon-drawer:before {
+  content: "\e95c";
+  font-size: 120%;
+}
+.icon-bubble:before {
+  content: "\e96b";
+  font-size: 120%;
+}
+.icon-users:before {
+  content: "\e972";
+  font-size: 120%;
+}
+.icon-lock:before {
+  content: "\e98f";
+  font-size: 120%;
+}
+.icon-unlocked:before {
+  content: "\e990";
+  font-size: 120%;
+}
+.icon-plus:before {
+  content: "\ea0a";
+  font-size: 120%;
+}
+.icon-cross:before {
+  content: "\ea0f";
+  font-size: 120%;
+}
+.icon-enter:before {
+  content: "\ea13";
+  font-size: 120%;
+}

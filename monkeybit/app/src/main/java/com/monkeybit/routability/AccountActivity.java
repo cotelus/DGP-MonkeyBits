@@ -1,8 +1,8 @@
 package com.monkeybit.routability;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,8 +23,9 @@ public class AccountActivity extends Fragment {
     private FirebaseAuth mAuth;
     Button signInButton;
     Button newUserButton;
-    EditText emailText;
-    EditText passwordText;
+    TextInputEditText emailText;
+    TextInputEditText passwordText;
+
 
     @Nullable
     @Override
@@ -93,7 +94,7 @@ public class AccountActivity extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.signed_in_succesfully), Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.signed_in_successfully), Toast.LENGTH_SHORT);
                                 toast.show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //updateUI(user);

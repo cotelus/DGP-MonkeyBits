@@ -5,7 +5,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat Password</string>
-    <string name="signed_in_succesfully">SignIn succesfully!</string>
+    <string name="signed_in_successfully">SignIn successfully!</string>
     <string name="signed_in_fail">Authentication fail!</string>
     <string name="empty_fields">The text fields are empty</string>
     <string name="logged_out">Log Out</string>
@@ -22,8 +22,20 @@
     <string name="delete_account_fail">For security you must reauthenticate before delete the account. Please sign in and then come here to delete the account.</string>
     <string name="noUser">the user is not authenticated</string>
     <string name="newName">Type the new name</string>
-
-
-    <string name="emqrew">test</string>
-
+    <string name="btChange"> Change the name </string>
+    <string name="btUpdate"> Update </string>
+    <string name="btUpdateDesc"> Click to update the name </string>
+    <string name="rutes">Rutes</string>
+    <string name="updateNameToast">profile update success</string>
+    <string name="updateNameToastCancel">Profile not update</string>
+    <string name="look_fav">Favorites</string>
+    <string name="look_maps">Maps</string>
+    <string name="accesibility_options">Accesibility Options</string>
+    <string name="options_menu">Options Menu</string>
+    <string name="alert_dialog_tittle">Attention</string>
+    <string name="dialog_alert_question_body">Are you sure you want to</string>
+    <string name="alert_dialog_positive">Accept</string>
+    <string name="alert_dialog_negative">Refuse</string>
+    <string name="close_session_dialog">logout</string>
+    <string name="delete_account_dialog">delete account</string>
 </resources>

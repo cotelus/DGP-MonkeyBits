@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">ManagerApp</string>
-    <string name="port">3306</string>
-    <string name="server">127.0.0.1</string>
-    <string name="userDB">root</string>
-    <string name="nameDB">userApp</string>
-    <string name="descrp_bt_Man">ID of the manager</string>
-
-</resources>
