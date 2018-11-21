@@ -46,13 +46,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintBottom_toTopOf="@+id/NavigationViewRoute"
             app:layout_constraintEnd_toEndOf="@+id/constraint_layout"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
         </FrameLayout>
 
         <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+            android:id="@+id/NavigationViewRoute"
             style="@style/CustomTheme"
             android:layout_width="match_parent"
             android:layout_height="70dp"

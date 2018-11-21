@@ -38,4 +38,6 @@
     <string name="alert_dialog_negative">Cancelar</string>
     <string name="close_session_dialog">cerrar sesión</string>
     <string name="delete_account_dialog">borrar cuenta</string>
+    <string name="places">Lugares</string>
+    <string name="search">Buscar</string>
 </resources>

@@ -38,4 +38,6 @@
     <string name="alert_dialog_negative">Refuse</string>
     <string name="close_session_dialog">logout</string>
     <string name="delete_account_dialog">delete account</string>
+    <string name="places">Places</string>
+    <string name="search">Search</string>
 </resources>

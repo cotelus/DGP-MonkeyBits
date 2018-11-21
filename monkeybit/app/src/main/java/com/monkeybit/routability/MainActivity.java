@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mAuth = FirebaseAuth.getInstance();
         LoadNewFragment(new MenuActivity());
         mainDrawerLayout = findViewById(R.id.main_drawer);
-        bottomNavigationView =  findViewById(R.id.bottomNavigationView);
+        bottomNavigationView =  findViewById(R.id.NavigationViewRoute);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment selectedFragment = null;
         switch (item.getItemId()) {
             case R.id.menu_rutas:
-                selectedFragment = new MenuActivity();
+                selectedFragment = new RouteActivity();
                 break;
             case R.id.menu_maps:
                 // @TODO: asignar a selectedFragment el Fragmen de mapas

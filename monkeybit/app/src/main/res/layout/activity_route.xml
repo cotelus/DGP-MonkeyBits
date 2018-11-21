@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/routeFrame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ExtraText">
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/NavigationViewRoute"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        app:elevation="0dp"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/colorFont"
+        app:itemTextColor="@color/colorFont"
+        app:menu="@menu/navigationbarroutemenu" />
+
+
+</FrameLayout>
