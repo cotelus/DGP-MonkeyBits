@@ -41,13 +41,12 @@ if(isset($_POST["login"])){
          ?>
 
          <script>
-            
+            var exito = true;
             firebase.auth().signInWithEmailAndPassword('<?php echo $EMAIL ?>', '<?php echo $PASSWORD ?>').catch(function(error) {
     
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            var exito = false;
             if (errorCode === 'auth/wrong-password') {
               exito = false;
               alert('Contraseña incorrecta');
@@ -67,16 +66,11 @@ if(isset($_POST["login"])){
             else{
               exito = true;
             }
-                
-            if(exito){
-              
-                <?php
-                    $_SESSION['EMAIL'] = $EMAIL;
-                    header("Location: Home.php");
-                ?>
-                } 
+            <?php
+              $_SESSION["EMAIL"] = $_POST["Email"];
+            ?>
           });
-             
+  
          </script>
     <?php
              
@@ -117,5 +111,25 @@ if(isset($_POST["login"])){
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" style=""></script>
 </body>
+<script>
 
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      var displayName = user.displayName;
+      var email = user.email;
+      var emailVerified = user.emailVerified;
+      var photoURL = user.photoURL;
+      var isAnonymous = user.isAnonymous;
+      var uid = user.uid;
+      var providerData = user.providerData;
+      location.href="Home.php";
+      console.log("Sesión iniciada");
+    } else {
+      console.log("Usuario no inicia sesión");
+    }
+});
+
+
+</script>
 </html>
