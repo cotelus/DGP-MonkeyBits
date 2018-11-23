@@ -90,7 +90,7 @@
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="Home.php" class="btn btn-light margenes icon-home">&nbsp;Volver a administración</a>
+                                <a href="viewRoutes.php" class="btn btn-light margenes icon-home">&nbsp;Volver a vista de rutas</a>
                             </div>
                         </div>
                     </div>
