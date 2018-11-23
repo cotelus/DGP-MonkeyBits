@@ -44,7 +44,7 @@
       <div class="row">
         <div class="col-md-3"><img title="Logo MonkeyBits" alt="Logo MonkeyBits" class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
         <div class="col-md-7">
-          <h1 class="display-3">Routability:Granada</h1>
+          <h1 class="display-3">Routability: Granada</h1>
         </div>
         <div class="col-md-2"><a class="btn btn-light w-100 p-2 align-items-center icon-enter" href="index.php" onClick="cerrarSesion()">&nbsp;Cerrar Sesión</a></div>
       </div>
@@ -54,39 +54,55 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="mx-auto col-md-12 col-10 bg-white p-5 border border-dark rounded-0" style=" transform:  translateY(-120px) ;">
+          <div class="mx-auto col-md-12 col-10 bg-white p-5 border border-dark rounded-0" style=" transform:  translateY(-120px) ; min-width: 325px">
               <div class="py-1">
                 <div class="container">
-                  <div class="row">
-                    <div class="col-md-3">
+                  <div class="row" style="margin-top: 10%">
+                    <div class="col-md-3 py-1">
                       <h1 class="">Rutas:</h1>
                     </div>
-                    <div class="col-md-9">
-                      <div class="btn-group"> <a href="addRoutes.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir ruta</a> <a href="viewRoutes.php" class="btn btn-primary bg-primario icon-map tam-letra" style="">&nbsp;Ver rutas&nbsp; &nbsp;</a> </div>
+                    <div class="col-md-3 py-1">
+                      <a href="addRoutes.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir ruta</a> 
+                    </div>
+                    <div class="col-md-3 py-1">
+                      <a href="viewRoutes.php" class="btn btn-primary bg-primario icon-map tam-letra" style="">&nbsp;Ver rutas&nbsp; &nbsp;</a>
+                    </div>
+                    <div class="col-md-3 py-1">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="py-1 ancho">
                 <div class="container">
-                  <div class="row">
-                    <div class="col-md-3">
+                  <div class="row" style="margin-top: 10%">
+                    <div class="col-md-3 py-1">
                       <h1 class="">Lugares:</h1>
                     </div>
-                    <div class="col-md-9">
-                      <div class="btn-group ancho"> <a href="addPlaces.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir lugar</a> <a href="viewPlaces.php" class="btn btn-primary bg-primario icon-library tam-letra">&nbsp;Ver lugares</a> </div>
+                    <div class="col-md-3 py-1">
+                      <a href="addPlaces.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir lugar</a>
+                    </div>
+                    <div class="col-md-3 py-1">
+                      <a href="viewPlaces.php" class="btn btn-primary bg-primario icon-library tam-letra">&nbsp;Ver lugares</a>
+                    </div>
+                    <div class="col-md-3 py-1">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="py-1">
                 <div class="container">
-                  <div class="row">
-                    <div class="col-md-3">
+                  <div class="row" style="margin-top: 10%">
+                    <div class="col-md-3 py-1">
                       <h1 class="">Feedback:</h1>
                     </div>
-                    <div class="col-md-9">
-                      <div class="btn-group"> <a href="Comments.php" class="btn btn-primary bg-primario ancho icon-bubble tam-letra">&nbsp;Comentarios</a> <a href="Suggestions.php" class="btn btn-primary bg-primario ancho icon-drawer tam-letra">&nbsp;Sugerencias</a> <a href="Users.php" class="btn btn-primary bg-primario ancho icon-users tam-letra">&nbsp;Usuarios</a> </div>
+                    <div class="col-md-3 py-1">
+                      <a href="Comments.php" class="btn btn-primary bg-primario ancho icon-bubble tam-letra">&nbsp;Comentarios</a>
+                    </div> 
+                    <div class="col-md-3 py-1">
+                      <a href="Suggestions.php" class="btn btn-primary bg-primario ancho icon-drawer tam-letra">&nbsp;Sugerencias</a>
+                    </div> 
+                    <div class="col-md-3 py-1">
+                      <a href="Users.php" class="btn btn-primary bg-primario ancho icon-users tam-letra">&nbsp;Usuarios</a>
                     </div>
                   </div>
                 </div>

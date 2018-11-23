@@ -84,7 +84,7 @@ if(isset($_POST["login"])){
       <div class="row">
         <div class="col-md-3"><img title="Logo MonkeyBits" alt="Logo MonkeyBits" class="img-fluid d-block float-left p-2" src="./img/monkeybits2.png" width="200" height="10"></div>
         <div class="col-md-7">
-          <h1 class="display-3">Routability:Granada</h1>
+          <h1 class="display-3">Routability: Granada</h1>
         </div>
       </div>
     </div>
@@ -93,8 +93,8 @@ if(isset($_POST["login"])){
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="mx-auto col-md-12 col-10 bg-white p-5 border border-dark rounded-0" style=" transform:  translateY(-120px) ;">
-            <h1 class="mb-4 w-25" style=" transform:  translateX(50px)  translateY(-20px)  scale(1.5);"><b>Iniciar Sesión</b></h1>
+          <div class="mx-auto col-md-12 col-10 bg-white p-5 border border-dark rounded-0" style=" transform:  translateY(-120px) ; min-width: 325px">
+            <h1 class="mb-4 w-25" style=" transform:  translateY(-20px)  scale(1.5);"><b>Iniciar Sesión</b></h1>
             
             <form action="index.php" method="post" autocomplete="on">
                 
