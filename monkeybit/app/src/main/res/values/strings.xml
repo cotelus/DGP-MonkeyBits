@@ -40,6 +40,12 @@
     <string name="delete_account_dialog">delete account</string>
     <string name="places">Places</string>
     <string name="search">Search</string>
+    <string name="suggest_place">Suggest Place</string>
+    <string name="suggest_place_title">New Place</string>
+    <string name="new_name_place">New Place\'s Name</string>
+    <string name="new_place_description">Place Description</string>
+    <string name="place_localization">Place Localization</string>
+    <string name="suggest_button">Suggest</string>
     <string name="rutes_menu">Rutes/Places</string>
     <string name="tittle_rute">Rute Name</string>
     <string name="desc_rute">Description</string>
