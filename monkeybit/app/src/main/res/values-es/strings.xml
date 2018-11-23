@@ -40,4 +40,7 @@
     <string name="delete_account_dialog">borrar cuenta</string>
     <string name="places">Lugares</string>
     <string name="search">Buscar</string>
+    <string name="rutes_menu">Rutas/Lugares</string>
+    <string name="tittle_rute">Nombre de ruta</string>
+    <string name="desc_rute">Descripción</string>
 </resources>

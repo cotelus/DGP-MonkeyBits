@@ -9,7 +9,7 @@
         android:title="@string/rutes"/>
 
     <item
-        android:id="@+id/menu_maps"
+        android:id="@+id/menu_places"
         style="@style/CustomTheme"
         android:clickable="true"
         android:focusable="true"
@@ -17,7 +17,7 @@
         android:title="@string/places" />
 
     <item
-        android:id="@+id/menu_fav"
+        android:id="@+id/menu_search"
         style="@style/CustomTheme"
         android:clickable="true"
         android:focusable="true"
