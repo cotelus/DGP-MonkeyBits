@@ -1,6 +1,7 @@
 <?php
 
   $MESSAGE = "";
+  $id = $_GET['id'];
 
   session_start();
 
@@ -22,15 +23,13 @@
       printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
       exit();
   }
-  $res = mysqli_query($conexion, "SELECT count(*) from place");
-  $numPlaces = mysqli_fetch_array($res);
-  $numeroPlaces = $numPlaces[0];
-  $numPaginas = $numeroPlaces/10 +1;
-  $numUltimaPagina = $numeroPlaces % 10;
-  $Places= NULL;
-  if ($numPlaces[0]>0) {
-    $Places = mysqli_query($conexion,"SELECT * FROM place");
-  }
+
+  if(!($Places = mysqli_query($conexion,"SELECT * FROM place WHERE IdPlace=".$id))){
+    
+            echo "Fallo del query de selección del lugar";
+            exit();
+
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,23 +52,9 @@
             <div class="row">
                 <div class="col-md-12" style="">
                     <div class="list-group">
-                        <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-library">&nbsp;Lista de Lugares</a></h3>
+                        <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-library">&nbsp;Información del Lugar</a></h3>
                         <?php
-              if (isset($_GET['id'])) {
-                
-                  $id = $_GET['id'];
-                  
-                  mysqli_query($conexion, "DELETE from place where IdPlace='".$id."'");
-                  
-                  header("Location: viewPlaces.php");
-              }
-              if ($numeroPlaces < 10)
-                $maxLista = 10;
-              else 
-                $maxLista = $numeroPlaces;
-              for ($k = 0; $k < $maxLista; $k++) {
-                $lugares = NULL;
-                if ($lugares == NULL) {
+
                   if ($Places != NULL)
                     $lugares = mysqli_fetch_array($Places);
                   
@@ -77,21 +62,26 @@
 
                     $id = $lugares["IdPlace"];
                     $nombre = $lugares["Name"];
+                    $desc = $lugares["Description"];
+                    $loc = $lugares["Localitation"];
+                    $acc = $lugares["Accesibility"];
+                    $img = $lugares["Image"];
 
-                    echo '<p class="list-group-item list-group-item-action miembro-lista"><a href="Place.php?id='.$id.'">'.$nombre.'</a>';  
-                      
-                    echo '<a href="viewPlaces.php?id='.$id.'"><img class="icono" title="Eliminar Lugar" alt="Eliminar Lugar" src="./img/cruz.svg" /></a>';
-                    echo '<a href="editPlaces.php?id='.$id.'"><img class="icono3" title="Editar Lugar" alt="Editar Lugar" src="./img/editar.png" /></a></p>';   
+                    echo '<div class="list-group-item list-group-item-action miembro-lista">';
+                    echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
+                    echo '<img class="foto" title="foto de '.$nombre.'" alt="foto de '.$nombre.'" src="'.$img.'">';
+                    echo '<p><b>Descripción:</b><br>'.$desc.'</p>';
+                    echo '<p><b>Localización:</b><br>'.$loc.'</p>';
+                    echo '<p><b>Accesibilidad:</b><br>'.$acc.'</p>';
+                    echo '</div>';
                   }
-                }
-              }
               
             ?>
                     </div>
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="Home.php" class="btn btn-light margenes icon-home">&nbsp;Volver a administración</a>
+                                <a href="viewPlaces.php" class="btn btn-light icon-library">&nbsp;Volver a vista de lugares</a>
                             </div>
                         </div>
                     </div>

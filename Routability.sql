@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2018 a las 12:24:22
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.11
+-- Tiempo de generación: 23-11-2018 a las 18:22:57
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -78,8 +78,11 @@ CREATE TABLE `appearverified` (
 
 INSERT INTO `appearverified` (`IdPlace`, `IdRoute`, `Sequence`) VALUES
 (1, 8, 1),
+(1, 9, 1),
 (2, 1, 2),
-(2, 8, 2);
+(2, 8, 2),
+(2, 9, 2),
+(16, 9, 3);
 
 -- --------------------------------------------------------
 
@@ -140,7 +143,8 @@ CREATE TABLE `place` (
 
 INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Localitation`, `Image`, `Accesibility`) VALUES
 (1, 'admin1@gmail.com', 'usuario1@gmail.com', 'Lugar bonito', 'fasefas', 'asefas', 'afsesa', ''),
-(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'Cansado del nombre asfas', 'asfeasef', 'afsesa', 'afsef', '');
+(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'Cansado del nombre asfas', 'asfeasef', 'afsesa', 'afsef', ''),
+(16, 'dgp.monkeybits@gmail.com', NULL, 'Parque Almunia', 'Delimitado por los viales Avda. de Andalucía, Calle Periodista Eugenio Selles y Calle Periodista José Mezcua Ruiz se extiende este bonito parque.\r\n\r\nTiene una distribución triangular rodeado por una valla y muro, además de existir distintas pantallas vegetales en cada uno de los lados: ciprés, pruno, espino de fuego y laurel. Se desarrolla a partir de diversos paseos que se complementan y relacionan a lo largo de todo su recorrido, delimitando numerosas zonas de estancia con elementos característicos como el quiosco de música o la fuente con pérgola de glicinas en su parte posterior. Uno de los elementos principales del parque es la acequia, atravesada por puentecillos de piedra que dan paso a cuadros de aromáticas, hacia un lado, y a una paseo de arces, al otro.\r\n\r\nDistrito: Chana\r\nSuperficie: 32.142 metros cuadrados\r\nTipo de parque: Cerrado', 'Delimitado por los viales Avda. de Andalucía. Granada.', 'http://www.besarsengranada.es/wp-content/uploads/2015/05/besarse-en-granada-flores-parque-almunia-5_21390.jpg', 'Cuenta con rampas para el acceso de sillas de ruedas, además de un camino de piedra para poder disfrutar de todo el parque sin restricción para las zonas de arena.');
 
 -- --------------------------------------------------------
 
@@ -182,7 +186,8 @@ INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image
 (3, 'admin1@gmail.com', 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes', ''),
 (4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses', ''),
 (5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs', ''),
-(8, 'dgp.monkeybits@gmail.com', NULL, 'fasefasfesasefsa', 'asefasfsea', 'fsafease', '');
+(8, 'dgp.monkeybits@gmail.com', NULL, 'fasefasfesasefsa', 'asefasfsea', 'fsafease', ''),
+(9, '', NULL, 'Parques y Jardines', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg', 'Tiene un poco de todo, pero mucho de nada.');
 
 -- --------------------------------------------------------
 
@@ -397,13 +402,13 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT de la tabla `place`
 --
 ALTER TABLE `place`
-  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `route`
 --
 ALTER TABLE `route`
-  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `suggestedplace`
@@ -436,66 +441,11 @@ ALTER TABLE `appearverified`
   ADD CONSTRAINT `appearverified_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `favoriteplaces`
---
-ALTER TABLE `favoriteplaces`
-  ADD CONSTRAINT `favoriteplaces_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `favoriteplaces_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `favoriteroutes`
 --
 ALTER TABLE `favoriteroutes`
   ADD CONSTRAINT `favoriteroutes_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `favoriteroutes_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `place`
---
-ALTER TABLE `place`
-  ADD CONSTRAINT `place_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `adminuser` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `place_ibfk_2` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `placecomments`
---
-ALTER TABLE `placecomments`
-  ADD CONSTRAINT `placecomments_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `placecomments_ibfk_2` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `route`
---
-ALTER TABLE `route`
-  ADD CONSTRAINT `route_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `adminuser` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `route_ibfk_2` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `routecomments`
---
-ALTER TABLE `routecomments`
-  ADD CONSTRAINT `routecomments_ibfk_1` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `routecomments_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `suggestedplace`
---
-ALTER TABLE `suggestedplace`
-  ADD CONSTRAINT `suggestedplace_ibfk_1` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `suggestedroute`
---
-ALTER TABLE `suggestedroute`
-  ADD CONSTRAINT `suggestedroute_ibfk_1` FOREIGN KEY (`MadeBy`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `visit`
---
-ALTER TABLE `visit`
-  ADD CONSTRAINT `visit_ibfk_1` FOREIGN KEY (`IdPlace`) REFERENCES `place` (`IdPlace`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `visit_ibfk_2` FOREIGN KEY (`IdRoute`) REFERENCES `route` (`IdRoute`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `visit_ibfk_3` FOREIGN KEY (`Email`) REFERENCES `user` (`Email`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

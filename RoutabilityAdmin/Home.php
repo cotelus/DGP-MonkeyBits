@@ -62,7 +62,7 @@
                       <h1 class="">Rutas:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group"> <a href="addRoutes.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir ruta</a> <a href="viewRoutes.php" class="btn btn-primary bg-primario icon-map tam-letra" style="">&nbsp;Ver ruta&nbsp; &nbsp;</a> </div>
+                      <div class="btn-group"> <a href="addRoutes.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir ruta</a> <a href="viewRoutes.php" class="btn btn-primary bg-primario icon-map tam-letra" style="">&nbsp;Ver rutas&nbsp; &nbsp;</a> </div>
                     </div>
                   </div>
                 </div>
@@ -74,7 +74,7 @@
                       <h1 class="">Lugares:</h1>
                     </div>
                     <div class="col-md-9">
-                      <div class="btn-group ancho"> <a href="addPlaces.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir lugar</a> <a href="viewPlaces.php" class="btn btn-primary bg-primario icon-library tam-letra">&nbsp;Ver lugar</a> </div>
+                      <div class="btn-group ancho"> <a href="addPlaces.php" class="btn btn-primary bg-primario icon-plus tam-letra">&nbsp;Añadir lugar</a> <a href="viewPlaces.php" class="btn btn-primary bg-primario icon-library tam-letra">&nbsp;Ver lugares</a> </div>
                     </div>
                   </div>
                 </div>
