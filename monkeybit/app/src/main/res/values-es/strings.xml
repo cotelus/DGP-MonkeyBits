@@ -40,4 +40,10 @@
     <string name="delete_account_dialog">borrar cuenta</string>
     <string name="places">Lugares</string>
     <string name="search">Buscar</string>
+    <string name="suggest_place">Sugerir Lugar</string>
+    <string name="suggest_place_title">Creación Lugar</string>
+    <string name="new_name_place">Nombre del Lugar</string>
+    <string name="new_place_description">Descripción del Lugar</string>
+    <string name="place_localization">Ubicación del Lugar</string>
+    <string name="suggest_button">Sugerir</string>
 </resources>
