@@ -112,7 +112,7 @@ if(isset($_POST["editar"])){
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <?php echo "<div class='form-group'> <h4><b>Descripción del lugar</b></h4><br/><textarea name='descripcion' placeholder='Escribe la descripción del lugar...' maxlength='10000' rows='10' cols='56' onFocus='if(this.value=='descripcion')this.value='' '>".$desc."</textarea></div>"?>
+                        <?php echo "<div class='form-group'> <h4><b>Descripción del lugar</b></h4><br/><textarea name='descripcion' placeholder='Escribe la descripción del lugar...' maxlength='10000' rows='10' cols='73' onFocus='if(this.value=='descripcion')this.value='' '>".$desc."</textarea></div>"?>
                     </div>
                     <div class="col-md-6">
                         <?php echo "<div class='form-group'> <h4><b>Vista previa</b></h4><img title='Imagen Lugar' alt='Imagen Lugar' class='img-fluid d-block float-left p-2' style='border-radius: 15px 50px 30px;' src='".$img."' width='640' height='320'></div>"?>

@@ -1,6 +1,7 @@
 <?php
 
   $MESSAGE = "";
+  $id = $_GET['id'];
 
   session_start();
 
@@ -22,15 +23,13 @@
       printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
       exit();
   }
-  $res = mysqli_query($conexion, "SELECT count(*) from route");
-  $numRoutes = mysqli_fetch_array($res);
-  $numeroRoutes = $numRoutes[0];
-  $numPaginas = $numeroRoutes/10 +1;
-  $numUltimaPagina = $numeroRoutes % 10;
-  $Routes= NULL;
-  if ($numRoutes[0]>0) {
-    $Routes = mysqli_query($conexion,"SELECT * FROM route");
-  }
+
+  if(!($Routes = mysqli_query($conexion,"SELECT * FROM route WHERE IdRoute=".$id))){
+    
+            echo "Fallo del query de selección de la ruta";
+            exit();
+
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,44 +52,38 @@
             <div class="row">
                 <div class="col-md-12" style="">
                     <div class="list-group">
-                        <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-map">&nbsp;Lista de Rutas</a></h3>
+                        <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-map">&nbsp;Información de la ruta</a></h3>
                         <?php
-              if (isset($_GET['id'])) {
-                
-                  $id = $_GET['id'];
-                  
-                  mysqli_query($conexion, "DELETE from route where IdRoute='".$id."'");
-                  
-                  header("Location: viewRoutes.php");
-              }
-              if ($numeroRoutes < 10)
-                $maxLista = 10;
-              else 
-                $maxLista = $numeroRoutes;
-              for ($k = 0; $k < $maxLista; $k++) {
-                $rutas = NULL;
-                if ($rutas == NULL) {
+
                   if ($Routes != NULL)
                     $rutas = mysqli_fetch_array($Routes);
-                  if ($rutas != NULL) {
+                  
+                    if ($rutas != NULL) {
 
                     $id = $rutas["IdRoute"];
                     $nombre = $rutas["Name"];
+                    $desc = $rutas["Description"];
+                    $acc = $rutas["Accesibility"];
+                    $img = $rutas["Image"];
 
-                    echo '<p class="list-group-item list-group-item-action miembro-lista"><a href="Route.php?id='.$id.'">'.$nombre.'</a>'; 
-                      
-                    echo '<a href="viewRoutes.php?id='.$id.'"><img class="icono" title="Eliminar ruta" alt="Eliminar ruta" src="./img/cruz.svg" /></a>';
-                    echo '<a href="editRoutes.php?id='.$id.'"><img class="icono3" title="Editar ruta" alt="Editar ruta" src="./img/editar.png" /></a></p>';   
+                    echo '<div class="list-group-item list-group-item-action miembro-lista">';
+                    echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
+                    echo '<img class="foto" title="foto de '.$nombre.'" alt="foto de '.$nombre.'" src="'.$img.'">';
+                    echo '<p><b>Descripción:</b><br>'.$desc.'</p>';
+                    echo '<p><b>Accesibilidad:</b><br>'.$acc.'</p>';
+                    echo '<br><br><br><hr>';
+                    echo '<div>';
+                    echo '<p><b>Recorrido:</b><br><iframe style="border-radius:5px;" src="https://www.google.com/maps/d/u/1/embed?mid=1H80u_eaLwL68PnWzqQQYStDasiFKDEPf" width="640" height="480"></iframe></p>';
+                    echo '</div>';
+                    echo '</div>';
                   }
-                }
-              }
               
             ?>
                     </div>
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="Home.php" class="btn btn-light margenes icon-home">&nbsp;Volver a administración</a>
+                                <a href="viewRoutes.php" class="btn btn-light icon-map">&nbsp;Volver a vista de rutas</a>
                             </div>
                         </div>
                     </div>
