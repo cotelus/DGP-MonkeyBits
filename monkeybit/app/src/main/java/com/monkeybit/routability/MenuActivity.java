@@ -19,7 +19,7 @@ public class MenuActivity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_route, container, false);
-
+        getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, new ListRouteActivity()).commit();//by default
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }

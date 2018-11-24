@@ -17,7 +17,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_route, container, false);
-
+        getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, new ListRouteActivity()).commit(); //by default
         menuRutes = view.findViewById(R.id.NavViewRutePlace); //the fragment
         menuRutes.setOnNavigationItemSelectedListener(this); //listener, when click an option, the listener is called
 
