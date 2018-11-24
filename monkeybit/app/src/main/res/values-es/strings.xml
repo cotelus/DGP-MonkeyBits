@@ -49,4 +49,8 @@
     <string name="rutes_menu">Rutas/Lugares</string>
     <string name="tittle_rute">Nombre de ruta</string>
     <string name="desc_rute">Descripción</string>
+    <string name="list_desc_route">Descricion de la imagen</string>
+    <string name="post_desc_img">Descricion de la imagen</string>
+    <string name="post_text_tittle">Titulo de ruta</string>
+    <string name="post_text_desc">Descricion de la ruta</string>
 </resources>

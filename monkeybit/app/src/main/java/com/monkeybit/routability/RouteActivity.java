@@ -1,19 +1,16 @@
 package com.monkeybit.routability;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-//@TODO : no crea bien
+
 public class RouteActivity extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView menuRutes;
     @Nullable
@@ -30,10 +27,10 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = null;
+        Fragment selectedFragment = new ListRouteActivity();
         switch (item.getItemId()) {
             case R.id.menu_rutas:
-                selectedFragment = new RuteView();
+                selectedFragment = new ListRouteActivity();
                 break;
             case R.id.menu_places:
                 // @TODO: asignar a selectedFragment el Fragmen de opciones de lugares
@@ -47,6 +44,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
         if (selectedFragment != null) {
             getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
         }
+
         return true;
     }
 

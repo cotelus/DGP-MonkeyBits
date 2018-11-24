@@ -11,9 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener, AlertDialogResponseInterface {
     private FirebaseAuth mAuth;
@@ -66,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Fragment selectedFragment = null;
         switch (item.getItemId()) {
             case R.id.menu_rutas:
-
                 selectedFragment = new RouteActivity();
                 break;
             case R.id.menu_maps:
@@ -83,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return true;
     }
+
 
     public void OnShowOptionMenu(View view) {
         if (!(mainDrawerLayout.isDrawerOpen(navigationView))) {

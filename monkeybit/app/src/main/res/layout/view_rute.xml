@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_view_rute"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,15 +12,17 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/Tittle"
+            android:id="@+id/post_tittle_rt"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:text="@string/tittle_rute" />
+            android:layout_height="wrap_content"
+            android:text="@string/post_text_tittle"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/desc"
+            android:id="@+id/post_desc_rt"
             android:layout_width="match_parent"
-            android:layout_height="194dp"
-            android:text="@string/desc_rute" />
+            android:layout_height="wrap_content"
+            android:text="@string/post_text_desc"
+            android:textSize="14sp" />
     </LinearLayout>
 </FrameLayout>
