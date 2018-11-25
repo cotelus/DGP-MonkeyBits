@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,13 +31,20 @@ public class RuteView extends Fragment {
 
         SetView(array);
         SetPlaces();
-        final Button button = view.findViewById(R.id.pos_rt_fav);
+        final ImageButton button = view.findViewById(R.id.pos_rt_fav);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 //@Todo añadir a fav con bd
+                //@Todo hacer un boton que cuando pulse se cambie y lo ponga a favoritos y si le da cuando esta en fav, que lo quite
                 //getId() deberia de añadirse y es el id de rutas
+                //if(está en favoritos)
+                    //poner boton a color
                 //AddToFavouriteRoute(array.getId());
+                //else
+                    //poner boton en blanco
+                    //DeleteFromFavourite(array.getId())
+                //@Todo quitar el selector
                 String aux = "añadido";
                 Toast info = Toast.makeText(getContext(),aux,Toast.LENGTH_SHORT);
                 info.show();

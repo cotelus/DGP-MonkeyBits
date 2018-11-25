@@ -56,13 +56,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="27dp" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/pos_rt_fav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pos_rt_fav" />
+                android:src="@drawable/post_rt_fav"
+                android:contentDescription="@string/pos_rt_fav" />
 
         </LinearLayout>
 
     </ScrollView>
+
 </FrameLayout>
