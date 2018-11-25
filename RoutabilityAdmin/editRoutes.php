@@ -8,7 +8,7 @@ session_start();
 //Consultamos los datos de la obra
 
 $conexion = mysqli_connect("localhost", "root", "");
-$BD = mysqli_select_db($conexion, "routability");
+$BD = mysqli_select_db($conexion, "routabilityv2");
 
 //Comprueba conexion
 if(mysqli_connect_errno()){
@@ -179,7 +179,7 @@ if(isset($_POST["editar"])){
                             </div>
                             <hr>
                             <div>
-                                <input class="bg-light" type="submit" name="editar" value="Editar">
+                                <input class="btn btn btn-primary btn-light icon-home" type="submit" name="editar" value="Editar">
                                 &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
                             </div>
                         </div>
