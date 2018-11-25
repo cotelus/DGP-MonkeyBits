@@ -23,6 +23,7 @@
     <string name="delete_account_fail">Por seguridad, deberás iniciar sesión de nuevo antes de eliminar la cuenta.Inténtalo de nuevo cuando hayas iniciado sesión</string>
     <string name="rutes">Rutas</string>
     <string name="newName">Escribe el nuevo nombre</string>
+    <string name="noUser">El usuario no está autenticado</string>
     <string name="btChange"> Cambia el nombre </string>
     <string name="btUpdate"> Actualiza </string>
     <string name="btUpdateDesc"> Clica para actualizar los datos del perfil </string>
@@ -53,4 +54,7 @@
     <string name="post_desc_img">Descricion de la imagen</string>
     <string name="post_text_tittle">Titulo de ruta</string>
     <string name="post_text_desc">Descricion de la ruta</string>
+    <string name="post_rt_info_places">Lugares por los que pasa la ruta</string>
+    <string name="post_rt_info_rating">Valoración</string>
+    <string name="pos_rt_fav">Añadir a favoritos</string>
 </resources>

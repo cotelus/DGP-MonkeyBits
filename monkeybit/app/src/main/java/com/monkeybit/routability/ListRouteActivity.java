@@ -36,8 +36,12 @@ public class ListRouteActivity extends Fragment {
         datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "primero", "Descripcion 1"));
         datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "segundo", "Descripcion 2 "));
         datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "tercero", "Descripcion 3 "));
-        ListView lista = view.findViewById(R.id.list_rt);
-        lista.setAdapter(new AdapterList(getContext(), R.layout.post_rute, datos){
+
+        //@Todo esto lo haria con la bd pero esto es un ejemplo
+        datos.get(0).SetRating(4.0);
+
+        ListView list = view.findViewById(R.id.list_rt);
+        list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, datos){
             @Override
             public void onPost(Object post, View view) {
                 if(post != null){
@@ -59,7 +63,7 @@ public class ListRouteActivity extends Fragment {
             }
         });
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
                 //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);

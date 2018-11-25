@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +30,18 @@ public class RuteView extends Fragment {
 
         SetView(array);
         SetPlaces();
+        final Button button = view.findViewById(R.id.pos_rt_fav);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                //@Todo añadir a fav con bd
+                //getId() deberia de añadirse y es el id de rutas
+                //AddToFavouriteRoute(array.getId());
+                String aux = "añadido";
+                Toast info = Toast.makeText(getContext(),aux,Toast.LENGTH_SHORT);
+                info.show();
+            }
+        });
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -44,6 +57,14 @@ public class RuteView extends Fragment {
             TextView pt_desc =  view.findViewById(R.id.post_desc_rt);
             if(pt_desc != null)
                 pt_desc.setText(choosen.get_Description());
+
+            TextView pt_rating =  view.findViewById(R.id.post_rt_rating);
+            if(pt_rating != null) {
+                double aux = choosen.get_Rating();
+                String text = String.valueOf(aux);
+                pt_rating.setText(text);
+            }
+
         }
         //Once you have the route, you have to search the places
 
@@ -59,7 +80,7 @@ public class RuteView extends Fragment {
         places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 1", "Descripcion 1"));
         places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 2", "Descripcion 2 "));
         places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 3", "Descripcion 3 "));
-        ListView lista = view.findViewById(R.id.post_rt_list_lug);
+        ListView lista = view.findViewById(R.id.post_list_lug);
         lista.setAdapter(new AdapterList(getContext(), R.layout.post_rute, places){
             @Override
             public void onPost(Object post, View view) {
