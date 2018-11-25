@@ -29,7 +29,7 @@ public class ListRouteActivity extends Fragment {
 
     protected void Conf_List_Route(){
 
-        //@TODO añadir las cosasde la bd
+        //@TODO añadir las cosas de la bd
 
         ArrayList<ListRoute> datos = new ArrayList<ListRoute>();
 
@@ -67,9 +67,9 @@ public class ListRouteActivity extends Fragment {
                 ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
                 RuteView route = new RuteView();
 
-                //aquí el set
                 if(route != null){
-                    route.Array(choosen);
+                    route.Array(choosen); //set
+                    //change the fragment
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view,route).commit(); //go to the fragment
 
                 }

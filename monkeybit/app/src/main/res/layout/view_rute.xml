@@ -24,5 +24,10 @@
             android:layout_height="wrap_content"
             android:text="@string/post_text_desc"
             android:textSize="14sp" />
+
+        <ListView
+            android:id="@+id/post_rt_list_lug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </FrameLayout>

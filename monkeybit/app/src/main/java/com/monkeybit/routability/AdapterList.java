@@ -12,7 +12,7 @@ public abstract class AdapterList extends BaseAdapter {
     private ArrayList<?> list;
     private int layout;
     private Context context;
-
+    //This class is to adapt the list (ListRoute) to the view
     public AdapterList(Context context, int layout_IdView, ArrayList<?> list) {
         super();
         this.context = context;

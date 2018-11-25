@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 
 
 public class ListRoute {
-
+    //This class is the structure of the route
     private int idImage;
     private String tittle;
     private String description;
