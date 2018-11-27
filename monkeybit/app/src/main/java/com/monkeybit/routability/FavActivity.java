@@ -32,8 +32,7 @@ public class FavActivity extends Fragment implements BottomNavigationView.OnNavi
                 selectedFragment = new ListFavRouteActivity();
                 break;
             case R.id.menu_places:
-                // @TODO: asignar a selectedFragment el Fragmen de opciones de lugares
-                // selectedFragment = new MenuActivity();
+                 selectedFragment = new ListFavPlacesActivity();
                 break;
             case R.id.menu_search:
                 // @TODO: asignar a selectedFragment el Fragmen de opciones de busqueda

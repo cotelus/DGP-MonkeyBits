@@ -56,4 +56,5 @@
     <string name="post_rt_info_places">Places through the route </string>
     <string name="post_rt_info_rating">Rating</string>
     <string name="pos_rt_fav">Add to favourites</string>
+    <string name="post_follow_bt_rt"> Follow route</string>
 </resources>

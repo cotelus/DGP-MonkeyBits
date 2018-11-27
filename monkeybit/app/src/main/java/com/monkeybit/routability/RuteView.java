@@ -31,8 +31,8 @@ public class RuteView extends Fragment {
 
         SetView(array);
         SetPlaces();
-        final ImageButton button = view.findViewById(R.id.pos_rt_fav);
-        button.setOnClickListener(new View.OnClickListener() {
+        final ImageButton like_button = view.findViewById(R.id.pos_rt_fav);
+        like_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 //@Todo añadir a fav con bd
@@ -50,6 +50,18 @@ public class RuteView extends Fragment {
                 info.show();
             }
         });
+
+        final Button button = view.findViewById(R.id.post_follow_bt_rt);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                //@Todo enviar a map
+                String aux = "Map";
+                Toast info = Toast.makeText(getContext(),aux,Toast.LENGTH_SHORT);
+                info.show();
+            }
+        });
+
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }

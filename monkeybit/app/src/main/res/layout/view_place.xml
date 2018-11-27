@@ -62,11 +62,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/post_rt_fav"
                 android:contentDescription="@string/pos_rt_fav" />
-            <Button
-                android:id="@+id/post_follow_bt_rt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/post_follow_bt_rt" />
+
 
         </LinearLayout>
 
