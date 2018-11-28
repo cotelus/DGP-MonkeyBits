@@ -8,7 +8,7 @@
   //Consultamos los datos de la obra
 
   $conexion = mysqli_connect("localhost", "root", "");
-  $BD = mysqli_select_db($conexion, "routabilityv2");
+  $BD = mysqli_select_db($conexion, "routability");
 
   //Comprueba conexion
   if(mysqli_connect_errno()){
