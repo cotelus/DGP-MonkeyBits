@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_view_rute"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:id="@+id/post_rt_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/post_tittle_rt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/post_text_tittle"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/post_desc_rt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/post_text_desc"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/post_rt_info_places"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/post_rt_info_places"
+                android:textSize="18sp" />
+
+            <ListView
+                android:id="@+id/post_list_lug"
+                android:layout_width="match_parent"
+                android:layout_height="260dp" />
+
+            <TextView
+                android:id="@+id/post_rt_info_rating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/post_rt_info_rating"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/post_rt_rating"
+                android:layout_width="match_parent"
+                android:layout_height="27dp" />
+
+            <ImageButton
+                android:id="@+id/pos_rt_fav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/post_rt_fav"
+                android:contentDescription="@string/pos_rt_fav" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

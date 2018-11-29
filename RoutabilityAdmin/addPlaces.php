@@ -98,7 +98,7 @@ if(isset($_POST["aniadir"])){
                             <div class="form-group"> <h4><b>Localización del lugar</b></h4><br /><textarea required value="" name="localization" placeholder="Escribe la localización del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='localization')this.value='' "></textarea></div>
                             <hr>
                             <div>
-                                <input class="bg-light" type="submit" name="aniadir" value="Añadir">
+                                <input class="btn btn btn-primary btn-light icon-home" type="submit" name="aniadir" value="Añadir">
                                 &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
                             </div>
                         </div>

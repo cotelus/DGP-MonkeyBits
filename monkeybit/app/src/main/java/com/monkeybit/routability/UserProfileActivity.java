@@ -1,10 +1,8 @@
 package com.monkeybit.routability;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +27,7 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
     Button logOut;
     Button deleteAccount;
     Button btChange;
+    Button suggestPlace;
 
 
     @Nullable
@@ -60,13 +59,23 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
             }
         });
 
-        btChange = view.findViewById(R.id.changeName);
+        btChange = view.findViewById(R.id.ChangeName);
         btChange.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 OnChangeUI();
+            }
+        });
+
+        suggestPlace = view.findViewById(R.id.SuggestPlace);
+        suggestPlace.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                OnSuggestPlace(v);
             }
         });
 
@@ -132,6 +141,10 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
             Toast toast = Toast.makeText(getActivity(), getString(R.string.noUser), Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    protected void OnSuggestPlace(android.view.View view) {
+        ((MainActivity)getActivity()).LoadNewFragment(new SuggestPlaceActivity());
     }
 
 

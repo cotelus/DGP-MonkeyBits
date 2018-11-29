@@ -11,9 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener, AlertDialogResponseInterface {
     private FirebaseAuth mAuth;
@@ -28,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mAuth = FirebaseAuth.getInstance();
         LoadNewFragment(new MenuActivity());
         mainDrawerLayout = findViewById(R.id.main_drawer);
-        bottomNavigationView =  findViewById(R.id.NavigationViewRoute);
+        bottomNavigationView =  findViewById(R.id.NavigationViewRutes);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             case R.id.menu_fav:
                 // @TODO: asignar a selectedFragment el Fragmen de favoritos
-                // selectedFragment = new FavActivity();
+                 selectedFragment = new FavActivity();
                 break;
         }
         if (selectedFragment != null) {
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return true;
     }
+
 
     public void OnShowOptionMenu(View view) {
         if (!(mainDrawerLayout.isDrawerOpen(navigationView))) {

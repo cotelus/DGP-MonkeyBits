@@ -6,7 +6,7 @@
         android:clickable="true"
         android:focusable="true"
         android:icon="@drawable/ic_directions_walk_white_24dp"
-        android:title="@string/rutes"/>
+        android:title="@string/rutes_menu"/>
 
     <item
         android:id="@+id/menu_maps"

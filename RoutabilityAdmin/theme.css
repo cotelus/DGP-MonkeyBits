@@ -6503,6 +6503,14 @@ html, body {
       margin-right: 1%;
     }
 
+    .foto {
+      width:40%;
+      height:40%;
+      margin-left: 0.5px; 
+      float: right;
+      border-radius: 15px 50px 30px;
+    }
+
     .miembro-lista {
       width:100%;
       height:20%;
@@ -6533,11 +6541,11 @@ html, body {
     }
 
     .bg-primario {
-      background-color: #1ABC9C;
+      background-color: #1CCCA9;
     }
 
     .bg-secundario {
-      background-color: #00574B;
+      background-color: #006455;
     }
 
     .tam-letra {

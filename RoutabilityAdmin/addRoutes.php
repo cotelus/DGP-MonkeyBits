@@ -141,7 +141,7 @@ if(isset($_POST["aniadir"])){
                                 </div>
                                 <hr>
                                 <div>
-                                    <input class="bg-light" type="submit" name="aniadir" value="Añadir">
+                                    <input class="btn btn btn-primary btn-light icon-home" type="submit" name="aniadir" value="Añadir">
                                     &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
                                 </div>
                             </div>
@@ -149,15 +149,6 @@ if(isset($_POST["aniadir"])){
                     </div>
                 </form>
             </fieldset>
-        </div>
-    </div>
-    <div class="py-3 bg-secundario" style="">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
-                </div>
-            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
