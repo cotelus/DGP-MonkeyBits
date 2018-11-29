@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,8 +29,9 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
 
     RequestQueue rq;
     JsonRequest jrq;
-    EditText cajaUser, cajaPwd;
-    Button btnConsultar;
+    EditText idBox;
+    TextView emailBox, madeByBox, nameBox, descriptionBox;
+    Button btnCheck;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,13 +41,17 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
 
         // Para relacionar cada elemento de la vista con su funcionalidad
         View vista = inflater.inflate(R.layout.fragment_dbtest, container, false);
-        cajaUser =(EditText) vista.findViewById(R.id.txtUser);
-        cajaPwd =(EditText) vista.findViewById(R.id.txtPwd);
-        btnConsultar =(Button) vista.findViewById(R.id.btnSesion);
+        idBox =(EditText) vista.findViewById(R.id.idText);
+        emailBox=(TextView) vista.findViewById(R.id.emailText);
+        madeByBox=(TextView) vista.findViewById(R.id.madeByText);
+        nameBox=(TextView) vista.findViewById(R.id.nameText);
+        descriptionBox=(TextView) vista.findViewById(R.id.descriptionText);
+
+        btnCheck =(Button) vista.findViewById(R.id.btnCheck);
 
         rq = Volley.newRequestQueue(getContext());
 
-        btnConsultar.setOnClickListener(new View.OnClickListener() {
+        btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 iniciarSesion();
@@ -58,27 +64,33 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "No se encontró el usuario" + error.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "No se encontró el id" + error.toString(), Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public void onResponse(JSONObject response) {
         // Esto es para recuperar la información que va a llegar al JsonArray
-        Route usuario = new Route();
-        Toast.makeText(getContext(), "Se ha encontrado el usuario " + cajaUser.getText().toString(), Toast.LENGTH_SHORT).show();
+        Route route = new Route();
+        Toast.makeText(getContext(), "Se ha encontrado el ID: " + idBox.getText().toString(), Toast.LENGTH_SHORT).show();
 
         JSONArray jsonArray = response.optJSONArray("datos");
         JSONObject jsonObject = null;
 
 
-        // En el objeto usuario, se guarda una instancia de User, con los datos que
+        // En el objeto route, se guarda una instancia de User, con los datos que
         // hayamos recuperado del JSONArray
         try {
             jsonObject = jsonArray.getJSONObject(0);
-            usuario.setUser(jsonObject.optString("user"));
-            usuario.setPwd(jsonObject.optString("pwd"));
-            usuario.setId(jsonObject.optString("id"));
+            route.setEmailText(jsonObject.optString("Email"));
+            route.setMadeByText(jsonObject.optString("MadeBy"));
+            route.setNameText(jsonObject.optString("Name"));
+            route.setDescriptionText(jsonObject.optString("Description"));
+            emailBox.setText(route.getEmailText());
+            madeByBox.setText(route.getMadeByText());
+            nameBox.setText(route.getNameText());
+            descriptionBox.setText(route.getDescriptionText());
+
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -92,8 +104,7 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         // Añadir la IP. O subir a un servidor o usar la que devuelve ipconfig
         // Y de ahí ponerle la ruta de la API
         // En este caso, en cajaUser y cajaPwd es donde se definio lo que se quería consultar
-        String url = "http://192.168.1.39/login/sesion.php?user=" + cajaUser.getText().toString() +
-                "&pwd=" + cajaPwd.getText().toString();
+        String url = "http://192.168.1.39/login/checkRoutes.php?IdRoute=" + idBox.getText().toString();
         jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         rq.add(jrq);
 

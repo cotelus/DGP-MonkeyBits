@@ -62,6 +62,7 @@
     <string name="title_fragment">Inicio de Sesión</string>
     <string name="title_user">Usuario: </string>
     <string name="title_pwd">Contraseña: </string>
-    <string name="title_boton">Iniciar Sesión</string>
-    <string name="login">LOGIN</string>
+    <string name="title_boton">Comprobar</string>
+    <string name="login">COMPROBAR RUTA</string>
+    <string name="id_bd_test">test</string>
 </resources>

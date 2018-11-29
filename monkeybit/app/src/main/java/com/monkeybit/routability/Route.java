@@ -1,30 +1,45 @@
 package com.monkeybit.routability;
 
 public class Route {
-    private String user, pwd, id;
+    private String idText, emailText, madeByText, nameText, descriptionText;
 
-
-    public String getUser() {
-        return user;
+    public String getIdText() {
+        return idText;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setIdText(String idText) {
+        this.idText = idText;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getEmailText() {
+        return emailText;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setEmailText(String emailText) {
+        this.emailText = emailText;
     }
 
-    public String getId() {
-        return id;
+    public String getMadeByText() {
+        return madeByText;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMadeByText(String madeByText) {
+        this.madeByText = madeByText;
+    }
+
+    public String getNameText() {
+        return nameText;
+    }
+
+    public void setNameText(String nameText) {
+        this.nameText = nameText;
+    }
+
+    public String getDescriptionText() {
+        return descriptionText;
+    }
+
+    public void setDescriptionText(String descriptionText) {
+        this.descriptionText = descriptionText;
     }
 }
