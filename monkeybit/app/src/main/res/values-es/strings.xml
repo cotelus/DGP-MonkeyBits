@@ -58,4 +58,10 @@
     <string name="post_rt_info_rating">Valoración</string>
     <string name="pos_rt_fav">Añadir a favoritos</string>
     <string name="post_follow_bt_rt"> Seguir la ruta</string>
+    <!-- BD TEST-->
+    <string name="title_fragment">Inicio de Sesión</string>
+    <string name="title_user">Usuario: </string>
+    <string name="title_pwd">Contraseña: </string>
+    <string name="title_boton">Iniciar Sesión</string>
+    <string name="login">LOGIN</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.monkeybit.routability;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public BottomNavigationView bottomNavigationView;
     public NavigationView navigationView;
     public DrawerLayout mainDrawerLayout;
+    // Prueba BD
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             }
         });
+    }
+
+    // Prueba BD
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, DBTestActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        String message = "Window2";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
     }
 
     @Override
