@@ -8,7 +8,7 @@ session_start();
 //Consultamos los datos de la obra
 
 $conexion = mysqli_connect("localhost", "root", "");
-$BD = mysqli_select_db($conexion, "routability");
+$BD = mysqli_select_db($conexion, "bdr");
 
 //Comprueba conexion
 if(mysqli_connect_errno()){
@@ -26,18 +26,15 @@ if (!$conexion->set_charset("utf8")) {
 
 if(isset($_POST["editar"])){
          
-         $id=1;
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
          $accesibilidad=$_POST['accesibilidad'];
-
+    
         //EDITAMOS TABLA RUTA
-        if(!($QUERY = mysqli_query($conexion, "UPDATE `route` SET `Name`='".$nombre."',`Description`='".$descripcion."',`Image`='".$imagen."', `Accesibility`='".$accesibilidad."' WHERE `IdRoute` =".$id))){
+        if(!($QUERY = mysqli_query($conexion, "UPDATE `route` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Image`='".$imagen."', `Accesibility`='".$accesibilidad."' WHERE `IdRoute`=".$id))){
 
             $MESSAGE = "ERROR AL EDITAR LA RUTA";
-            echo "Fallo del query de rutas";
-            exit();
         }
     
         //EDITAMOS TABLA APPEAR
@@ -51,15 +48,13 @@ if(isset($_POST["editar"])){
         $texto2 = mysqli_fetch_assoc($text_result2);
     
         $sequence=$texto2['Sequence'];
-        $lugares = $_POST['lugares'];   //ESTE PUEDE SER EL PROBLEMA, QUE RECOJA SOLO LOS NUEVOS LUGARES
+        $lugares = $_POST['lugares'];
 
         foreach ($lugares as $lugar=>$value) {
 
             if(!($QUERY2 = mysqli_query($conexion, "UPDATE `appearverified` SET `IdPlace`='".$value."', `Sequence`='".$sequence."' WHERE `IdRoute` =".$id))){
 
                 $MESSAGE = "ERROR AL EDITAR LOS PUNTOS DE RUTA";
-                echo "Fallo del query de edición de lugares";
-                exit();
             }
             
             $sequence+=1;
@@ -121,7 +116,7 @@ if(isset($_POST["editar"])){
 
                 <h1>Editar una ruta</h1>
 
-                <?php echo"<form action='editRoutes.php?id='".$id."' method='post'>"; ?>
+                <?php echo"<form action='editRoutes.php?id=".$id."' method='post'>"; ?>
                 <div class="row">
 
                     <div class="col-md-6">
@@ -136,25 +131,26 @@ if(isset($_POST["editar"])){
                         <?php echo "<div class='form-group'> <h4><b>Descripción de la ruta</b></h4><br/><textarea name='descripcion' placeholder='Escribe la descripción de la ruta...' maxlength='10000' rows='10' cols='56' onFocus='if(this.value=='descripcion')this.value='' '>".$desc."</textarea></div>";?>
                     </div>
                     <div class="col-md-6">
-                        <?php echo "<div class='form-group'> <h4><b>Vista previa</b></h4><img title='Imagen Lugar' alt='Imagen Lugar' class='img-fluid d-block float-left p-2' style='border-radius: 15px 50px 30px;' src='".$img."' width='640' height='320'></div>"?>
+                        <?php echo "<div class='form-group'> <h4><b>Vista previa</b></h4><img title='Imagen Ruta' alt='Imagen Ruta' class='img-fluid d-block float-left p-2' style='border-radius: 15px 50px 30px;' src='".$img."' width='640' height='320'></div>"?>
                     </div>
                     <div class="col-md-6">
                         <?php echo "<div class='form-group'> <h4><b>Accesibilidad de la ruta</b></h4><br/><textarea name='accesibilidad' placeholder='Escribe la accesibilidad de la ruta...' maxlength='10000' rows='10' cols='56' onFocus='if(this.value=='accesibilidad')this.value='' '>".$acc."</textarea></div>";?>
                     </div>
-                    <!-- AQUI ES DONDE PUEDE ESTAR EL PROBLEMA -->
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <h4><b>Lugares:</b></h4><br />
                             <div class="scroll" style="border-radius:5px; background-color:white;">
                                 <?php
-                                    //SE OBTIENEN DE LA BBDD TODOS LUGARES
-                                    $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
+                                
+                                //SE OBTIENEN DE LA BBDD TODOS LUGARES
+                                $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
                                     
-                                    //SE OBTIENEN DE LA BBDD LOS LUGARES DE LA RUTA
-                                    $resultado_lugares_appear = mysqli_query($conexion, "SELECT * FROM `appearverified` WHERE IdRoute=".$id);
+                                //SE OBTIENEN DE LA BBDD LOS LUGARES DE LA RUTA
+                                $resultado_lugares_appear = mysqli_query($conexion, "SELECT * FROM `appearverified` WHERE IdRoute=".$id." ORDER BY IdPlace ASC");
 
                                     if ($resultado_lugares->num_rows > 0) {
-                                    
+                                        
                                         //BUCLE DE LUGARES DE LA RUTA
                                         while($array_resultado2 =  mysqli_fetch_assoc($resultado_lugares_appear)){
                                         
@@ -174,6 +170,35 @@ if(isset($_POST["editar"])){
                                                 }
                                             }
                                         }
+                                        
+                                        /*//BUCLE DE LUGARES DE LA RUTA
+                                        while($array_resultado2 =  mysqli_fetch_assoc($resultado_lugares_appear)){
+                                            
+                                            //BUCLE DE TODOS LOS LUGARES
+                                            while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
+                                                
+                                                //COMPARAMOS AMBOS LUGARES, SI ESTA EN LA RUTA, APARECERA MARCADO
+                                                if($array_resultado2['IdPlace'] == $array_resultado['IdPlace']){
+                                                    
+                                                    echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado2['IdPlace']."' value=".$array_resultado2['IdPlace']." checked <br/>&nbsp&nbsp<b>".$array_resultado['Name']."</b></p>";
+
+                                                }
+                                            }
+                                        }
+                                    
+                                        while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
+                                            
+                                            //BUCLE DE LUGARES DE LA RUTA
+                                            while($array_resultado2 =  mysqli_fetch_assoc($resultado_lugares_appear)){
+                                                
+                                                //SI NO ESTA EN LA RUTA, APARECERA DESMARCADO
+                                                if($array_resultado2['IdPlace'] != $array_resultado['IdPlace']){
+                                                    
+                                                    echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado['IdPlace']."' value=".$array_resultado['IdPlace']."<br/>&nbsp&nbsp<b>".$array_resultado['Name']."</b></p>";
+
+                                                }
+                                            }
+                                        }*/
                                     }
                                     ?>
                             </div>
