@@ -25,15 +25,14 @@ if (!$conexion->set_charset("utf8")) {
 
 if(isset($_POST["aniadir"])){
  
-    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['lugares']) && !empty($_POST['accesibilidad']) && !empty($_POST['imagen'])){
+    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['lugares']) && !empty($_POST['imagen'])){
          
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
          $email = $_SESSION['EMAIL'];
-         $accesibilidad = $_POST['accesibilidad'];
 
-        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`, `Accesibility`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen', '$accesibilidad')"))){
+        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen')"))){
 
             echo "Fallo del query de rutas";
             exit();
@@ -118,11 +117,6 @@ if(isset($_POST["aniadir"])){
                         <div class="col-md-6">
                             <div class="form-group">
                                 <h4><b>Descripción de la ruta:</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción de la ruta..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <h4><b>Accesibilidad de la ruta:</b></h4><br /><textarea required value="" name="accesibilidad" placeholder="Escribe la accesibilidad de la ruta..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='accesibilidad')this.value='' "></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
