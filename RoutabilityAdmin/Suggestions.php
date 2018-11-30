@@ -28,9 +28,59 @@
     $search = $_POST['search'];
   }
 
-  $resRutas = mysqli_query($conexion, "SELECT * from suggestedroute where IdRoute like '%".$search."%' or Name like '%".$search."%' order by IdRoute");
-  $resLugares = mysqli_query($conexion, "SELECT * from suggestedplace where IdPlace like '%".$search."%' or Name like '%".$search."%' order by IdPlace");
-  $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+  $consultaRutas = "SELECT * from suggestedroute where IdRoute like '%".$search."%' or Name like '%".$search."%' order by IdRoute";
+  $consultaLugares = "SELECT * from suggestedplace where IdPlace like '%".$search."%' or Name like '%".$search."%' order by IdPlace";
+
+  if (isset($_POST['filtroRedMovility'])) {
+    if($_POST['filtroRedMovility']=='on') {
+      $consultaLugares .=" and RedMovility='1'";
+    }
+  }
+  if (isset($_POST['filtroRedVision'])) {
+    if($_POST['filtroRedVision']=='on') {
+      $consultaLugares .=" and RedVision='1'";
+    }
+  }
+  if (isset($_POST['filtroForeigner'])) {
+    if($_POST['filtroForeigner']=='on') {
+      $consultaLugares .=" and Foreigner='1'";
+    }
+  }
+  if (isset($_POST['filtroColourBlind'])) {
+    if($_POST['filtroColourBlind']=='on') {
+      $consultaLugares .=" and ColourBlind='1'";
+    }
+  }
+  if (isset($_POST['filtroDeaf'])=='on') {
+    if($_POST['filtroDeaf']) {
+      $consultaLugares .=" and Deaf='1'";
+    }
+  }
+
+  if (isset($_POST['filtro-lugar-ruta'])) {
+    if ($_POST['filtro-lugar-ruta']=='Ambos') {
+      $resRutas = mysqli_query($conexion, $consultaRutas);
+      $resLugares = mysqli_query($conexion, $consultaLugares);
+      $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+    }
+    else if ($_POST['filtro-lugar-ruta']=='Rutas') {
+      $resRutas = mysqli_query($conexion, $consultaRutas);
+      $resLugares = NULL;
+      $total = mysqli_num_rows($resRutas);
+    }
+    else if ($_POST['filtro-lugar-ruta']=='Lugares') {
+      $resLugares = mysqli_query($conexion, $consultaLugares);
+      $resRutas = NULL;
+      $total = mysqli_num_rows($resLugares);
+    }
+  }
+  else {
+    $resRutas = mysqli_query($conexion, $consultaRutas);
+    $resLugares = mysqli_query($conexion, $consultaLugares);
+    $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+  }
+  
+  
   $fila = NULL;
 ?>
 <!DOCTYPE html>
@@ -72,16 +122,17 @@
           <div class="col-md-6">
             <div class="filtros" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
               <form action="" method="post" name="filtros_form" id="filtros_form">
-                <span class="icon-wheelchair" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroRedMovility"></span>
-                <span class="icon-eye-minus" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroRedVision"></span>
-                <span class="icon-eyedropper" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroColourBlind"></span>
-                <span class="icon-deaf" style="padding-left:6%;">&nbsp;<input type="checkbox" id="filtroDeaf"></span>
-                <span class="icon-language" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroForeigner"></span>
-                <select style="margin-left: 6%;" name="filtro-lugar-ruta" id="filtro-lugar-ruta">
+                <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility"></span>
+                <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision"></span>
+                <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind"></span>
+                <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf"></span>
+                <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner"></span>
+                <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
                   <option>Ambos</option>
-                  <option>Ruta</option>
-                  <option>Lugar</option>
+                  <option>Rutas</option>
+                  <option>Lugares</option>
                 </select>
+                <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Aplicar" style="margin-left: 7%;">
               </form>
             </div>
           </div>
@@ -124,32 +175,36 @@
               }
 
               if ($total > 0) {
-                while($fila = mysqli_fetch_assoc($resRutas)){
-                  $id = $fila['IdRoute'];
-                  $name = $fila['Name'];
-                  $madeby = $fila['MadeBy'];
-                  $description = $fila['Description'];
-                  $image = $fila['Image'];
-                   echo '<p class="list-group-item list-group-item-action"><b>Ruta';
-                    echo '('.$id.'):</b>'.$name;
-                    echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
-                    echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
+                if ($resRutas !=NULL) {
+                  while($fila = mysqli_fetch_assoc($resRutas)){
+                    $id = $fila['IdRoute'];
+                    $name = $fila['Name'];
+                    $madeby = $fila['MadeBy'];
+                    $description = $fila['Description'];
+                    $image = $fila['Image'];
+                     echo '<p class="list-group-item list-group-item-action"><b>Ruta';
+                      echo '('.$id.'):</b>'.$name;
+                      echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
+                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
 
-                } 
-                while($fila = mysqli_fetch_assoc($resLugares)){
-                  $id = $fila['IdPlace'];
-                  $name = $fila['Name'];
-                  $madeby = $fila['MadeBy'];
-                  $description = $fila['Description'];
-                  $image = $fila['Image'];
-                  $localitation = $fila['Localitation'];
+                  } 
+                }
+                if ($resLugares!=NULL) {
+                  while($fila = mysqli_fetch_assoc($resLugares)){
+                    $id = $fila['IdPlace'];
+                    $name = $fila['Name'];
+                    $madeby = $fila['MadeBy'];
+                    $description = $fila['Description'];
+                    $image = $fila['Image'];
+                    $localitation = $fila['Localitation'];
 
-                   echo '<p class="list-group-item list-group-item-action"><b>Lugar';
-                    echo '('.$id.'):</b>'.$name;
-                    echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
-                    echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&localitation='.$localitation.'&name='.$name.'&image='.$image.'&tipo=2" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
+                     echo '<p class="list-group-item list-group-item-action"><b>Lugar';
+                      echo '('.$id.'):</b>'.$name;
+                      echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
+                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&localitation='.$localitation.'&name='.$name.'&image='.$image.'&tipo=2" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
 
-                } 
+                  } 
+                }
               }
               
               
