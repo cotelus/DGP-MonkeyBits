@@ -31,12 +31,13 @@
 
         }
 
-  if(!($Places = mysqli_query($conexion,"SELECT * FROM place WHERE IdPlace=".$id))){
+  if(!($Places = mysqli_query($conexion, "SELECT * FROM appearverified, place WHERE place.IdPlace = appearverified.IdPlace AND appearverified.IdRoute=".$id))){
     
             echo "Fallo del query de selección del lugar";
             exit();
 
-        }
+  }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,21 +65,29 @@
 
                   if ($Routes != NULL)
                     $rutas = mysqli_fetch_array($Routes);
-                        
-                  if ($Places != NULL)
-                    $lugares = mysqli_fetch_array($Places);
                   
                     if ($rutas != NULL) {
 
                     $id = $rutas["IdRoute"];
                     $nombre = $rutas["Name"];
                     $desc = $rutas["Description"];
-                    $img = $rutas["Image"];   
-                    $movilidad=$lugares['RedMovility'];
-                    $vision=$lugares['RedVision'];
-                    $color=$lugares['ColourBlind'];
-                    $sordo=$lugares['Deaf'];
-                    $extranjero=$lugares['Foreigner'];
+                    $img = $rutas["Image"]; 
+                    
+                    $movilidad=1;
+                    $vision=1;
+                    $color=1;
+                    $sordo=1;
+                    $extranjero=1;
+                        
+                    while($array_resultado = mysqli_fetch_assoc($Places)){
+                        
+                        $movilidad*=$array_resultado['RedMovility'];
+                        $vision*=$array_resultado['RedVision'];
+                        $color*=$array_resultado['ColourBlind'];
+                        $sordo*=$array_resultado['Deaf'];
+                        $extranjero*=$array_resultado['Foreigner'];
+                       
+                    }    
                         
                     echo '<div class="list-group-item list-group-item-action miembro-lista">';
                     echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
@@ -134,28 +143,17 @@
                     '</p>';
                     echo '<hr>';
                     echo '<div><b>Lugares de la ruta:</b>';
-                        
-                    //SE OBTIENEN DE LA BBDD TODOS LUGARES
-                    $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
                                     
                     //SE OBTIENEN DE LA BBDD LOS LUGARES DE LA RUTA
-                    $resultado_lugares_appear = mysqli_query($conexion, "SELECT * FROM `appearverified` WHERE IdRoute=".$id." ORDER BY Sequence DESC");
+                    $resultado_lugares_appear = mysqli_query($conexion, "SELECT appearverified.IdPlace, place.Name FROM `appearverified`,`place` WHERE appearverified.IdPlace = place.IdPlace AND appearverified.IdRoute=".$id." ORDER BY appearverified.Sequence ASC");
 
                     if ($resultado_lugares_appear->num_rows > 0) {
                                         
                         //BUCLE DE LUGARES DE LA RUTA
-                        while($array_resultado2 =  mysqli_fetch_assoc($resultado_lugares_appear)){        
-                                
-                            //BUCLE DE TODOS LOS LUGARES
-                            while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
-                                
-                                //COMPARAMOS AMBOS LUGARES, SI ESTA EN LA RUTA, APARECERA
-                                if($array_resultado['IdPlace'] === $array_resultado2['IdPlace']){
+                        while($array_resultado2 = mysqli_fetch_assoc($resultado_lugares_appear)){    
                                     
-                                    echo"<p>&nbsp&nbsp<a href='Place.php?id=".$array_resultado['IdPlace']."'><br/>&nbsp&nbsp<b>".$array_resultado['Name']."</b></a></p>";
+                            echo"<p><a href='Place.php?id=".$array_resultado2['IdPlace']."'><br/><b>".$array_resultado2['Name']."</b></a></p>";
 
-                                }
-                            }
                         }
                     }
 
