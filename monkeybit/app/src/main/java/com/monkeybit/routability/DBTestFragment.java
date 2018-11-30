@@ -32,6 +32,8 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
     EditText idBox;
     TextView emailBox, madeByBox, nameBox, descriptionBox;
     Button btnCheck;
+    JSONObject myjs = new JSONObject();
+    //Route route = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +64,7 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         return vista;
     }
 
+
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "No se encontró el id" + error.toString(), Toast.LENGTH_SHORT).show();
@@ -71,42 +74,51 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
     @Override
     public void onResponse(JSONObject response) {
         // Esto es para recuperar la información que va a llegar al JsonArray
-        Route route = new Route();
         Toast.makeText(getContext(), "Se ha encontrado el ID: " + idBox.getText().toString(), Toast.LENGTH_SHORT).show();
 
-        JSONArray jsonArray = response.optJSONArray("datos");
-        JSONObject jsonObject = null;
+        //JSONArray jsonArray = response.optJSONArray("datos");
+        //JSONObject jsonObject = null;
 
 
         // En el objeto route, se guarda una instancia de User, con los datos que
         // hayamos recuperado del JSONArray
         try {
-            jsonObject = jsonArray.getJSONObject(0);
-            route.setEmailText(jsonObject.optString("Email"));
-            route.setMadeByText(jsonObject.optString("MadeBy"));
-            route.setNameText(jsonObject.optString("Name"));
-            route.setDescriptionText(jsonObject.optString("Description"));
-            emailBox.setText(route.getEmailText());
-            madeByBox.setText(route.getMadeByText());
-            nameBox.setText(route.getNameText());
-            descriptionBox.setText(route.getDescriptionText());
+            JSONArray jsonArray = response.optJSONArray("datos");
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            emailBox.setText(jsonObject.optString("Email"));
+            madeByBox.setText(jsonObject.optString("MadeBy"));
+            nameBox.setText(jsonObject.optString("Name"));
+            descriptionBox.setText(jsonObject.optString("Description"));
 
         } catch (JSONException e){
             e.printStackTrace();
         }
-
-
-
-
     }
 
     private void iniciarSesion() {
         // Añadir la IP. O subir a un servidor o usar la que devuelve ipconfig
         // Y de ahí ponerle la ruta de la API
         // En este caso, en cajaUser y cajaPwd es donde se definio lo que se quería consultar
-        String url = "http://192.168.1.39/login/checkRoutes.php?IdRoute=" + idBox.getText().toString();
-        jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        rq.add(jrq);
+        //String url = "http://192.168.1.39/login/checkRoutes.php?Name=" + idBox.getText().toString();
+        //jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        //rq.add(jrq);
+
+        DBConnect db = new DBConnect();
+
+        myjs = db.iniciarSesion(getContext());
+
+        //route = db.getRoute(getContext());
+
+
+        /*route.setEmailText(myjs.optString("Email"));
+        route.setMadeByText(myjs.optString("MadeBy"));
+        route.setNameText(myjs.optString("Name"));
+        route.setDescriptionText(myjs.optString("Description"));*/
+        emailBox.setText(myjs.optString("Email"));
+        madeByBox.setText(myjs.optString("MadeBy"));
+        nameBox.setText(myjs.optString("Name"));
+        descriptionBox.setText(myjs.optString("Description"));
+
 
     }
 }
