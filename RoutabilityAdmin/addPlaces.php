@@ -25,16 +25,20 @@ if (!$conexion->set_charset("utf8")) {
 
 if(isset($_POST["aniadir"])){
  
-    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['localization']) && !empty($_POST['imagen']) && !empty($_POST['accesibilidad'])){
+    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['localization']) && !empty($_POST['imagen'])){
          
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $localization=$_POST['localization'];
          $imagen=$_POST['imagen'];
          $email = $_SESSION['EMAIL'];
-         $accesibilidad = $_POST['accesibilidad'];
+         $mov = $_POST['movilidad'];
+         $vis = $_POST['vision'];
+         $color = $_POST['color'];
+         $sordo = $_POST['sordo'];
+         $ext = $_POST['extranjero'];
         
-    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `Accesibility`) VALUES (null, '$email', null, '$descripcion', '$localization', '$nombre', '$imagen', '$accesibilidad')"))){
+    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `RedMovility`, `RedVision`, `ColourBlind`, `Deaf`, `Foreigner`) VALUES (null, '$email', null, '$descripcion', '$localization', '$nombre', '$imagen', '$mov', '$vis', '$color', '$sordo', '$ext')"))){
     
         echo "Fallo del query de lugares";
         exit();
@@ -83,19 +87,71 @@ if(isset($_POST["aniadir"])){
                     <div class="row">
 
                         <div class="col-md-6">
-                            <div class="form-group"> <h4><b>Nombre del lugar</b></h4><input type="nombre" class="form-control" required value="" name="nombre" placeholder="Introducir el nombre" onBlur="if(this.value=='')this.value='nombre'" onFocus="if(this.value=='nombre')this.value='' "></div>
+                            <div class="form-group">
+                                <h4><b>Nombre del lugar</b></h4><input type="nombre" class="form-control" required value="" name="nombre" placeholder="Introducir el nombre" onBlur="if(this.value=='')this.value='nombre'" onFocus="if(this.value=='nombre')this.value='' ">
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"> <h4><b>Imagen del lugar</b></h4><input type="imagen" class="form-control" required value="" name="imagen" placeholder="Introducir la imagen" onBlur="if(this.value=='')this.value='imagen'" onFocus="if(this.value=='imagen')this.value='' "></div>
+                            <div class="form-group">
+                                <h4><b>Imagen del lugar</b></h4><input type="imagen" class="form-control" required value="" name="imagen" placeholder="Introducir la imagen" onBlur="if(this.value=='')this.value='imagen'" onFocus="if(this.value=='imagen')this.value='' ">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group"> <h4><b>Descripción del lugar</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='descripcion')this.value='' "></textarea></div>
+                            <div class="form-group">
+                                <h4><b>Descripción del lugar</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"> <h4><b>Accesibilidad del lugar</b></h4><br /><textarea required value="" name="accesibilidad" placeholder="Escribe la accesibilidad del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='accesibilidad')this.value='' "></textarea></div>
-                            <div class="form-group"> <h4><b>Localización del lugar</b></h4><br /><textarea required value="" name="localization" placeholder="Escribe la localización del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='localization')this.value='' "></textarea></div>
+                            <div class="form-group">
+                                <h4><b>Accesibilidad del lugar</b></h4><br />
+
+                                <div class="accesibilidad">
+                                <p class="icon-wheelchair">&nbsp&nbsp Movilidad Reducida: <select name="movilidad" id="movilidad">
+
+                                    <option value=1>Si</option>
+
+                                    <option selected value=0>No</option>
+
+                                </select></p>
+                                
+                                <p class="icon-eye-minus">&nbsp&nbsp Visión Reducida: <select name="vision" id="vision">
+
+                                    <option value=1>Si</option>
+
+                                    <option selected value=0>No</option>
+
+                                    </select></p>
+                                
+                                <p class="icon-eyedropper">&nbsp&nbsp Daltónicos: <select name="color" id="color">
+
+                                    <option value=1>Si</option>
+
+                                    <option selected value=0>No</option>
+
+                                </select></p>
+                                
+                                <p class="icon-deaf">&nbsp&nbsp Incapacidad auditiva: <select name="sordo" id="sordo">
+
+                                    <option value="1">Si</option>
+
+                                    <option selected value="0">No</option>
+
+                                </select></p>
+                                
+                                <p class="icon-language">&nbsp&nbsp Idiomas: <select name="extranjero" id="extranjero">
+
+                                    <option value="1">Si</option>
+
+                                    <option selected value="0">No</option>
+
+                                </select></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h4><b>Localización del lugar</b></h4><br /><textarea required value="" name="localization" placeholder="Escribe la localización del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='localization')this.value='' "></textarea>
+                            </div>
                             <hr>
                             <div>
                                 <input class="btn btn btn-primary btn-light icon-home" type="submit" name="aniadir" value="Añadir">

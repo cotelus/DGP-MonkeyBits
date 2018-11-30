@@ -30,6 +30,13 @@
             exit();
 
         }
+
+  if(!($Places = mysqli_query($conexion,"SELECT * FROM place WHERE IdPlace=".$id))){
+    
+            echo "Fallo del query de selección del lugar";
+            exit();
+
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,27 +64,104 @@
 
                   if ($Routes != NULL)
                     $rutas = mysqli_fetch_array($Routes);
+                        
+                  if ($Places != NULL)
+                    $lugares = mysqli_fetch_array($Places);
                   
                     if ($rutas != NULL) {
 
                     $id = $rutas["IdRoute"];
                     $nombre = $rutas["Name"];
                     $desc = $rutas["Description"];
-                    $acc = $rutas["Accesibility"];
-                    $img = $rutas["Image"];
-
+                    $img = $rutas["Image"];   
+                    $movilidad=$lugares['RedMovility'];
+                    $vision=$lugares['RedVision'];
+                    $color=$lugares['ColourBlind'];
+                    $sordo=$lugares['Deaf'];
+                    $extranjero=$lugares['Foreigner'];
+                        
                     echo '<div class="list-group-item list-group-item-action miembro-lista">';
                     echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
                     echo '<img class="foto" title="foto de '.$nombre.'" alt="foto de '.$nombre.'" src="'.$img.'">';
-                    echo '<p><b>Descripción:</b><br>'.$desc.'</p>';
-                    echo '<p><b>Accesibilidad:</b><br>'.$acc.'</p>';
-                    echo '<br><br><br><hr>';
-                    echo '<div>';
-                    echo '<p><b>Recorrido:</b><br><iframe style="border-radius:5px;" src="https://www.google.com/maps/d/u/1/embed?mid=1H80u_eaLwL68PnWzqQQYStDasiFKDEPf" width="640" height="480"></iframe></p>';
+                    echo '<p><b>Descripción:</b><br><br>'.$desc.'</p>';
+                    echo '<p><b>Accesibilidad:</b>
+                    <br><br>';
+    
+                    if($movilidad == 1){
+                                        
+                        echo "<b>Movilidad Reducida</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Movilidad Reducida</b>: No<br>";
+                    }
+                        
+                    if($vision == 1){
+                                        
+                        echo "<b>Vision Reducida</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Vision Reducida</b>: No<br>";
+                    }
+                    
+                    if($color == 1){
+                                        
+                        echo "<b>Daltónicos</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Daltónicos</b>: No<br>";
+                    }
+                    
+                    if($sordo == 1){
+                                        
+                        echo "<b>Incapacidad Auditiva</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Incapacidad Auditiva</b>: No<br>";
+                    }
+                        
+                    if($extranjero == 1){
+                                        
+                        echo "<b>Idiomas</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Idiomas</b>: No<br>";
+                    }
+                    '</p>';
+                    echo '<hr>';
+                    echo '<div><b>Lugares de la ruta:</b>';
+                        
+                    //SE OBTIENEN DE LA BBDD TODOS LUGARES
+                    $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
+                                    
+                    //SE OBTIENEN DE LA BBDD LOS LUGARES DE LA RUTA
+                    $resultado_lugares_appear = mysqli_query($conexion, "SELECT * FROM `appearverified` WHERE IdRoute=".$id." ORDER BY Sequence DESC");
+
+                    if ($resultado_lugares_appear->num_rows > 0) {
+                                        
+                        //BUCLE DE LUGARES DE LA RUTA
+                        while($array_resultado2 =  mysqli_fetch_assoc($resultado_lugares_appear)){        
+                                
+                            //BUCLE DE TODOS LOS LUGARES
+                            while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
+                                
+                                //COMPARAMOS AMBOS LUGARES, SI ESTA EN LA RUTA, APARECERA
+                                if($array_resultado['IdPlace'] === $array_resultado2['IdPlace']){
+                                    
+                                    echo"<p>&nbsp&nbsp<a href='Place.php?id=".$array_resultado['IdPlace']."'><br/>&nbsp&nbsp<b>".$array_resultado['Name']."</b></a></p>";
+
+                                }
+                            }
+                        }
+                    }
+
                     echo '</div>';
                     echo '</div>';
-                  }
-              
+                  }              
             ?>
                     </div>
                     <div class="py-2">
