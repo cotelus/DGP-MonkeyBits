@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2018 a las 18:22:57
+-- Tiempo de generación: 30-11-2018 a las 12:15:16
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `routability`
+-- Base de datos: `bdr`
 --
 
 -- --------------------------------------------------------
@@ -79,7 +79,7 @@ CREATE TABLE `appearverified` (
 INSERT INTO `appearverified` (`IdPlace`, `IdRoute`, `Sequence`) VALUES
 (1, 8, 1),
 (1, 9, 1),
-(2, 1, 2),
+(2, 1, 1),
 (2, 8, 2),
 (2, 9, 2),
 (16, 9, 3);
@@ -144,7 +144,8 @@ CREATE TABLE `place` (
 INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Localitation`, `Image`, `Accesibility`) VALUES
 (1, 'admin1@gmail.com', 'usuario1@gmail.com', 'Lugar bonito', 'fasefas', 'asefas', 'afsesa', ''),
 (2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'Cansado del nombre asfas', 'asfeasef', 'afsesa', 'afsef', ''),
-(16, 'dgp.monkeybits@gmail.com', NULL, 'Parque Almunia', 'Delimitado por los viales Avda. de Andalucía, Calle Periodista Eugenio Selles y Calle Periodista José Mezcua Ruiz se extiende este bonito parque.\r\n\r\nTiene una distribución triangular rodeado por una valla y muro, además de existir distintas pantallas vegetales en cada uno de los lados: ciprés, pruno, espino de fuego y laurel. Se desarrolla a partir de diversos paseos que se complementan y relacionan a lo largo de todo su recorrido, delimitando numerosas zonas de estancia con elementos característicos como el quiosco de música o la fuente con pérgola de glicinas en su parte posterior. Uno de los elementos principales del parque es la acequia, atravesada por puentecillos de piedra que dan paso a cuadros de aromáticas, hacia un lado, y a una paseo de arces, al otro.\r\n\r\nDistrito: Chana\r\nSuperficie: 32.142 metros cuadrados\r\nTipo de parque: Cerrado', 'Delimitado por los viales Avda. de Andalucía. Granada.', 'http://www.besarsengranada.es/wp-content/uploads/2015/05/besarse-en-granada-flores-parque-almunia-5_21390.jpg', 'Cuenta con rampas para el acceso de sillas de ruedas, además de un camino de piedra para poder disfrutar de todo el parque sin restricción para las zonas de arena.');
+(16, 'dgp.monkeybits@gmail.com', NULL, 'Parque Almunia', 'Delimitado por los viales Avda. de Andalucía, Calle Periodista Eugenio Selles y Calle Periodista José Mezcua Ruiz se extiende este bonito parque.\r\n\r\nTiene una distribución triangular rodeado por una valla y muro, además de existir distintas pantallas vegetales en cada uno de los lados: ciprés, pruno, espino de fuego y laurel. Se desarrolla a partir de diversos paseos que se complementan y relacionan a lo largo de todo su recorrido, delimitando numerosas zonas de estancia con elementos característicos como el quiosco de música o la fuente con pérgola de glicinas en su parte posterior. Uno de los elementos principales del parque es la acequia, atravesada por puentecillos de piedra que dan paso a cuadros de aromáticas, hacia un lado, y a una paseo de arces, al otro.\r\n\r\nDistrito: Chana\r\nSuperficie: 32.142 metros cuadrados\r\nTipo de parque: Cerrado', 'Delimitado por los viales Avda. de Andalucía. Granada.', 'http://www.besarsengranada.es/wp-content/uploads/2015/05/besarse-en-granada-flores-parque-almunia-5_21390.jpg', 'Cuenta con rampas para el acceso de sillas de ruedas, además de un camino de piedra para poder disfrutar de todo el parque sin restricción para las zonas de arena.'),
+(17, '', NULL, 'Parque Federico García Lorca', 'El Parque García Lorca, con cuatro entradas , se desarrolla alrededor de la Huerta de San Vicente, en los terrenos que antiguamente pertenecían a la familia de Federico García Lorca. El parque está constituido por diversos paseos , destacando dos avenidas: el paseo de la alameda , el cual se desarrolla paralelamente al río y se dirige al estanque , y el paseo de tilos, desde la entrada principal hasta las zonas de servicios Delimitados por estos paseos y caminos, existen diversos sectores que terminan de configurar este parque: los jardines neoplasticistas, las acequias, la fuente cibernética, el bosque de ribera, la rosaleda y las huertas.\r\n\r\nDistrito: Ronda\r\nSuperficie: 70.000 metros cuadrados\r\nTipo de parque: Cerrado', 'Entre las calles Arabial , Virgen Blanca y el Camino de Purchil.', 'https://www.conmishijos.com/assets/planes/4000/4120-parque-federico-garcia-lorca-granada.jpg', 'Na de na, pelao esta');
 
 -- --------------------------------------------------------
 
@@ -187,7 +188,7 @@ INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image
 (4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses', ''),
 (5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs', ''),
 (8, 'dgp.monkeybits@gmail.com', NULL, 'fasefasfesasefsa', 'asefasfsea', 'fsafease', ''),
-(9, '', NULL, 'Parques y Jardines', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg', 'Tiene un poco de todo, pero mucho de nada.');
+(9, 'dgp.monkeybits@gmail.com', NULL, 'Parques y Jardines de Granada', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg', 'Tiene un poco de todo, pero mucho de nada.');
 
 -- --------------------------------------------------------
 
@@ -402,7 +403,7 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT de la tabla `place`
 --
 ALTER TABLE `place`
-  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `route`
