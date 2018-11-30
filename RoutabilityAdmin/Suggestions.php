@@ -70,8 +70,19 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="filtros">
-              
+            <div class="filtros" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+              <form action="" method="post" name="filtros_form" id="filtros_form">
+                <span class="icon-wheelchair" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroRedMovility"></span>
+                <span class="icon-eye-minus" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroRedVision"></span>
+                <span class="icon-eyedropper" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroColourBlind"></span>
+                <span class="icon-deaf" style="padding-left:6%;">&nbsp;<input type="checkbox" id="filtroDeaf"></span>
+                <span class="icon-language" style="padding-left: 6%;">&nbsp;<input type="checkbox" id="filtroForeigner"></span>
+                <select style="margin-left: 6%;" name="filtro-lugar-ruta" id="filtro-lugar-ruta">
+                  <option>Ambos</option>
+                  <option>Ruta</option>
+                  <option>Lugar</option>
+                </select>
+              </form>
             </div>
           </div>
         </div>
