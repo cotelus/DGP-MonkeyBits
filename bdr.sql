@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2018 a las 12:15:16
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.3
+-- Tiempo de generación: 30-11-2018 a las 12:39:16
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -134,18 +134,22 @@ CREATE TABLE `place` (
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Accesibility` text COLLATE utf8_spanish2_ci NOT NULL
+  `RedMovility` tinyint(1) NOT NULL,
+  `RedVision` tinyint(1) NOT NULL,
+  `ColourBlind` tinyint(1) NOT NULL,
+  `Deaf` tinyint(1) NOT NULL,
+  `Foreigner` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `place`
 --
 
-INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Localitation`, `Image`, `Accesibility`) VALUES
-(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'Lugar bonito', 'fasefas', 'asefas', 'afsesa', ''),
-(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'Cansado del nombre asfas', 'asfeasef', 'afsesa', 'afsef', ''),
-(16, 'dgp.monkeybits@gmail.com', NULL, 'Parque Almunia', 'Delimitado por los viales Avda. de Andalucía, Calle Periodista Eugenio Selles y Calle Periodista José Mezcua Ruiz se extiende este bonito parque.\r\n\r\nTiene una distribución triangular rodeado por una valla y muro, además de existir distintas pantallas vegetales en cada uno de los lados: ciprés, pruno, espino de fuego y laurel. Se desarrolla a partir de diversos paseos que se complementan y relacionan a lo largo de todo su recorrido, delimitando numerosas zonas de estancia con elementos característicos como el quiosco de música o la fuente con pérgola de glicinas en su parte posterior. Uno de los elementos principales del parque es la acequia, atravesada por puentecillos de piedra que dan paso a cuadros de aromáticas, hacia un lado, y a una paseo de arces, al otro.\r\n\r\nDistrito: Chana\r\nSuperficie: 32.142 metros cuadrados\r\nTipo de parque: Cerrado', 'Delimitado por los viales Avda. de Andalucía. Granada.', 'http://www.besarsengranada.es/wp-content/uploads/2015/05/besarse-en-granada-flores-parque-almunia-5_21390.jpg', 'Cuenta con rampas para el acceso de sillas de ruedas, además de un camino de piedra para poder disfrutar de todo el parque sin restricción para las zonas de arena.'),
-(17, '', NULL, 'Parque Federico García Lorca', 'El Parque García Lorca, con cuatro entradas , se desarrolla alrededor de la Huerta de San Vicente, en los terrenos que antiguamente pertenecían a la familia de Federico García Lorca. El parque está constituido por diversos paseos , destacando dos avenidas: el paseo de la alameda , el cual se desarrolla paralelamente al río y se dirige al estanque , y el paseo de tilos, desde la entrada principal hasta las zonas de servicios Delimitados por estos paseos y caminos, existen diversos sectores que terminan de configurar este parque: los jardines neoplasticistas, las acequias, la fuente cibernética, el bosque de ribera, la rosaleda y las huertas.\r\n\r\nDistrito: Ronda\r\nSuperficie: 70.000 metros cuadrados\r\nTipo de parque: Cerrado', 'Entre las calles Arabial , Virgen Blanca y el Camino de Purchil.', 'https://www.conmishijos.com/assets/planes/4000/4120-parque-federico-garcia-lorca-granada.jpg', 'Na de na, pelao esta');
+INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Localitation`, `Image`, `RedMovility`, `RedVision`, `ColourBlind`, `Deaf`, `Foreigner`) VALUES
+(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'Lugar bonito', 'fasefas', 'asefas', 'afsesa', 0, 0, 0, 0, 0),
+(2, 'admin2@hotmail.com', 'usuario1@gmail.com', 'Cansado del nombre asfas', 'asfeasef', 'afsesa', 'afsef', 0, 0, 0, 0, 0),
+(16, 'dgp.monkeybits@gmail.com', NULL, 'Parque Almunia', 'Delimitado por los viales Avda. de Andalucía, Calle Periodista Eugenio Selles y Calle Periodista José Mezcua Ruiz se extiende este bonito parque.\r\n\r\nTiene una distribución triangular rodeado por una valla y muro, además de existir distintas pantallas vegetales en cada uno de los lados: ciprés, pruno, espino de fuego y laurel. Se desarrolla a partir de diversos paseos que se complementan y relacionan a lo largo de todo su recorrido, delimitando numerosas zonas de estancia con elementos característicos como el quiosco de música o la fuente con pérgola de glicinas en su parte posterior. Uno de los elementos principales del parque es la acequia, atravesada por puentecillos de piedra que dan paso a cuadros de aromáticas, hacia un lado, y a una paseo de arces, al otro.\r\n\r\nDistrito: Chana\r\nSuperficie: 32.142 metros cuadrados\r\nTipo de parque: Cerrado', 'Delimitado por los viales Avda. de Andalucía. Granada.', 'http://www.besarsengranada.es/wp-content/uploads/2015/05/besarse-en-granada-flores-parque-almunia-5_21390.jpg', 0, 0, 0, 0, 0),
+(17, '', NULL, 'Parque Federico García Lorca', 'El Parque García Lorca, con cuatro entradas , se desarrolla alrededor de la Huerta de San Vicente, en los terrenos que antiguamente pertenecían a la familia de Federico García Lorca. El parque está constituido por diversos paseos , destacando dos avenidas: el paseo de la alameda , el cual se desarrolla paralelamente al río y se dirige al estanque , y el paseo de tilos, desde la entrada principal hasta las zonas de servicios Delimitados por estos paseos y caminos, existen diversos sectores que terminan de configurar este parque: los jardines neoplasticistas, las acequias, la fuente cibernética, el bosque de ribera, la rosaleda y las huertas.\r\n\r\nDistrito: Ronda\r\nSuperficie: 70.000 metros cuadrados\r\nTipo de parque: Cerrado', 'Entre las calles Arabial , Virgen Blanca y el Camino de Purchil.', 'https://www.conmishijos.com/assets/planes/4000/4120-parque-federico-garcia-lorca-granada.jpg', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -173,22 +177,21 @@ CREATE TABLE `route` (
   `MadeBy` varchar(50) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Image` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Accesibility` text COLLATE utf8_spanish2_ci NOT NULL
+  `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `route`
 --
 
-INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`, `Accesibility`) VALUES
-(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasefas', 'fasefasef', 'asfasefa', ''),
-(2, 'admin2@hotmail.com', 'usuariobloqueado@gmail.com', 'Ruta interesante', 'asfasef', 'asfeasef', ''),
-(3, 'admin1@gmail.com', 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes', ''),
-(4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses', ''),
-(5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs', ''),
-(8, 'dgp.monkeybits@gmail.com', NULL, 'fasefasfesasefsa', 'asefasfsea', 'fsafease', ''),
-(9, 'dgp.monkeybits@gmail.com', NULL, 'Parques y Jardines de Granada', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg', 'Tiene un poco de todo, pero mucho de nada.');
+INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
+(1, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasefas', 'fasefasef', 'asfasefa'),
+(2, 'admin2@hotmail.com', 'usuariobloqueado@gmail.com', 'Ruta interesante', 'asfasef', 'asfeasef'),
+(3, 'admin1@gmail.com', 'usuario1@gmail.com', 'afsefsa', 'asefas', 'asfes'),
+(4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'afsse', 'asfeeas', 'fses'),
+(5, 'admin1@gmail.com', 'usuario1@gmail.com', 'fasef', 'afes', 'asefs'),
+(8, 'dgp.monkeybits@gmail.com', NULL, 'fasefasfesasefsa', 'asefasfsea', 'fsafease'),
+(9, 'dgp.monkeybits@gmail.com', NULL, 'Parques y Jardines de Granada', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg');
 
 -- --------------------------------------------------------
 
@@ -217,15 +220,19 @@ CREATE TABLE `suggestedplace` (
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL,
-  `Accesibility` text COLLATE utf8_spanish2_ci NOT NULL
+  `RedMovility` tinyint(1) NOT NULL,
+  `RedVision` tinyint(1) NOT NULL,
+  `ColourBlind` tinyint(1) NOT NULL,
+  `Deaf` tinyint(1) NOT NULL,
+  `Foreigner` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `suggestedplace`
 --
 
-INSERT INTO `suggestedplace` (`IdPlace`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `Accesibility`) VALUES
-(3, 'usuario1@gmail.com', 'faef', 'asfe', 'fase', 'afsfs', '');
+INSERT INTO `suggestedplace` (`IdPlace`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `RedMovility`, `RedVision`, `ColourBlind`, `Deaf`, `Foreigner`) VALUES
+(3, 'usuario1@gmail.com', 'faef', 'asfe', 'fase', 'afsfs', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
