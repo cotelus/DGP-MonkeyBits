@@ -29,34 +29,61 @@
   }
 
   $consultaRutas = "SELECT * from suggestedroute where IdRoute like '%".$search."%' or Name like '%".$search."%' order by IdRoute";
-  $consultaLugares = "SELECT * from suggestedplace where IdPlace like '%".$search."%' or Name like '%".$search."%' order by IdPlace";
+  $consultaLugares = "SELECT * from suggestedplace where";
+  $primerFiltro = true;
 
   if (isset($_POST['filtroRedMovility'])) {
     if($_POST['filtroRedMovility']=='on') {
-      $consultaLugares .=" and RedMovility='1'";
+        $consultaLugares .=" RedMovility='1'";
+        $primerFiltro = false;
     }
   }
   if (isset($_POST['filtroRedVision'])) {
     if($_POST['filtroRedVision']=='on') {
-      $consultaLugares .=" and RedVision='1'";
+      if (!$primerFiltro)
+        $consultaLugares .=" and RedVision='1'";
+      else {
+        $consultaLugares .=" RedVision='1'";
+        $primerFiltro=false;
+      }
     }
   }
   if (isset($_POST['filtroForeigner'])) {
     if($_POST['filtroForeigner']=='on') {
-      $consultaLugares .=" and Foreigner='1'";
+      if (!$primerFiltro)
+        $consultaLugares .=" and Foreigner='1'";
+      else {
+        $consultaLugares .=" Foreigner='1'";
+        $primerFiltro=false;
+      }
     }
   }
   if (isset($_POST['filtroColourBlind'])) {
     if($_POST['filtroColourBlind']=='on') {
-      $consultaLugares .=" and ColourBlind='1'";
+      if (!$primerFiltro)
+        $consultaLugares .=" and ColourBlind='1'";
+      else {
+        $consultaLugares .=" ColourBlind='1'";
+        $primerFiltro=false;
+      }
     }
   }
   if (isset($_POST['filtroDeaf'])=='on') {
     if($_POST['filtroDeaf']) {
-      $consultaLugares .=" and Deaf='1'";
+      if (!$primerFiltro)
+        $consultaLugares .=" and Deaf='1'";
+      else {
+        $consultaLugares .=" Deaf='1'";
+        $primerFiltro=false;
+      }
     }
   }
-
+  if (!$primerFiltro)
+    $consultaLugares .= " and (IdPlace like '%%' or Name like '%%') ORDER BY IdPlace";
+  else {
+    $consultaLugares .= " (IdPlace like '%%' or Name like '%%') ORDER BY IdPlace";
+    $primerFiltro = false;
+  }
   if (isset($_POST['filtro-lugar-ruta'])) {
     if ($_POST['filtro-lugar-ruta']=='Ambos') {
       $resRutas = mysqli_query($conexion, $consultaRutas);
@@ -100,7 +127,7 @@
         $("#search_form").submit(function(e){
           e.preventDefault();
         })
-        $("#search").keyup(function() {
+        $("#search").submit(function() {
           var envio = $("#search").val();
         })
         $('#')
@@ -112,29 +139,31 @@
     <div class="py-2" style="">
       <div class="container py-3 px-3">
         <div class="row">
-          <div class="col-md-6">
-            <div class="form-center">
-              <form action="" method="post" name="search_form" id="search_form">
-                <input type="text" placeholder="Buscar sugerencia..." name="search" id="search">
-              </form>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="filtros" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
-              <form action="" method="post" name="filtros_form" id="filtros_form">
-                <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility"></span>
-                <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision"></span>
-                <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind"></span>
-                <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf"></span>
-                <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner"></span>
-                <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
-                  <option>Ambos</option>
-                  <option>Rutas</option>
-                  <option>Lugares</option>
-                </select>
-                <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Aplicar" style="margin-left: 7%;">
-              </form>
-            </div>
+          <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form">
+                      <input type="text" placeholder="Buscar sugerencia..." name="search" id="search">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                      <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility"></span>
+                      <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision"></span>
+                      <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind"></span>
+                      <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf"></span>
+                      <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner"></span>
+                      <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
+                        <option>Ambos</option>
+                        <option>Rutas</option>
+                        <option>Lugares</option>
+                      </select>
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-left: 7%;">
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
