@@ -48,10 +48,17 @@ if(isset($_POST["editar"])){
     
         $sequence=$texto2['Sequence'];
         $lugares = $_POST['lugares'];
-
+    
+        //ELIMINAMOS LOS LUGARES DE LA RUTA
+        if(!($QUERY2 = mysqli_query($conexion, "DELETE FROM `appearverified` WHERE IdRoute=".$id))){
+        
+            $MESSAGE = "ERROR AL BORRAR LOS PUNTOS DE RUTA";
+        }
+    
         foreach ($lugares as $lugar=>$value) {
-
-            if(!($QUERY2 = mysqli_query($conexion, "UPDATE `appearverified` SET `IdPlace`='".$value."', `Sequence`='".$sequence."' WHERE `IdRoute` =".$id))){
+            
+            //INTRODUCIMOS LOS NUEVOS LUGARES DE LA RUTA
+            if(!($QUERY2 = mysqli_query($conexion, "INSERT INTO `appearverified`(`IdPlace`, `IdRoute`, `Sequence`) VALUES ('".$value."', '".$id."', '".$sequence."')"))){
 
                 $MESSAGE = "ERROR AL EDITAR LOS PUNTOS DE RUTA";
             }
@@ -138,7 +145,7 @@ if(isset($_POST["editar"])){
                                 <?php
                                     
                                 //SE OBTIENEN DE LA BBDD LOS LUGARES QUE NO SON DE LA RUTA
-                                $resultado_lugares = mysqli_query($conexion, "SELECT IdPlace, Name FROM `place` WHERE NOT EXISTS (SELECT * FROM `appearverified`, `place` WHERE appearverified.IdPlace = place.IdPlace AND appearverified.IdRoute=".$id.")");
+                                $resultado_lugares = mysqli_query($conexion, "SELECT place.IdPlace, place.Name FROM `place` WHERE NOT place.IdPlace IN (SELECT appearverified.IdPlace FROM appearverified WHERE appearverified.IdRoute=".$id.")");
 
                                 if ($resultado_lugares->num_rows > 0) {
 
