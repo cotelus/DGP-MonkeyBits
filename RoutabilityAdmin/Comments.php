@@ -22,21 +22,40 @@
       printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
       exit();
   }
-  $res = mysqli_query($conexion, "SELECT count(*) from routecomments");
-  $numComRutas = mysqli_fetch_array($res);
-  $res = mysqli_query($conexion, "SELECT count(*) from placecomments");
-  $numComPlaces = mysqli_fetch_array($res);
-  $numeroComentarios = $numComRutas[0] + $numComPlaces[0];
-  $numPaginas = $numeroComentarios/10 +1;
-  $numUltimaPagina = $numeroComentarios % 10;
-  $resComPlaces= NULL;
-  $resComRutas = NULL;
-  if ($numComPlaces[0]>0) {
-    $resComPlaces = mysqli_query($conexion,"SELECT * FROM placecomments");
+  
+  $search = '';
+  if (isset($_POST['search'])) {
+    $search = $_POST['search'];
   }
-  if ($numComRutas[0]>0) {
-    $resComRutas = mysqli_query($conexion,"SELECT * FROM routecomments");
+
+  $consultaRutas = "SELECT * from routecomments where IdRoute like '%".$search."%' or Email like '%".$search."%' or Content like '%".$search."%' ORDER BY IdRoute";
+  $consultaLugares = "SELECT * from placecomments where IdPlace like '%".$search."%' or Email like '%".$search."%' or Content like '%".$search."%' ORDER BY IdPlace";
+
+  if (isset($_POST['filtro-lugar-ruta'])) {
+    if ($_POST['filtro-lugar-ruta']=='Ambos') {
+      $resRutas = mysqli_query($conexion, $consultaRutas);
+      $resLugares = mysqli_query($conexion, $consultaLugares);
+      $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+    }
+    else if ($_POST['filtro-lugar-ruta']=='Rutas') {
+      $resRutas = mysqli_query($conexion, $consultaRutas);
+      $resLugares = NULL;
+      $total = mysqli_num_rows($resRutas);
+    }
+    else if ($_POST['filtro-lugar-ruta']=='Lugares') {
+      $resLugares = mysqli_query($conexion, $consultaLugares);
+      $resRutas = NULL;
+      $total = mysqli_num_rows($resLugares);
+    }
   }
+  else {
+    $resRutas = mysqli_query($conexion, $consultaRutas);
+    $resLugares = mysqli_query($conexion, $consultaLugares);
+    $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+  }
+  
+  
+  $fila = NULL;
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,6 +73,32 @@
 </head>
 
 <body class="bg-primario">
+  <div class="py-2" style="">
+      <div class="container py-3 px-3">
+        <div class="row">
+          <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form">
+                      <input type="text" placeholder="Buscar comentario..." name="search" id="search">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                      <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
+                        <option>Ambos</option>
+                        <option>Rutas</option>
+                        <option>Lugares</option>
+                      </select>
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     <div class="py-2" style="">
         <div class="container">
             <div class="row">
@@ -74,37 +119,33 @@
                 }
                 header("Location: Comments.php");
               }
-              if ($numeroComentarios < 10)
-                $maxLista = 10;
-              else 
-                $maxLista = $numeroComentarios;
-              for ($k = 0; $k < $maxLista; $k++) {
-                $comentarios = NULL;
-                if ($resComRutas != NULL)
-                  $comentarios = mysqli_fetch_array($resComRutas);
-                if ($comentarios == NULL) {
-                  if ($resComPlaces != NULL)
-                    $comentarios = mysqli_fetch_array($resComPlaces);
-                  if ($comentarios != NULL) {
-                      
-                    $email = $comentarios["Email"];
-                    $id = $comentarios["IdPlace"];
-                    $date = $comentarios["Date"];
-                    $time = $comentarios["Time"];
+              if ($total > 0) {
+                if ($resRutas!=NULL) {
+                  while($fila = mysqli_fetch_assoc($resRutas)) {
+                          
+                        $email = $fila["Email"];
+                        $id = $fila["IdRoute"];
+                        $date = $fila["Date"];
+                        $time = $fila["Time"];
+                        $content = $fila["Content"];
 
-                    echo '<p class="list-group-item list-group-item-action miembro-lista">'.$comentarios["Email"].': '. $comentarios["Content"];
-                    echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
+                        echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
+                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
+                    }
                   }
-                }
-                else {
-                  $email = $comentarios["Email"];
-                  $id = $comentarios["IdRoute"];
-                  $date = $comentarios["Date"];
-                  $time = $comentarios["Time"];
+                  if ($resLugares!=NULL) {
+                    while($fila = mysqli_fetch_assoc($resLugares)) {
+                            
+                          $email = $fila["Email"];
+                          $id = $fila["IdPlace"];
+                          $date = $fila["Date"];
+                          $time = $fila["Time"];
+                          $content = $fila["Content"];
 
-                  echo '<p class="list-group-item list-group-item-action miembro-lista">'.$comentarios["Email"].': '. $comentarios["Content"];
-                  echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img name="eliminar" title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
-                }
+                          echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
+                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
+                      }
+                    }
               }
               
             ?>

@@ -22,14 +22,40 @@
       printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
       exit();
   }
-  $res = mysqli_query($conexion, "SELECT count(*) from user");
-  $numUsers = mysqli_fetch_array($res);
-  $numPaginas = $numUsers[0]/10 +1;
-  $numUltimaPagina = $numUsers % 10;
-  $resUsuarios = NULL;
-  if ($numUsers[0]>0) {
-    $resUsuarios = mysqli_query($conexion,"SELECT * FROM user");
+  
+  $search = '';
+  if (isset($_POST['search'])) {
+    $search = $_POST['search'];
   }
+
+  //$consultaUsuarios = "SELECT * from user where Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
+  $consultaUsuarios = "SELECT * from user where";
+
+  if (isset($_POST['filtro-bloq-nobloq'])) {
+    if ($_POST['filtro-bloq-nobloq']=='Ambos') {
+      $consultaUsuarios .= " Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
+      $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
+      $total = mysqli_num_rows($resUsuarios);
+    }
+    else if ($_POST['filtro-bloq-nobloq']=='Bloqueados') {
+      $consultaUsuarios .= " Banned='1' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
+      $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
+      $total = mysqli_num_rows($resUsuarios);
+    }
+    else if ($_POST['filtro-bloq-nobloq']=='Desbloqueados') {
+      $consultaUsuarios .= " Banned='0' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
+      $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
+      $total = mysqli_num_rows($resUsuarios);
+    }
+  }
+  else {
+    $consultaUsuarios .= " Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
+    $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
+    $total = mysqli_num_rows($resUsuarios);
+  }
+  
+  
+  $fila = NULL;
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,6 +73,32 @@
 </head>
 
 <body class="bg-primario">
+  <div class="py-2" style="">
+      <div class="container py-3 px-3">
+        <div class="row">
+          <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form">
+                      <input type="text" placeholder="Buscar usuario..." name="search" id="search">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                      <select style="margin-left: 3%;" name="filtro-bloq-nobloq" name="filtro-bloq-nobloq">
+                        <option>Ambos</option>
+                        <option>Bloqueados</option>
+                        <option>Desbloqueados</option>
+                      </select>
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     <div class="py-3" style="">
         <div class="container">
             <div class="row">
@@ -65,27 +117,21 @@
                 }
                 header("Location: Users.php");
               }
-              if ($numUsers[0] < 10)
-                $maxLista = 10;
-              else 
-                $maxLista = $numUsers[0];
-              for ($k = 0; $k < $maxLista; $k++) {
-                $usuarios = NULL;
-                if ($resUsuarios != NULL)
-                  $usuarios = mysqli_fetch_array($resUsuarios);
+              if ($total > 0) {
+                while ($fila = mysqli_fetch_assoc($resUsuarios)) {
 
-                  if ($usuarios != NULL) {
+                  $email = $fila["Email"];
+                  $name = $fila["Name"];
+                  $banned = $fila["Banned"];
 
-                  $email = $usuarios["Email"];
-                  $banned = $usuarios["Banned"];
-                  echo '<p class="list-group-item list-group-item-action">'.$usuarios["Email"];
+                  echo '<p class="list-group-item list-group-item-action"><b>'.$email.':</b> '.$name;
                   if ($banned == 0) {
                     echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" /></a></p>';
                   }
                   else {
                     echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img title="Desbloquear usuario" alt="Desbloquear usuario" class="icono2" src="./img/desbloquear.png"/></a></p>';
+                    }
                   }
-                }
               }
             ?>
                     </div>

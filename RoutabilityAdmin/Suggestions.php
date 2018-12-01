@@ -28,7 +28,7 @@
     $search = $_POST['search'];
   }
 
-  $consultaRutas = "SELECT * from suggestedroute where IdRoute like '%".$search."%' or Name like '%".$search."%' order by IdRoute";
+  $consultaRutas = "SELECT * from suggestedroute where (IdRoute like '%%' or Name like '%%') ORDER BY IdRoute";
   $consultaLugares = "SELECT * from suggestedplace where";
   $primerFiltro = true;
 
@@ -79,9 +79,9 @@
     }
   }
   if (!$primerFiltro)
-    $consultaLugares .= " and (IdPlace like '%%' or Name like '%%') ORDER BY IdPlace";
+    $consultaLugares .= " and (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
   else {
-    $consultaLugares .= " (IdPlace like '%%' or Name like '%%') ORDER BY IdPlace";
+    $consultaLugares .= " (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
     $primerFiltro = false;
   }
   if (isset($_POST['filtro-lugar-ruta'])) {
@@ -149,11 +149,11 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
-                      <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility"></span>
-                      <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision"></span>
-                      <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind"></span>
-                      <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf"></span>
-                      <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner"></span>
+                      <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
+                      <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
+                      <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
+                      <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
+                      <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
                       <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
                         <option>Ambos</option>
                         <option>Rutas</option>
