@@ -49,6 +49,7 @@
     <string name="suggest_button">Sugerir</string>
     <string name="rutes_menu">Rutas/Lugares</string>
     <string name="tittle_rute">Nombre de ruta</string>
+    <string name="tittle_place">Nombre de Lugar</string>
     <string name="desc_rute">Descripción</string>
     <string name="list_desc_route">Descricion de la imagen</string>
     <string name="post_desc_img">Descricion de la imagen</string>
@@ -58,4 +59,11 @@
     <string name="post_rt_info_rating">Valoración</string>
     <string name="pos_rt_fav">Añadir a favoritos</string>
     <string name="post_follow_bt_rt"> Seguir la ruta</string>
+    <string name="image_description"></string>
+    <string name="comments">Comentarios</string>
+    <string name="remove_favorites">Eliminado de favoritos</string>
+    <string name="add_favorites">Añadido de favoritos</string>
+    <string name="comments_here">Comenta aquí</string>
+    <string name="send_comment">Enviar tu comentario</string>
+    <string name="write_comment">Escribe tu comentario...</string>
 </resources>
