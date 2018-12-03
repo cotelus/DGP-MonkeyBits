@@ -1,45 +1,93 @@
 package com.monkeybit.routability;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Route {
-    private String idText, emailText, madeByText, nameText, descriptionText;
 
-    public String getIdText() {
-        return idText;
+    private String idRoute, email, madeBy, name, description, accesibility;
+
+    public Route() {}
+
+    public Route(JSONObject jsonRoute) {
+        if (isValidJson(jsonRoute)) {
+            this.setIdRoute(jsonRoute.optString("IdRoute"));
+            this.setEmail(jsonRoute.optString("Email"));
+            this.setMadeBy(jsonRoute.optString("MadeBy"));
+            this.setName(jsonRoute.optString("Name"));
+            this.setDescription(jsonRoute.optString("Description"));
+            this.setAccesibility(jsonRoute.optString("Accesiblity"));
+        }
     }
 
-    public void setIdText(String idText) {
-        this.idText = idText;
+    private boolean isValidJson(JSONObject jsonRoute) {
+        return jsonRoute.has("IdRoute") && jsonRoute.has("Email") && jsonRoute.has("MadeBy")
+                && jsonRoute.has("Name") && jsonRoute.has("Description") && jsonRoute.has("Accesibility");
     }
 
-    public String getEmailText() {
-        return emailText;
+    public JSONObject toJson() {
+        JSONObject jsonPlace = new JSONObject();
+        try {
+            jsonPlace.put("IdPlace", this.getIdRoute());
+            jsonPlace.put("Email", this.getEmail());
+            jsonPlace.put("MadeBy", this.getMadeBy());
+            jsonPlace.put("Name", this.getName());
+            jsonPlace.put("Description", this.getDescription());
+            jsonPlace.put("Accesibility", this.getAccesibility());
+        } catch (JSONException e) {
+            Log.d("DEBUG", "Error al pasar un objeto Route a JSON");
+            e.printStackTrace();
+        }
+        return jsonPlace;
     }
 
-    public void setEmailText(String emailText) {
-        this.emailText = emailText;
+    public String getIdRoute() {
+        return idRoute;
     }
 
-    public String getMadeByText() {
-        return madeByText;
+    public void setIdRoute(String idRoute) {
+        this.idRoute = idRoute;
     }
 
-    public void setMadeByText(String madeByText) {
-        this.madeByText = madeByText;
+    public String getEmail() {
+        return email;
     }
 
-    public String getNameText() {
-        return nameText;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setNameText(String nameText) {
-        this.nameText = nameText;
+    public String getMadeBy() {
+        return madeBy;
     }
 
-    public String getDescriptionText() {
-        return descriptionText;
+    public void setMadeBy(String madeBy) {
+        this.madeBy = madeBy;
     }
 
-    public void setDescriptionText(String descriptionText) {
-        this.descriptionText = descriptionText;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAccesibility() {
+        return accesibility;
+    }
+
+    public void setAccesibility(String accesibility) {
+        this.accesibility = accesibility;
     }
 }

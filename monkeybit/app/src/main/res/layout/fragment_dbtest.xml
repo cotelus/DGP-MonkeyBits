@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/idText"
+        android:id="@+id/idRoute"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/title_fragmen" />
 
     <TextView
-        android:id="@+id/emailText"
+        android:id="@+id/email"
         android:layout_width="226dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
@@ -62,10 +62,10 @@
         android:text="email:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idText" />
+        app:layout_constraintTop_toBottomOf="@+id/idRoute" />
 
     <TextView
-        android:id="@+id/madeByText"
+        android:id="@+id/madeBy"
         android:layout_width="230dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
@@ -75,10 +75,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailText" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <TextView
-        android:id="@+id/nameText"
+        android:id="@+id/name"
         android:layout_width="231dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
@@ -87,10 +87,10 @@
         android:text="Name:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/madeByText" />
+        app:layout_constraintTop_toBottomOf="@+id/madeBy" />
 
     <TextView
-        android:id="@+id/descriptionText"
+        android:id="@+id/description"
         android:layout_width="335dp"
         android:layout_height="123dp"
         android:layout_marginStart="8dp"
@@ -99,6 +99,6 @@
         android:text="Description:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
 </android.support.constraint.ConstraintLayout>
