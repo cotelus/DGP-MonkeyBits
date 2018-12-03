@@ -11,7 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class SuggestPlaceActivity extends Fragment {
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class SuggestPlaceActivity extends Fragment implements DBConnectInterface {
 
     private TextInputEditText newName;
     private TextInputEditText newDescription;
@@ -43,17 +48,31 @@ public class SuggestPlaceActivity extends Fragment {
         String name = newName.getText().toString();
         String description = newDescription.getText().toString();
         String localization = newLocalization.getText().toString();
+
         if (!(name.isEmpty() || description.isEmpty() || localization.isEmpty())) {
+            String userId = ((MainActivity) getActivity()).getUserEmail();
 
-            //Para probar a ver el nuevo lugar.
-            String newPlace = name + "\n" + description + "\n" + localization + "\n";
-            Toast.makeText(getActivity(), newPlace, Toast.LENGTH_SHORT).show();
-
-            // @TODO: Acceder a BD para enviar los datos
+            //@TODO: Añadir imagen y accesibilidad
+            PlaceToSuggest newPlace = new PlaceToSuggest(userId, name, description, localization, "Imagen", "To Chunga");
+            try {
+                DBConnect.suggestPlace(getContext(), this, newPlace.toJson());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
         } else {
             Toast toast = Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(), "Error al sugerir ruta", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        Toast.makeText(getContext(), "Ruta sugerida correctamente", Toast.LENGTH_SHORT).show();
     }
 }

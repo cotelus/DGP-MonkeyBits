@@ -6584,3 +6584,46 @@ html, body {
   @media (min-width: 1200px) {
     #titulo {
         max-width: 1140px; } }
+
+  * {
+  box-sizing: border-box;
+}
+
+#search {
+  background-image: url('./img/lupa.jpg');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 60px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.class {
+  margin:5px;
+  padding:5px;
+}
+
+select#soflow-color {
+    color: #fff;
+    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+    background-color: #779126;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+.accesibilidad {
+
+    background-color: white;
+    border-color: black;
+}
+
+.accesibilidad p {
+
+    font-size: 150%;
+    margin-bottom: 4%;
+}
+

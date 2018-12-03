@@ -5,15 +5,14 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Place {
+public class PlaceToSuggest {
 
-    private String idPlace, email, madeBy, name, description, localization, image, accesibility;
+    private String idPlace, madeBy, name, description, localization, image, accesibility;
 
-    public Place(){}
+    public PlaceToSuggest(){}
 
-    public Place(String idPlace, String email, String madeBy, String name, String description, String localization, String image, String accesibility) {
+    public PlaceToSuggest(String idPlace, String madeBy, String name, String description, String localization, String image, String accesibility) {
         this.idPlace = idPlace;
-        this.email = email;
         this.madeBy = madeBy;
         this.name = name;
         this.description = description;
@@ -22,9 +21,8 @@ public class Place {
         this.accesibility = accesibility;
     }
 
-    public Place(String email, String madeBy, String name, String description, String localization, String image, String accesibility) {
+    public PlaceToSuggest(String madeBy, String name, String description, String localization, String image, String accesibility) {
         this.idPlace = "";
-        this.email = email;
         this.madeBy = madeBy;
         this.name = name;
         this.description = description;
@@ -33,10 +31,9 @@ public class Place {
         this.accesibility = accesibility;
     }
 
-    public Place (JSONObject jsonPlace) {
+    public PlaceToSuggest(JSONObject jsonPlace) {
         if (isValidJson(jsonPlace)) {
             this.setIdPlace(jsonPlace.optString("IdPlace"));
-            this.setEmail(jsonPlace.optString("Email"));
             this.setMadeBy(jsonPlace.optString("MadeBy"));
             this.setName(jsonPlace.optString("Name"));
             this.setDescription(jsonPlace.optString("Description"));
@@ -46,9 +43,9 @@ public class Place {
         }
     }
 
-    private boolean isValidJson(JSONObject jsonPlace) {
-        return jsonPlace.has("IdPlace") && jsonPlace.has("Email") && jsonPlace.has("MadeBy")
-                && jsonPlace.has("Name") && jsonPlace.has("Description") && jsonPlace.has("Localitation")
+    public static boolean isValidJson(JSONObject jsonPlace) {
+        return jsonPlace.has("MadeBy")&& jsonPlace.has("Name")
+                && jsonPlace.has("Description") && jsonPlace.has("Localitation")
                 && jsonPlace.has("Image") && jsonPlace.has("Accesibility");
     }
 
@@ -58,7 +55,6 @@ public class Place {
             if (!this.getIdPlace().equals("")) {
                 jsonPlace.put("IdPlace", this.getIdPlace());
             }
-            jsonPlace.put("Email", this.getEmail());
             jsonPlace.put("MadeBy", this.getMadeBy());
             jsonPlace.put("Name", this.getName());
             jsonPlace.put("Description", this.getDescription());
@@ -78,14 +74,6 @@ public class Place {
 
     public void setIdPlace(String idPlace) {
         this.idPlace = idPlace;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getMadeBy() {
@@ -136,3 +124,4 @@ public class Place {
         this.accesibility = accesibility;
     }
 }
+
