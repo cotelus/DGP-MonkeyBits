@@ -23,6 +23,7 @@
     <string name="delete_account_fail">Por seguridad, deberás iniciar sesión de nuevo antes de eliminar la cuenta.Inténtalo de nuevo cuando hayas iniciado sesión</string>
     <string name="rutes">Rutas</string>
     <string name="newName">Escribe el nuevo nombre</string>
+    <string name="noUser">El usuario no está autenticado</string>
     <string name="btChange"> Cambia el nombre </string>
     <string name="btUpdate"> Actualiza </string>
     <string name="btUpdateDesc"> Clica para actualizar los datos del perfil </string>
@@ -46,4 +47,22 @@
     <string name="new_place_description">Descripción del Lugar</string>
     <string name="place_localization">Ubicación del Lugar</string>
     <string name="suggest_button">Sugerir</string>
+    <string name="rutes_menu">Rutas/Lugares</string>
+    <string name="tittle_rute">Nombre de ruta</string>
+    <string name="desc_rute">Descripción</string>
+    <string name="list_desc_route">Descricion de la imagen</string>
+    <string name="post_desc_img">Descricion de la imagen</string>
+    <string name="post_text_tittle">Titulo de ruta</string>
+    <string name="post_text_desc">Descricion de la ruta</string>
+    <string name="post_rt_info_places">Lugares por los que pasa la ruta</string>
+    <string name="post_rt_info_rating">Valoración</string>
+    <string name="pos_rt_fav">Añadir a favoritos</string>
+    <string name="post_follow_bt_rt"> Seguir la ruta</string>
+    <!-- BD TEST-->
+    <string name="title_fragment">Inicio de Sesión</string>
+    <string name="title_user">Usuario: </string>
+    <string name="title_pwd">Contraseña: </string>
+    <string name="title_boton">Comprobar</string>
+    <string name="login">COMPROBAR RUTA</string>
+    <string name="id_bd_test">test</string>
 </resources>

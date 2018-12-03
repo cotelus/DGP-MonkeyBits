@@ -8,7 +8,7 @@ session_start();
 //Consultamos los datos de la obra
 
 $conexion = mysqli_connect("localhost", "root", "");
-$BD = mysqli_select_db($conexion, "routability");
+$BD = mysqli_select_db($conexion, "bdr");
 
 //Comprueba conexion
 if(mysqli_connect_errno()){
@@ -30,9 +30,13 @@ if(isset($_POST["editar"])){
          $descripcion=$_POST['descripcion'];
          $localization=$_POST['localization'];
          $imagen=$_POST['imagen'];
-         $accesibilidad=$_POST['accesibilidad'];
+         $mov = $_POST['movilidad'];
+         $vis = $_POST['vision'];
+         $col = $_POST['color'];
+         $sor = $_POST['sordo'];
+         $ext = $_POST['extranjero'];
     
-    if(!($QUERY = mysqli_query($conexion, "UPDATE `place` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Localitation`='".$localization."', `Image`='".$imagen."', `Accesibility`='".$accesibilidad."' WHERE `IdPlace`=".$id))){
+    if(!($QUERY = mysqli_query($conexion, "UPDATE `place` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Localitation`='".$localization."', `Image`='".$imagen."', `RedMovility`='".$mov."', `RedVision`='".$vis."', `ColourBlind`='".$col."', `Deaf`='".$sor."', `Foreigner`='".$ext."' WHERE `IdPlace`=".$id))){
     
         $MESSAGE = "ERROR AL EDITAR EL LUGAR";
         
@@ -45,7 +49,11 @@ if(isset($_POST["editar"])){
         $desc=$descripcion;
         $loc=$localization;
         $img=$imagen;
-        $acc=$accesibilidad;
+        $movilidad=$mov;
+        $vision=$vis;
+        $color=$col;
+        $sordo=$sor;
+        $extranjero=$ext;
         
         $MESSAGE = "LUGAR EDITADO";
     }
@@ -64,7 +72,11 @@ if(isset($_POST["editar"])){
         $desc=$texto['Description'];
         $loc=$texto['Localitation'];
         $img=$texto['Image'];
-        $acc=$texto['Accesibility'];
+        $movilidad=$texto['RedMovility'];
+        $vision=$texto['RedVision'];
+        $color=$texto['ColourBlind'];
+        $sordo=$texto['Deaf'];
+        $extranjero=$texto['Foreigner'];
     
 
 }
@@ -118,28 +130,107 @@ if(isset($_POST["editar"])){
                         <?php echo "<div class='form-group'> <h4><b>Vista previa</b></h4><img title='Imagen Lugar' alt='Imagen Lugar' class='img-fluid d-block float-left p-2' style='border-radius: 15px 50px 30px;' src='".$img."' width='640' height='320'></div>"?>
                     </div>
                     <div class="col-md-6">
-                        <?php echo "<div class='form-group'> <h4><b>Accesibilidad del lugar</b></h4><br/><textarea name='accesibilidad' placeholder='Escribe la accesibilidad del lugar...' maxlength='10000' rows='10' cols='56' onFocus='if(this.value=='accesibilidad')this.value='' '>".$acc."</textarea></div>"?>
-                    </div>
-                    <div class="col-md-6">
                         <?php echo "<div class='form-group'> <h4><b>Localización del lugar</b></h4><br/><textarea  name='localization' placeholder='Escribe la localización del lugar...' maxlength='10000' rows='10' cols='56' onFocus='if(this.value=='localization')this.value='' '>".$loc."</textarea></div>"?>
                         <hr>
                         <div>
-                            <input class="bg-light" type="submit" name="editar" value="Editar">
+                            <input class="btn btn btn-primary btn-light icon-home" type="submit" name="editar" value="Editar">
                             &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
                         </div>
                     </div>
-                </div>
-                <?php echo "</form>"?>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <h4><b>Accesibilidad del lugar</b></h4><br />
+
+                            <div class="accesibilidad">
+                                <p class="icon-wheelchair">&nbsp&nbsp Movilidad Reducida: <select name="movilidad" id="movilidad">
+
+                                        <?php
+    
+                                        if($movilidad == 1){
+                                        
+                                            echo "<option selected value=1>Si</option>";
+                                            echo "<option value=0>No</option>";
+                                        }
+                                        else{
+                                            
+                                            echo "<option value=1>Si</option>";
+                                            echo "<option selected value=0>No</option>";
+                                        }
+                                    ?>
+                                    </select></p>
+
+                                <p class="icon-eye-minus">&nbsp&nbsp Visión Reducida: <select name="vision" id="vision">
+
+                                        <?php
+                                        if($vision == 1){
+                                        
+                                            echo "<option selected value=1>Si</option>";
+                                            echo "<option value=0>No</option>";
+                                        }
+                                        else{
+                                            
+                                            echo "<option value=1>Si</option>";
+                                            echo "<option selected value=0>No</option>";
+                                        }
+                                        ?>
+
+                                    </select></p>
+
+                                <p class="icon-eyedropper">&nbsp&nbsp Daltónicos: <select name="color" id="color">
+
+                                        <?php
+                                        if($color == 1){
+                                        
+                                            echo "<option selected value=1>Si</option>";
+                                            echo "<option value=0>No</option>";
+                                        }
+                                        else{
+                                            
+                                            echo "<option value=1>Si</option>";
+                                            echo "<option selected value=0>No</option>";
+                                        }
+                                        ?>
+
+                                    </select></p>
+
+                                <p class="icon-deaf">&nbsp&nbsp Incapacidad auditiva: <select name="sordo" id="sordo">
+
+                                        <?php
+                                        if($sordo == 1){
+                                        
+                                            echo "<option selected value=1>Si</option>";
+                                            echo "<option value=0>No</option>";
+                                        }
+                                        else{
+                                            
+                                            echo "<option value=1>Si</option>";
+                                            echo "<option selected value=0>No</option>";
+                                        }
+                                        ?>
+
+                                    </select></p>
+
+                                <p class="icon-language">&nbsp&nbsp Idiomas: <select name="extranjero" id="extranjero">
+
+                                        <?php
+                                        if($extranjero == 1){
+                                        
+                                            echo "<option selected value=1>Si</option>";
+                                            echo "<option value=0>No</option>";
+                                        }
+                                        else{
+                                            
+                                            echo "<option value=1>Si</option>";
+                                            echo "<option selected value=0>No</option>";
+                                        }
+                                        ?>
+
+                                    </select></p>
+                            </div>
+
+                        </div>
+                        <?php echo "</form>"?>
             </fieldset>
-        </div>
-    </div>
-    <div class="py-3 bg-secundario" style="">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
-                </div>
-            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

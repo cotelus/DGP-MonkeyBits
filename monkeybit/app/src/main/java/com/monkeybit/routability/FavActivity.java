@@ -10,14 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-public class RouteActivity extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class FavActivity extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView menuRutes;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_route, container, false);
-        getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, new ListRouteActivity()).commit(); //by default
+        getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, new ListFavRouteActivity()).commit(); //by default
         menuRutes = view.findViewById(R.id.NavViewRutePlace); //the fragment
         menuRutes.setOnNavigationItemSelectedListener(this); //listener, when click an option, the listener is called
 
@@ -27,14 +26,13 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = new ListRouteActivity();
+        Fragment selectedFragment = new ListFavRouteActivity();
         switch (item.getItemId()) {
             case R.id.menu_rutas:
-                selectedFragment = new ListRouteActivity();
+                selectedFragment = new ListFavRouteActivity();
                 break;
             case R.id.menu_places:
-                // @TODO: asignar a selectedFragment el Fragmen de opciones de lugares
-                // selectedFragment = new MenuActivity();
+                 selectedFragment = new ListFavPlacesActivity();
                 break;
             case R.id.menu_search:
                 // @TODO: asignar a selectedFragment el Fragmen de opciones de busqueda
@@ -47,5 +45,4 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
 
         return true;
     }
-
 }

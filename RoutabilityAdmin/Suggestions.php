@@ -7,7 +7,7 @@
   //Consultamos los datos de la obra
 
   $conexion = mysqli_connect("localhost", "root", "");
-  $BD = mysqli_select_db($conexion, "routability");
+  $BD = mysqli_select_db($conexion, "bdr");
 
   //Comprueba conexion
   if(mysqli_connect_errno()){
@@ -22,21 +22,93 @@
       printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
       exit();
   }
-  $res = mysqli_query($conexion, "SELECT count(*) from suggestedroute");
-  $numRutas = mysqli_fetch_array($res);
-  $res = mysqli_query($conexion, "SELECT count(*) from suggestedplace");
-  $numLugares = mysqli_fetch_array($res);
-  $numeroSugerencias = $numRutas[0] + $numLugares[0];
-  $numPaginas = $numeroSugerencias/10 +1;
-  $numUltimaPagina = $numeroSugerencias % 10;
-  $resLugares= NULL;
-  $resRutas = NULL;
-  if ($numLugares[0]>0) {
-    $resLugares = mysqli_query($conexion,"SELECT * FROM suggestedplace");
+
+  $search = '';
+  if (isset($_POST['search'])) {
+    $search = $_POST['search'];
   }
-  if ($numRutas[0]>0) {
-    $resRutas = mysqli_query($conexion,"SELECT * FROM suggestedroute");
+
+  $consultaRutas = "SELECT * from suggestedroute where (IdRoute like '%%' or Name like '%%') ORDER BY IdRoute";
+  $consultaLugares = "SELECT * from suggestedplace where";
+  $primerFiltro = true;
+
+  if (isset($_POST['filtroRedMovility'])) {
+    if($_POST['filtroRedMovility']=='on') {
+        $consultaLugares .=" RedMovility='1'";
+        $primerFiltro = false;
+    }
   }
+  if (isset($_POST['filtroRedVision'])) {
+    if($_POST['filtroRedVision']=='on') {
+      if (!$primerFiltro)
+        $consultaLugares .=" and RedVision='1'";
+      else {
+        $consultaLugares .=" RedVision='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroForeigner'])) {
+    if($_POST['filtroForeigner']=='on') {
+      if (!$primerFiltro)
+        $consultaLugares .=" and Foreigner='1'";
+      else {
+        $consultaLugares .=" Foreigner='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroColourBlind'])) {
+    if($_POST['filtroColourBlind']=='on') {
+      if (!$primerFiltro)
+        $consultaLugares .=" and ColourBlind='1'";
+      else {
+        $consultaLugares .=" ColourBlind='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroDeaf'])=='on') {
+    if($_POST['filtroDeaf']) {
+      if (!$primerFiltro)
+        $consultaLugares .=" and Deaf='1'";
+      else {
+        $consultaLugares .=" Deaf='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (!$primerFiltro)
+    $consultaLugares .= " and (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+  else {
+    $consultaLugares .= " (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+    $primerFiltro = false;
+  }
+  if (isset($_POST['filtro-lugar-ruta'])) {
+    if ($_POST['filtro-lugar-ruta']=='Ambos') {
+      $resRutas = mysqli_query($conexion, $consultaRutas);
+      $resLugares = mysqli_query($conexion, $consultaLugares);
+      $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+    }
+    else if ($_POST['filtro-lugar-ruta']=='Rutas') {
+      $resRutas = mysqli_query($conexion, $consultaRutas);
+      $resLugares = NULL;
+      $total = mysqli_num_rows($resRutas);
+    }
+    else if ($_POST['filtro-lugar-ruta']=='Lugares') {
+      $resLugares = mysqli_query($conexion, $consultaLugares);
+      $resRutas = NULL;
+      $total = mysqli_num_rows($resLugares);
+    }
+  }
+  else {
+    $resRutas = mysqli_query($conexion, $consultaRutas);
+    $resLugares = mysqli_query($conexion, $consultaLugares);
+    $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+  }
+  
+  
+  $fila = NULL;
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,15 +122,55 @@
     <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
     <link rel="stylesheet" href="theme.css">
     <link rel="stylesheet" href="fonts.css" type="text/css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $("#search_form").submit(function(e){
+          e.preventDefault();
+        })
+        $("#search").submit(function() {
+          var envio = $("#search").val();
+        })
+        $('#')
+    </script>
 
 </head>
 
 <body class="bg-primario">
     <div class="py-2" style="">
+      <div class="container py-3 px-3">
+        <div class="row">
+          <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form">
+                      <input type="text" placeholder="Buscar sugerencia..." name="search" id="search">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                      <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
+                      <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
+                      <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
+                      <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
+                      <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
+                      <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
+                        <option>Ambos</option>
+                        <option>Rutas</option>
+                        <option>Lugares</option>
+                      </select>
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-left: 7%;">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12" style="">
-                    <div class="list-group">
+                    <div class="list-group" id="resultados">
                         <h3><a href="#" class="list-group-item list-group-item-action active list-group-item-info icon-drawer">&nbsp;Lista de Sugerencias</a></h3>
                         <?php
               if (isset($_GET['id'])) {
@@ -88,47 +200,42 @@
                   mysqli_query($conexion, "Insert into route(IdRoute, Email, MadeBy, Name, Description, Image) values('NULL', '$email', '$madeby', '$name', '$description', '$image')");
                   mysqli_query($conexion, "DELETE from suggestedroute where IdRoute='".$id."'");      
                 }
-              header("Location: Suggestions.php");
+                header("Location: Suggestions.php");
               }
-              if ($numeroSugerencias < 10)
-                $maxLista = 10;
-              else 
-                $maxLista = $numeroSugerencias;
-              for ($k = 0; $k < $maxLista; $k++) {
-                $sugerencias = NULL;
-                if ($resRutas != NULL)
-                  $sugerencias = mysqli_fetch_array($resRutas);
-                if ($sugerencias == NULL) {
-                  if ($resLugares != NULL)
-                    $sugerencias = mysqli_fetch_array($resLugares);
-                  if ($sugerencias != NULL) {
-                      
-                    $id = $sugerencias["IdPlace"];
-                    $madeby = $sugerencias["MadeBy"];
-                    $description = $sugerencias["Description"];
-                    $name = $sugerencias["Name"];
-                    $localitation = $sugerencias["Localitation"];
-                    $image = $sugerencias["Image"];
-                    echo '<p class="list-group-item list-group-item-action"><b>Lugar: </b>';
-                    echo '('.$sugerencias["IdPlace"].'):'. $sugerencias["Name"];
-                    echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
-                    echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&localitation='.$localitation.'&image='.$image.'&tipo=2" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
-                    
-                  }
+
+              if ($total > 0) {
+                if ($resRutas !=NULL) {
+                  while($fila = mysqli_fetch_assoc($resRutas)){
+                    $id = $fila['IdRoute'];
+                    $name = $fila['Name'];
+                    $madeby = $fila['MadeBy'];
+                    $description = $fila['Description'];
+                    $image = $fila['Image'];
+                     echo '<p class="list-group-item list-group-item-action"><b>Ruta';
+                      echo '('.$id.'):</b>'.$name;
+                      echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
+                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
+
+                  } 
                 }
-                else {
-                  $id = $sugerencias["IdRoute"];
-                  $madeby = $sugerencias["MadeBy"];
-                  $description = $sugerencias["Description"];
-                  $name = $sugerencias["Name"];
-                  $image = $sugerencias["Image"];
-                  echo '<p class="list-group-item list-group-item-action"><b>Ruta: </b>';
-                  echo '('.$sugerencias["IdRoute"].'):'. $sugerencias["Name"];
-                  echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
-                  echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
-                  
+                if ($resLugares!=NULL) {
+                  while($fila = mysqli_fetch_assoc($resLugares)){
+                    $id = $fila['IdPlace'];
+                    $name = $fila['Name'];
+                    $madeby = $fila['MadeBy'];
+                    $description = $fila['Description'];
+                    $image = $fila['Image'];
+                    $localitation = $fila['Localitation'];
+
+                     echo '<p class="list-group-item list-group-item-action"><b>Lugar';
+                      echo '('.$id.'):</b>'.$name;
+                      echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
+                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&localitation='.$localitation.'&name='.$name.'&image='.$image.'&tipo=2" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
+
+                  } 
                 }
               }
+              
               
             ?>
                     </div>

@@ -46,4 +46,25 @@
     <string name="new_place_description">Place Description</string>
     <string name="place_localization">Place Localization</string>
     <string name="suggest_button">Suggest</string>
+    <string name="rutes_menu">Rutes/Places</string>
+    <string name="tittle_rute">Rute Name</string>
+    <string name="desc_rute">Description</string>
+    <string name="list_desc_route">Description of the Image</string>
+    <string name="post_desc_img">Description of the image</string>
+    <string name="post_text_tittle"> tittle of the route</string>
+    <string name="post_text_desc">description of the route</string>
+    <string name="post_rt_info_places">Places through the route </string>
+    <string name="post_rt_info_rating">Rating</string>
+    <string name="pos_rt_fav">Add to favourites</string>
+    <string name="post_follow_bt_rt"> Follow route</string>
+    <!-- BD TEST-->
+    <string name="title_fragment">Inicio de Sesión</string>
+    <string name="title_user">Usuario: </string>
+    <string name="title_pwd">Contraseña: </string>
+    <string name="title_boton">Check</string>
+    <string name="login">CHECK ROUTE</string>
+    <string name="id_bd_test">test</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

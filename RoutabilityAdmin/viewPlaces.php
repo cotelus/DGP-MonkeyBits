@@ -7,7 +7,7 @@
   //Consultamos los datos de la obra
 
   $conexion = mysqli_connect("localhost", "root", "");
-  $BD = mysqli_select_db($conexion, "routability");
+  $BD = mysqli_select_db($conexion, "bdr");
 
   //Comprueba conexion
   if(mysqli_connect_errno()){
@@ -78,7 +78,7 @@
                     $id = $lugares["IdPlace"];
                     $nombre = $lugares["Name"];
 
-                    echo '<p class="list-group-item list-group-item-action miembro-lista">'.$nombre;  
+                    echo '<p class="list-group-item list-group-item-action miembro-lista"><a href="Place.php?id='.$id.'">'.$nombre.'</a>';  
                       
                     echo '<a href="viewPlaces.php?id='.$id.'"><img class="icono" title="Eliminar Lugar" alt="Eliminar Lugar" src="./img/cruz.svg" /></a>';
                     echo '<a href="editPlaces.php?id='.$id.'"><img class="icono3" title="Editar Lugar" alt="Editar Lugar" src="./img/editar.png" /></a></p>';   
