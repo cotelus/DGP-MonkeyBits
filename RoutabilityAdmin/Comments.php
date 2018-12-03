@@ -28,8 +28,8 @@
     $search = $_POST['search'];
   }
 
-  $consultaRutas = "SELECT * from routecomments where IdRoute like '%".$search."%' or Email like '%".$search."%' or Content like '%".$search."%' ORDER BY IdRoute";
-  $consultaLugares = "SELECT * from placecomments where IdPlace like '%".$search."%' or Email like '%".$search."%' or Content like '%".$search."%' ORDER BY IdPlace";
+  $consultaRutas = "SELECT * from routecomments where Reported = '1' and (IdRoute like '%".$search."%' or Email like '%".$search."%' or Content like '%".$search."%') ORDER BY IdRoute";
+  $consultaLugares = "SELECT * from placecomments where Reported = '1' and (IdPlace like '%".$search."%' or Email like '%".$search."%' or Content like '%".$search."%') ORDER BY IdPlace";
 
   if (isset($_POST['filtro-lugar-ruta'])) {
     if ($_POST['filtro-lugar-ruta']=='Ambos') {
@@ -114,8 +114,14 @@
                 if ($_GET['tipo'] == 0) {
                   mysqli_query($conexion, "DELETE from placecomments where IdPlace='".$id."' and Email='".$email."' and Date='".$date."' and Time='".$time."'");
                 }
-                else {
+                else if ($_GET['tipo'] == 1){
                   mysqli_query($conexion, "DELETE from routecomments where IdRoute='".$id."' and Email='".$email."' and Date='".$date."' and Time='".$time."'");
+                }
+                else if ($_GET['tipo'] == 2) {
+                  mysqli_query($conexion, "UPDATE placecomments SET Reported = '0' where IdPlace='".$id."' and Email='".$email."' and Date='".$date."' and Time='".$time."'");
+                }
+                else if ($_GET['tipo'] == 3) {
+                  mysqli_query($conexion, "UPDATE routecomments SET Reported = '0' where IdRoute='".$id."' and Email='".$email."' and Date='".$date."' and Time='".$time."'");
                 }
                 header("Location: Comments.php");
               }
@@ -130,7 +136,9 @@
                         $content = $fila["Content"];
 
                         echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
-                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
+                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
+                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=3"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" /></a></p>';
+                        
                     }
                   }
                   if ($resLugares!=NULL) {
@@ -143,7 +151,8 @@
                           $content = $fila["Content"];
 
                           echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
-                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a></p>';
+                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
+                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=2"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" /></a></p>';
                       }
                     }
               }

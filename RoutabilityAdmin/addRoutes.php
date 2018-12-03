@@ -22,6 +22,10 @@ if (!$conexion->set_charset("utf8")) {
     printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
     exit();
 }
+$search = '';
+if ($_POST['search']) {
+    $search = $_POST['search'];
+}
 
 if(isset($_POST["aniadir"])){
  
@@ -121,10 +125,32 @@ if(isset($_POST["aniadir"])){
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h4><b>Lugares:</b></h4><br />
+                                <h4><b>Lugares:</b></h4>
+                                <div class="py-2" style="">
+                                  <div class="container py-3 px-3">
+                                    <div class="row">
+                                      <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+                                        <div class="container">
+                                          <div class="row">
+                                            <div class="col-md-9">
+                                              <div class="form">
+                                                  <input type="text" placeholder="Buscar lugar..." name="search" id="search">
+                                              </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                              <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                                                  <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
                                 <div class="scroll" style="border-radius:5px; background-color:white;">
                                     <?php
-                                    $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
+
+                                    $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place` where IdPlace like '%".$search."%' or Name like '%".$search."%' or Localitation like '%".$search."%'");
       
                                     if ($resultado_lugares->num_rows > 0) {
                                         while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {

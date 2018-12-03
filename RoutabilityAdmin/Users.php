@@ -28,7 +28,6 @@
     $search = $_POST['search'];
   }
 
-  //$consultaUsuarios = "SELECT * from user where Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
   $consultaUsuarios = "SELECT * from user where";
 
   if (isset($_POST['filtro-bloq-nobloq'])) {
