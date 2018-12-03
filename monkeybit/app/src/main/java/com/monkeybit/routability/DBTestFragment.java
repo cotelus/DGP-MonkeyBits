@@ -30,6 +30,7 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
     RequestQueue rq;
     JsonRequest jrq;
     EditText idBox;
+    EditText idBox2;
     TextView emailBox, madeByBox, nameBox, descriptionBox;
     Button btnCheck;
 
@@ -42,6 +43,7 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         // Para relacionar cada elemento de la vista con su funcionalidad
         View vista = inflater.inflate(R.layout.fragment_dbtest, container, false);
         idBox =(EditText) vista.findViewById(R.id.idText);
+        idBox2 = (EditText) vista.findViewById(R.id.idText2);
         emailBox=(TextView) vista.findViewById(R.id.emailText);
         madeByBox=(TextView) vista.findViewById(R.id.madeByText);
         nameBox=(TextView) vista.findViewById(R.id.nameText);
@@ -115,6 +117,9 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         rq.add(jrq);
         */
-        DBConnect.getRoute(getContext(), this, this, "fasef");
+        String id, id2;
+        id = idBox.getText().toString();
+        id2 = idBox2.getText().toString();
+        DBConnect.addFavoritePlace(getContext(), this, this, id, id2);
     }
 }
