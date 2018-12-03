@@ -172,5 +172,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             toast.show();
         }
     }
+
+    public String getUserEmail() {
+        if (mAuth.getCurrentUser() != null) {
+            return mAuth.getCurrentUser().getEmail();
+        } else {
+            return null;
+        }
+    }
 }
 
