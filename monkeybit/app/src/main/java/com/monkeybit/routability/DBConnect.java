@@ -25,7 +25,7 @@ public final class DBConnect {
         // Añadir la IP. O subir a un servidor o usar la que devuelve ipconfig
         // Y de ahí ponerle la ruta de la API
         // En este caso, en cajaUser y cajaPwd es donde se definio lo que se quería consultar
-        String url = "http://192.168.1.39/RoutabilityDB/getRoute.php?Name=" + id;
+        String url = "http://192.168.1.39/RoutabilityDB/getRoute.php?IdRoute=" + id;
         RequestQueue rq = Volley.newRequestQueue(context);
         JsonRequest jrq = new JsonObjectRequest(Request.Method.GET, url, null, responseListener, errorListener);
         rq.add(jrq);
@@ -37,7 +37,28 @@ public final class DBConnect {
         // En este caso, en cajaUser y cajaPwd es donde se definio lo que se quería consultar
         String url = "http://192.168.1.39/RoutabilityDB/addFavoritePlace.php?IdPlace=" + IdPlace + "&Email=" + Email;
         RequestQueue rq = Volley.newRequestQueue(context);
-        JsonRequest jrq = new JsonObjectRequest(Request.Method.POST, url, null, responseListener, errorListener);
+        JsonRequest jrq = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, errorListener);
+        rq.add(jrq);
+    }
+
+    public static void addFavoriteRoute(Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener, String IdRoute, String Email) {
+        // Añadir la IP. O subir a un servidor o usar la que devuelve ipconfig
+        // Y de ahí ponerle la ruta de la API
+        // En este caso, en cajaUser y cajaPwd es donde se definio lo que se quería consultar
+        String url = "http://192.168.1.39/RoutabilityDB/addFavoriteRoute.php?IdRoute=" + IdRoute + "&Email=" + Email;
+        RequestQueue rq = Volley.newRequestQueue(context);
+        JsonRequest jrq = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, errorListener);
+        //JsoonRequest t = new JsonObjectRequest(Request.Method.)
+        rq.add(jrq);
+    }
+
+    public static void getPlace(Context context, Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener, String id) {
+        // Añadir la IP. O subir a un servidor o usar la que devuelve ipconfig
+        // Y de ahí ponerle la ruta de la API
+        // En este caso, en cajaUser y cajaPwd es donde se definio lo que se quería consultar
+        String url = "http://192.168.1.39/RoutabilityDB/getPlace.php?IdPlace=" + id;
+        RequestQueue rq = Volley.newRequestQueue(context);
+        JsonRequest jrq = new JsonObjectRequest(Request.Method.GET, url, null, responseListener, errorListener);
         rq.add(jrq);
     }
 }

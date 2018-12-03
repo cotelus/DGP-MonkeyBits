@@ -82,8 +82,16 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         Route route = new Route();
         Toast.makeText(getContext(), "Se ha encontrado el ID: " + idBox.getText().toString(), Toast.LENGTH_SHORT).show();
 
-        JSONArray jsonArray = response.optJSONArray("datos");
+        JSONArray jsonArray = response.optJSONArray("data");
         JSONObject jsonObject = null;
+
+        if (response.has("OPERATION")) {
+            try {
+                Toast.makeText(getContext(), "Operacion: " + response.getString("OPERATION").toString(), Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
 
         // En el objeto route, se guarda una instancia de User, con los datos que
@@ -104,8 +112,6 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         }
 
 
-
-
     }
 
     private void iniciarSesion() throws JSONException, InterruptedException {
@@ -120,6 +126,8 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         String id, id2;
         id = idBox.getText().toString();
         id2 = idBox2.getText().toString();
-        DBConnect.addFavoritePlace(getContext(), this, this, id, id2);
+
+        //DBConnect.addFavoritePlace(getContext(), this, this, id, id2);
+        DBConnect.getPlace(getContext(), this, this, id);
     }
 }
