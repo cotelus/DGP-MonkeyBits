@@ -1,5 +1,8 @@
 package com.monkeybit.routability;
 
+import android.util.Log;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Place {
@@ -7,20 +10,40 @@ public class Place {
     private String IdPlace, email, MadeBy, name, description, localitation, image, accesibility;
 
     public Place (JSONObject jsonPlace) {
-        assert (!isValidJson(jsonPlace));
-        this.setIdPlace(jsonPlace.optString("IdPlace"));
-        this.setEmail(jsonPlace.optString("Email"));
-        this.setMadeBy(jsonPlace.optString("MadeBy"));
-        this.setName(jsonPlace.optString("Name"));
-        this.setDescription(jsonPlace.optString("Description"));
-        this.setLocalitation(jsonPlace.optString("Localitation"));
-        this.setImage(jsonPlace.optString("Image"));
-        this.setAccesibility(jsonPlace.optString("Accesiblity"));
+        if (isValidJson(jsonPlace)) {
+            this.setIdPlace(jsonPlace.optString("IdPlace"));
+            this.setEmail(jsonPlace.optString("Email"));
+            this.setMadeBy(jsonPlace.optString("MadeBy"));
+            this.setName(jsonPlace.optString("Name"));
+            this.setDescription(jsonPlace.optString("Description"));
+            this.setLocalitation(jsonPlace.optString("Localitation"));
+            this.setImage(jsonPlace.optString("Image"));
+            this.setAccesibility(jsonPlace.optString("Accesiblity"));
+        }
     }
 
     private boolean isValidJson(JSONObject jsonPlace) {
         return jsonPlace.has("IdPlace") && jsonPlace.has("Email") && jsonPlace.has("MadeBy")
-                && jsonPlace.has("Name") && jsonPlace.has("Description") && jsonPlace.has("Accesibility");
+                && jsonPlace.has("Name") && jsonPlace.has("Description") && jsonPlace.has("Localitation")
+                && jsonPlace.has("Image") && jsonPlace.has("Accesibility");
+    }
+
+    public JSONObject toJson() {
+        JSONObject jsonPlace = new JSONObject();
+        try {
+            jsonPlace.put("IdPlace", this.getIdPlace());
+            jsonPlace.put("Email", this.getEmail());
+            jsonPlace.put("MadeBy", this.getMadeBy());
+            jsonPlace.put("Name", this.getName());
+            jsonPlace.put("Description", this.getDescription());
+            jsonPlace.put("Localitation", this.getLocalitation());
+            jsonPlace.put("Image", this.getImage());
+            jsonPlace.put("Accesibility", this.getAccesibility());
+        } catch (JSONException e) {
+            Log.d("DEBUG", "Error al pasar un objeto Place a JSON");
+            e.printStackTrace();
+        }
+        return jsonPlace;
     }
 
     public String getIdPlace() {

@@ -1,5 +1,8 @@
 package com.monkeybit.routability;
 
+import android.util.Log;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Route {
@@ -9,18 +12,35 @@ public class Route {
     public Route() {}
 
     public Route(JSONObject jsonRoute) {
-        assert (!isValidJson(jsonRoute));
-        this.setIdRoute(jsonRoute.optString("IdRoute"));
-        this.setEmail(jsonRoute.optString("Email"));
-        this.setMadeBy(jsonRoute.optString("MadeBy"));
-        this.setName(jsonRoute.optString("Name"));
-        this.setDescription(jsonRoute.optString("Description"));
-        this.setAccesibility(jsonRoute.optString("Accesiblity"));
+        if (isValidJson(jsonRoute)) {
+            this.setIdRoute(jsonRoute.optString("IdRoute"));
+            this.setEmail(jsonRoute.optString("Email"));
+            this.setMadeBy(jsonRoute.optString("MadeBy"));
+            this.setName(jsonRoute.optString("Name"));
+            this.setDescription(jsonRoute.optString("Description"));
+            this.setAccesibility(jsonRoute.optString("Accesiblity"));
+        }
     }
 
     private boolean isValidJson(JSONObject jsonRoute) {
         return jsonRoute.has("IdRoute") && jsonRoute.has("Email") && jsonRoute.has("MadeBy")
                 && jsonRoute.has("Name") && jsonRoute.has("Description") && jsonRoute.has("Accesibility");
+    }
+
+    public JSONObject toJson() {
+        JSONObject jsonPlace = new JSONObject();
+        try {
+            jsonPlace.put("IdPlace", this.getIdRoute());
+            jsonPlace.put("Email", this.getEmail());
+            jsonPlace.put("MadeBy", this.getMadeBy());
+            jsonPlace.put("Name", this.getName());
+            jsonPlace.put("Description", this.getDescription());
+            jsonPlace.put("Accesibility", this.getAccesibility());
+        } catch (JSONException e) {
+            Log.d("DEBUG", "Error al pasar un objeto Route a JSON");
+            e.printStackTrace();
+        }
+        return jsonPlace;
     }
 
     public String getIdRoute() {
