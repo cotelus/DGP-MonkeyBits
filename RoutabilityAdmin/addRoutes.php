@@ -72,14 +72,12 @@ $search = '';
   if (isset($_POST['search'])) {
     $search = $_POST['search'];
   }
-
-$resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
+$consultaLugares = "SELECT * FROM place where";
 
  $primerFiltro = true;
 
   if (isset($_POST['filtroRedMovility'])) {
     if($_POST['filtroRedMovility']=='on') {
-        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, RedMovility, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.RedMovility = '1'";
         $consultaLugares .=" RedMovility='1'";
         $primerFiltro = false;
     }
@@ -88,10 +86,8 @@ $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
     if($_POST['filtroRedVision']=='on') {
       if (!$primerFiltro) {
         $consultaLugares .=" and RedVision='1'";
-        $consultaRutas .= " and RedVision='1'";
       }
       else {
-        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, RedVision, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.RedVision = '1'";
         $consultaLugares .=" RedVision='1'";
         $primerFiltro=false;
       }
@@ -100,11 +96,9 @@ $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
   if (isset($_POST['filtroForeigner'])) {
     if($_POST['filtroForeigner']=='on') {
       if (!$primerFiltro) {
-        $consultaRutas .= " and Foreigner='1'";
         $consultaLugares .=" and Foreigner='1'";
       }
       else {
-        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, Foreigner, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.Foreigner = '1'";
         $consultaLugares .=" Foreigner='1'";
         $primerFiltro=false;
       }
@@ -113,11 +107,9 @@ $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
   if (isset($_POST['filtroColourBlind'])) {
     if($_POST['filtroColourBlind']=='on') {
       if (!$primerFiltro) {
-        $consultaRutas .= " and ColourBlind='1'";
         $consultaLugares .=" and ColourBlind='1'";
       }
       else {
-        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, ColourBlind, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.ColourBlind = '1'";
         $consultaLugares .=" ColourBlind='1'";
         $primerFiltro=false;
       }
@@ -126,11 +118,9 @@ $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
   if (isset($_POST['filtroDeaf'])=='on') {
     if($_POST['filtroDeaf']) {
       if (!$primerFiltro) {
-        $consultaRutas .=" and Deaf='1'";
         $consultaLugares .=" and Deaf='1'";
       }
       else {
-        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, Deaf, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.Deaf = '1'";
         $consultaLugares .=" Deaf='1'";
         $primerFiltro=false;
       }
@@ -142,6 +132,8 @@ $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
     $consultaLugares .= " (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
     $primerFiltro = false;
   }
+  $resultado_lugares = mysqli_query($conexion, $consultaLugares);
+  $total = mysqli_num_rows($resultado_lugares);
        
 ?>
 
