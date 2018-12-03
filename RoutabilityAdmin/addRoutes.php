@@ -22,10 +22,6 @@ if (!$conexion->set_charset("utf8")) {
     printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
     exit();
 }
-$search = '';
-if ($_POST['search']) {
-    $search = $_POST['search'];
-}
 
 if(isset($_POST["aniadir"])){
  
@@ -71,6 +67,81 @@ if(isset($_POST["aniadir"])){
         $MESSAGE = "ERROR AL AÑADIR LA RUTA";
      }
 }
+
+$search = '';
+  if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+  }
+
+$resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
+
+ $primerFiltro = true;
+
+  if (isset($_POST['filtroRedMovility'])) {
+    if($_POST['filtroRedMovility']=='on') {
+        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, RedMovility, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.RedMovility = '1'";
+        $consultaLugares .=" RedMovility='1'";
+        $primerFiltro = false;
+    }
+  }
+  if (isset($_POST['filtroRedVision'])) {
+    if($_POST['filtroRedVision']=='on') {
+      if (!$primerFiltro) {
+        $consultaLugares .=" and RedVision='1'";
+        $consultaRutas .= " and RedVision='1'";
+      }
+      else {
+        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, RedVision, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.RedVision = '1'";
+        $consultaLugares .=" RedVision='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroForeigner'])) {
+    if($_POST['filtroForeigner']=='on') {
+      if (!$primerFiltro) {
+        $consultaRutas .= " and Foreigner='1'";
+        $consultaLugares .=" and Foreigner='1'";
+      }
+      else {
+        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, Foreigner, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.Foreigner = '1'";
+        $consultaLugares .=" Foreigner='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroColourBlind'])) {
+    if($_POST['filtroColourBlind']=='on') {
+      if (!$primerFiltro) {
+        $consultaRutas .= " and ColourBlind='1'";
+        $consultaLugares .=" and ColourBlind='1'";
+      }
+      else {
+        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, ColourBlind, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.ColourBlind = '1'";
+        $consultaLugares .=" ColourBlind='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroDeaf'])=='on') {
+    if($_POST['filtroDeaf']) {
+      if (!$primerFiltro) {
+        $consultaRutas .=" and Deaf='1'";
+        $consultaLugares .=" and Deaf='1'";
+      }
+      else {
+        $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, Deaf, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.Deaf = '1'";
+        $consultaLugares .=" Deaf='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (!$primerFiltro)
+    $consultaLugares .= " and (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+  else {
+    $consultaLugares .= " (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+    $primerFiltro = false;
+  }
        
 ?>
 
@@ -98,7 +169,31 @@ if(isset($_POST["aniadir"])){
 
             <?php if (!empty($MESSAGE)) {echo "<p class=\"ERROR\">" . "MENSAJE: ". $MESSAGE . "</p>";}
           ?>
-
+            <div class="py-2" style="">
+              <div class="container py-3 px-3">
+                <div class="row">
+                  <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form">
+                              <input type="text" placeholder="Filtre sus lugares a añadir..." name="search" id="search">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                              <span class="icon-wheelchair" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
+                              <span class="icon-eye-minus" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
+                              <span class="icon-eyedropper" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
+                              <span class="icon-deaf" style="padding-left:4%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
+                              <span class="icon-language" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
+                              <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Filtrar" style="margin-right: 4%; float: right;">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
             <fieldset>
 
                 <h1>Añadir una ruta</h1>
@@ -126,35 +221,12 @@ if(isset($_POST["aniadir"])){
                         <div class="col-md-6">
                             <div class="form-group">
                                 <h4><b>Lugares:</b></h4>
-                                <div class="py-2" style="">
-                                  <div class="container py-3 px-3">
-                                    <div class="row">
-                                      <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
-                                        <div class="container">
-                                          <div class="row">
-                                            <div class="col-md-9">
-                                              <div class="form">
-                                                  <input type="text" placeholder="Buscar lugar..." name="search" id="search">
-                                              </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                              <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
-                                                  <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </form>
-                                      </div>
-                                    </div>
-                                  </div>
                                 <div class="scroll" style="border-radius:5px; background-color:white;">
                                     <?php
-
-                                    $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place` where IdPlace like '%".$search."%' or Name like '%".$search."%' or Localitation like '%".$search."%'");
       
-                                    if ($resultado_lugares->num_rows > 0) {
+                                    if ($total) {
                                         while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
-                                            echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado['IdPlace']."' value=".$array_resultado['IdPlace']."<br/>&nbsp&nbsp<b>".$array_resultado['Name']."</b></p>";
+                                            echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado['IdPlace']."' value=".$array_resultado['IdPlace']."<br/>&nbsp&nbsp<b>".$array_resultado['Name']." (".$array_resultado['IdPlace'].")</b></p>";
                                         }
                                     }
                                     ?>
