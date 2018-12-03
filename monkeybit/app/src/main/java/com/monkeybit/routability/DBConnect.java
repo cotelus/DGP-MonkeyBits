@@ -35,16 +35,16 @@ public final class DBConnect {
 
     public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getFavouritePlaces.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
-        getTuple(context, responseListener, url);
+        addTuple(context, responseListener, url);
     }
 
     public static void addAsFavouriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavouriteRoutes.php?Email=" + userEmail + "&IdRoute"+ routeId;
-        getTuple(context, responseListener, url);
+        String url = "http://" + serverIP + "/" + folderName + "/addFavouriteRoute.php?Email=" + userEmail + "&IdRoute"+ routeId;
+        addTuple(context, responseListener, url);
     }
 
     public static void addAsFavouritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavouritePlaces.php?Email=" + userEmail + "&IdPlace" + placeId;
+        String url = "http://" + serverIP + "/" + folderName + "/addFavouritePlace.php?Email=" + userEmail + "&IdPlace" + placeId;
         getTuple(context, responseListener, url);
     }
 
@@ -77,7 +77,9 @@ public final class DBConnect {
     }
 
     private static void addTuple(Context context, DBConnectInterface responseListener, String url) {
-        //@TODO: añadir secuencia para añadir tuplas a una tabla
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, null, responseListener, responseListener);
+        requestQueue.add(jsonRequest);
     }
 }
 
