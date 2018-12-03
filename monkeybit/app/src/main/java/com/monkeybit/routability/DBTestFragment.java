@@ -25,20 +25,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class DBTestFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
-
-    RequestQueue rq;
-    JsonRequest jrq;
+public class DBTestFragment extends Fragment implements DBConnectInterface {
     EditText idBox;
     TextView emailBox, madeByBox, nameBox, descriptionBox;
     Button btnCheck;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_sesion, container, false);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Para relacionar cada elemento de la vista con su funcionalidad
         View vista = inflater.inflate(R.layout.fragment_dbtest, container, false);
         idBox =(EditText) vista.findViewById(R.id.idText);
@@ -49,16 +42,12 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
 
         btnCheck =(Button) vista.findViewById(R.id.btnCheck);
 
-        rq = Volley.newRequestQueue(getContext());
-
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 try {
-                    iniciarSesion();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                    getRoute();
+                } catch (JSONException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -83,7 +72,6 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
         JSONArray jsonArray = response.optJSONArray("datos");
         JSONObject jsonObject = null;
 
-
         // En el objeto route, se guarda una instancia de User, con los datos que
         // hayamos recuperado del JSONArray
         try {
@@ -96,25 +84,12 @@ public class DBTestFragment extends Fragment implements Response.Listener<JSONOb
             madeByBox.setText(route.getMadeByText());
             nameBox.setText(route.getNameText());
             descriptionBox.setText(route.getDescriptionText());
-
         } catch (JSONException e){
             e.printStackTrace();
         }
-
-
-
-
     }
 
-    private void iniciarSesion() throws JSONException, InterruptedException {
-        /*
-        // Añadir la IP. O subir a un servidor o usar la que devuelve ipconfig
-        // Y de ahí ponerle la ruta de la API
-        // En este caso, en cajaUser y cajaPwd es donde se definio lo que se quería consultar
-        String url = "http://192.168.1.39/login/checkRoutes.php?IdRoute=" + idBox.getText().toString();
-        jrq = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        rq.add(jrq);
-        */
-        DBConnect.getRoute(getContext(), this, this, "fasef");
+    private void getRoute() throws JSONException, InterruptedException {
+        DBConnect.getRoute(getContext(), this, "1");
     }
 }
