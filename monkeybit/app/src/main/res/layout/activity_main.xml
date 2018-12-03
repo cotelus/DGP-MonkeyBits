@@ -41,15 +41,25 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <FrameLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="0dp"
             app:layout_constraintBottom_toTopOf="@+id/NavigationViewRutes"
             app:layout_constraintEnd_toEndOf="@+id/constraint_layout"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
-        </FrameLayout>
+
+            <Button
+                android:id="@+id/BDTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="288dp"
+                android:layout_marginTop="388dp"
+                android:onClick="sendMessage"
+                android:text="BDTest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/NavigationViewRutes"
