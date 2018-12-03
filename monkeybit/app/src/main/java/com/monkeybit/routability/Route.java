@@ -11,6 +11,24 @@ public class Route {
 
     public Route() {}
 
+    public Route(String idRoute, String email, String madeBy, String name, String description, String accesibility) {
+        this.idRoute = idRoute;
+        this.email = email;
+        this.madeBy = madeBy;
+        this.name = name;
+        this.description = description;
+        this.accesibility = accesibility;
+    }
+
+    public Route(String email, String madeBy, String name, String description, String accesibility) {
+        this.idRoute = "";
+        this.email = email;
+        this.madeBy = madeBy;
+        this.name = name;
+        this.description = description;
+        this.accesibility = accesibility;
+    }
+
     public Route(JSONObject jsonRoute) {
         if (isValidJson(jsonRoute)) {
             this.setIdRoute(jsonRoute.optString("IdRoute"));
@@ -22,15 +40,17 @@ public class Route {
         }
     }
 
-    private boolean isValidJson(JSONObject jsonRoute) {
-        return jsonRoute.has("IdRoute") && jsonRoute.has("Email") && jsonRoute.has("MadeBy")
-                && jsonRoute.has("Name") && jsonRoute.has("Description") && jsonRoute.has("Accesibility");
+    public static boolean isValidJson(JSONObject jsonRoute) {
+        return jsonRoute.has("Email") && jsonRoute.has("MadeBy") && jsonRoute.has("Name")
+                && jsonRoute.has("Description") && jsonRoute.has("Accesibility");
     }
 
     public JSONObject toJson() {
         JSONObject jsonPlace = new JSONObject();
         try {
-            jsonPlace.put("IdPlace", this.getIdRoute());
+            if (!this.getIdRoute().equals("")) {
+                jsonPlace.put("IdRoute", this.getIdRoute());
+            }
             jsonPlace.put("Email", this.getEmail());
             jsonPlace.put("MadeBy", this.getMadeBy());
             jsonPlace.put("Name", this.getName());
