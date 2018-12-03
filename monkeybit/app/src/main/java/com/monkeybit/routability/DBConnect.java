@@ -15,32 +15,32 @@ public final class DBConnect {
     private DBConnect() {}
 
     public static void getRoute(Context context, DBConnectInterface responseListener, String routeId) {
-        String url = "http://" + serverIP + "/RoutabilityBD/getRoute.php?Id=" + routeId;
+        String url = "http://" + serverIP + "/RoutabilityBD/getRoute.php?IdRoute=" + routeId;
         getTuple(context, responseListener, url);
     }
 
     public static void getPlace(Context context, DBConnectInterface responseListener, String placeId) {
-        String url = "http://" + serverIP + "/RoutabilityBD/getPlace.php?Id=" + placeId;
+        String url = "http://" + serverIP + "/RoutabilityBD/getPlace.php?IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
 
-    public static void getFavouriteRoutes(Context context, DBConnectInterface responseListener, String userId, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/RoutabilityBD/getFavouriteRoutes.php?Id=" + userId + "&StartIndex=" + Integer.toString(firstRouteIndex);
+    public static void getFavouriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
+        String url = "http://" + serverIP + "/RoutabilityBD/getFavouriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
         getTuple(context, responseListener, url);
     }
 
-    public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userId, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/RoutabilityBD/getFavouritePlaces.php?Id=" + userId + "&StartIndex=" + Integer.toString(firstRouteIndex);
+    public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
+        String url = "http://" + serverIP + "/RoutabilityBD/getFavouritePlaces.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
         getTuple(context, responseListener, url);
     }
 
-    public static void addAsFavouriteRoute(Context context, DBConnectInterface responseListener, String userId, String routeId) {
-        String url = "http://" + serverIP + "/RoutabilityBD/getFavouriteRoutes.php?Id=" + userId + "&IdRoute"+ routeId;
+    public static void addAsFavouriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
+        String url = "http://" + serverIP + "/RoutabilityBD/getFavouriteRoutes.php?Email=" + userEmail + "&IdRoute"+ routeId;
         getTuple(context, responseListener, url);
     }
 
-    public static void addAsFavouritePlace(Context context, DBConnectInterface responseListener, String userId, String placeId) {
-        String url = "http://" + serverIP + "/RoutabilityBD/getFavouritePlaces.php?Id=" + userId + "&IdPlace" + placeId;
+    public static void addAsFavouritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
+        String url = "http://" + serverIP + "/RoutabilityBD/getFavouritePlaces.php?Email=" + userEmail + "&IdPlace" + placeId;
         getTuple(context, responseListener, url);
     }
 
