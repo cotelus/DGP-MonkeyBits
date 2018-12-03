@@ -1,45 +1,73 @@
 package com.monkeybit.routability;
 
+import org.json.JSONObject;
+
 public class Route {
-    private String idText, emailText, madeByText, nameText, descriptionText;
 
-    public String getIdText() {
-        return idText;
+    private String idRoute, email, madeBy, name, description, accesibility;
+
+    public Route() {}
+
+    public Route(JSONObject jsonRoute) {
+        assert (!isValidJson(jsonRoute));
+        this.setIdRoute(jsonRoute.optString("IdRoute"));
+        this.setEmail(jsonRoute.optString("Email"));
+        this.setMadeBy(jsonRoute.optString("MadeBy"));
+        this.setName(jsonRoute.optString("Name"));
+        this.setDescription(jsonRoute.optString("Description"));
+        this.setAccesibility(jsonRoute.optString("Accesiblity"));
     }
 
-    public void setIdText(String idText) {
-        this.idText = idText;
+    private boolean isValidJson(JSONObject jsonRoute) {
+        return jsonRoute.has("IdRoute") && jsonRoute.has("Email") && jsonRoute.has("MadeBy")
+                && jsonRoute.has("Name") && jsonRoute.has("Description") && jsonRoute.has("Accesibility");
     }
 
-    public String getEmailText() {
-        return emailText;
+    public String getIdRoute() {
+        return idRoute;
     }
 
-    public void setEmailText(String emailText) {
-        this.emailText = emailText;
+    public void setIdRoute(String idRoute) {
+        this.idRoute = idRoute;
     }
 
-    public String getMadeByText() {
-        return madeByText;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMadeByText(String madeByText) {
-        this.madeByText = madeByText;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getNameText() {
-        return nameText;
+    public String getMadeBy() {
+        return madeBy;
     }
 
-    public void setNameText(String nameText) {
-        this.nameText = nameText;
+    public void setMadeBy(String madeBy) {
+        this.madeBy = madeBy;
     }
 
-    public String getDescriptionText() {
-        return descriptionText;
+    public String getName() {
+        return name;
     }
 
-    public void setDescriptionText(String descriptionText) {
-        this.descriptionText = descriptionText;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAccesibility() {
+        return accesibility;
+    }
+
+    public void setAccesibility(String accesibility) {
+        this.accesibility = accesibility;
     }
 }
