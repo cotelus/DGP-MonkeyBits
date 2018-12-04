@@ -61,7 +61,7 @@ public class DBTestFragment extends Fragment implements DBConnectInterface {
         Route route = new Route();
         Toast.makeText(getContext(), "Se ha encontrado el ID: " + idBox.getText().toString(), Toast.LENGTH_SHORT).show();
 
-        JSONArray jsonArray = response.optJSONArray("datos");
+        JSONArray jsonArray = response.optJSONArray("data");
         JSONObject jsonObject = null;
 
         // En el objeto route, se guarda una instancia de User, con los datos que
