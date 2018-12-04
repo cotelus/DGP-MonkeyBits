@@ -28,6 +28,16 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
+    public static void getRoutes(Context context, DBConnectInterface responseListener, int firstRouteIndex) {
+        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?StartIndex=" + firstRouteIndex;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
+        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
+        getTuple(context, responseListener, url);
+    }
+
     public static void getFavouriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getFavouriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
         getTuple(context, responseListener, url);
