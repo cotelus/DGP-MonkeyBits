@@ -48,6 +48,7 @@
     <string name="suggest_button">Suggest</string>
     <string name="rutes_menu">Rutes/Places</string>
     <string name="tittle_rute">Rute Name</string>
+    <string name="tittle_place">Place Name</string>
     <string name="desc_rute">Description</string>
     <string name="list_desc_route">Description of the Image</string>
     <string name="post_desc_img">Description of the image</string>
@@ -57,6 +58,13 @@
     <string name="post_rt_info_rating">Rating</string>
     <string name="pos_rt_fav">Add to favourites</string>
     <string name="post_follow_bt_rt"> Follow route</string>
+    <string name="image_description"></string>
+    <string name="comments">Comments</string>
+    <string name="remove_favorites">Removed from favorites</string>
+    <string name="add_favorites">Added to favorites</string>
+    <string name="comments_here">Comments Here</string>
+    <string name="send_comment">Send your comment</string>
+    <string name="write_comment">Write your comment...</string>
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
     <string name="title_user">Usuario: </string>
