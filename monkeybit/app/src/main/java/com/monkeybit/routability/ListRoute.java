@@ -11,6 +11,7 @@ public class ListRoute {
     private String description;
     private double rating;
     private double people;
+    String id;
 
     public ListRoute(){
 
@@ -18,12 +19,13 @@ public class ListRoute {
 
 
     @SuppressLint("ValidFragment")
-    public ListRoute (int idImage, String tittle, String description) {
+    public ListRoute (int idImage, String tittle, String description,String id) {
         this.idImage = idImage;
         this.tittle = tittle;
         this.description = description;
         rating = 0;
         people = 0;
+        this.id = id;
     }
 
     public String get_Tittle() {

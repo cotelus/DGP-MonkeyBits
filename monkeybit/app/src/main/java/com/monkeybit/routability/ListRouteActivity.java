@@ -13,35 +13,76 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ListRouteActivity extends Fragment {
+    DBConnectInterface db_inter;
     View view;
+    int pag;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-        this.Conf_List_Route();
 
+        pag = 0;
+        db_inter = new DBConnectInterface() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
+                errorText.show();
+            }
+
+            @Override
+            public void onResponse(JSONObject response) {
+                //{} objects [] array
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = response.getJSONArray(" ");
+                    CargarArray(jsonArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    protected void Conf_List_Route(){
 
-        //@TODO añadir las cosas de la bd
+    public void CargarArray(JSONArray jsonArray){
+        ArrayList<ListRoute> Lista = new ArrayList<>();
 
-        ArrayList<ListRoute> datos = new ArrayList<ListRoute>();
+        for(int i=0;i<jsonArray.length();i++){
+            try {
+                JSONObject json = jsonArray.getJSONObject(i);
+                //Get and save data
+                int idImage = json.getInt("image");
+                String tittle = json.getString("tittle");
+                String description = json.getString("description");
+                String id = json.getString("id");
 
-        datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "primero", "Descripcion 1"));
-        datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "segundo", "Descripcion 2 "));
-        datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "tercero", "Descripcion 3 "));
+                Lista.add(new ListRoute(idImage, tittle, description, id);
 
-        //@Todo esto lo haria con la bd pero esto es un ejemplo
-        datos.get(0).SetRating(4.0);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        pag = pag + 1;
+        this.Conf_List_Route(Lista);
+    }
+
+    protected void Conf_List_Route(ArrayList<ListRoute> dataList){
 
         ListView list = view.findViewById(R.id.list_rt);
-        list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, datos){
+        list.setAdapter(new AdapterList(getContext(), R.layout.post_rute,dataList){
             @Override
             public void onPost(Object post, View view) {
                 if(post != null){
