@@ -46,6 +46,11 @@
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);
     }
+    else if ($_POST['filtro-bloq-nobloq'] == 'Denunciados') {
+      $consultaUsuarios .= " Reported='1' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
+      $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
+      $total = mysqli_num_rows($resUsuarios);
+    }
   }
   else {
     $consultaUsuarios .= " Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
@@ -86,9 +91,10 @@
                 <div class="col-md-6">
                   <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
                       <select style="margin-left: 3%;" name="filtro-bloq-nobloq" name="filtro-bloq-nobloq">
-                        <option>Ambos</option>
+                        <option>Cualquiera</option>
                         <option>Bloqueados</option>
                         <option>Desbloqueados</option>
+                        <option>Denunciados</option>
                       </select>
                       <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
                   </div>
@@ -108,11 +114,15 @@
               if (isset($_GET['email'])) {
                 $email = $_GET['email'];
                 $banned = $_GET['banned'];
+                $reported = $_GET['reported'];
                 if ($banned == 0) {
-                  mysqli_query($conexion, "Update user set Banned='1' where Email='".$email."'");
+                  mysqli_query($conexion, "Update user set Banned='1' and Reported='0' where Email='".$email."'");
+                }
+                else if ($banned == 1){
+                  mysqli_query($conexion, "Update user set Banned='0' and Reported='0' where Email='".$email."'");
                 }
                 else {
-                  mysqli_query($conexion, "Update user set Banned='0' where Email='".$email."'");
+                  mysqli_query($conexion, "Update user set Reported='0' where Email='".$email."'");
                 }
                 header("Location: Users.php");
               }
@@ -122,13 +132,17 @@
                   $email = $fila["Email"];
                   $name = $fila["Name"];
                   $banned = $fila["Banned"];
+                  $reported = $fila["Reported"];
 
                   echo '<p class="list-group-item list-group-item-action"><b>'.$email.':</b> '.$name;
-                  if ($banned == 0) {
-                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" /></a></p>';
+                  if ($reported == 1) {
+                    echo '<a href="Users.php?email='.$email.'&banned=2&reported='.$reported.'"><img title="Permitir usuario" alt="Permitir usuario" class="icono" src="./img/tick.png" /></a><a href="Users.php?email='.$email.'&banned=2&reported='.$reported.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" /></a></p>';
+                  }
+                  else if ($banned == 0) {
+                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'&reported='.$reported.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" /></a></p>';
                   }
                   else {
-                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'"><img title="Desbloquear usuario" alt="Desbloquear usuario" class="icono2" src="./img/desbloquear.png"/></a></p>';
+                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'&reported='.$reported.'"><img title="Desbloquear usuario" alt="Desbloquear usuario" class="icono2" src="./img/desbloquear.png"/></a></p>';
                     }
                   }
               }
