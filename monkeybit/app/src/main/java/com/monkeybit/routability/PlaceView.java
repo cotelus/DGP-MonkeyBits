@@ -71,6 +71,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         DBConnect.getPlace(getContext(),this,"1");
         dataComments();
         initializedAdapter();
+        DBConnect.getPlace(getContext(),this,"1");
 
         return view;
     }
