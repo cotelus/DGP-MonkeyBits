@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/list_comments"
     android:layout_marginRight="16dp"
@@ -29,6 +30,7 @@
         android:layout_marginStart="6dp"
         android:layout_toEndOf="@+id/imagePlace"
         android:text="Author"
+        android:textSize = "22sp"
         android:textColor="@color/colorFont"
         android:textStyle="bold" />
 
@@ -41,8 +43,19 @@
         android:layout_marginStart="6dp"
         android:layout_marginEnd="34dp"
         android:layout_toEndOf="@+id/author"
+        android:textSize = "18sp"
         android:text="Comment"
         android:textColor="@color/colorFont" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        style="@style/CustomTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription= "@string/report"
+        app:srcCompat="@android:drawable/ic_notification_clear_all" />
 
 
 </RelativeLayout>

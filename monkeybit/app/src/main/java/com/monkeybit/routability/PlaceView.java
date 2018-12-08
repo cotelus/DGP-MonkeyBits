@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -98,20 +99,23 @@ public class PlaceView extends Fragment implements DBConnectInterface{
     //@Todo mandar id y que busque aquí en la base de datos
     public void SetView(JSONObject bdelements ) throws JSONException {
         //(bdelements != null){
+
+        JSONArray consulta = bdelements.optJSONArray("data");
+
             TextView tittle =  view.findViewById(R.id.tittlePlace);
             if(tittle != null)
-                tittle.setText(bdelements.getString("name"));
+                tittle.setText(consulta.getJSONObject(0).optString("Name"));
                 //tittle.setText("Titulo del lugar buscado");
 
             ImageView image =  view.findViewById(R.id.imagePlace);
             if(image != null)
-                Picasso.get().load(bdelements.getString("image")).into(image);
+                Picasso.get().load(consulta.getJSONObject(0).optString("Image")).into(image);
                 //Picasso.get().load("https://www.lavanguardia.com/r/GODO/LV/p3/WebSite/2016/05/20/Recortada/img_mbigas_20160520-135524_imagenes_lv_getty_taj-k6e-U401920311809rVB-992x558@LaVanguardia-Web.jpg")
                 //  .into(image);
 
             TextView description =  view.findViewById(R.id.descriptionPlace);
             if(description != null)
-                description.setText(bdelements.getString("description"));
+                description.setText(consulta.getJSONObject(0).optString("Description") + "\nLocalización:\n" + consulta.getJSONObject(0).optString("Localitation"));
                 //description.setText("Esto es una prueba de la descripcion dfvlfdjhvkjsfnkjfsdnvjkfnvkjsfnvkjfnvkjndfdf \n fgdfgfdgfdgdgfdg\nsvsfsdfds\ndsfsdfsdf");
 
             TextView rating =  view.findViewById(R.id.ratingPlace);
@@ -124,16 +128,16 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Error al conectar con la BD", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONObject response) {
+
         try {
             SetView(response);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Toast.makeText(getContext(), "bien", Toast.LENGTH_SHORT).show();
     }
 }

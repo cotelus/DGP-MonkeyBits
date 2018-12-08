@@ -66,6 +66,8 @@
     <string name="comments_here">Comenta aquí</string>
     <string name="send_comment">Enviar tu comentario</string>
     <string name="write_comment">Escribe tu comentario...</string>
+    <string name="report">Denunciar Comentario</string>
+
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
     <string name="title_user">Usuario: </string>
