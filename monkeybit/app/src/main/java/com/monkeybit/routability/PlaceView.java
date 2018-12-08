@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -22,7 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceView extends Fragment {
+public class PlaceView extends Fragment implements DBConnectInterface {
 
     View view;
     JSONObject elementsBD;
@@ -36,11 +37,6 @@ public class PlaceView extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.view_place, container, false);
 
-        try {
-            SetView(elementsBD);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         /*final ImageButton fav_button = view.findViewById(R.id.pos_rt_fav);
         fav_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -68,8 +64,14 @@ public class PlaceView extends Fragment {
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         listcomments.setLayoutManager(lim);
 
+        /*try {
+            SetView(elementsBD);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
         dataComments();
         initializedAdapter();
+        DBConnect.getPlace(getContext(),this,"1");
 
         return view;
     }
@@ -98,20 +100,19 @@ public class PlaceView extends Fragment {
         //(bdelements != null){
             TextView tittle =  view.findViewById(R.id.tittlePlace);
             if(tittle != null)
-                //tittle.setText(bdelements.getString("Tittle"));
-                tittle.setText("Titulo del lugar buscado");
+                tittle.setText(bdelements.getString("name"));
+                //tittle.setText("Titulo del lugar buscado");
 
             ImageView image =  view.findViewById(R.id.imagePlace);
             if(image != null)
-                //image.setText();
-                //Picasso.get().load(bdelements.getString("Image")).into(image);
-                Picasso.get().load("https://www.lavanguardia.com/r/GODO/LV/p3/WebSite/2016/05/20/Recortada/img_mbigas_20160520-135524_imagenes_lv_getty_taj-k6e-U401920311809rVB-992x558@LaVanguardia-Web.jpg")
-                        .into(image);
+                Picasso.get().load(bdelements.getString("image")).into(image);
+                //Picasso.get().load("https://www.lavanguardia.com/r/GODO/LV/p3/WebSite/2016/05/20/Recortada/img_mbigas_20160520-135524_imagenes_lv_getty_taj-k6e-U401920311809rVB-992x558@LaVanguardia-Web.jpg")
+                // .into(image);
 
             TextView description =  view.findViewById(R.id.descriptionPlace);
             if(description != null)
-                //description.setText(bdelements.getString("Description"));
-                description.setText("Esto es una prueba de la descripcion dfvlfdjhvkjsfnkjfsdnvjkfnvkjsfnvkjfnvkjndfdf \n fgdfgfdgfdgdgfdg\nsvsfsdfds\ndsfsdfsdf");
+                description.setText(bdelements.getString("description"));
+                //description.setText("Esto es una prueba de la descripcion dfvlfdjhvkjsfnkjfsdnvjkfnvkjsfnvkjfnvkjndfdf \n fgdfgfdgfdgdgfdg\nsvsfsdfds\ndsfsdfsdf");
 
             TextView rating =  view.findViewById(R.id.ratingPlace);
             if(rating != null) {
@@ -119,5 +120,25 @@ public class PlaceView extends Fragment {
                 rating.setText("La valoracion es genial");
             }
         //}
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        //Toast.makeText(getContext(), "Error al buscar lugar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        Place place = new Place(response);
+
+        Toast.makeText(getContext(), "Error lugar", Toast.LENGTH_SHORT).show();
+
+
+        try {
+            SetView(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

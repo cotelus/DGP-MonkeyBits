@@ -49,16 +49,6 @@
             app:layout_constraintEnd_toEndOf="@+id/constraint_layout"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <Button
-                android:id="@+id/BDTest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="288dp"
-                android:layout_marginTop="388dp"
-                android:onClick="sendMessage"
-                android:text="BDTest"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.design.widget.BottomNavigationView
