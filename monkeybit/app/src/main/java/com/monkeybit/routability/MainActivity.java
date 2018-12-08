@@ -73,16 +73,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
     }
 
-    // Prueba BD
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, DBTestActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        //String message = editText.getText().toString();
-        String message = "Window2";
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
