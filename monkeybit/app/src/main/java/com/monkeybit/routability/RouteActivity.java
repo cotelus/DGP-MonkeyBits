@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 public class RouteActivity extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView menuRutes;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = new ListRouteActivity();
@@ -34,7 +38,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
                 break;
             case R.id.menu_places:
                 // @TODO: asignar a selectedFragment el Fragmen de opciones de lugares
-                // selectedFragment = new MenuActivity();
+                 selectedFragment = new PlaceView();
                 break;
             case R.id.menu_search:
                 // @TODO: asignar a selectedFragment el Fragmen de opciones de busqueda

@@ -1,6 +1,7 @@
 package com.monkeybit.routability;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,8 +14,8 @@ import org.json.JSONObject;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "172.20.57.68";
-    private static final String folderName =  "RoutabilityBD";
+    private static final String serverIP =  "192.168.1.25";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
 
@@ -59,36 +60,32 @@ public final class DBConnect {
     }
 
     public static void suggestPlace(Context context, DBConnectInterface responseListener, JSONObject suggestedPlace) throws JSONException {
-        if (PlaceToSuggest.isValidJson(suggestedPlace)) {
-            String suggestedPlaceUrl = "";
-            if (suggestedPlace.has("IdPlace")) {
-                suggestedPlaceUrl += "IdPlace=" + suggestedPlace.getString("IdPlace");
-                suggestedPlaceUrl += "&MadeBy=" + suggestedPlace.getString("MadeBy");
-            } else {
-                suggestedPlaceUrl += "MadeBy=" + suggestedPlace.getString("MadeBy");
-            }
-            suggestedPlaceUrl += "&Name=" + suggestedPlace.getString("Name");
-            suggestedPlaceUrl += "&Description=" + suggestedPlace.getString("Description");
-            suggestedPlaceUrl += "&Localization=" + suggestedPlace.getString("Localization");
-            suggestedPlaceUrl += "&Image=" + suggestedPlace.getString("Image");
-            suggestedPlaceUrl += "&Accesiblity=" + suggestedPlace.getString("Accesibility");
-
-            suggestedPlaceUrl = suggestedPlaceUrl.replaceAll(" ", "%20");
-
-            String url = "http://" + serverIP + "/" + folderName + "suggestPlace.php?" + suggestedPlaceUrl;
-            addTuple(context, responseListener, url);
-        }
+        String suggestedPlaceUrl = "";
+        suggestedPlaceUrl += "&MadeBy=" + suggestedPlace.getString("MadeBy");
+        suggestedPlaceUrl += "&Name=" + suggestedPlace.getString("Name");
+        suggestedPlaceUrl += "&Description=" + suggestedPlace.getString("Description");
+        suggestedPlaceUrl += "&Localization=" + suggestedPlace.getString("Localization");
+        suggestedPlaceUrl += "&Image=" + suggestedPlace.getString("Image");
+        suggestedPlaceUrl += "&RedMovility=" + (suggestedPlace.getBoolean("RedMovility") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&RedVision=" + (suggestedPlace.getBoolean("RedVision") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&ColourBlind=" + (suggestedPlace.getBoolean("ColourBlind") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&Deaf=" + (suggestedPlace.getBoolean("Deaf") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&Foreigner=" + (suggestedPlace.getBoolean("Foreigner") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl = suggestedPlaceUrl.replaceAll(" ", "%20");
+        Toast.makeText(context, suggestedPlaceUrl, Toast.LENGTH_LONG).show();
+        String url = "http://" + serverIP + "/" + folderName + "suggestPlace.php?" + suggestedPlaceUrl;
+        addTuple(context, responseListener, url);
     }
 
     private static void getTuple(Context context, DBConnectInterface responseListener, String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null, responseListener, responseListener);
+        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
     }
 
     private static void addTuple(Context context, DBConnectInterface responseListener, String url) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, null, responseListener, responseListener);
+        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
     }
 }

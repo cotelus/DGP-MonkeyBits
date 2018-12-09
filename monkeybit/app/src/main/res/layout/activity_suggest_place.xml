@@ -93,4 +93,64 @@
             android:inputType="textMultiLine|textCapSentences|textAutoCorrect" />
     </android.support.design.widget.TextInputLayout>
 
+    <Switch
+        android:id="@+id/redMovility"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_text_input_layout"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/redVision"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/redMovility"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/colourBlind"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/redVision"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/deaf"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colourBlind"
+        tools:checked="true" />
+
+    <Switch
+        android:id="@+id/foreigner"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:checked="true"
+        android:text="Switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deaf"
+        tools:checked="true" />
+
 </android.support.constraint.ConstraintLayout>

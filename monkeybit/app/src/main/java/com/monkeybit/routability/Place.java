@@ -7,11 +7,19 @@ import org.json.JSONObject;
 
 public class Place {
 
-    private String idPlace, email, madeBy, name, description, localization, image, accesibility;
+    private String idPlace, email, madeBy, name, description, localization, image;
+    private boolean redMovility, redVision, colourBlind, deaf, foreigner;
 
-    public Place(){}
+    public Place(){
+        this.redMovility = true;
+        this.redVision = true;
+        this.colourBlind = true;
+        this.deaf = true;
+        this.foreigner = true;
+    }
 
-    public Place(String idPlace, String email, String madeBy, String name, String description, String localization, String image, String accesibility) {
+    public Place(String idPlace, String email, String madeBy, String name, String description, String localization, String image,
+                 boolean redMovility, boolean redVision, boolean colourBlind, boolean deaf, boolean foreigner) {
         this.idPlace = idPlace;
         this.email = email;
         this.madeBy = madeBy;
@@ -19,10 +27,15 @@ public class Place {
         this.description = description;
         this.localization = localization;
         this.image = image;
-        this.accesibility = accesibility;
+        this.redMovility = redMovility;
+        this.redVision = redVision;
+        this.colourBlind = colourBlind;
+        this.deaf = deaf;
+        this.foreigner = foreigner;
     }
 
-    public Place(String email, String madeBy, String name, String description, String localization, String image, String accesibility) {
+    public Place(String email, String madeBy, String name, String description, String localization, String image,
+                 boolean redMovility, boolean redVision, boolean colourBlind, boolean Deaf, boolean foreigner) {
         this.idPlace = "";
         this.email = email;
         this.madeBy = madeBy;
@@ -30,7 +43,11 @@ public class Place {
         this.description = description;
         this.localization = localization;
         this.image = image;
-        this.accesibility = accesibility;
+        this.redMovility = redMovility;
+        this.redVision = redVision;
+        this.colourBlind = colourBlind;
+        this.deaf = deaf;
+        this.foreigner = foreigner;
     }
 
     public Place (JSONObject jsonPlace) {
@@ -42,14 +59,19 @@ public class Place {
             this.setDescription(jsonPlace.optString("Description"));
             this.setLocalization(jsonPlace.optString("Localitation"));
             this.setImage(jsonPlace.optString("Image"));
-            this.setAccesibility(jsonPlace.optString("Accesiblity"));
+            this.setRedMovility(jsonPlace.optInt("RedMovility") == 1);
+            this.setRedVision(jsonPlace.optInt("RedVision") == 1);
+            this.setColourBlind(jsonPlace.optInt("ColourBlind") == 1);
+            this.setDeaf(jsonPlace.optInt("Dead") == 1);
+            this.setForeigner(jsonPlace.optInt("Foreigner") == 1);
         }
     }
 
     private boolean isValidJson(JSONObject jsonPlace) {
         return jsonPlace.has("IdPlace") && jsonPlace.has("Email") && jsonPlace.has("MadeBy")
                 && jsonPlace.has("Name") && jsonPlace.has("Description") && jsonPlace.has("Localitation")
-                && jsonPlace.has("Image") && jsonPlace.has("Accesibility");
+                && jsonPlace.has("Image") && jsonPlace.has("RedMovility") && jsonPlace.has("RedVision")
+                && jsonPlace.has("ColourBlind") && jsonPlace.has("Deaf") && jsonPlace.has("Foreigner");
     }
 
     public JSONObject toJson() {
@@ -64,7 +86,11 @@ public class Place {
             jsonPlace.put("Description", this.getDescription());
             jsonPlace.put("Localitation", this.getLocalization());
             jsonPlace.put("Image", this.getImage());
-            jsonPlace.put("Accesibility", this.getAccesibility());
+            jsonPlace.put("RedMovility", this.isRedMovility());
+            jsonPlace.put("RedVision", this.isRedVision());
+            jsonPlace.put("ColourBlind", this.isColourBlind());
+            jsonPlace.put("Deaf", this.isDeaf());
+            jsonPlace.put("Foreigner", this.isForeigner());
         } catch (JSONException e) {
             Log.d("DEBUG", "Error al pasar un objeto Place a JSON");
             e.printStackTrace();
@@ -128,11 +154,43 @@ public class Place {
         this.image = image;
     }
 
-    public String getAccesibility() {
-        return accesibility;
+    public boolean isRedMovility() {
+        return redMovility;
     }
 
-    public void setAccesibility(String accesibility) {
-        this.accesibility = accesibility;
+    public void setRedMovility(boolean redMovility) {
+        this.redMovility = redMovility;
+    }
+
+    public boolean isRedVision() {
+        return redVision;
+    }
+
+    public void setRedVision(boolean redVision) {
+        this.redVision = redVision;
+    }
+
+    public boolean isColourBlind() {
+        return colourBlind;
+    }
+
+    public void setColourBlind(boolean colourBlind) {
+        this.colourBlind = colourBlind;
+    }
+
+    public boolean isDeaf() {
+        return deaf;
+    }
+
+    public void setDeaf(boolean deaf) {
+        this.deaf = deaf;
+    }
+
+    public boolean isForeigner() {
+        return foreigner;
+    }
+
+    public void setForeigner(boolean foreigner) {
+        this.foreigner = foreigner;
     }
 }
