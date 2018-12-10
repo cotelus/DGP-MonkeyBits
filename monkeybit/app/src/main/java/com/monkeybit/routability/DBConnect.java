@@ -54,6 +54,11 @@ public final class DBConnect {
         addTuple(context, responseListener, url);
     }
 
+    public static void addUser(Context context, DBConnectInterface responseListener, String userEmail, String userName) {
+        String url = "http://" + serverIP + "/" + folderName + "/addUser.php?Email=" + userEmail + "&Name="+ userName;
+        addTuple(context, responseListener, url);
+    }
+
     public static void addAsFavouritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/addFavouritePlace.php?Email=" + userEmail + "&IdPlace" + placeId;
         getTuple(context, responseListener, url);
@@ -71,19 +76,20 @@ public final class DBConnect {
         suggestedPlaceUrl += "&ColourBlind=" + (suggestedPlace.getBoolean("ColourBlind") ? Integer.toString(1) : Integer.toString(0));
         suggestedPlaceUrl += "&Deaf=" + (suggestedPlace.getBoolean("Deaf") ? Integer.toString(1) : Integer.toString(0));
         suggestedPlaceUrl += "&Foreigner=" + (suggestedPlace.getBoolean("Foreigner") ? Integer.toString(1) : Integer.toString(0));
-        suggestedPlaceUrl = suggestedPlaceUrl.replaceAll(" ", "%20");
         Toast.makeText(context, suggestedPlaceUrl, Toast.LENGTH_LONG).show();
         String url = "http://" + serverIP + "/" + folderName + "suggestPlace.php?" + suggestedPlaceUrl;
         addTuple(context, responseListener, url);
     }
 
     private static void getTuple(Context context, DBConnectInterface responseListener, String url) {
+        url = url.replaceAll(" ", "%20");
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
     }
 
     private static void addTuple(Context context, DBConnectInterface responseListener, String url) {
+        url = url.replaceAll(" ", "%20");
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
