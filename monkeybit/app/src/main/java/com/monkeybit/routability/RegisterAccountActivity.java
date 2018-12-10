@@ -16,12 +16,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import org.json.JSONObject;
 
 public class RegisterAccountActivity extends Fragment {
 
@@ -80,6 +83,17 @@ public class RegisterAccountActivity extends Fragment {
                                 Toast toast = Toast.makeText(getActivity(), getString(R.string.create_account_succesfully), Toast.LENGTH_SHORT);
                                 toast.show();
                                 UpdateUserProfile(user_name);
+                                DBConnect.addUser(getContext(), new DBConnectInterface() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Toast.makeText(getContext(),"Fallo al añadir al usuario a la BD.", Toast.LENGTH_LONG);
+                                    }
+
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Toast.makeText(getContext(),"Usuario añadido a la BD correctamente.", Toast.LENGTH_LONG);
+                                    }
+                                }, user.getEmail(), user_name);
                                 ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
                                 //updateUI(user);
                             } else {
