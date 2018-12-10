@@ -21,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".SuggestPlaceActivity" />
-        <activity android:name=".DBTestActivity"></activity>
     </application>
 
 </manifest>
