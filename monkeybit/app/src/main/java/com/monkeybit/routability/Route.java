@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 public class Route {
 
-    private String idRoute, email, madeBy, name, description, accesibility;
+    private String idRoute, email, madeBy, name, description, accesibility,image;
 
     public Route() {}
 
@@ -18,6 +18,7 @@ public class Route {
         this.name = name;
         this.description = description;
         this.accesibility = accesibility;
+        this.image = "";
     }
 
     public Route(String email, String madeBy, String name, String description, String accesibility) {
@@ -27,7 +28,19 @@ public class Route {
         this.name = name;
         this.description = description;
         this.accesibility = accesibility;
+        this.image = "";
     }
+
+    public Route(String idRoute, String name, String description, String image) {
+        this.idRoute = "";
+        this.email = email;
+        this.idRoute = idRoute;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.accesibility = "";
+    }
+
 
     public Route(JSONObject jsonRoute) {
         if (isValidJson(jsonRoute)) {

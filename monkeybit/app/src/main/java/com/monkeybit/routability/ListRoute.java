@@ -6,7 +6,7 @@ import android.annotation.SuppressLint;
 
 public class ListRoute {
     //This class is the structure of the route
-    private int idImage;
+    private String idImage;
     private String tittle;
     private String description;
     private double rating;
@@ -19,7 +19,7 @@ public class ListRoute {
 
 
     @SuppressLint("ValidFragment")
-    public ListRoute (int idImage, String tittle, String description,String id) {
+    public ListRoute (String idImage, String tittle, String description,String id) {
         this.idImage = idImage;
         this.tittle = tittle;
         this.description = description;
@@ -36,7 +36,7 @@ public class ListRoute {
         return description;
     }
 
-    public int get_idImagen() {
+    public String get_idImagen() {
         return idImage;
     }
 

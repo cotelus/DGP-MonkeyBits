@@ -12,14 +12,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.VolleyError;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ListRouteActivity extends Fragment {
@@ -44,7 +41,7 @@ public class ListRouteActivity extends Fragment {
                 //{} objects [] array
                 JSONArray jsonArray = null;
                 try {
-                    jsonArray = response.getJSONArray(" ");
+                    jsonArray = response.getJSONArray("data");
                     CargarArray(jsonArray);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -57,18 +54,18 @@ public class ListRouteActivity extends Fragment {
 
 
     public void CargarArray(JSONArray jsonArray){
-        ArrayList<ListRoute> Lista = new ArrayList<>();
+        ArrayList<Route> Lista = new ArrayList<>(); //@TODO si lo hacemos con rote tal cual
 
         for(int i=0;i<jsonArray.length();i++){
             try {
                 JSONObject json = jsonArray.getJSONObject(i);
                 //Get and save data
-                int idImage = json.getInt("image");
+                String idImage = json.getString("Image");
                 String tittle = json.getString("tittle");
                 String description = json.getString("description");
-                String id = json.getString("id");
+                String id = json.getString("idRoute");
 
-                Lista.add(new ListRoute(idImage, tittle, description, id);
+                Lista.add(new Route(id,tittle,description,idImage));
 
 
             } catch (JSONException e) {
@@ -79,24 +76,25 @@ public class ListRouteActivity extends Fragment {
         this.Conf_List_Route(Lista);
     }
 
-    protected void Conf_List_Route(ArrayList<ListRoute> dataList){
+    protected void Conf_List_Route(ArrayList<Route> dataList){
 
         ListView list = view.findViewById(R.id.list_rt);
+        //adapt to the list
         list.setAdapter(new AdapterList(getContext(), R.layout.post_rute,dataList){
             @Override
-            public void onPost(Object post, View view) {
+            public void onPost(Object post, View view){
                 if(post != null){
                     TextView pt_tittle =  view.findViewById(R.id.post_tittle);
                     if(pt_tittle != null)
-                        pt_tittle.setText(((ListRoute) post).get_Tittle());
+                        pt_tittle.setText(((Route) post).getName());
 
                     TextView pt_desc =  view.findViewById(R.id.post_desc);
                     if(pt_desc != null)
-                        pt_desc.setText(((ListRoute) post).get_Description());
+                        pt_desc.setText(((Route) post).getDescription());
 
-                    ImageView pt_img =  view.findViewById(R.id.post_img);
-                    if(pt_img != null)
-                        pt_img.setImageResource(((ListRoute) post).get_idImagen());
+                    //ImageView pt_img =  view.findViewById(R.id.post_img);
+                    //if(pt_img != null)
+                      //  pt_img.setImageResource(((ListRoute) post).get_idImagen());
 
 
                 }
@@ -104,7 +102,7 @@ public class ListRouteActivity extends Fragment {
             }
         });
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
                 //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
