@@ -165,7 +165,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "Error al conectar con la BD", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Error al conectar con la BD: " + error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

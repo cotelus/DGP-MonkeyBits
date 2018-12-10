@@ -86,4 +86,5 @@
     <string name="title_boton">Comprobar</string>
     <string name="login">COMPROBAR RUTA</string>
     <string name="id_bd_test">test</string>
+    <string name = "errorListRoute"> An unexpected error happened.I can`t connect to database</string>
 </resources>

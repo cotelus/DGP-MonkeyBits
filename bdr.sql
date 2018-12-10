@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-12-2018 a las 17:27:52
--- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.3
+-- Tiempo de generación: 10-12-2018 a las 16:32:51
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -58,7 +58,11 @@ CREATE TABLE `appearsuggested` (
 --
 
 INSERT INTO `appearsuggested` (`IdPlace`, `IdRoute`, `Sequence`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(1, 2, 1),
+(16, 1, 1),
+(21, 3, 1),
+(22, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -132,11 +136,11 @@ CREATE TABLE `place` (
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL,
-  `RedMovility` tinyint(1) NOT NULL,
-  `RedVision` tinyint(1) NOT NULL,
-  `ColourBlind` tinyint(1) NOT NULL,
-  `Deaf` tinyint(1) NOT NULL,
-  `Foreigner` tinyint(1) NOT NULL
+  `RedMovility` tinyint(1) DEFAULT '0',
+  `RedVision` tinyint(1) DEFAULT '0',
+  `ColourBlind` tinyint(1) DEFAULT '0',
+  `Deaf` tinyint(1) DEFAULT '0',
+  `Foreigner` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -167,15 +171,18 @@ CREATE TABLE `placecomments` (
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Content` varchar(130) COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL,
-  `Time` time NOT NULL
+  `Time` time NOT NULL,
+  `Reported` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `placecomments`
 --
 
-INSERT INTO `placecomments` (`IdPlace`, `Email`, `Content`, `Date`, `Time`) VALUES
-(17, 'usuario1@gmail.com', 'hola', '2018-12-11', '21:00:00');
+INSERT INTO `placecomments` (`IdPlace`, `Email`, `Content`, `Date`, `Time`, `Reported`) VALUES
+(17, 'micorreojeje@gmail.com', 'fasfea', '2018-12-07', '19:00:00', 1),
+(17, 'usuario1@gmail.com', 'hola', '2018-12-11', '21:00:00', 0),
+(18, 'usuariobloqueado@gmail.com', 'fasef', '2018-12-02', '00:09:00', 0);
 
 -- --------------------------------------------------------
 
@@ -221,15 +228,18 @@ CREATE TABLE `routecomments` (
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Content` text COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL,
-  `Time` time NOT NULL
+  `Time` time NOT NULL,
+  `Reported` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `routecomments`
 --
 
-INSERT INTO `routecomments` (`IdRoute`, `Email`, `Content`, `Date`, `Time`) VALUES
-(16, 'usuariobloqueado@gmail.com', 'adios', '2018-12-19', '06:00:00');
+INSERT INTO `routecomments` (`IdRoute`, `Email`, `Content`, `Date`, `Time`, `Reported`) VALUES
+(9, 'usuariobloqueado@gmail.com', 'asfes', '2018-12-13', '11:00:00', 0),
+(16, 'micorreojeje@gmail.com', 'fasef', '2018-12-07', '11:00:00', 1),
+(16, 'usuariobloqueado@gmail.com', 'adios', '2018-12-19', '06:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -244,11 +254,11 @@ CREATE TABLE `suggestedplace` (
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL,
-  `RedMovility` tinyint(1) NOT NULL,
-  `RedVision` tinyint(1) NOT NULL,
-  `ColourBlind` tinyint(1) NOT NULL,
-  `Deaf` tinyint(1) NOT NULL,
-  `Foreigner` tinyint(1) NOT NULL
+  `RedMovility` tinyint(1) DEFAULT '0',
+  `RedVision` tinyint(1) DEFAULT '0',
+  `ColourBlind` tinyint(1) DEFAULT '0',
+  `Deaf` tinyint(1) DEFAULT '0',
+  `Foreigner` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -265,6 +275,15 @@ CREATE TABLE `suggestedroute` (
   `Image` text COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+--
+-- Volcado de datos para la tabla `suggestedroute`
+--
+
+INSERT INTO `suggestedroute` (`IdRoute`, `MadeBy`, `Name`, `Description`, `Image`) VALUES
+(1, 'micorreojeje@gmail.com', 'Ruta 1', 'jejejej', 'fasef'),
+(2, 'usuariobloqueado@gmail.com', 'Otra ruta', 'fasef', 'fase'),
+(3, 'micorreojeje@gmail.com', 'Ruta accesible', 'la ruta más accesible de todas', 'fasef');
+
 -- --------------------------------------------------------
 
 --
@@ -274,17 +293,18 @@ CREATE TABLE `suggestedroute` (
 CREATE TABLE `user` (
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Banned` tinyint(1) NOT NULL
+  `Banned` tinyint(1) DEFAULT '0',
+  `Reported` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`Email`, `Name`, `Banned`) VALUES
-('micorreojeje@gmail.com', 'Me llamo Ralph', 0),
-('usuario1@gmail.com', 'Homer Simpson', 0),
-('usuariobloqueado@gmail.com', 'Vecino de tu abuela', 0);
+INSERT INTO `user` (`Email`, `Name`, `Banned`, `Reported`) VALUES
+('micorreojeje@gmail.com', 'Me llamo Ralph', 0, 0),
+('usuario1@gmail.com', 'Homer Simpson', 0, 1),
+('usuariobloqueado@gmail.com', 'Vecino de tu abuela', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -431,7 +451,7 @@ ALTER TABLE `suggestedplace`
 -- AUTO_INCREMENT de la tabla `suggestedroute`
 --
 ALTER TABLE `suggestedroute`
-  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

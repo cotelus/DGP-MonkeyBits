@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -21,6 +22,11 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
     private TextInputEditText newName;
     private TextInputEditText newDescription;
     private TextInputEditText newLocalization;
+    private Switch newRedMovility;
+    private Switch newRedVision;
+    private Switch newColourBlind;
+    private Switch newDeaf;
+    private Switch newForeigner;
     private Button suggestButton;
 
     @Nullable
@@ -31,6 +37,11 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
         newName = (TextInputEditText) view.findViewById(R.id.new_name);
         newDescription = (TextInputEditText) view.findViewById(R.id.description);
         newLocalization = (TextInputEditText) view.findViewById(R.id.localization);
+        newRedMovility = (Switch)view.findViewById(R.id.redMovility);
+        newRedVision = (Switch)view.findViewById(R.id.redVision);
+        newColourBlind = (Switch)view.findViewById(R.id.colourBlind);
+        newDeaf = (Switch)view.findViewById(R.id.deaf);
+        newForeigner = (Switch)view.findViewById(R.id.foreigner);
         suggestButton = view.findViewById(R.id.suggestButton);
         suggestButton.setOnClickListener(new View.OnClickListener()
         {
@@ -48,12 +59,18 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
         String name = newName.getText().toString();
         String description = newDescription.getText().toString();
         String localization = newLocalization.getText().toString();
+        boolean redMovility = newRedMovility.isChecked();
+        boolean redVision = newRedVision.isChecked();
+        boolean colourBlind = newColourBlind.isChecked();
+        boolean deaf = newDeaf.isChecked();
+        boolean foreigner = newForeigner.isChecked();
 
         if (!(name.isEmpty() || description.isEmpty() || localization.isEmpty())) {
             String userId = ((MainActivity) getActivity()).getUserEmail();
 
-            //@TODO: Añadir imagen y accesibilidad
-            PlaceToSuggest newPlace = new PlaceToSuggest(userId, name, description, localization, "Imagen", "To Chunga");
+            //@TODO: Añadir imagen
+            PlaceToSuggest newPlace = new PlaceToSuggest(userId, name, description, localization, "Imagen", redMovility, redVision, colourBlind, deaf, foreigner);
+            Toast.makeText(getActivity(), "Json a enviar: " + newPlace.toJson(), Toast.LENGTH_SHORT).show();
             try {
                 DBConnect.suggestPlace(getContext(), this, newPlace.toJson());
             } catch (JSONException e) {
@@ -68,7 +85,7 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "Error al sugerir ruta", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Error al sugerir ruta: "+ error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

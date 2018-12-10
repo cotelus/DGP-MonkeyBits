@@ -7,7 +7,9 @@ import org.json.JSONObject;
 
 public class Route {
 
-    private String idRoute, email, madeBy, name, description, accesibility;
+
+    private String idRoute, email, madeBy, name, description, accesibility,image;
+
 
     public Route() {}
 
@@ -18,6 +20,8 @@ public class Route {
         this.name = name;
         this.description = description;
         this.accesibility = accesibility;
+        this.image = "";
+
     }
 
     public Route(String email, String madeBy, String name, String description, String accesibility) {
@@ -27,7 +31,21 @@ public class Route {
         this.name = name;
         this.description = description;
         this.accesibility = accesibility;
+        this.image = "";
+
+
     }
+
+    public Route(String idRoute, String name, String description, String image) {
+        this.idRoute = "";
+        this.email = email;
+        this.idRoute = idRoute;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.accesibility = "";
+    }
+
 
     public Route(JSONObject jsonRoute) {
         if (isValidJson(jsonRoute)) {
@@ -36,13 +54,12 @@ public class Route {
             this.setMadeBy(jsonRoute.optString("MadeBy"));
             this.setName(jsonRoute.optString("Name"));
             this.setDescription(jsonRoute.optString("Description"));
-            this.setAccesibility(jsonRoute.optString("Accesiblity"));
         }
     }
 
     public static boolean isValidJson(JSONObject jsonRoute) {
-        return jsonRoute.has("Email") && jsonRoute.has("MadeBy") && jsonRoute.has("Name")
-                && jsonRoute.has("Description") && jsonRoute.has("Accesibility");
+        return jsonRoute.has("Email") && jsonRoute.has("MadeBy")
+                && jsonRoute.has("Name") && jsonRoute.has("Description");
     }
 
     public JSONObject toJson() {
@@ -55,7 +72,6 @@ public class Route {
             jsonPlace.put("MadeBy", this.getMadeBy());
             jsonPlace.put("Name", this.getName());
             jsonPlace.put("Description", this.getDescription());
-            jsonPlace.put("Accesibility", this.getAccesibility());
         } catch (JSONException e) {
             Log.d("DEBUG", "Error al pasar un objeto Route a JSON");
             e.printStackTrace();
@@ -101,13 +117,5 @@ public class Route {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAccesibility() {
-        return accesibility;
-    }
-
-    public void setAccesibility(String accesibility) {
-        this.accesibility = accesibility;
     }
 }
