@@ -61,8 +61,40 @@
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize = "18sp"
-                android:text="rating"/>
+                android:text="rating"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/post_rt_info_location"
+                style="@style/CustomTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/post_rt_info_location"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/locationPlace"
+                style="@style/CustomTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="location"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/post_rt_info_accessibility"
+                style="@style/CustomTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/post_rt_info_accessibility"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/accessibilityPlace"
+                style="@style/CustomTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="accessibility"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/comments"

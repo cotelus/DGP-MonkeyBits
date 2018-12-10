@@ -56,6 +56,8 @@
     <string name="post_text_desc">description of the route</string>
     <string name="post_rt_info_places">Places through the route </string>
     <string name="post_rt_info_rating">Rating</string>
+    <string name="post_rt_info_location">Locationn</string>
+    <string name="post_rt_info_accessibility">Accessibility</string>
     <string name="pos_rt_fav">Add to favourites</string>
     <string name="post_follow_bt_rt"> Follow route</string>
     <string name="image_description"></string>
@@ -66,6 +68,18 @@
     <string name="send_comment">Send your comment</string>
     <string name="write_comment">Write your comment...</string>
     <string name="report">Report Comment</string>
+
+    <!-- Accesibility-->
+    <string name="introduction">This place has accessibility elements for </string>
+    <string name="introductionnot">This place does not have accessible elements for the persons with disability. </string>
+    <string name="red_mobility">people with reduced mobility </string>
+    <string name="red_vision">people with reduced vision </string>
+    <string name="colour_blind">colorblind people </string>
+    <string name="deaf">deaf people </string>
+    <string name="foreigner">foreign people.</string>
+
+
+
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
     <string name="title_user">Usuario: </string>
