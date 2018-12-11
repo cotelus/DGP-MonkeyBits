@@ -37,7 +37,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         Comments comment = this.comments.get(posicion);
         commentsViewHolder.author.setText(comment.getAuthor());
         commentsViewHolder.comment.setText(comment.getDescription());
-        Picasso.get().load(comment.getImage()).into(commentsViewHolder.imagePlace);
+        commentsViewHolder.date.setText(comment.getDate());
+        commentsViewHolder.time.setText(comment.getTime());
     }
 
     @Override
@@ -46,15 +47,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     }
 
     public class CommentsViewHolder extends RecyclerView.ViewHolder{
-        private ImageView imagePlace;
         private TextView author;
         private TextView comment;
+        private TextView date;
+        private TextView time;
 
         public CommentsViewHolder(@NonNull View itemView) {
             super(itemView);
-            imagePlace = itemView.findViewById(R.id.imagePlace);
             author = itemView.findViewById(R.id.author);
             comment = itemView.findViewById(R.id.comment);
+            date = itemView.findViewById(R.id.date);
+            time = itemView.findViewById(R.id.time);
         }
     }
 }

@@ -2,7 +2,7 @@
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
 $hostname="localhost";
-$database="routability";
+$database="bdr";
 $username="luis";
 $password="12345";
 $json=array();
@@ -11,7 +11,7 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql="SELECT IdPlace FROM favoriteplaces WHERE Email IN ('".$Email."')";
+		$sql="SELECT IdPlace FROM favoriteplaces WHERE Email= '{$Email}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){

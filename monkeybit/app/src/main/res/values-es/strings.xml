@@ -57,6 +57,8 @@
     <string name="post_text_desc">Descricion de la ruta</string>
     <string name="post_rt_info_places">Lugares por los que pasa la ruta</string>
     <string name="post_rt_info_rating">Valoración</string>
+    <string name="post_rt_info_location">Localización</string>
+    <string name="post_rt_info_accessibility">Accesibilidad</string>
     <string name="pos_rt_fav">Añadir a favoritos</string>
     <string name="post_follow_bt_rt"> Seguir la ruta</string>
     <string name="image_description"></string>
@@ -67,6 +69,21 @@
     <string name="send_comment">Enviar tu comentario</string>
     <string name="write_comment">Escribe tu comentario...</string>
     <string name="report">Denunciar Comentario</string>
+
+    <!-- Rating -->
+    <string name="notrating">No hay actualmente valoraciones</string>
+
+    <!-- Favorites -->
+    <string name="added_favorites">Este lugar se ha añadido a favoritos</string>
+
+    <!-- Accesibility-->
+    <string name="introduction">Este lugar cuenta con elementos de accesibilidad para </string>
+    <string name="notintroduction">Este lugar no tiene elementos accesibles para las personas con discapacidad. </string>
+    <string name="red_mobility">personas con movilidad reducida </string>
+    <string name="red_vision">personas con visión reducida </string>
+    <string name="colour_blind">personas daltónicas </string>
+    <string name="deaf">personas sordas </string>
+    <string name="foreigner">personas extranjeras.</string>
 
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
