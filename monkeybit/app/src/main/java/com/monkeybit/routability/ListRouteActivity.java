@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ListRouteActivity extends Fragment {
+public class ListRouteActivity extends Fragment implements DBConnectInterface{
     DBConnectInterface db_inter;
     View view;
     int pag = 0;
@@ -29,27 +30,10 @@ public class ListRouteActivity extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-        DBConnect.getRoutes(getContext(),db_inter,pag);
         pag = 0;
-        db_inter = new DBConnectInterface() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
-                errorText.show();
-            }
+        //db_inter = new DBConnectInterface() {
 
-            @Override
-            public void onResponse(JSONObject response) {
-                //{} objects [] array
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = response.getJSONArray("data");
-                    CargarArray(jsonArray);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+        DBConnect.getRoutes(getContext(),this,pag);
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -122,5 +106,23 @@ public class ListRouteActivity extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        if (getContext() != null)
+            Toast.makeText(getContext(), getString(R.string.errorListRoute),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        //{} objects [] array
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = response.getJSONArray("data");
+            CargarArray(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
