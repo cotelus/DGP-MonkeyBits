@@ -13,7 +13,7 @@ public abstract class AdapterList extends BaseAdapter {
     private int layout;
     private Context context;
     //This class is to adapt the list (ListRoute) to the view
-    public AdapterList(Context context, int layout_IdView, ArrayList<?> list) {
+    public AdapterList(Context context, int layout_IdView, ArrayList<?> list){
         super();
         this.context = context;
         this.list = list;
@@ -21,7 +21,7 @@ public abstract class AdapterList extends BaseAdapter {
     }
 
     @Override
-    public View getView(int posicion, View view, ViewGroup pariente) {
+    public View getView(int posicion, View view, ViewGroup pariente){
         if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = vi.inflate(layout, null);
@@ -31,17 +31,17 @@ public abstract class AdapterList extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
+    public int getCount(){
         return list.size();
     }
 
     @Override
-    public Object getItem(int posicion) {
+    public Object getItem(int posicion){
         return list.get(posicion);
     }
 
     @Override
-    public long getItemId(int posicion) {
+    public long getItemId(int posicion){
         return posicion;
     }
 
