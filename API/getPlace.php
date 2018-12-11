@@ -1,4 +1,6 @@
 <?PHP
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
 $hostname="localhost";
 $database="routability";
 $username="luis";
@@ -9,7 +11,7 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql="SELECT IdPlace, Email, MadeBy, Name, Description, Localitation, Image, Accesibility FROM place WHERE IdPlace= '{$IdPlace}'";
+		$sql="SELECT * FROM place WHERE IdPlace= '{$IdPlace}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){

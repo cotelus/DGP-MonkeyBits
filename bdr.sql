@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2018 a las 14:06:01
+-- Tiempo de generación: 10-12-2018 a las 16:32:51
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -136,11 +136,11 @@ CREATE TABLE `place` (
   `Description` text COLLATE utf8_spanish2_ci NOT NULL,
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL,
-  `RedMovility` tinyint(1) NOT NULL,
-  `RedVision` tinyint(1) NOT NULL,
-  `ColourBlind` tinyint(1) NOT NULL,
-  `Deaf` tinyint(1) NOT NULL,
-  `Foreigner` tinyint(1) NOT NULL
+  `RedMovility` tinyint(1) DEFAULT '0',
+  `RedVision` tinyint(1) DEFAULT '0',
+  `ColourBlind` tinyint(1) DEFAULT '0',
+  `Deaf` tinyint(1) DEFAULT '0',
+  `Foreigner` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `placecomments` (
   `Content` varchar(130) COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL,
   `Time` time NOT NULL,
-  `Reported` tinyint(1) NOT NULL
+  `Reported` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -229,7 +229,7 @@ CREATE TABLE `routecomments` (
   `Content` text COLLATE utf8_spanish2_ci NOT NULL,
   `Date` date NOT NULL,
   `Time` time NOT NULL,
-  `Reported` tinyint(1) NOT NULL
+  `Reported` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -237,7 +237,7 @@ CREATE TABLE `routecomments` (
 --
 
 INSERT INTO `routecomments` (`IdRoute`, `Email`, `Content`, `Date`, `Time`, `Reported`) VALUES
-(9, 'usuariobloqueado@gmail.com', 'asfes', '2018-12-13', '11:00:00', 1),
+(9, 'usuariobloqueado@gmail.com', 'asfes', '2018-12-13', '11:00:00', 0),
 (16, 'micorreojeje@gmail.com', 'fasef', '2018-12-07', '11:00:00', 1),
 (16, 'usuariobloqueado@gmail.com', 'adios', '2018-12-19', '06:00:00', 0);
 
@@ -254,11 +254,11 @@ CREATE TABLE `suggestedplace` (
   `Localitation` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Image` text COLLATE utf8_spanish2_ci NOT NULL,
-  `RedMovility` tinyint(1) NOT NULL,
-  `RedVision` tinyint(1) NOT NULL,
-  `ColourBlind` tinyint(1) NOT NULL,
-  `Deaf` tinyint(1) NOT NULL,
-  `Foreigner` tinyint(1) NOT NULL
+  `RedMovility` tinyint(1) DEFAULT '0',
+  `RedVision` tinyint(1) DEFAULT '0',
+  `ColourBlind` tinyint(1) DEFAULT '0',
+  `Deaf` tinyint(1) DEFAULT '0',
+  `Foreigner` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -293,8 +293,8 @@ INSERT INTO `suggestedroute` (`IdRoute`, `MadeBy`, `Name`, `Description`, `Image
 CREATE TABLE `user` (
   `Email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `Name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `Banned` tinyint(1) NOT NULL,
-  `Reported` tinyint(1) NOT NULL
+  `Banned` tinyint(1) DEFAULT '0',
+  `Reported` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
