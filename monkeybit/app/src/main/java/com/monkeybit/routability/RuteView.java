@@ -16,21 +16,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 
 
-public class RuteView extends Fragment {
+public class RuteView extends Fragment implements DBConnectInterface{
     View view;
-    ListRoute array = null;
+    String id = null;
+    DBConnectInterface db_inter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.view_rute, container, false);
 
-        SetView(array);
-        SetPlaces();
+        FindRoute();
+
         final ImageButton like_button = view.findViewById(R.id.pos_rt_fav);
         like_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,87 +69,93 @@ public class RuteView extends Fragment {
             }
         });
 
+        db_inter = new DBConnectInterface() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
+                errorText.show();
+            }
+
+            @Override
+            public void onResponse(JSONObject response) {
+                //{} objects [] array
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = response.getJSONArray("data");
+                    SetView(jsonArray);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 
-    //@Todo mandar id y que busque aquí en la base de datos
-    public void SetView(ListRoute choosen ){
-        if(choosen != null){
-            TextView pt_tittle =  view.findViewById(R.id.post_tittle_rt);
-            if(pt_tittle != null)
-                pt_tittle.setText(choosen.get_Tittle());
+    private void FindRoute(){
+        DBConnect.getRoute(getContext(),db_inter,id);
+    }
 
-            TextView pt_desc =  view.findViewById(R.id.post_desc_rt);
+    public void SetView(JSONArray response){
+
+        try {
+
+            //Get and save data
+            String idImage = response.getJSONObject(0).optString("Image");
+            String tittle = response.getJSONObject(0).optString("Name");
+            String description = response.getJSONObject(0).optString("Description");
+
+
+            TextView pt_tittle =  view.findViewById(R.id.post_tittle);
+            if(pt_tittle != null)
+                pt_tittle.setText(tittle);
+
+            TextView pt_desc =  view.findViewById(R.id.post_desc);
             if(pt_desc != null)
-                pt_desc.setText(choosen.get_Description());
+                pt_desc.setText(description);
 
             TextView pt_rating =  view.findViewById(R.id.post_rt_rating);
             if(pt_rating != null) {
-                double aux = choosen.get_Rating();
-                String text = String.valueOf(aux);
-                pt_rating.setText(text);
+                pt_rating.setText("2");
             }
 
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+
         //Once you have the route, you have to search the places
 
     }
 
-    public void Array(ListRoute choosen){
-        array = choosen;
+    public void SetID(String choosen){
+        id = choosen;
     }
 
-    protected void SetPlaces(){
-        ArrayList<ListRoute> places = new ArrayList<ListRoute>();
-
-        places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 1", "Descripcion 1"));
-        places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 2", "Descripcion 2 "));
-        places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 3", "Descripcion 3 "));
-        ListView lista = view.findViewById(R.id.post_list_lug);
-        lista.setAdapter(new AdapterList(getContext(), R.layout.post_rute, places){
-            @Override
-            public void onPost(Object post, View view) {
-                if(post != null){
-                    TextView pt_tittle =  view.findViewById(R.id.post_tittle);
-                    if(pt_tittle != null)
-                        pt_tittle.setText(((ListRoute) post).get_Tittle());
-
-                    TextView pt_desc =  view.findViewById(R.id.post_desc);
-                    if(pt_desc != null)
-                        pt_desc.setText(((ListRoute) post).get_Description());
-
-                    ImageView pt_img =  view.findViewById(R.id.post_img);
-                    if(pt_img != null)
-                        pt_img.setImageResource(((ListRoute) post).get_idImagen());
-
-
-                }
-
-            }
-        });
-        //Go to VerRuta
-        /*lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
-                //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
-                //toast.show();
-                ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
-                RuteView route = new RuteView();
-
-                if(route != null){
-                    route.Array(choosen); //set
-                    //change the fragment
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view,route).commit(); //go to the fragment
-
-                }
-
-
-
-            }
-        });*/
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
+        errorText.show();
     }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        try {
+            if(response.getJSONObject("OPERATION").toString() == "GET_ROUTE"){
+                //We search the route
+                JSONArray json = response.getJSONArray("data");
+                SetView(json);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 }
 

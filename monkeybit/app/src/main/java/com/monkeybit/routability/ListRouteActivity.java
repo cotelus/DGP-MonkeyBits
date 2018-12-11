@@ -22,12 +22,14 @@ import java.util.ArrayList;
 public class ListRouteActivity extends Fragment {
     DBConnectInterface db_inter;
     View view;
-    int pag;
+    int pag = 0;
+    int max = 10;
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-
+        DBConnect.getRoutes(getContext(),db_inter,pag);
         pag = 0;
         db_inter = new DBConnectInterface() {
             @Override
@@ -54,16 +56,16 @@ public class ListRouteActivity extends Fragment {
 
 
     public void CargarArray(JSONArray jsonArray){
-        ArrayList<Route> Lista = new ArrayList<>(); //@TODO si lo hacemos con rote tal cual
+        ArrayList<Route> Lista = new ArrayList<>();
 
         for(int i=0;i<jsonArray.length();i++){
             try {
                 JSONObject json = jsonArray.getJSONObject(i);
                 //Get and save data
                 String idImage = json.getString("Image");
-                String tittle = json.getString("tittle");
-                String description = json.getString("description");
-                String id = json.getString("idRoute");
+                String tittle = json.getString("Name");
+                String description = json.getString("Description");
+                String id = json.getString("IdRoute");
 
                 Lista.add(new Route(id,tittle,description,idImage));
 
@@ -72,7 +74,7 @@ public class ListRouteActivity extends Fragment {
                 e.printStackTrace();
             }
         }
-        pag = pag + 1;
+        pag = pag + max;
         this.Conf_List_Route(Lista);
     }
 
@@ -105,13 +107,12 @@ public class ListRouteActivity extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
-                //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
-                //toast.show();
-                ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
+                //
+                Route choosen = (Route) post.getItemAtPosition(pos);
                 RuteView route = new RuteView();
 
                 if(route != null){
-                    route.Array(choosen); //set
+                    route.SetID(choosen.getIdRoute()); //set
                     //change the fragment
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view,route).commit(); //go to the fragment
 

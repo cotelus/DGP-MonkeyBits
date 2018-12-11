@@ -32,8 +32,8 @@ public class ListFavRouteActivity extends Fragment {
 
         ArrayList<ListRoute> datos = new ArrayList<ListRoute>();
 
-        datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "primero Fav", "Descripcion 1"));
-        datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "segundo Fav", "Descripcion 2 "));
+       // datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "primero Fav", "Descripcion 1"));
+       // datos.add(new ListRoute(R.drawable.ic_accessible_black_24dp, "segundo Fav", "Descripcion 2 "));
 
 
         //@Todo esto lo haria con la bd pero esto es un ejemplo
@@ -53,8 +53,8 @@ public class ListFavRouteActivity extends Fragment {
                         pt_desc.setText(((ListRoute) post).get_Description());
 
                     ImageView pt_img =  view.findViewById(R.id.post_img);
-                    if(pt_img != null)
-                        pt_img.setImageResource(((ListRoute) post).get_idImagen());
+                   // if(pt_img != null)
+                    //    pt_img.setImageResource(((ListRoute) post).get_idImagen());
 
 
                 }
@@ -67,11 +67,11 @@ public class ListFavRouteActivity extends Fragment {
             public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
                 //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
                 //toast.show();
-                ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
+                Route choosen = (Route) post.getItemAtPosition(pos);
                 RuteView route = new RuteView();
 
                 if(route != null){
-                    route.Array(choosen); //set
+                    route.SetID(choosen.getIdRoute()); //set
                     //change the fragment
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view,route).commit(); //go to the fragment
 
