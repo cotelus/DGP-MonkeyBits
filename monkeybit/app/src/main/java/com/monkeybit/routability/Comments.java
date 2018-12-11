@@ -3,23 +3,29 @@ package com.monkeybit.routability;
 import android.media.Image;
 
 public class Comments {
-    private String image;
+    private String date;
     private String author;
     private String description;
+    private String time;
 
-    public Comments(String image, String author, String description){
-        this.image = image;
+    public Comments(String author, String description, String date, String time){
+        this.date = date;
         this.author = author;
         this.description = description;
+        this.time = time;
     }
 
-    public String getImage() {
-        return image;
+    public String getDate() {
+        return date;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setDate(String date) {
+        this.date = date;
     }
+
+    public String getTime() { return time; }
+
+    public void setTime(String time) { this.time = time; }
 
     public String getAuthor() {
         return author;

@@ -70,9 +70,15 @@
     <string name="write_comment">Escribe tu comentario...</string>
     <string name="report">Denunciar Comentario</string>
 
+    <!-- Rating -->
+    <string name="notrating">No hay actualmente valoraciones</string>
+
+    <!-- Favorites -->
+    <string name="added_favorites">Este lugar se ha añadido a favoritos</string>
+
     <!-- Accesibility-->
     <string name="introduction">Este lugar cuenta con elementos de accesibilidad para </string>
-    <string name="introductionnot">Este lugar no tiene elementos accesibles para las personas con discapacidad. </string>
+    <string name="notintroduction">Este lugar no tiene elementos accesibles para las personas con discapacidad. </string>
     <string name="red_mobility">personas con movilidad reducida </string>
     <string name="red_vision">personas con visión reducida </string>
     <string name="colour_blind">personas daltónicas </string>

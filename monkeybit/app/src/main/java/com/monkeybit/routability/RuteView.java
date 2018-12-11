@@ -97,9 +97,9 @@ public class RuteView extends Fragment {
     protected void SetPlaces(){
         ArrayList<ListRoute> places = new ArrayList<ListRoute>();
 
-        places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 1", "Descripcion 1"));
-        places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 2", "Descripcion 2 "));
-        places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 3", "Descripcion 3 "));
+        //places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 1", "Descripcion 1"));
+        //places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 2", "Descripcion 2 "));
+        //places.add(new ListRoute(R.drawable.ic_monument_black_24dp, "Lugar 3", "Descripcion 3 "));
         ListView lista = view.findViewById(R.id.post_list_lug);
         lista.setAdapter(new AdapterList(getContext(), R.layout.post_rute, places){
             @Override
@@ -114,9 +114,9 @@ public class RuteView extends Fragment {
                         pt_desc.setText(((ListRoute) post).get_Description());
 
                     ImageView pt_img =  view.findViewById(R.id.post_img);
-                    if(pt_img != null)
-                        pt_img.setImageResource(((ListRoute) post).get_idImagen());
-
+                    if(pt_img != null) {
+                       // pt_img.setImageResource(((ListRoute) post).get_idImagen());
+                    }
 
                 }
 

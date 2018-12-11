@@ -32,8 +32,8 @@ public class ListFavPlacesActivity extends Fragment {
 
         ArrayList<ListRoute> datos = new ArrayList<ListRoute>();
 
-        datos.add(new ListRoute(R.drawable.ic_monument_black_24dp, "primero Fav", "Descripcion 1"));
-        datos.add(new ListRoute(R.drawable.ic_monument_black_24dp, "segundo Fav", "Descripcion 2 "));
+        //datos.add(new ListRoute(R.drawable.ic_monument_black_24dp, "primero Fav", "Descripcion 1"));
+        //datos.add(new ListRoute(R.drawable.ic_monument_black_24dp, "segundo Fav", "Descripcion 2 "));
 
 
         //@Todo esto lo haria con la bd pero esto es un ejemplo
@@ -53,8 +53,9 @@ public class ListFavPlacesActivity extends Fragment {
                         pt_desc.setText(((ListRoute) post).get_Description());
 
                     ImageView pt_img =  view.findViewById(R.id.post_img);
-                    if(pt_img != null)
-                        pt_img.setImageResource(((ListRoute) post).get_idImagen());
+                    if(pt_img != null) {
+                        //pt_img.setImageResource(((ListRoute) post).get_idImagen());
+                    }
 
 
                 }

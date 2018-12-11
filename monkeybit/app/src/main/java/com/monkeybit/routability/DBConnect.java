@@ -14,8 +14,8 @@ import org.json.JSONObject;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.25";
-    private static final String folderName =  "API";
+    private static final String serverIP =  "172.20.73.107";
+    private static final String folderName =  "RoutabilityAdmin";
 
     private DBConnect() {}
 
@@ -26,6 +26,16 @@ public final class DBConnect {
 
     public static void getPlace(Context context, DBConnectInterface responseListener, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlace.php?IdPlace=" + placeId;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getAverageScorePlace(Context context, DBConnectInterface responseListener, String placeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/getAverageScorePlace.php?IdPlace=" + placeId;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getPlaceComments(Context context, DBConnectInterface responseListener, String placeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/getPlaceComments.php?IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
 
@@ -40,17 +50,17 @@ public final class DBConnect {
     }
 
     public static void getFavouriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavouriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
         getTuple(context, responseListener, url);
     }
 
     public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavouritePlaces.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoritePlaces.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
         addTuple(context, responseListener, url);
     }
 
     public static void addAsFavouriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/addFavouriteRoute.php?Email=" + userEmail + "&IdRoute"+ routeId;
+        String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute"+ routeId;
         addTuple(context, responseListener, url);
     }
 
@@ -60,7 +70,7 @@ public final class DBConnect {
     }
 
     public static void addAsFavouritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/addFavouritePlace.php?Email=" + userEmail + "&IdPlace" + placeId;
+        String url = "http://" + serverIP + "/" + folderName + "/addFavoritePlace.php?Email=" + userEmail + "&IdPlace" + placeId;
         getTuple(context, responseListener, url);
     }
 
