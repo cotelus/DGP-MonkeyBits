@@ -26,7 +26,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 import org.json.JSONObject;
 
-public class RegisterAccountActivity extends Fragment {
+public class RegisterAccountActivity extends Fragment implements DBConnectInterface {
 
     private FirebaseAuth mAuth;
     Button newUserButton;
@@ -83,19 +83,7 @@ public class RegisterAccountActivity extends Fragment {
                                 Toast toast = Toast.makeText(getActivity(), getString(R.string.create_account_succesfully), Toast.LENGTH_SHORT);
                                 toast.show();
                                 UpdateUserProfile(user_name);
-                                DBConnect.addUser(getContext(), new DBConnectInterface() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(getContext(),"Fallo al añadir al usuario a la BD.", Toast.LENGTH_LONG);
-                                    }
-
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        Toast.makeText(getContext(),"Usuario añadido a la BD correctamente.", Toast.LENGTH_LONG);
-                                    }
-                                }, user.getEmail(), user_name);
-                                ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
-                                //updateUI(user);
+                                addUserToDataBase(user.getEmail(), user_name);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Toast toast = Toast.makeText(getActivity(), "No se han podido recuperar los datos del usuario.", Toast.LENGTH_SHORT);
@@ -136,5 +124,21 @@ public class RegisterAccountActivity extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void addUserToDataBase(String email, String name) {
+        DBConnect.addUser(getContext(), this, email, name);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(),"Fallo al añadir al usuario a la BD.", Toast.LENGTH_LONG);
+        ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        Toast.makeText(getContext(),"Usuario añadido a la BD correctamente.", Toast.LENGTH_LONG);
+        ((MainActivity)getActivity()).LoadNewFragment(new MenuActivity());
     }
 }
