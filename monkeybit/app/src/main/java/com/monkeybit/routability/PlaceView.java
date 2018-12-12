@@ -69,8 +69,8 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
         dataComments();
 
-        DBConnect.getPlace(getContext(),this,idPlace);
-        DBConnect.getAverageScorePlace(getContext(),this,idPlace);
+        //DBConnect.getPlace(getContext(),this,idPlace);
+        //DBConnect.getAverageScorePlace(getContext(),this,idPlace);
         DBConnect.getPlaceComments(getContext(),this,idPlace);
 
         return view;
@@ -234,7 +234,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
         if (result >= 3){
             initializedAdapter();
-            result = 0;
+            //result = 0;
         }
     }
 

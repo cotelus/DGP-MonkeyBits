@@ -14,8 +14,8 @@ import org.json.JSONObject;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "172.20.73.107";
-    private static final String folderName =  "RoutabilityAdmin";
+    private static final String serverIP =  "192.168.1.25";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
 
@@ -70,7 +70,7 @@ public final class DBConnect {
     }
 
     public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute"+ routeId;
+        String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;
         addTuple(context, responseListener, url);
     }
 
@@ -80,7 +80,7 @@ public final class DBConnect {
     }
 
     public static void addAsFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/addFavoritePlace.php?Email=" + userEmail + "&IdPlace" + placeId;
+        String url = "http://" + serverIP + "/" + folderName + "/addFavoritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
 
@@ -97,7 +97,7 @@ public final class DBConnect {
         suggestedPlaceUrl += "&Deaf=" + (suggestedPlace.getBoolean("Deaf") ? Integer.toString(1) : Integer.toString(0));
         suggestedPlaceUrl += "&Foreigner=" + (suggestedPlace.getBoolean("Foreigner") ? Integer.toString(1) : Integer.toString(0));
         Toast.makeText(context, suggestedPlaceUrl, Toast.LENGTH_LONG).show();
-        String url = "http://" + serverIP + "/" + folderName + "suggestPlace.php?" + suggestedPlaceUrl;
+        String url = "http://" + serverIP + "/" + folderName + "/suggestPlace.php?" + suggestedPlaceUrl;
         addTuple(context, responseListener, url);
     }
 
