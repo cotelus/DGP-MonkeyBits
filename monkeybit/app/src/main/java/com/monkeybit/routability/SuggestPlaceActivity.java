@@ -70,7 +70,7 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
 
             //@TODO: Añadir imagen
             PlaceToSuggest newPlace = new PlaceToSuggest(userId, name, description, localization, "Imagen", redMovility, redVision, colourBlind, deaf, foreigner);
-            Toast.makeText(getActivity(), "Json a enviar: " + newPlace.toJson(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Json a enviar: " + newPlace.toJson(), Toast.LENGTH_SHORT).show();
             try {
                 DBConnect.suggestPlace(getContext(), this, newPlace.toJson());
             } catch (JSONException e) {
@@ -85,11 +85,11 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "Error al sugerir ruta: "+ error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Error al sugerir lugar: "+ error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        Toast.makeText(getContext(), "Ruta sugerida correctamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getString(R.string.place_suggested), Toast.LENGTH_SHORT).show();
     }
 }

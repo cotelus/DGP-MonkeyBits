@@ -20,4 +20,5 @@ $json=array();
 			mysqli_close($connection);
 			echo json_encode($json);
 		}
+	}
 ?>
