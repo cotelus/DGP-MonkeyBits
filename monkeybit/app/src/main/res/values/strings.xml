@@ -82,6 +82,7 @@
     <string name="foreigner">foreign people.</string>
 
     <!-- Favorites -->
+    <string name="should_login">You should login</string>
     <string name="added_favorites">This place </string>
 
     <!-- BD TEST-->
