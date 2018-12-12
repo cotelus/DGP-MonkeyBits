@@ -42,11 +42,21 @@
     <string name="places">Lugares</string>
     <string name="search">Buscar</string>
     <string name="suggest_place">Sugerir Lugar</string>
+
+
+    <string name="suggest_route_title">Creación Ruta</string>
+    <string name="new_name_route">Nombre de la Ruta</string>
+    <string name="new_route_description">Descripción de la Ruta</string>
+    <string name="route_localization">Ubicación de la Ruta</string>
+    <string name="suggest_button">Sugerir</string>
+
+
     <string name="suggest_place_title">Creación Lugar</string>
     <string name="new_name_place">Nombre del Lugar</string>
     <string name="new_place_description">Descripción del Lugar</string>
     <string name="place_localization">Ubicación del Lugar</string>
-    <string name="suggest_button">Sugerir</string>
+
+
     <string name="rutes_menu">Rutas/Lugares</string>
     <string name="tittle_rute">Nombre de ruta</string>
     <string name="tittle_place">Nombre de Lugar</string>
@@ -95,4 +105,5 @@
     <string name="id_bd_test">test</string>
     <string name = "errorListRoute"> An unexpected error happened.I can`t connect to database</string>
     <string name="place_suggested">Lugar sugerido correctamente.</string>
+    <string name="suggest_route">Sugerir Ruta</string>
 </resources>

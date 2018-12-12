@@ -28,6 +28,7 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
     Button deleteAccount;
     Button btChange;
     Button suggestPlace;
+    Button suggestRoute;
 
 
     @Nullable
@@ -76,6 +77,16 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
             public void onClick(View v)
             {
                 OnSuggestPlace(v);
+            }
+        });
+
+        suggestRoute = view.findViewById(R.id.SuggestRoute);
+        suggestRoute.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                OnSuggestRoute(v);
             }
         });
 
@@ -144,6 +155,10 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
     }
 
     protected void OnSuggestPlace(android.view.View view) {
+        ((MainActivity)getActivity()).LoadNewFragment(new SuggestPlaceActivity());
+    }
+
+    protected void OnSuggestRoute(android.view.View view) {
         ((MainActivity)getActivity()).LoadNewFragment(new SuggestPlaceActivity());
     }
 

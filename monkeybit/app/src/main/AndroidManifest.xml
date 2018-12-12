@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SuggestPlaceActivity" />
+        <activity android:name=".SuggestRouteActivity"></activity>
     </application>
 
 </manifest>
