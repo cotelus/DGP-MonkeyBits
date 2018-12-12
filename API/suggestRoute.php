@@ -19,7 +19,7 @@ $json=array();
 
 		if($sql){
 			echo mysqli_error($connection);
-			$json["OPERATION"] = "SUGGESTROUTE";
+			$json["OPERATION"] = "SUGGEST_ROUTE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}	

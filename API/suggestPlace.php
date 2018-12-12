@@ -25,7 +25,7 @@ $json=array();
 
 		if($sql){
 			echo mysqli_error($connection);
-			$json["OPERATION"] = "SUGGESTPLACE";
+			$json["OPERATION"] = "SUGGEST_PLACE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}	
