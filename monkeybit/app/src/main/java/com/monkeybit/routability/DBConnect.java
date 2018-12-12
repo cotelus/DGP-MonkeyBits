@@ -54,9 +54,19 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
+    public static void removeFavouriteRoutes(Context context, DBConnectInterface responseListener, String userEmail) {
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavouriteRoutes.php?Email=" + userEmail;
+        getTuple(context, responseListener, url);
+    }
+
     public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getFavoritePlaces.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
         addTuple(context, responseListener, url);
+    }
+
+    public static void removeFavouritePlace(Context context, DBConnectInterface responseListener, String userEmail) {
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavouritePlace.php?Email=" + userEmail;
+        getTuple(context, responseListener, url);
     }
 
     public static void addAsFavouriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
