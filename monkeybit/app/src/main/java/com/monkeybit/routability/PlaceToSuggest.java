@@ -50,9 +50,6 @@ public class PlaceToSuggest extends Place {
     public JSONObject toJson() {
         JSONObject jsonPlace = new JSONObject();
         try {
-            if (!this.getIdPlace().equals("")) {
-                jsonPlace.put("IdPlace", this.getIdPlace());
-            }
             jsonPlace.put("MadeBy", this.getMadeBy());
             jsonPlace.put("Name", this.getName());
             jsonPlace.put("Description", this.getDescription());

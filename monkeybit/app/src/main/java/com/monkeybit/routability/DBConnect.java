@@ -1,6 +1,7 @@
 package com.monkeybit.routability;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -86,10 +87,10 @@ public final class DBConnect {
 
     public static void suggestPlace(Context context, DBConnectInterface responseListener, JSONObject suggestedPlace) throws JSONException {
         String suggestedPlaceUrl = "";
-        suggestedPlaceUrl += "&MadeBy=" + suggestedPlace.getString("MadeBy");
+        suggestedPlaceUrl += "MadeBy=" + suggestedPlace.getString("MadeBy");
         suggestedPlaceUrl += "&Name=" + suggestedPlace.getString("Name");
         suggestedPlaceUrl += "&Description=" + suggestedPlace.getString("Description");
-        suggestedPlaceUrl += "&Localization=" + suggestedPlace.getString("Localization");
+        suggestedPlaceUrl += "&Localitation=" + suggestedPlace.getString("Localization");
         suggestedPlaceUrl += "&Image=" + suggestedPlace.getString("Image");
         suggestedPlaceUrl += "&RedMovility=" + (suggestedPlace.getBoolean("RedMovility") ? Integer.toString(1) : Integer.toString(0));
         suggestedPlaceUrl += "&RedVision=" + (suggestedPlace.getBoolean("RedVision") ? Integer.toString(1) : Integer.toString(0));
@@ -102,6 +103,7 @@ public final class DBConnect {
 
     private static void getTuple(Context context, DBConnectInterface responseListener, String url) {
         url = url.replaceAll(" ", "%20");
+        Log.d("URL_DBConnect", url);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
@@ -109,6 +111,7 @@ public final class DBConnect {
 
     private static void addTuple(Context context, DBConnectInterface responseListener, String url) {
         url = url.replaceAll(" ", "%20");
+        Log.d("URL_DBConnect", url);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
