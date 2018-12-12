@@ -96,7 +96,6 @@ public final class DBConnect {
         suggestedPlaceUrl += "&ColourBlind=" + (suggestedPlace.getBoolean("ColourBlind") ? Integer.toString(1) : Integer.toString(0));
         suggestedPlaceUrl += "&Deaf=" + (suggestedPlace.getBoolean("Deaf") ? Integer.toString(1) : Integer.toString(0));
         suggestedPlaceUrl += "&Foreigner=" + (suggestedPlace.getBoolean("Foreigner") ? Integer.toString(1) : Integer.toString(0));
-        Toast.makeText(context, suggestedPlaceUrl, Toast.LENGTH_LONG).show();
         String url = "http://" + serverIP + "/" + folderName + "/suggestPlace.php?" + suggestedPlaceUrl;
         addTuple(context, responseListener, url);
     }
