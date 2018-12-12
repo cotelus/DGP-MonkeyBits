@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,40 +45,21 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         email = ((MainActivity) getActivity()).getUserEmail();
 
         if(email != null) {
-
-
-
             DBConnect.getFavoritePlaces(getContext(), this,email, 0);
 
             favButton = view.findViewById(R.id.placeFav);
             favButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Log.d("DEBUG", "fadads");
-                    Toast.makeText(getContext(), "svvsd", Toast.LENGTH_SHORT).show();
-                    // Code here executes on main thread after user presses button
-                    //@Todo poner lugar de favoritos
-                    //@Todo poner estrella en amarillo
                     if (isFavorite){
-                        favButton.setPressed(false);
-                         Toast.makeText(getContext(), getString(R.string.remove_favorites), Toast.LENGTH_SHORT).show();
+                        removeFavoritePlace();
                     }
-                        //@Todo quitar lugar de favoritos
-                        //@Todo poner estrella en gris
                     else{
                         addFavoritePlace();
-                        favButton.setPressed(true);
-                        Toast.makeText(getContext(), getString(R.string.add_favorites), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-
-            ImageButton banButton =  view.findViewById(R.id.imageButton3);
-            banButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "asdfasf", Toast.LENGTH_LONG).show();
-                }
-            });
+        } else {
+            Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT);
         }
 
         listcomments = view.findViewById(R.id.list_comments);
@@ -97,11 +77,11 @@ public class PlaceView extends Fragment implements DBConnectInterface{
     }
 
     public void addFavoritePlace(){
-        DBConnect.addAsFavouritePlace(getContext(),this,email,"0");
+        DBConnect.addAsFavoritePlace(getContext(), this, email, idPlace);
     }
 
     public void removeFavoritePlace(){
-       // DBConnect.removeFavoritePlace(getContext(),this,email,0);
+       DBConnect.removeFavoritePlace(getContext(), this, email, idPlace);
     }
 
     public void dataComments(){
@@ -215,8 +195,6 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         }
     }
 
-
-
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "Error BD: " + error, Toast.LENGTH_SHORT).show();
@@ -225,13 +203,15 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
     @Override
     public void onResponse(JSONObject response) {
-
         try {
             if(response.has("OPERATION")) {
                 if (response.getString("OPERATION") == "ADD_FAVORITE_PLACE") {
                     Toast.makeText(getContext(), R.string.added_favorites, Toast.LENGTH_SHORT).show();
-                    isFavorite = true;
-                    favButton.setPressed(true);
+                    setFavButtonState(true);
+                }
+                else if (response.getString("OPERATION") == "REMOVE_FAVORITE_PLACE") {
+                    Toast.makeText(getContext(), R.string.remove_favorites, Toast.LENGTH_SHORT).show();
+                    setFavButtonState(false);
                 }
                 else if (response.getString("OPERATION") == "GET_FAVORITE_PLACES" && response.has("data")) {
                     JSONObject place = new JSONObject();
@@ -239,7 +219,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                     place.put("Email", email);
                     for (int i = 0; i < response.getJSONArray("data").length(); i++) {
                         if (response.getJSONArray("data").getJSONObject(i).equals(place)) {
-                            isFavorite = true;
+                            setFavButtonState(true);
                         }
                     }
                 }
@@ -256,7 +236,10 @@ public class PlaceView extends Fragment implements DBConnectInterface{
             initializedAdapter();
             result = 0;
         }
+    }
 
-
+    private void setFavButtonState(boolean activate) {
+        isFavorite = activate;
+        favButton.setSelected(activate);
     }
 }
