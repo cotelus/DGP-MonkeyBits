@@ -16,7 +16,7 @@ $json=array();
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
-			$json["OPERATION"] = "ADD_FAVORITE_PLACE";
+			$json['OPERATION']="ADD_FAVORITE_PLACE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}
