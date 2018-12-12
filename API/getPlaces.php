@@ -1,17 +1,18 @@
 <?PHP
-mb_internal_encoding('UTF-8');
-mb_http_output('UTF-8');
+
 $hostname="localhost";
-$database="bdr";
+$database="routability";
 $username="luis";
 $password="12345";
 $json=array();
-	if(isset($_GET["IdPlace"])){
-		$IdPlace = $_GET['IdPlace'];
+$json2 = array();
+
+	if(isset($_GET["Start"])){
+		$Start = $_GET['Start'];
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}'";
+		$sql="SELECT * FROM place LIMIT $Start,10";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
@@ -19,9 +20,9 @@ $json=array();
 			while($reg = mysqli_fetch_array($result)){
 				$json['data'][$x]=$reg;
 				$x++;
+
 			}
-			
-			$json['OPERATION']="GET_ROUTE_COMMENTS";
+			$json['OPERATION']="GET_PLACES";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}
