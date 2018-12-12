@@ -5,13 +5,14 @@ $hostname="localhost";
 $database="bdr";
 $username="luis";
 $password="12345";
+
 $json=array();
 	if(isset($_GET["IdPlace"])){
 		$IdPlace=$_GET['IdPlace'];
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql="SELECT * FROM place WHERE IdPlace= '{$IdPlace}'";
+		$sql="SELECT * FROM place WHERE IdPlace = '{$IdPlace}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
