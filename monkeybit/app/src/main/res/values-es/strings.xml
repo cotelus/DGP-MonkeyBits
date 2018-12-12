@@ -64,7 +64,7 @@
     <string name="image_description"></string>
     <string name="comments">Comentarios</string>
     <string name="remove_favorites">Eliminado de favoritos</string>
-    <string name="add_favorites">Añadido de favoritos</string>
+    <string name="add_favorites">Añadido a favoritos</string>
     <string name="comments_here">Comenta aquí</string>
     <string name="send_comment">Enviar tu comentario</string>
     <string name="write_comment">Escribe tu comentario...</string>
@@ -74,6 +74,7 @@
     <string name="notrating">No hay actualmente valoraciones</string>
 
     <!-- Favorites -->
+    <string name="should_login">Debes iniciar sesión</string>
     <string name="added_favorites">Este lugar se ha añadido a favoritos</string>
 
     <!-- Accesibility-->
@@ -93,4 +94,5 @@
     <string name="login">COMPROBAR RUTA</string>
     <string name="id_bd_test">test</string>
     <string name = "errorListRoute"> An unexpected error happened.I can`t connect to database</string>
+    <string name="place_suggested">Lugar sugerido correctamente.</string>
 </resources>
