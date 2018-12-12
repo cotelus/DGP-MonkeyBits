@@ -114,9 +114,9 @@ public class RuteView extends Fragment {
                         pt_desc.setText(((ListRoute) post).get_Description());
 
                     ImageView pt_img =  view.findViewById(R.id.post_img);
-                    if(pt_img != null){}
-                        //pt_img.setImageResource(((ListRoute) post).get_idImagen());
-
+                    if(pt_img != null) {
+                       // pt_img.setImageResource(((ListRoute) post).get_idImagen());
+                    }
 
                 }
 

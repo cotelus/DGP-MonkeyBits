@@ -53,8 +53,9 @@ public class ListFavPlacesActivity extends Fragment {
                         pt_desc.setText(((ListRoute) post).get_Description());
 
                     ImageView pt_img =  view.findViewById(R.id.post_img);
-                    if(pt_img != null){}
+                    if(pt_img != null) {
                         //pt_img.setImageResource(((ListRoute) post).get_idImagen());
+                    }
 
 
                 }
