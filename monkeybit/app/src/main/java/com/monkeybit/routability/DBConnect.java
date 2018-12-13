@@ -20,11 +20,6 @@ public final class DBConnect {
 
     private DBConnect() {}
 
-    public static void getRoute(Context context, DBConnectInterface responseListener, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/getRoute.php?IdRoute=" + routeId;
-        getTuple(context, responseListener, url);
-    }
-
     public static void getPlace(Context context, DBConnectInterface responseListener, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlace.php?IdPlace=" + placeId;
         getTuple(context, responseListener, url);
@@ -40,23 +35,8 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
-    public static void getRoutes(Context context, DBConnectInterface responseListener, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?StartIndex=" + firstRouteIndex;
-        getTuple(context, responseListener, url);
-    }
-
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
-        getTuple(context, responseListener, url);
-    }
-
-    public static void getFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
-        getTuple(context, responseListener, url);
-    }
-
-    public static void removeFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/removeFavouriteRoutes.php?Email=" + userEmail + "&IdRoute=" + routeId;
         getTuple(context, responseListener, url);
     }
 
@@ -68,16 +48,6 @@ public final class DBConnect {
     public static void removeFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/removeFavouritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
         getTuple(context, responseListener, url);
-    }
-
-    public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;
-        addTuple(context, responseListener, url);
-    }
-
-    public static void addUser(Context context, DBConnectInterface responseListener, String userEmail, String userName) {
-        String url = "http://" + serverIP + "/" + folderName + "/addUser.php?Email=" + userEmail + "&Name="+ userName;
-        addTuple(context, responseListener, url);
     }
 
     public static void addAsFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
@@ -98,6 +68,37 @@ public final class DBConnect {
         suggestedPlaceUrl += "&Deaf=" + (suggestedPlace.getBoolean("Deaf") ? Integer.toString(1) : Integer.toString(0));
         suggestedPlaceUrl += "&Foreigner=" + (suggestedPlace.getBoolean("Foreigner") ? Integer.toString(1) : Integer.toString(0));
         String url = "http://" + serverIP + "/" + folderName + "/suggestPlace.php?" + suggestedPlaceUrl;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void getRoute(Context context, DBConnectInterface responseListener, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/getRoute.php?IdRoute=" + routeId;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getRoutes(Context context, DBConnectInterface responseListener, int firstRouteIndex) {
+        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?StartIndex=" + firstRouteIndex;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+        getTuple(context, responseListener, url);
+    }
+
+    public static void removeFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavouriteRoutes.php?Email=" + userEmail + "&IdRoute=" + routeId;
+        getTuple(context, responseListener, url);
+    }
+
+
+    public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void addUser(Context context, DBConnectInterface responseListener, String userEmail, String userName) {
+        String url = "http://" + serverIP + "/" + folderName + "/addUser.php?Email=" + userEmail + "&Name="+ userName;
         addTuple(context, responseListener, url);
     }
 
