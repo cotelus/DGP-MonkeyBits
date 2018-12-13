@@ -19,7 +19,7 @@ $json=array();
 
 		if($sql){
 			echo mysqli_error($connection);
-			$json["OPERATION"] = "ADD_USER";
+			$json['OPERATIONS'][0]="ADD_USER";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}	

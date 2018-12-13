@@ -16,11 +16,13 @@ $json=array();
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
+			$json['OPERATIONS'][0]="GET_AVERAGE_SCORE_PLACE";
 			if($reg=mysqli_fetch_array($result)){
-				$json['data'][]=$reg;
+				$jsonTuple['Rating'] = $reg['AVG(Rating)'];
+
+				$json['GET_AVERAGE_SCORE_PLACE'][0]=$jsonTuple;
 			}
 			
-			$json['OPERATION']="GET_AVERAGE_SCORE_PLACE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}

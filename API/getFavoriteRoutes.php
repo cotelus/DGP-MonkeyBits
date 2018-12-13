@@ -11,17 +11,24 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql="SELECT IdRoute FROM favoriteroutes WHERE Email IN ('".$Email."')";
+		$sql="SELECT * FROM route LEFT JOIN favoriteroutes ON route.IdRoute = favoriteroutes.IdRoute WHERE favoriteroutes.Email = '{$Email}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
 			$x = 0;
+			$json['OPERATIONS'][0]="GET_FAVORITE_ROUTES";
 			while($reg = mysqli_fetch_array($result)){
-				$json['data'][$x]=$reg;
-				$x++;
+				$jsonTuple1['IdRoute'] = $reg['IdRoute'];
+				$jsonTuple1['Email'] = $reg['Email'];
+				$jsonTuple1['MadeBy'] = $reg['MadeBy'];
+				$jsonTuple1['Name'] = $reg['Name'];
+				$jsonTuple1['Description'] = $reg['Description'];
+				$jsonTuple1['Image'] = $reg['Image'];
 
+				$json['GET_FAVORITE_ROUTES'][$x] = $jsonTuple1;
+				$x++;
 			}
-			$json['OPERATION']="GET_FAVORITE_ROUTES";
+
 			mysqli_close($connection);
 			echo json_encode($json);
 

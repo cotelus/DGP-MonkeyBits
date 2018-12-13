@@ -18,12 +18,19 @@ $json2 = array();
 
 		if($sql){
 			$x = 0;
+			$json['OPERATIONS'][0]="GET_ROUTES";
 			while($reg = mysqli_fetch_array($result)){
-				$json['data'][$x]=$reg;
+				$jsonTuple['IdRoute'] = $reg['IdRoute'];
+				$jsonTuple['Email'] = $reg['Email'];
+				$jsonTuple['MadeBy'] = $reg['MadeBy'];
+				$jsonTuple['Name'] = $reg['Name'];
+				$jsonTuple['Description'] = $reg['Description'];
+
+				$json['GET_ROUTES'][$x]=$jsonTuple;
 				$x++;
 
 			}
-			$json['OPERATION']="GET_ROUTES";
+			
 			mysqli_close($connection);
 			echo json_encode($json);
 		}

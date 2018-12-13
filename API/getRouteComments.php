@@ -16,12 +16,19 @@ $json=array();
 
 		if($sql){
 			$x = 0;
+			$json['OPERATIONS'][0] = "GET_ROUTE_COMMENTS";
 			while($reg = mysqli_fetch_array($result)){
-				$json['data'][$x]=$reg;
+				$jsonTuple['IdRoute'] = $reg['IdRoute'];
+				$jsonTuple['Email'] = $reg['Email'];
+				$jsonTuple['Content'] = $reg['Content'];
+				$jsonTuple['Date'] = $reg['Date'];
+				$jsonTuple['Time'] = $reg['Time'];
+				$jsonTuple['Reported'] = $reg['Reported'];
+
+				$json['GET_ROUTE_COMMENTS'][$x]=$jsonTuple;
 				$x++;
 			}
 			
-			$json['OPERATION']="GET_ROUTE_COMMENTS";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}
