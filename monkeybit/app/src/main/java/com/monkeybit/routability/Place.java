@@ -7,8 +7,9 @@ import org.json.JSONObject;
 
 public class Place {
 
-    private String idPlace, email, madeBy, name, description, localization, image;
-    private boolean redMovility, redVision, colourBlind, deaf, foreigner;
+    private String idPlace, email;
+    protected String madeBy, name, description, localization, image;
+    protected boolean redMovility, redVision, colourBlind, deaf, foreigner;
 
     public Place(){
         this.redMovility = true;

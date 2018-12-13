@@ -5,22 +5,25 @@ $hostname="localhost";
 $database="bdr";
 $username="luis";
 $password="12345";
-
 $json=array();
-	if(isset($_GET["IdPlace"])){
-		$IdPlace=$_GET['IdPlace'];
+$json2 = array();
+
+	if(isset($_GET["Start"])){
+		$Start = $_GET['Start'];
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql="SELECT * FROM place WHERE IdPlace = '{$IdPlace}'";
+		$sql="SELECT * FROM place LIMIT $Start,10";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
-		
-			if($reg=mysqli_fetch_array($result)){
-				$json['data'][]=$reg;
-				$json['OPERATION']="GET_PLACE";
+			$x = 0;
+			while($reg = mysqli_fetch_array($result)){
+				$json['data'][$x]=$reg;
+				$x++;
+
 			}
+			$json['OPERATION']="GET_PLACES";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}
