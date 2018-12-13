@@ -44,22 +44,21 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         idPlace = getArguments().getString("placeId");
         email = ((MainActivity) getActivity()).getUserEmail();
 
-        if(email != null) {
-            DBConnect.getFavoritePlaces(getContext(), this,email, 0);
-            favButton = view.findViewById(R.id.placeFav);
-            favButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    if (isFavorite){
+        DBConnect.getFavoritePlaces(getContext(), this,email, 0);
+        favButton = view.findViewById(R.id.placeFav);
+        favButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (email != null) {
+                    if (isFavorite) {
                         removeFavoritePlace();
-                    }
-                    else{
+                    } else {
                         addFavoritePlace();
                     }
+                } else {
+                    Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
                 }
-            });
-        } else {
-            Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT);
-        }
+            }
+        });
 
         listcomments = view.findViewById(R.id.list_comments);
         LinearLayoutManager lim = new LinearLayoutManager(getContext());
@@ -215,7 +214,6 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                 }
                 else if (response.getString("OPERATION").equals("GET_FAVORITE_PLACES") && response.has("data")) {
                     for (int i = 0; i < response.getJSONArray("data").length(); i++) {
-                        Toast.makeText(getContext(), "Respuesta: " + response.getJSONArray("data").getJSONObject(i), Toast.LENGTH_SHORT).show();
                         String tmpId = response.getJSONArray("data").getJSONObject(i).getString("IdPlace");
                         if (idPlace.equals(tmpId)) {
                             setFavButtonState(true);
