@@ -16,7 +16,8 @@ $json=array();
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
-			$json["OPERATION"] = "ADD_FAVORITE_ROUTE";
+			echo mysqli_error($connection);
+			$json['OPERATIONS'][0]="ADD_FAVORITE_ROUTE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}	

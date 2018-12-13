@@ -69,8 +69,8 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         initializedAdapter();
 
         DBConnect.getPlace(getContext(),this,idPlace);
-        DBConnect.getAverageScorePlace(getContext(),this,idPlace);
-        DBConnect.getPlaceComments(getContext(),this,idPlace);
+        //DBConnect.getAverageScorePlace(getContext(),this,idPlace);
+        //DBConnect.getPlaceComments(getContext(),this,idPlace);
 
         return view;
     }
@@ -203,26 +203,45 @@ public class PlaceView extends Fragment implements DBConnectInterface{
     @Override
     public void onResponse(JSONObject response) {
         try {
-            if(response.has("OPERATION")) {
-                if (response.getString("OPERATION").equals("ADD_FAVORITE_PLACE")) {
-                    Toast.makeText(getContext(), R.string.added_favorites, Toast.LENGTH_SHORT).show();
-                    setFavButtonState(true);
-                }
-                else if (response.getString("OPERATION").equals("REMOVE_FAVORITE_PLACE")) {
-                    Toast.makeText(getContext(), R.string.remove_favorites, Toast.LENGTH_SHORT).show();
-                    setFavButtonState(false);
-                }
-                else if (response.getString("OPERATION").equals("GET_FAVORITE_PLACES") && response.has("data")) {
-                    for (int i = 0; i < response.getJSONArray("data").length(); i++) {
-                        String tmpId = response.getJSONArray("data").getJSONObject(i).getString("IdPlace");
-                        if (idPlace.equals(tmpId)) {
-                            setFavButtonState(true);
+            if (response.has("OPERATIONS")) {
+                for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
+                    String operation = response.getJSONArray("OPERATIONS").getString(i);
+                    if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
+
+                        if (operation.equals("GET_PLACE")) {
+                            JSONObject operationResult = response.getJSONObject(operation); // Este elemento tendrá la/s tupla/s
+                            //Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                        }
+                        if (operation.equals("GET_COMMENTS_FROM_PLACE")) {
+                            JSONArray operationResult = response.getJSONArray(operation); // Este elemento tendrá la/s tupla/s
+                            //Toast.makeText(getContext(), "Comentarios\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                        }
+                        if (operation.equals("GET_AVERAGE_SCORE_PLACE")) {
+                            int operationResult = response.getInt(operation); // Este elemento tendrá la/s tupla/s
+                            //Toast.makeText(getContext(), "Puntuación: " + operationResult, Toast.LENGTH_LONG).show();
+                        }
+                        if (operation.equals("GET_FAVORITE_PLACES")) {
+                            JSONArray operationResult = response.getJSONArray(operation);
+                            for (int j = 0; j < operationResult.length(); j++) {
+                                String favPlace = operationResult.getJSONObject(j).getString("IdPlace");
+                                if (idPlace.equals(favPlace)) {
+                                    setFavButtonState(true);
+                                }
+                            }
                         }
                     }
+                    // Estas operaciones, no necesitan datos de vuelta, por eso no están dentro del if anterior
+                    if (operation.equals("ADD_FAVORITE_PLACE")) {
+                        Toast.makeText(getContext(), R.string.added_favorites, Toast.LENGTH_SHORT).show();
+                        setFavButtonState(true);
+                    }
+                    if (operation.equals("REMOVE_FAVORITE_PLACE")) {
+                        Toast.makeText(getContext(), R.string.remove_favorites, Toast.LENGTH_SHORT).show();
+                        setFavButtonState(false);
+                    }
                 }
-                else {
-                    SetView(response);
-                }
+            } else {
+                Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

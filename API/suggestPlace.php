@@ -23,11 +23,11 @@ $json=array();
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
 		$sql = "INSERT INTO suggestedplace (IdPlace, MadeBy, Description, Localitation, Name, Image, RedMovility, RedVision, ColourBlind, Deaf, Foreigner) VALUES (NULL, '{$MadeBy}', '{$Description}', '{$Localitation}', '{$Name}', '{$Image}', '{$RedMovility}', '{$RedVision}', '{$ColourBlind}', '{$Deaf}', '{$Foreigner}')";
-		$result=mysqli_query($connection,$sql);
+		$result = mysqli_query($connection,$sql);
 
 		if($sql){
 			echo mysqli_error($connection);
-			$json["OPERATION"] = "SUGGEST_PLACE";
+			$json['OPERATIONS'][0]="SUGGEST_PLACE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}	
