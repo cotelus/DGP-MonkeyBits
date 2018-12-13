@@ -44,7 +44,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         idPlace = getArguments().getString("placeId");
         email = ((MainActivity) getActivity()).getUserEmail();
 
-        //DBConnect.getFavoritePlaces(getContext(), this,email, 0);
+        DBConnect.getFavoritePlaces(getContext(), this,email, 0);
         favButton = view.findViewById(R.id.placeFav);
         favButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -210,15 +210,24 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
                         if (operation.equals("GET_PLACE")) {
                             JSONObject operationResult = response.getJSONObject(operation); // Este elemento tendrá la/s tupla/s
-                            Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
                         }
                         if (operation.equals("GET_COMMENTS_FROM_PLACE")) {
                             JSONArray operationResult = response.getJSONArray(operation); // Este elemento tendrá la/s tupla/s
-                            Toast.makeText(getContext(), "Comentarios\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(), "Comentarios\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
                         }
                         if (operation.equals("GET_AVERAGE_SCORE_PLACE")) {
                             int operationResult = response.getInt(operation); // Este elemento tendrá la/s tupla/s
-                            Toast.makeText(getContext(), "Puntuación: " + operationResult, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getContext(), "Puntuación: " + operationResult, Toast.LENGTH_LONG).show();
+                        }
+                        if (operation.equals("GET_FAVORITE_PLACES")) {
+                            JSONArray operationResult = response.getJSONArray(operation);
+                            for (int j = 0; j < operationResult.length(); j++) {
+                                String favPlace = operationResult.getJSONObject(j).getString("IdPlace");
+                                if (idPlace.equals(favPlace)) {
+                                    setFavButtonState(true);
+                                }
+                            }
                         }
                     }
                     // Estas operaciones, no necesitan datos de vuelta, por eso no están dentro del if anterior

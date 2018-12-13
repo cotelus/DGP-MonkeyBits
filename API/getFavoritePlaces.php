@@ -6,6 +6,7 @@ $database="bdr";
 $username="luis";
 $password="12345";
 $json=array();
+$jsonTuple;
 	if(isset($_GET["Email"])){
 		$Email = $_GET['Email'];
 
@@ -16,12 +17,13 @@ $json=array();
 
 		if($sql){
 			$x = 0;
+			$jsonTuple;
+			$json['OPERATIONS'][0]="GET_FAVORITE_PLACES";
 			while($reg = mysqli_fetch_array($result)){
-				$json['data'][$x]=$reg;
+				$jsonTuple['IdPlace']=$reg['IdPlace'];
+				$json['GET_FAVORITE_PLACES'][$x] = $jsonTuple;
 				$x++;
-
 			}
-			$json['OPERATION']="GET_FAVORITE_PLACES";
 			mysqli_close($connection);
 			echo json_encode($json);
 
