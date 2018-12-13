@@ -7,7 +7,7 @@ session_start();
 //Consultamos los datos de la obra
 
 $conexion = mysqli_connect("localhost", "root", "");
-$BD = mysqli_select_db($conexion, "routability");
+$BD = mysqli_select_db($conexion, "bdr");
 
 //Comprueba conexion
 if(mysqli_connect_errno()){
@@ -25,15 +25,14 @@ if (!$conexion->set_charset("utf8")) {
 
 if(isset($_POST["aniadir"])){
  
-    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['lugares']) && !empty($_POST['accesibilidad']) && !empty($_POST['imagen'])){
+    if(!empty($_POST['nombre']) && !empty($_POST['descripcion']) && !empty($_POST['lugares']) && !empty($_POST['imagen'])){
          
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
          $email = $_SESSION['EMAIL'];
-         $accesibilidad = $_POST['accesibilidad'];
 
-        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`, `Accesibility`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen', '$accesibilidad')"))){
+        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen')"))){
 
             echo "Fallo del query de rutas";
             exit();
@@ -68,6 +67,73 @@ if(isset($_POST["aniadir"])){
         $MESSAGE = "ERROR AL AÑADIR LA RUTA";
      }
 }
+
+$search = '';
+  if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+  }
+$consultaLugares = "SELECT * FROM place where";
+
+ $primerFiltro = true;
+
+  if (isset($_POST['filtroRedMovility'])) {
+    if($_POST['filtroRedMovility']=='on') {
+        $consultaLugares .=" RedMovility='1'";
+        $primerFiltro = false;
+    }
+  }
+  if (isset($_POST['filtroRedVision'])) {
+    if($_POST['filtroRedVision']=='on') {
+      if (!$primerFiltro) {
+        $consultaLugares .=" and RedVision='1'";
+      }
+      else {
+        $consultaLugares .=" RedVision='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroForeigner'])) {
+    if($_POST['filtroForeigner']=='on') {
+      if (!$primerFiltro) {
+        $consultaLugares .=" and Foreigner='1'";
+      }
+      else {
+        $consultaLugares .=" Foreigner='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroColourBlind'])) {
+    if($_POST['filtroColourBlind']=='on') {
+      if (!$primerFiltro) {
+        $consultaLugares .=" and ColourBlind='1'";
+      }
+      else {
+        $consultaLugares .=" ColourBlind='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroDeaf'])=='on') {
+    if($_POST['filtroDeaf']) {
+      if (!$primerFiltro) {
+        $consultaLugares .=" and Deaf='1'";
+      }
+      else {
+        $consultaLugares .=" Deaf='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (!$primerFiltro)
+    $consultaLugares .= " and (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+  else {
+    $consultaLugares .= " (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+    $primerFiltro = false;
+  }
+  $resultado_lugares = mysqli_query($conexion, $consultaLugares);
+  $total = mysqli_num_rows($resultado_lugares);
        
 ?>
 
@@ -95,7 +161,31 @@ if(isset($_POST["aniadir"])){
 
             <?php if (!empty($MESSAGE)) {echo "<p class=\"ERROR\">" . "MENSAJE: ". $MESSAGE . "</p>";}
           ?>
-
+            <div class="py-2" style="">
+              <div class="container py-3 px-3">
+                <div class="row">
+                  <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form">
+                              <input type="text" placeholder="Filtre sus lugares a añadir..." name="search" id="search">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                              <span class="icon-wheelchair" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
+                              <span class="icon-eye-minus" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
+                              <span class="icon-eyedropper" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
+                              <span class="icon-deaf" style="padding-left:4%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
+                              <span class="icon-language" style="padding-left: 4%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
+                              <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Filtrar" style="margin-right: 4%; float: right;">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
             <fieldset>
 
                 <h1>Añadir una ruta</h1>
@@ -122,26 +212,20 @@ if(isset($_POST["aniadir"])){
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h4><b>Accesibilidad de la ruta:</b></h4><br /><textarea required value="" name="accesibilidad" placeholder="Escribe la accesibilidad de la ruta..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='accesibilidad')this.value='' "></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <h4><b>Lugares:</b></h4><br />
+                                <h4><b>Lugares:</b></h4>
                                 <div class="scroll" style="border-radius:5px; background-color:white;">
                                     <?php
-                                    $resultado_lugares = mysqli_query($conexion, "SELECT * FROM `place`");
       
-                                    if ($resultado_lugares->num_rows > 0) {
+                                    if ($total) {
                                         while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
-                                            echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado['IdPlace']."' value=".$array_resultado['IdPlace']."<br/>&nbsp&nbsp<b>".$array_resultado['Name']."</b></p>";
+                                            echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado['IdPlace']."' value=".$array_resultado['IdPlace']."<br/>&nbsp&nbsp<b>".$array_resultado['Name']." (".$array_resultado['IdPlace'].")</b></p>";
                                         }
                                     }
                                     ?>
                                 </div>
                                 <hr>
                                 <div>
-                                    <input class="bg-light" type="submit" name="aniadir" value="Añadir">
+                                    <input class="btn btn btn-primary btn-light icon-home" type="submit" name="aniadir" value="Añadir">
                                     &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
                                 </div>
                             </div>
@@ -149,15 +233,6 @@ if(isset($_POST["aniadir"])){
                     </div>
                 </form>
             </fieldset>
-        </div>
-    </div>
-    <div class="py-3 bg-secundario" style="">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="mb-0 text-white"><b>© 2018 MonkeyBits. Todos los derechos reservados.</b></p>
-                </div>
-            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

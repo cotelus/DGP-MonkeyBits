@@ -8,7 +8,7 @@
   //Consultamos los datos de la obra
 
   $conexion = mysqli_connect("localhost", "root", "");
-  $BD = mysqli_select_db($conexion, "routability");
+  $BD = mysqli_select_db($conexion, "bdr");
 
   //Comprueba conexion
   if(mysqli_connect_errno()){
@@ -64,15 +64,66 @@
                     $nombre = $lugares["Name"];
                     $desc = $lugares["Description"];
                     $loc = $lugares["Localitation"];
-                    $acc = $lugares["Accesibility"];
                     $img = $lugares["Image"];
+                    $movilidad=$lugares['RedMovility'];
+                    $vision=$lugares['RedVision'];
+                    $color=$lugares['ColourBlind'];
+                    $sordo=$lugares['Deaf'];
+                    $extranjero=$lugares['Foreigner'];
 
                     echo '<div class="list-group-item list-group-item-action miembro-lista">';
                     echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
                     echo '<img class="foto" title="foto de '.$nombre.'" alt="foto de '.$nombre.'" src="'.$img.'">';
-                    echo '<p><b>Descripción:</b><br>'.$desc.'</p>';
-                    echo '<p><b>Localización:</b><br>'.$loc.'</p>';
-                    echo '<p><b>Accesibilidad:</b><br>'.$acc.'</p>';
+                    echo '<p><b>Descripción:</b><br><br>'.$desc.'</p>';
+                    echo '<p><b>Localización:</b><br><br>'.$loc.'</p>';
+                    echo '<p><b>Accesibilidad:</b>
+                    <br><br>';
+    
+                    if($movilidad == 1){
+                                        
+                        echo "<b>Movilidad Reducida</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Movilidad Reducida</b>: No<br>";
+                    }
+                        
+                    if($vision == 1){
+                                        
+                        echo "<b>Vision Reducida</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Vision Reducida</b>: No<br>";
+                    }
+                    
+                    if($color == 1){
+                                        
+                        echo "<b>Daltónicos</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Daltónicos</b>: No<br>";
+                    }
+                    
+                    if($sordo == 1){
+                                        
+                        echo "<b>Incapacidad Auditiva</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Incapacidad Auditiva</b>: No<br>";
+                    }
+                        
+                    if($extranjero == 1){
+                                        
+                        echo "<b>Idiomas</b>: Si<br>";
+                    }
+                    else{
+                                        
+                        echo "<b>Idiomas</b>: No<br>";
+                    }
+                    '</p>';
                     echo '</div>';
                   }
               
@@ -81,7 +132,7 @@
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="viewPlaces.php" class="btn btn-light icon-library">&nbsp;Volver a vista de lugares</a>
+                                <a href="viewPlaces.php" class="btn btn-light icon-library">&nbsp;Volver a lista de lugares</a>
                             </div>
                         </div>
                     </div>
