@@ -11,7 +11,7 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "SELECT IdRoute, Email, Content, Date, Time, Reported FROM routecomments WHERE IdRoute = '{$IdRoute}'";
+		$sql = "SELECT IdRoute, Email, Content, Date, Time, Reported FROM routecomments WHERE IdRoute = '{$IdRoute}'  AND Reported = 0";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){

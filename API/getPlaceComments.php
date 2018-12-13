@@ -11,7 +11,7 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}'";
+		$sql = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}' AND Reported = 0";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
