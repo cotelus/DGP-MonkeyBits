@@ -134,7 +134,7 @@ if(isset($_POST["editar"])){
                         <hr>
                         <div>
                             <input class="btn btn btn-primary btn-light icon-home" type="submit" name="editar" value="Editar">
-                            &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
+                            &nbsp<a class="btn btn btn-primary btn-light icon-library" href="viewPlaces.php">&nbsp;Volver a lista de lugares</a>
                         </div>
                     </div>
                     <div class="col-md-6">

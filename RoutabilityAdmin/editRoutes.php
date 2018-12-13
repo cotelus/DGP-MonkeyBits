@@ -183,7 +183,7 @@ if(isset($_POST["editar"])){
                             <hr>
                             <div>
                                 <input class="btn btn btn-primary btn-light icon-home" type="submit" name="editar" value="Editar">
-                                &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
+                                &nbsp<a class="btn btn btn-primary btn-light icon-map" href="viewRoutes.php">&nbsp;Volver a lista de rutas</a>
                             </div>
                         </div>
                     </div>
