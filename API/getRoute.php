@@ -74,7 +74,19 @@ $json=array();
 			}
 		}
 
-		if ($sql1 && $sql2  && $sql3) {
+		$sql4 = "SELECT AVG(Rating) FROM visit WHERE IdRoute IN ('".$IdRoute."')";
+		$result=mysqli_query($connection,$sql4);
+
+		if($sql4){
+			$jsonTuple4;
+			$json['OPERATIONS'][3]="GET_AVERAGE_SCORE_ROUTE";
+			if($reg=mysqli_fetch_array($result)){
+				$jsonTuple4['score']=$reg[0];
+				$json['GET_AVERAGE_SCORE_ROUTE']=$jsonTuple4['score'];
+			}
+		}
+
+		if ($sql1 && $sql2  && $sql3 && $sql4) {
 			mysqli_close($connection);
 			echo json_encode($json);
 		}
