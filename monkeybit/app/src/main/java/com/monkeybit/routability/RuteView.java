@@ -254,11 +254,13 @@ public class RuteView extends Fragment implements DBConnectInterface{
 
     private void SetViewRating(int rat){
         TextView rating = view.findViewById(R.id.postRtRating);
-        if (rating != null) {
+
+        if (rating == null) {
             rating.setText(getString(R.string.notrating));
         }
         else{
-            rating.setText(""+rat);
+            Log.d("Debug", ""+rat);
+            rating.setText(" "+rat);
         }
 
     }
