@@ -22,15 +22,76 @@
       printf("Error cargando el conjunto de caracteres utf8: %s\n", $conexion->error);
       exit();
   }
-  $res = mysqli_query($conexion, "SELECT count(*) from route");
-  $numRoutes = mysqli_fetch_array($res);
-  $numeroRoutes = $numRoutes[0];
-  $numPaginas = $numeroRoutes/10 +1;
-  $numUltimaPagina = $numeroRoutes % 10;
-  $Routes= NULL;
-  if ($numRoutes[0]>0) {
-    $Routes = mysqli_query($conexion,"SELECT * FROM route");
+
+  $primerFiltro = true;
+
+  $search = '';
+  if (isset($_POST['search'])) {
+    $search = $_POST['search'];
   }
+
+  if (isset($_POST['filtroRedMovility'])) {
+    if($_POST['filtroRedMovility']=='on') {
+        $consulta = "SELECT distinct route.IdRoute, route.Name, RedMovility, route.MadeBy, route.Description, route.Image from route, appearverified, place where appearverified.IdRoute = route.IdRoute and appearverified.IdPlace = place.IdPlace and place.RedMovility = '1'";
+        $primerFiltro = false;
+    }
+  }
+  if (isset($_POST['filtroRedVision'])) {
+    if($_POST['filtroRedVision']=='on') {
+      if (!$primerFiltro) {
+        $consulta .=" and RedVision='1'";
+      }
+      else {
+        $consulta = "SELECT distinct route.IdRoute, route.Name, RedMovility, route.MadeBy, route.Description, route.Image from route, appearverified, place where appearverified.IdRoute = route.IdRoute and appearverified.IdPlace = place.IdPlace and place.RedVision = '1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroForeigner'])) {
+    if($_POST['filtroForeigner']=='on') {
+      if (!$primerFiltro) {
+        $consulta .= " and Foreigner='1'";
+      }
+      else {
+        $consulta = "SELECT distinct route.IdRoute, route.Name, RedMovility, route.MadeBy, route.Description, route.Image from route, appearverified, place where appearverified.IdRoute = route.IdRoute and appearverified.IdPlace = place.IdPlace and place.Foreigner = '1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroColourBlind'])) {
+    if($_POST['filtroColourBlind']=='on') {
+      if (!$primerFiltro) {
+        $consulta .=" and ColourBlind='1'";
+      }
+      else {
+        $consulta = "SELECT distinct route.IdRoute, route.Name, RedMovility, route.MadeBy, route.Description, route.Image from route, appearverified, place where appearverified.IdRoute = route.IdRoute and appearverified.IdPlace = place.IdPlace and place.ColourBlind = '1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroDeaf'])=='on') {
+    if($_POST['filtroDeaf']) {
+      if (!$primerFiltro) {
+        $consulta .=" and Deaf='1'";
+      }
+      else {
+        $consulta = "SELECT distinct route.IdRoute, route.Name, RedMovility, route.MadeBy, route.Description, route.Image from route, appearverified, place where appearverified.IdRoute = route.IdRoute and appearverified.IdPlace = place.IdPlace and place.Deaf = '1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+
+  
+  if (!$primerFiltro) {
+    $consulta .= " and (route.IdRoute like '%".$search."%' or route.Name like '%".$search."%') ORDER BY route.IdRoute";
+  }
+  else {
+    $consulta = "Select * from route where (route.IdRoute like '%".$search."%' or route.Name like '%".$search."%') ORDER BY route.IdRoute";
+    $primerFiltro = false;
+  }
+
+  $Routes = mysqli_query($conexion, $consulta);
+  $numeroRoutes = mysqli_num_rows($Routes);
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,6 +109,32 @@
 </head>
 
 <body class="bg-primario">
+  <div class="py-2" style="">
+      <div class="container py-3 px-3">
+        <div class="row">
+          <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form">
+                      <input type="text" placeholder="Buscar ruta..." name="search" id="search">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                      <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
+                      <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
+                      <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
+                      <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
+                      <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-left: 7%;">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     <div class="py-2" style="">
         <div class="container">
             <div class="row">
