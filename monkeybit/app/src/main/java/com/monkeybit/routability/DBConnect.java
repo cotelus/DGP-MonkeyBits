@@ -15,14 +15,18 @@ import org.json.JSONObject;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.25";
-    private static final String folderName =  "API";
+    private static final String serverIP =  /*"192.168.1.36"*/ "172.20.72.158";
+    private static final String folderName =  "RoutabilityAdmin";
 
     private DBConnect() {}
 
     public static void getPlace(Context context, DBConnectInterface responseListener, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlace.php?IdPlace=" + placeId;
         getTuple(context, responseListener, url);
+    }
+
+    public static void addPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String content){
+        String url = "http://" + serverIP + "/" + folderName + "/addPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Content=" + content;
     }
 
     public static void getAverageScorePlace(Context context, DBConnectInterface responseListener, String placeId) {
@@ -36,7 +40,7 @@ public final class DBConnect {
     }
 
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
+        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?Start=" + firstPlaceIndex;
         getTuple(context, responseListener, url);
     }
 
@@ -46,7 +50,7 @@ public final class DBConnect {
     }
 
     public static void removeFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/removeFavouritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavoritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
 
