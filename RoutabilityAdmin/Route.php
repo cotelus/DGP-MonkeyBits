@@ -71,7 +71,8 @@
                     $id = $rutas["IdRoute"];
                     $nombre = $rutas["Name"];
                     $desc = $rutas["Description"];
-                    $img = $rutas["Image"]; 
+                    $img = $rutas["Image"];
+                    $imgdesc = $rutas["ImageDescription"];
                     
                     $movilidad=1;
                     $vision=1;
@@ -91,7 +92,7 @@
                         
                     echo '<div class="list-group-item list-group-item-action miembro-lista">';
                     echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
-                    echo '<img class="foto" title="foto de '.$nombre.'" alt="foto de '.$nombre.'" src="'.$img.'">';
+                    echo '<img class="foto" title="foto de '.$nombre.' Descripción:'.$imgdesc.'" alt="Foto de '.$nombre.'" src="'.$img.'">';
                     echo '<p><b>Descripción:</b><br><br>'.$desc.'</p>';
                     echo '<p><b>Accesibilidad:</b>
                     <br><br>';

@@ -36,16 +36,19 @@
       $resRutas = mysqli_query($conexion, $consultaRutas);
       $resLugares = mysqli_query($conexion, $consultaLugares);
       $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+      $busqueda = "Ambos";
     }
     else if ($_POST['filtro-lugar-ruta']=='Rutas') {
       $resRutas = mysqli_query($conexion, $consultaRutas);
       $resLugares = NULL;
       $total = mysqli_num_rows($resRutas);
+      $busqueda = "Rutas";
     }
     else if ($_POST['filtro-lugar-ruta']=='Lugares') {
       $resLugares = mysqli_query($conexion, $consultaLugares);
       $resRutas = NULL;
       $total = mysqli_num_rows($resLugares);
+      $busqueda = "Lugares";
     }
   }
   else {
@@ -87,9 +90,18 @@
                 <div class="col-md-8">
                   <div class="form" style="background-color: white; padding:5px; padding-top:12px; padding-bottom: 12px;">
                       <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
-                        <option>Ambos</option>
-                        <option>Rutas</option>
-                        <option>Lugares</option>
+                        
+                        <?php 
+                          
+                          if($busqueda == "Ambos"){ echo"<option selected>Ambos</option>";}
+                          else{ echo"<option>Ambos</option>";}
+                          
+                          if($busqueda == "Rutas"){ echo"<option selected>Rutas</option>";}
+                          else{ echo"<option>Rutas</option>";}
+                          
+                          if($busqueda == "Lugares"){ echo"<option selected>Lugares</option>";}
+                          else{ echo"<option>Lugares</option>";}
+                        ?>
                       </select>
                       <input type="submit" id="aplicar-cambios"  name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
                   </div>

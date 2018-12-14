@@ -65,6 +65,7 @@
                     $desc = $lugares["Description"];
                     $loc = $lugares["Localitation"];
                     $img = $lugares["Image"];
+                    $imgdesc = $lugares["ImageDescription"];
                     $movilidad=$lugares['RedMovility'];
                     $vision=$lugares['RedVision'];
                     $color=$lugares['ColourBlind'];
@@ -73,7 +74,7 @@
 
                     echo '<div class="list-group-item list-group-item-action miembro-lista">';
                     echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
-                    echo '<img class="foto" title="foto de '.$nombre.'" alt="foto de '.$nombre.'" src="'.$img.'">';
+                    echo '<img class="foto" title="Foto de '.$nombre.' Descripción:'.$imgdesc.'" alt="foto de '.$nombre.'" src="'.$img.'">';
                     echo '<p><b>Descripción:</b><br><br>'.$desc.'</p>';
                     echo '<p><b>Localización:</b><br><br>'.$loc.'</p>';
                     echo '<p><b>Accesibilidad:</b>
