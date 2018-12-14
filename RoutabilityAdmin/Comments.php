@@ -72,26 +72,26 @@
 
 </head>
 
-<body class="bg-primario">
+<body class="bg-primario" style="min-width: 600px;">
   <div class="py-2" style="">
       <div class="container py-3 px-3">
         <div class="row">
           <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
             <div class="container">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form">
                       <input type="text" placeholder="Buscar comentario..." name="search" id="search">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                <div class="col-md-8">
+                  <div class="form" style="background-color: white; padding:5px; padding-top:12px; padding-bottom: 12px;">
                       <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
                         <option>Ambos</option>
                         <option>Rutas</option>
                         <option>Lugares</option>
                       </select>
-                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
+                      <input type="submit" id="aplicar-cambios"  name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
                   </div>
                 </div>
               </div>

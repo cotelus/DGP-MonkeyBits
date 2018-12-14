@@ -115,19 +115,19 @@
           <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
             <div class="container">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form">
                       <input type="text" placeholder="Buscar ruta..." name="search" id="search">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                <div class="col-md-8">
+                  <div class="form" style="background-color: white; padding:5px; padding-top:12px; padding-bottom: 12px;">
                       <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
                       <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
                       <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
                       <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
                       <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
-                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-left: 7%;">
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="padding-right: : 7%; float:right;">
                   </div>
                 </div>
               </div>

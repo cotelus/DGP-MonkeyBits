@@ -141,7 +141,7 @@ if(isset($_POST["editar"])){
                         <div class="form-group">
                             <h4><b>Accesibilidad del lugar</b></h4><br />
 
-                            <div class="accesibilidad">
+                            <div class="accesibilidad" style="padding:16px;">
                                 <p class="icon-wheelchair">&nbsp&nbsp Movilidad Reducida: <select name="movilidad" id="movilidad">
 
                                         <?php
