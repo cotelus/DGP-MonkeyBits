@@ -136,7 +136,7 @@
                         $content = $fila["Content"];
 
                         echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
-                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
+                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
                         echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=3"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" /></a></p>';
                         
                     }
@@ -151,7 +151,7 @@
                           $content = $fila["Content"];
 
                           echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
-                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
+                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
                           echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=2"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" /></a></p>';
                       }
                     }
