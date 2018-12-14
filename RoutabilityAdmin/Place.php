@@ -133,6 +133,7 @@
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
+                                <?php echo"<a class='btn btn btn-primary btn-light icon-pencil' href='editPlaces.php?id=".$id."'>&nbspEditar</a>";?>
                                 <a href="viewPlaces.php" class="btn btn-light icon-library">&nbsp;Volver a lista de lugares</a>
                             </div>
                         </div>

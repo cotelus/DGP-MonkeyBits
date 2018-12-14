@@ -166,6 +166,7 @@
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
+                                <?php echo"<a class='btn btn btn-primary btn-light icon-pencil' href='editRoutes.php?id=".$id."'>&nbspEditar</a>";?>
                                 <a href="viewRoutes.php" class="btn btn-light icon-map">&nbsp;Volver a lista de rutas</a>
                             </div>
                         </div>
