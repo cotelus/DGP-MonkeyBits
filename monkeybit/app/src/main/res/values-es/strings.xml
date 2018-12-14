@@ -99,4 +99,10 @@
     <string name="id_bd_test">test</string>
     <string name = "errorListRoute"> An unexpected error happened.I can`t connect to database</string>
     <string name="place_suggested">Lugar sugerido correctamente.</string>
+    <string name="image_link">URL de la imagen</string>
+    <string name="accesibility_red_movility">Movilidad reducida</string>
+    <string name="accesibility_red_vision">Visión reducida</string>
+    <string name="accesibility_colour_blind">Daltónico</string>
+    <string name="accesibility_deaf">Sordo</string>
+    <string name="accesibility_foreigner">Idiomas</string>
 </resources>
