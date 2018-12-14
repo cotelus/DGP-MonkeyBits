@@ -97,7 +97,7 @@
     <string name="title_boton">Comprobar</string>
     <string name="login">COMPROBAR RUTA</string>
     <string name="id_bd_test">test</string>
-    <string name = "errorListRoute"> An unexpected error happened.I can`t connect to database</string>
+    <string name = "errorListRoute"> Un error inersperado, no puedo conectar a la Base de Datos</string>
     <string name="place_suggested">Lugar sugerido correctamente.</string>
     <string name="image_link">URL de la imagen</string>
     <string name="accesibility_red_movility">Movilidad reducida</string>

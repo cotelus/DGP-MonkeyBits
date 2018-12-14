@@ -31,7 +31,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = new ListRouteActivity();
+        Fragment selectedFragment = new RuteView();
         switch (item.getItemId()) {
             case R.id.menu_rutas:
                 //@TODO selectedFragment = new ListRouteActivity();

@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.27";
+    private static final String serverIP =  "172.20.93.40";
     private static final String folderName =  "API";
 
     private DBConnect() {}
@@ -30,11 +30,19 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
+    public static void getAverageScoreRoute(Context context, DBConnectInterface responseListener, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/getAverageScoreRoute.php?IdRoute=" + routeId;
+        getTuple(context, responseListener, url);
+    }
+
     public static void getPlaceComments(Context context, DBConnectInterface responseListener, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaceComments.php?IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
-
+    public static void getRouteComments(Context context, DBConnectInterface responseListener, String routeId){
+        String url = "http://" + serverIP + "/" + folderName + "/getRouteComments.php?IdRoute=" + routeId;
+        getTuple(context, responseListener, url);
+    }
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
         getTuple(context, responseListener, url);

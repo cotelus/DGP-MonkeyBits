@@ -53,7 +53,7 @@
     <string name="list_desc_route">Description of the Image</string>
     <string name="post_desc_img">Description of the image</string>
     <string name="post_text_tittle"> tittle of the route</string>
-    <string name="post_text_desc">description of the route</string>
+    <string name="post_text_desc">Description of the route</string>
     <string name="post_rt_info_places">Places through the route </string>
     <string name="post_rt_info_rating">Rating</string>
     <string name="post_rt_info_location">Location</string>
@@ -91,8 +91,8 @@
 
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
-    <string name="title_user">Usuario: </string>
-    <string name="title_pwd">Contraseña: </string>
+    <string name="title_user">User: </string>
+    <string name="title_pwd">Password: </string>
     <string name="title_boton">Check</string>
     <string name="login">CHECK ROUTE</string>
     <string name="id_bd_test">test</string>
