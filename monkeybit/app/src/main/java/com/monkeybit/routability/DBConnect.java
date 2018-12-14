@@ -1,6 +1,7 @@
 package com.monkeybit.routability;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -14,15 +15,10 @@ import org.json.JSONObject;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "172.20.73.107";
-    private static final String folderName =  "RoutabilityAdmin";
+    private static final String serverIP =  "192.168.1.27";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
-
-    public static void getRoute(Context context, DBConnectInterface responseListener, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/getRoute.php?IdRoute=" + routeId;
-        getTuple(context, responseListener, url);
-    }
 
     public static void getPlace(Context context, DBConnectInterface responseListener, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlace.php?IdPlace=" + placeId;
@@ -39,23 +35,8 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
-    public static void getRoutes(Context context, DBConnectInterface responseListener, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?StartIndex=" + firstRouteIndex;
-        getTuple(context, responseListener, url);
-    }
-
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
-        getTuple(context, responseListener, url);
-    }
-
-    public static void getFavouriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
-        getTuple(context, responseListener, url);
-    }
-
-    public static void removeFavouriteRoutes(Context context, DBConnectInterface responseListener, String userEmail) {
-        String url = "http://" + serverIP + "/" + folderName + "/removeFavouriteRoutes.php?Email=" + userEmail;
         getTuple(context, responseListener, url);
     }
 
@@ -64,13 +45,55 @@ public final class DBConnect {
         addTuple(context, responseListener, url);
     }
 
-    public static void removeFavouritePlace(Context context, DBConnectInterface responseListener, String userEmail) {
-        String url = "http://" + serverIP + "/" + folderName + "/removeFavouritePlace.php?Email=" + userEmail;
+    public static void removeFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavouritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
 
-    public static void addAsFavouriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute"+ routeId;
+    public static void addAsFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/addFavoritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void suggestPlace(Context context, DBConnectInterface responseListener, JSONObject suggestedPlace) throws JSONException {
+        String suggestedPlaceUrl = "";
+        suggestedPlaceUrl += "MadeBy=" + suggestedPlace.getString("MadeBy");
+        suggestedPlaceUrl += "&Name=" + suggestedPlace.getString("Name");
+        suggestedPlaceUrl += "&Description=" + suggestedPlace.getString("Description");
+        suggestedPlaceUrl += "&Localitation=" + suggestedPlace.getString("Localization");
+        suggestedPlaceUrl += "&Image=" + suggestedPlace.getString("Image");
+        suggestedPlaceUrl += "&RedMovility=" + (suggestedPlace.getBoolean("RedMovility") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&RedVision=" + (suggestedPlace.getBoolean("RedVision") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&ColourBlind=" + (suggestedPlace.getBoolean("ColourBlind") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&Deaf=" + (suggestedPlace.getBoolean("Deaf") ? Integer.toString(1) : Integer.toString(0));
+        suggestedPlaceUrl += "&Foreigner=" + (suggestedPlace.getBoolean("Foreigner") ? Integer.toString(1) : Integer.toString(0));
+        String url = "http://" + serverIP + "/" + folderName + "/suggestPlace.php?" + suggestedPlaceUrl;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void getRoute(Context context, DBConnectInterface responseListener, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/getRoute.php?IdRoute=" + routeId;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getRoutes(Context context, DBConnectInterface responseListener, int firstRouteIndex) {
+        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?StartIndex=" + firstRouteIndex;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+        getTuple(context, responseListener, url);
+    }
+
+    public static void removeFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavouriteRoutes.php?Email=" + userEmail + "&IdRoute=" + routeId;
+        getTuple(context, responseListener, url);
+    }
+
+
+    public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;
         addTuple(context, responseListener, url);
     }
 
@@ -79,30 +102,9 @@ public final class DBConnect {
         addTuple(context, responseListener, url);
     }
 
-    public static void addAsFavouritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/addFavoritePlace.php?Email=" + userEmail + "&IdPlace" + placeId;
-        getTuple(context, responseListener, url);
-    }
-
-    public static void suggestPlace(Context context, DBConnectInterface responseListener, JSONObject suggestedPlace) throws JSONException {
-        String suggestedPlaceUrl = "";
-        suggestedPlaceUrl += "&MadeBy=" + suggestedPlace.getString("MadeBy");
-        suggestedPlaceUrl += "&Name=" + suggestedPlace.getString("Name");
-        suggestedPlaceUrl += "&Description=" + suggestedPlace.getString("Description");
-        suggestedPlaceUrl += "&Localization=" + suggestedPlace.getString("Localization");
-        suggestedPlaceUrl += "&Image=" + suggestedPlace.getString("Image");
-        suggestedPlaceUrl += "&RedMovility=" + (suggestedPlace.getBoolean("RedMovility") ? Integer.toString(1) : Integer.toString(0));
-        suggestedPlaceUrl += "&RedVision=" + (suggestedPlace.getBoolean("RedVision") ? Integer.toString(1) : Integer.toString(0));
-        suggestedPlaceUrl += "&ColourBlind=" + (suggestedPlace.getBoolean("ColourBlind") ? Integer.toString(1) : Integer.toString(0));
-        suggestedPlaceUrl += "&Deaf=" + (suggestedPlace.getBoolean("Deaf") ? Integer.toString(1) : Integer.toString(0));
-        suggestedPlaceUrl += "&Foreigner=" + (suggestedPlace.getBoolean("Foreigner") ? Integer.toString(1) : Integer.toString(0));
-        Toast.makeText(context, suggestedPlaceUrl, Toast.LENGTH_LONG).show();
-        String url = "http://" + serverIP + "/" + folderName + "suggestPlace.php?" + suggestedPlaceUrl;
-        addTuple(context, responseListener, url);
-    }
-
     private static void getTuple(Context context, DBConnectInterface responseListener, String url) {
         url = url.replaceAll(" ", "%20");
+        Log.d("URL_DBConnect", url);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
@@ -110,6 +112,7 @@ public final class DBConnect {
 
     private static void addTuple(Context context, DBConnectInterface responseListener, String url) {
         url = url.replaceAll(" ", "%20");
+        Log.d("URL_DBConnect", url);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);

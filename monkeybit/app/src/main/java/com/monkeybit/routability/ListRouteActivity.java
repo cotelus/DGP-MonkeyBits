@@ -23,6 +23,7 @@ public class ListRouteActivity extends Fragment {
     DBConnectInterface db_inter;
     View view;
     int pag;
+    int tam = 10;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class ListRouteActivity extends Fragment {
                 e.printStackTrace();
             }
         }
-        pag = pag + 1;
+        pag = pag + tam;
         this.Conf_List_Route(Lista);
     }
 
@@ -106,16 +107,16 @@ public class ListRouteActivity extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
                 //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
-                //toast.show();
+              /*  //toast.show();
                 ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
                 RuteView route = new RuteView();
-
+                @TODO: mandar
                 if(route != null){
-                    route.Array(choosen); //set
+                   // route.SetChoosen(choosen.getId); //set
                     //change the fragment
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view,route).commit(); //go to the fragment
 
-                }
+                }*/
 
 
 

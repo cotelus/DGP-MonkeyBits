@@ -31,7 +31,7 @@
   $consultaUsuarios = "SELECT * from user where";
 
   if (isset($_POST['filtro-bloq-nobloq'])) {
-    if ($_POST['filtro-bloq-nobloq']=='Ambos') {
+    if ($_POST['filtro-bloq-nobloq']=='Cualquiera') {
       $consultaUsuarios .= " Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);

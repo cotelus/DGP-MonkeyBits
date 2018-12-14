@@ -70,13 +70,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_rt_info_rating"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ratingPlace"
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/descriptionRatingPl"
                 android:text="rating"
                 android:textSize="18sp" />
 
@@ -93,6 +94,7 @@
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/descriptionAccesibilityPl"
                 android:text="accessibility"
                 android:textSize="18sp" />
 

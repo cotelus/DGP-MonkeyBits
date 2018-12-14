@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,42 +44,21 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         idPlace = getArguments().getString("placeId");
         email = ((MainActivity) getActivity()).getUserEmail();
 
-        if(email != null) {
-
-
-
-            DBConnect.getFavoritePlaces(getContext(), this,email, 0);
-
-            favButton = view.findViewById(R.id.placeFav);
-            favButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Log.d("DEBUG", "fadads");
-                    Toast.makeText(getContext(), "svvsd", Toast.LENGTH_SHORT).show();
-                    // Code here executes on main thread after user presses button
-                    //@Todo poner lugar de favoritos
-                    //@Todo poner estrella en amarillo
-                    if (isFavorite){
-                        favButton.setPressed(false);
-                         Toast.makeText(getContext(), getString(R.string.remove_favorites), Toast.LENGTH_SHORT).show();
-                    }
-                        //@Todo quitar lugar de favoritos
-                        //@Todo poner estrella en gris
-                    else{
+        DBConnect.getFavoritePlaces(getContext(), this,email, 0);
+        favButton = view.findViewById(R.id.placeFav);
+        favButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (email != null) {
+                    if (isFavorite) {
+                        removeFavoritePlace();
+                    } else {
                         addFavoritePlace();
-                        favButton.setPressed(true);
-                        Toast.makeText(getContext(), getString(R.string.add_favorites), Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
                 }
-            });
-
-            ImageButton banButton =  view.findViewById(R.id.imageButton3);
-            banButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "asdfasf", Toast.LENGTH_LONG).show();
-                }
-            });
-        }
+            }
+        });
 
         listcomments = view.findViewById(R.id.list_comments);
         LinearLayoutManager lim = new LinearLayoutManager(getContext());
@@ -88,20 +66,21 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         listcomments.setLayoutManager(lim);
 
         dataComments();
+        initializedAdapter();
 
         DBConnect.getPlace(getContext(),this,idPlace);
-        DBConnect.getAverageScorePlace(getContext(),this,idPlace);
-        DBConnect.getPlaceComments(getContext(),this,idPlace);
+        //DBConnect.getAverageScorePlace(getContext(),this,idPlace);
+        //DBConnect.getPlaceComments(getContext(),this,idPlace);
 
         return view;
     }
 
     public void addFavoritePlace(){
-        DBConnect.addAsFavouritePlace(getContext(),this,email,"0");
+        DBConnect.addAsFavoritePlace(getContext(), this, email, idPlace);
     }
 
     public void removeFavoritePlace(){
-       // DBConnect.removeFavoritePlace(getContext(),this,email,0);
+       DBConnect.removeFavoritePlace(getContext(), this, email, idPlace);
     }
 
     public void dataComments(){
@@ -210,12 +189,10 @@ public class PlaceView extends Fragment implements DBConnectInterface{
             if (query.getJSONObject(0).has("Time")) {
                 time = query.getJSONObject(0).optString("Time");
                 comments.add(new Comments(author,comment,date,time));
-                Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -225,38 +202,61 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
     @Override
     public void onResponse(JSONObject response) {
-
         try {
-            if(response.has("OPERATION")) {
-                if (response.getString("OPERATION") == "ADD_FAVORITE_PLACE") {
-                    Toast.makeText(getContext(), R.string.added_favorites, Toast.LENGTH_SHORT).show();
-                    isFavorite = true;
-                    favButton.setPressed(true);
-                }
-                else if (response.getString("OPERATION") == "GET_FAVORITE_PLACES" && response.has("data")) {
-                    JSONObject place = new JSONObject();
-                    place.put("IdPlace", idPlace);
-                    place.put("Email", email);
-                    for (int i = 0; i < response.getJSONArray("data").length(); i++) {
-                        if (response.getJSONArray("data").getJSONObject(i).equals(place)) {
-                            isFavorite = true;
+            if (response.has("OPERATIONS")) {
+                for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
+                    String operation = response.getJSONArray("OPERATIONS").getString(i);
+                    if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
+
+                        if (operation.equals("GET_PLACE")) {
+                            JSONObject operationResult = response.getJSONObject(operation); // Este elemento tendrá la/s tupla/s
+                            //Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                        }
+                        if (operation.equals("GET_COMMENTS_FROM_PLACE")) {
+                            JSONArray operationResult = response.getJSONArray(operation); // Este elemento tendrá la/s tupla/s
+                            //Toast.makeText(getContext(), "Comentarios\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                        }
+                        if (operation.equals("GET_AVERAGE_SCORE_PLACE")) {
+                            int operationResult = response.getInt(operation); // Este elemento tendrá la/s tupla/s
+                            //Toast.makeText(getContext(), "Puntuación: " + operationResult, Toast.LENGTH_LONG).show();
+                        }
+                        if (operation.equals("GET_FAVORITE_PLACES")) {
+                            JSONArray operationResult = response.getJSONArray(operation);
+                            for (int j = 0; j < operationResult.length(); j++) {
+                                String favPlace = operationResult.getJSONObject(j).getString("IdPlace");
+                                if (idPlace.equals(favPlace)) {
+                                    setFavButtonState(true);
+                                }
+                            }
                         }
                     }
+                    // Estas operaciones, no necesitan datos de vuelta, por eso no están dentro del if anterior
+                    if (operation.equals("ADD_FAVORITE_PLACE")) {
+                        Toast.makeText(getContext(), R.string.added_favorites, Toast.LENGTH_SHORT).show();
+                        setFavButtonState(true);
+                    }
+                    if (operation.equals("REMOVE_FAVORITE_PLACE")) {
+                        Toast.makeText(getContext(), R.string.remove_favorites, Toast.LENGTH_SHORT).show();
+                        setFavButtonState(false);
+                    }
                 }
-                else {
-                    SetView(response);
-                }
+            } else {
+                Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         result ++;
 
-        if (result >= 3){
+        //@TODO se deberia mejorar esta comprobacion
+        if (result >= 0){
             initializedAdapter();
             result = 0;
         }
+    }
 
-
+    private void setFavButtonState(boolean activate) {
+        isFavorite = activate;
+        favButton.setSelected(activate);
     }
 }

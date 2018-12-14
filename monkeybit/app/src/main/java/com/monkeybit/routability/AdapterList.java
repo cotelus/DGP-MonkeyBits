@@ -20,6 +20,7 @@ public abstract class AdapterList extends BaseAdapter {
         this.layout = layout_IdView;
     }
 
+
     @Override
     public View getView(int posicion, View view, ViewGroup pariente){
         if (view == null) {

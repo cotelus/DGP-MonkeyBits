@@ -70,9 +70,13 @@
     <string name="report">Report Comment</string>
 
     <!-- Rating -->
+    <string name="descriptionRatingRt">This field describes the rating of the route</string>
+    <string name="descriptionRatingPl">This field describes the rating of the place</string>
     <string name="notrating">There are currently no reviews available</string>
 
     <!-- Accesibility-->
+    <string name="descriptionAccesibilityRt">This field describes the accesibility of the route</string>
+    <string name="descriptionAccesibilityPl">This field describes the accesibility of the place</string>
     <string name="introduction">This place has accessibility elements for </string>
     <string name="notintroduction">This place does not have accessible elements for the persons with disability. </string>
     <string name="red_mobility">people with reduced mobility </string>
@@ -82,6 +86,7 @@
     <string name="foreigner">foreign people.</string>
 
     <!-- Favorites -->
+    <string name="should_login">You should login</string>
     <string name="added_favorites">This place </string>
 
     <!-- BD TEST-->
@@ -94,6 +99,7 @@
     <string name = "errorListRoute">Error al buscar en la base de datos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="place_suggested">Place successfully suggested.</string>
 
 
 </resources>

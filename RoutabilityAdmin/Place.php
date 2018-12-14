@@ -132,7 +132,7 @@
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="viewPlaces.php" class="btn btn-light icon-library">&nbsp;Volver a vista de lugares</a>
+                                <a href="viewPlaces.php" class="btn btn-light icon-library">&nbsp;Volver a lista de lugares</a>
                             </div>
                         </div>
                     </div>
