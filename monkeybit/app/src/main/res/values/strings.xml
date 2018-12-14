@@ -83,7 +83,7 @@
 
     <!-- Favorites -->
     <string name="should_login">You should login</string>
-    <string name="added_favorites">This place </string>
+    <string name="added_favorites">This place has been added to favorites</string>
 
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
@@ -93,9 +93,11 @@
     <string name="login">CHECK ROUTE</string>
     <string name="id_bd_test">test</string>
     <string name = "errorListRoute">Error al buscar en la base de datos</string>
+    <string name="title_place">Title of the place</string>
+    <string name="description_place">description of the place</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="place_suggested">Place successfully suggested.</string>
-
-
 </resources>
