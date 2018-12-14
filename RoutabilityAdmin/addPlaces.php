@@ -100,14 +100,23 @@ if(isset($_POST["aniadir"])){
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h4><b>Descripción del lugar</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><b>Descripción del lugar</b></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea required value="" name="descripcion" placeholder="Escribe la descripción del lugar..." maxlength="10000" style="width:100%; height: 100%; min-height: 320px;" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <h4><b>Accesibilidad del lugar</b></h4><br />
 
-                                <div class="accesibilidad">
+                                <div class="accesibilidad" style="padding:16px;">
                                 <p class="icon-wheelchair">&nbsp&nbsp Movilidad Reducida: <select name="movilidad" id="movilidad">
 
                                     <option value=1>Si</option>

@@ -28,8 +28,74 @@
   $numPaginas = $numeroPlaces/10 +1;
   $numUltimaPagina = $numeroPlaces % 10;
   $Places= NULL;
+  $consulta = "SELECT * FROM place";
+  $primerFiltro = true;
+
+  $search = '';
+  if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+  }
+
+  if (isset($_POST['filtroRedMovility'])) {
+    if($_POST['filtroRedMovility']=='on') {
+        $consulta .=" where RedMovility='1'";
+        $primerFiltro = false;
+    }
+  }
+  if (isset($_POST['filtroRedVision'])) {
+    if($_POST['filtroRedVision']=='on') {
+      if (!$primerFiltro) {
+        $consulta .= " and RedVision='1'";
+      }
+      else {
+        $consulta .=" where RedVision='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroForeigner'])) {
+    if($_POST['filtroForeigner']=='on') {
+      if (!$primerFiltro) {
+        $consulta .=" and Foreigner='1'";
+      }
+      else {
+        $consulta .=" where Foreigner='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroColourBlind'])) {
+    if($_POST['filtroColourBlind']=='on') {
+      if (!$primerFiltro) {
+        $consulta .=" and ColourBlind='1'";
+      }
+      else {
+        $consulta .=" where ColourBlind='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (isset($_POST['filtroDeaf'])=='on') {
+    if($_POST['filtroDeaf']) {
+      if (!$primerFiltro) {
+        $consulta .=" and Deaf='1'";
+      }
+      else {
+        $consulta .=" where Deaf='1'";
+        $primerFiltro=false;
+      }
+    }
+  }
+  if (!$primerFiltro) {
+    $consulta .= " and (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+  }
+  else {
+    $consulta .= " where (IdPlace like '%".$search."%' or Name like '%".$search."%') ORDER BY IdPlace";
+    $primerFiltro = false;
+  }
+
   if ($numPlaces[0]>0) {
-    $Places = mysqli_query($conexion,"SELECT * FROM place");
+    $Places = mysqli_query($conexion,$consulta);
   }
 ?>
 <!DOCTYPE html>
@@ -48,6 +114,32 @@
 </head>
 
 <body class="bg-primario">
+   <div class="py-2" style="">
+      <div class="container py-3 px-3">
+        <div class="row">
+          <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form">
+                      <input type="text" placeholder="Buscar lugar..." name="search" id="search">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                      <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
+                      <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
+                      <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
+                      <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
+                      <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-left: 7%;">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     <div class="py-2" style="">
         <div class="container">
             <div class="row">

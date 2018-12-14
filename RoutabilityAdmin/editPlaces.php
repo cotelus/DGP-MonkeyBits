@@ -134,14 +134,14 @@ if(isset($_POST["editar"])){
                         <hr>
                         <div>
                             <input class="btn btn btn-primary btn-light icon-home" type="submit" name="editar" value="Editar">
-                            &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
+                            &nbsp<a class="btn btn btn-primary btn-light icon-library" href="viewPlaces.php">&nbsp;Volver a lista de lugares</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <h4><b>Accesibilidad del lugar</b></h4><br />
 
-                            <div class="accesibilidad">
+                            <div class="accesibilidad" style="padding:16px;">
                                 <p class="icon-wheelchair">&nbsp&nbsp Movilidad Reducida: <select name="movilidad" id="movilidad">
 
                                         <?php

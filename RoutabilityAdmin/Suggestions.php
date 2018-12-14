@@ -153,20 +153,20 @@
 
 </head>
 
-<body class="bg-primario">
+<body class="bg-primario" style="min-width: 600px;">
     <div class="py-2" style="">
       <div class="container py-3 px-3">
         <div class="row">
           <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
             <div class="container">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form">
                       <input type="text" placeholder="Buscar sugerencia..." name="search" id="search">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                <div class="col-md-8">
+                  <div class="form" style="background-color: white; padding:5px; padding-top:12px; padding-bottom: 12px; min-width: 550px;">
                       <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
                       <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
                       <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
@@ -177,7 +177,7 @@
                         <option>Rutas</option>
                         <option>Lugares</option>
                       </select>
-                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-left: 7%;">
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 10px; float: right;">
                   </div>
                 </div>
               </div>
@@ -185,7 +185,7 @@
           </div>
         </div>
       </div>
-        <div class="container">
+        <div class="container" style="min-width: 600px;">
             <div class="row">
                 <div class="col-md-12" style="">
                     <div class="list-group" id="resultados">

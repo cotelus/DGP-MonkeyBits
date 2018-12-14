@@ -70,9 +70,13 @@
     <string name="report">Report Comment</string>
 
     <!-- Rating -->
+    <string name="descriptionRatingRt">This field describes the rating of the route</string>
+    <string name="descriptionRatingPl">This field describes the rating of the place</string>
     <string name="notrating">There are currently no reviews available</string>
 
     <!-- Accesibility-->
+    <string name="descriptionAccesibilityRt">This field describes the accesibility of the route</string>
+    <string name="descriptionAccesibilityPl">This field describes the accesibility of the place</string>
     <string name="introduction">This place has accessibility elements for </string>
     <string name="notintroduction">This place does not have accessible elements for the persons with disability. </string>
     <string name="red_mobility">people with reduced mobility </string>
@@ -100,4 +104,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="place_suggested">Place successfully suggested.</string>
+    <string name="image_link">Image link</string>
+    <string name="accesibility_red_movility">Reduce mobility</string>
+    <string name="accesibility_red_vision">Reduce vision</string>
+    <string name="accesibility_colour_blind">Colour Blind</string>
+    <string name="accesibility_deaf">Deaf</string>
+    <string name="accesibility_foreigner">Foreigner</string>
+
+
 </resources>
