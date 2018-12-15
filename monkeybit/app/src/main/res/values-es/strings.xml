@@ -105,4 +105,9 @@
     <string name="accesibility_colour_blind">Daltónico</string>
     <string name="accesibility_deaf">Sordo</string>
     <string name="accesibility_foreigner">Idiomas</string>
+
+    <!--Route List Place-->
+    <string name="NoPlaceTittle">Lo sentimos</string>
+    <string name="NoPlaceDesc">No hay ningun lugar asociado</string>
+
 </resources>

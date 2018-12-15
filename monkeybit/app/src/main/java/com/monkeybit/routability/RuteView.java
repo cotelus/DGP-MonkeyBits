@@ -48,7 +48,8 @@ public class RuteView extends Fragment implements DBConnectInterface{
 
         view = inflater.inflate(R.layout.view_rute, container, false);
         //Receive the id
-        choosen = getArguments().getString("routeId");
+        //choosen = getArguments().getString("routeId");
+        choosen = "2";
         email = ((MainActivity) getActivity()).getUserEmail();
         dbInter = this;
         places = null;
@@ -127,16 +128,17 @@ public class RuteView extends Fragment implements DBConnectInterface{
                         if (pt_desc != null)
                             pt_desc.setText(((Place) post).getDescription());
 
-                        //ImageView pt_img =  view.findViewById(R.id.post_img);
-                        //if(pt_img != null)
-                        //  pt_img.setImageResource(((Place) post).get_idImagen());
-
-
+                        ImageView image = view.findViewById(R.id.imageRoute);
+                        if (image != null && ((Place) post).getImage() != null){
+                                Picasso.get().load(((Place) post).getImage()).into(image);
+                        }
                     }
 
                 }
             });
         }
+
+
 
 
     }

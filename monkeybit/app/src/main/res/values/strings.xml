@@ -107,5 +107,8 @@
     <string name="accesibility_deaf">Deaf</string>
     <string name="accesibility_foreigner">Foreigner</string>
 
+    <string name="NoPlaceTittle">Sorry</string>
+    <string name="NoPlaceDesc">There is no place</string>
+
 
 </resources>
