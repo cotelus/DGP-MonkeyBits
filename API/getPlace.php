@@ -35,7 +35,7 @@ $json=array();
 			}
 		}
 
-		$sql2 = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}' and Reported = 0";
+		$sql2 = "SELECT placecomments.IdPlace, placecomments.Email, placecomments.Content, placecomments.Date, placecomments.Time, placecomments.Reported, user.Name FROM placecomments, user WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 and placecomments.Email = user.Email order by placecomments.Date, placecomments.Time asc";
 		$result=mysqli_query($connection,$sql2);
 
 		if($sql2){
