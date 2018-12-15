@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_text_desc"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/post_rt_info_accessibility"
@@ -64,37 +64,40 @@
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="descriptionAccesibilityRt"
+                android:contentDescription="@string/descriptionAccesibilityRt"
+                android:textAlignment="center"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/postRtInfoPlaces"
+                style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_rt_info_places"
-                style="@style/CustomTheme"
-                android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <ListView
                 android:id="@+id/postListLug"
                 android:layout_width="match_parent"
-                android:layout_height="260dp" />
+                android:layout_height="205dp" />
 
             <TextView
                 android:id="@+id/postRtInfoRating"
+                style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_rt_info_rating"
-                android:textSize="18sp"
-                style="@style/CustomTheme"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/postRtRating"
                 android:layout_width="match_parent"
                 android:layout_height="27dp"
-                android:contentDescription="descriptionRatingRt" />
+                android:contentDescription="descriptionRatingRt"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/posRtFav"
@@ -114,23 +117,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/comments"
-                android:textStyle="bold"/>
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_comments"
                 style="@style/CustomTheme"
-                android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_width="match_parent" />
 
             <TextView
                 android:id="@+id/myComments"
                 style="@style/CustomTheme"
-                android:layout_width="wrap_content"
+                android:layout_width="201dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:text="@string/comments_here"
-                android:textStyle="bold"/>
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/writeComments"

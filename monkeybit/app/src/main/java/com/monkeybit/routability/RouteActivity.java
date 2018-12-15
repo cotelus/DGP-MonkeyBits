@@ -38,7 +38,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
                 selectedFragment = new RuteView();
                 //to send the id
                 Bundle bundleRoute = new Bundle();
-                bundleRoute.putString("routeId", "2");
+                bundleRoute.putString("routeId", "8");
                 selectedFragment.setArguments(bundleRoute);
 
                 break;

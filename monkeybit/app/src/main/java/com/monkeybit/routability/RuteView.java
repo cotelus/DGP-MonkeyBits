@@ -148,7 +148,7 @@ public class RuteView extends Fragment implements DBConnectInterface{
 
 
     public void SetView(JSONObject bdelements ) throws JSONException {
-        Log.d("Debug", "SetView: ");
+
             Route ruta = new Route(bdelements);
             TextView tittle = view.findViewById(R.id.postTittleRt);
             if (tittle != null){
@@ -201,9 +201,25 @@ public class RuteView extends Fragment implements DBConnectInterface{
                            // SetViewComments(operationResult);
                         }
                         if (operation.equals("GET_AVERAGE_SCORE_ROUTE")) {
-                            int operationResult = response.getInt(operation); // Este elemento tendrá la/s tupla/s
-                            //Toast.makeText(getContext(), "Puntuación: " + operationResult, Toast.LENGTH_LONG).show();
-                            SetViewRating(operationResult);
+                            double aux = -1;
+                           try{
+                               Double operationResult = response.getDouble(operation);
+
+
+                                if( !operationResult.isNaN() || operationResult != null ){
+                                    aux = operationResult;
+
+                                }
+
+                               SetViewRating(aux);
+                           }
+                           catch (JSONException e){
+                               aux = -1;
+
+                               SetViewRating(aux);
+                           }
+
+
                         }
                         if (operation.equals("GET_FAVORITE_ROUTES")) {
                             JSONArray operationResult = response.getJSONArray(operation);
@@ -215,9 +231,15 @@ public class RuteView extends Fragment implements DBConnectInterface{
                             }
                         }
                         if(operation.equals("GET_PLACES_FROM_ROUTE")){
+                            places = new ArrayList<Place>();
                             JSONArray operationResult = response.getJSONArray(operation);
+                            Place aux;
+                            Log.d("Debug", "size: "+ operationResult.length());
                             for (int j = 0; j < operationResult.length(); j++) {
-                                places.add(new Place(operationResult.getJSONObject(i)));
+                                Log.d("Debug", "obj: "+ operationResult.getJSONObject(i));
+                                Log.d("Debug","otra linea");
+                                aux = new Place(operationResult.getJSONObject(i));
+                                places.add(aux);
                             }
                             this.Conf_List_Route(places);
                         }
@@ -252,16 +274,23 @@ public class RuteView extends Fragment implements DBConnectInterface{
 
     }
 
-    private void SetViewRating(int rat){
+    private void SetViewRating(double rat){
+
         TextView rating = view.findViewById(R.id.postRtRating);
 
-        if (rating == null) {
-            rating.setText(getString(R.string.notrating));
+        if (rating != null) {
+
+            if(rat == -1){
+
+                rating.setText(getString(R.string.notrating));
+            }
+            else{
+
+                rating.setText(" "+rat);
+            }
+
         }
-        else{
-            Log.d("Debug", ""+rat);
-            rating.setText(" "+rat);
-        }
+
 
     }
     private void setFavButtonState(boolean activate) {
