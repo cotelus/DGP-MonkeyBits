@@ -1,7 +1,11 @@
 <?php
 
   $MESSAGE = "";
-
+  $accesibleM = "";
+  $accesibleR = "";
+  $accesibleB = "";
+  $accesibleS = "";
+  $accesibleF = "";
   session_start();
 
   //Consultamos los datos de la obra
@@ -34,6 +38,8 @@
 
   if (isset($_POST['filtroRedMovility'])) {
     if($_POST['filtroRedMovility']=='on') {
+        
+        $accesibleM = "1";
         $consultaRutas = "SELECT distinct suggestedroute.IdRoute, suggestedroute.Name, RedMovility, suggestedroute.MadeBy, suggestedroute.Description, suggestedroute.Image from suggestedroute, appearsuggested, place where appearsuggested.IdRoute = suggestedroute.IdRoute and appearsuggested.IdPlace = place.IdPlace and place.RedMovility = '1'";
         $consultaLugares .=" RedMovility='1'";
         $primerFiltro = false;
@@ -41,6 +47,7 @@
   }
   if (isset($_POST['filtroRedVision'])) {
     if($_POST['filtroRedVision']=='on') {
+        $accesibleR = "1";
       if (!$primerFiltro) {
         $consultaLugares .=" and RedVision='1'";
         $consultaRutas .= " and RedVision='1'";
@@ -54,6 +61,7 @@
   }
   if (isset($_POST['filtroForeigner'])) {
     if($_POST['filtroForeigner']=='on') {
+        $accesibleF = "1";
       if (!$primerFiltro) {
         $consultaRutas .= " and Foreigner='1'";
         $consultaLugares .=" and Foreigner='1'";
@@ -67,6 +75,7 @@
   }
   if (isset($_POST['filtroColourBlind'])) {
     if($_POST['filtroColourBlind']=='on') {
+        $accesibleB = "1";
       if (!$primerFiltro) {
         $consultaRutas .= " and ColourBlind='1'";
         $consultaLugares .=" and ColourBlind='1'";
@@ -78,8 +87,9 @@
       }
     }
   }
-  if (isset($_POST['filtroDeaf'])=='on') {
-    if($_POST['filtroDeaf']) {
+  if (isset($_POST['filtroDeaf'])) {
+    if($_POST['filtroDeaf']=='on') {
+        $accesibleS = "1";
       if (!$primerFiltro) {
         $consultaRutas .=" and Deaf='1'";
         $consultaLugares .=" and Deaf='1'";
@@ -107,16 +117,19 @@
       $resRutas = mysqli_query($conexion, $consultaRutas);
       $resLugares = mysqli_query($conexion, $consultaLugares);
       $total = mysqli_num_rows($resRutas) + mysqli_num_rows($resLugares);
+      $busqueda = "Ambos";
     }
     else if ($_POST['filtro-lugar-ruta']=='Rutas') {
       $resRutas = mysqli_query($conexion, $consultaRutas);
       $resLugares = NULL;
       $total = mysqli_num_rows($resRutas);
+      $busqueda = "Rutas";
     }
     else if ($_POST['filtro-lugar-ruta']=='Lugares') {
       $resLugares = mysqli_query($conexion, $consultaLugares);
       $resRutas = NULL;
       $total = mysqli_num_rows($resLugares);
+      $busqueda = "Lugares";
     }
   }
   else {
@@ -153,31 +166,82 @@
 
 </head>
 
-<body class="bg-primario">
+<body class="bg-primario" style="min-width: 600px;">
     <div class="py-2" style="">
       <div class="container py-3 px-3">
         <div class="row">
           <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
             <div class="container">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form">
                       <input type="text" placeholder="Buscar sugerencia..." name="search" id="search">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
-                      <span class="icon-wheelchair" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedMovility" title="Apto para movilidad reducida"></span>
-                      <span class="icon-eye-minus" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroRedVision" title="Apto para visibilidad reducida"></span>
-                      <span class="icon-eyedropper" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroColourBlind" title="Apto para daltónicos"></span>
-                      <span class="icon-deaf" style="padding-left:3%;">&nbsp;<input type="checkbox" name="filtroDeaf" title="Apto para sordos"></span>
-                      <span class="icon-language" style="padding-left: 3%;">&nbsp;<input type="checkbox" name="filtroForeigner" title="Apto en varios idiomas"></span>
+                <div class="col-md-8">
+                  <div class="form" style="background-color: white; padding:5px; padding-top:12px; padding-bottom: 12px; min-width: 550px;">
+                      
+                      <?php
+                      if($accesibleM == "1"){
+                          
+                        echo"<span class='icon-wheelchair' style='padding-left: 3%;'>&nbsp;<input checked type='checkbox' name='filtroRedMovility' title='Apto para movilidad reducida'></span>";   
+                      }
+                      else{
+                          
+                        echo"<span class='icon-wheelchair' style='padding-left: 3%;'>&nbsp;<input type='checkbox' name='filtroRedMovility' title='Apto para movilidad reducida'></span>";   
+                      }
+                      
+                      if($accesibleR == "1"){
+                          
+                        echo"<span class='icon-eye-minus' style='padding-left: 3%;'>&nbsp;<input checked type='checkbox' name='filtroRedVision' title='Apto para visibilidad reducida'></span>";
+                      }
+                      else{
+                          
+                        echo"<span class='icon-eye-minus' style='padding-left: 3%;'>&nbsp;<input type='checkbox' name='filtroRedVision' title='Apto para visibilidad reducida'></span>";  
+                      }
+                      
+                      if($accesibleB == "1"){
+                          
+                        echo"<span class='icon-eyedropper' style='padding-left: 3%;'>&nbsp;<input checked type='checkbox' name='filtroColourBlind' title='Apto para daltónicos'></span>";
+                      }
+                      else{
+                          
+                        echo"<span class='icon-eyedropper' style='padding-left: 3%;'>&nbsp;<input type='checkbox' name='filtroColourBlind' title='Apto para daltónicos'></span>";  
+                      }
+                      
+                      if($accesibleS == "1"){
+                          
+                        echo"<span class='icon-deaf' style='padding-left:3%;'>&nbsp;<input checked type='checkbox' name='filtroDeaf' title='Apto para sordos'></span>";
+                      }
+                      else{
+                          
+                        echo"<span class='icon-deaf' style='padding-left:3%;'>&nbsp;<input type='checkbox' name='filtroDeaf' title='Apto para sordos'></span>";
+                      }
+                      
+                      if($accesibleF == "1"){
+                          
+                        echo"<span class='icon-language' style='padding-left: 3%;'>&nbsp;<input checked type='checkbox' name='filtroForeigner' title='Apto en varios idiomas'></span>";
+                      }
+                      else{
+                          
+                        echo"<span class='icon-language' style='padding-left: 3%;'>&nbsp;<input type='checkbox' name='filtroForeigner' title='Apto en varios idiomas'></span>";  
+                      }
+                      ?>  
+                
                       <select style="margin-left: 3%;" name="filtro-lugar-ruta" name="filtro-lugar-ruta">
-                        <option>Ambos</option>
-                        <option>Rutas</option>
-                        <option>Lugares</option>
+                        <?php 
+                          
+                          if($busqueda == "Ambos"){ echo"<option selected>Ambos</option>";}
+                          else{ echo"<option>Ambos</option>";}
+                          
+                          if($busqueda == "Rutas"){ echo"<option selected>Rutas</option>";}
+                          else{ echo"<option>Rutas</option>";}
+                          
+                          if($busqueda == "Lugares"){ echo"<option selected>Lugares</option>";}
+                          else{ echo"<option>Lugares</option>";}
+                        ?>
                       </select>
-                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-left: 7%;">
+                      <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 10px; float: right;">
                   </div>
                 </div>
               </div>
@@ -185,7 +249,7 @@
           </div>
         </div>
       </div>
-        <div class="container">
+        <div class="container" style="min-width: 600px;">
             <div class="row">
                 <div class="col-md-12" style="">
                     <div class="list-group" id="resultados">

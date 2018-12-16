@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 public final class DBConnect {
 
-    private static final String serverIP =  /*"192.168.1.36"*/ "172.20.72.158";
+    private static final String serverIP =  "172.20.72.158";
     private static final String folderName =  "RoutabilityAdmin";
 
     private DBConnect() {}

@@ -72,7 +72,7 @@ public class ListFavRouteActivity extends Fragment {
                 RuteView route = new RuteView();
 
                 if(route != null){
-                    route.Array(choosen); //set
+                    //route.Array(choosen); //set
                     //change the fragment
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view,route).commit(); //go to the fragment
 

@@ -22,6 +22,7 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
     private TextInputEditText newName;
     private TextInputEditText newDescription;
     private TextInputEditText newLocalization;
+    private TextInputEditText newImage;
     private Switch newRedMovility;
     private Switch newRedVision;
     private Switch newColourBlind;
@@ -37,6 +38,7 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
         newName = (TextInputEditText) view.findViewById(R.id.new_name);
         newDescription = (TextInputEditText) view.findViewById(R.id.description);
         newLocalization = (TextInputEditText) view.findViewById(R.id.localization);
+        newImage = (TextInputEditText) view .findViewById(R.id.new_image);
         newRedMovility = (Switch)view.findViewById(R.id.redMovility);
         newRedVision = (Switch)view.findViewById(R.id.redVision);
         newColourBlind = (Switch)view.findViewById(R.id.colourBlind);
@@ -59,24 +61,25 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
         String name = newName.getText().toString();
         String description = newDescription.getText().toString();
         String localization = newLocalization.getText().toString();
+        String image = newImage.getText().toString();
         boolean redMovility = newRedMovility.isChecked();
         boolean redVision = newRedVision.isChecked();
         boolean colourBlind = newColourBlind.isChecked();
         boolean deaf = newDeaf.isChecked();
         boolean foreigner = newForeigner.isChecked();
 
-        if (!(name.isEmpty() || description.isEmpty() || localization.isEmpty())) {
+        if (!(name.isEmpty() || description.isEmpty() || localization.isEmpty() || image.isEmpty())) {
             String userId = ((MainActivity) getActivity()).getUserEmail();
-
-            //@TODO: Añadir imagen
-            PlaceToSuggest newPlace = new PlaceToSuggest(userId, name, description, localization, "Imagen", redMovility, redVision, colourBlind, deaf, foreigner);
-            //Toast.makeText(getActivity(), "Json a enviar: " + newPlace.toJson(), Toast.LENGTH_SHORT).show();
-            try {
-                DBConnect.suggestPlace(getContext(), this, newPlace.toJson());
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (userId != null) {
+                PlaceToSuggest newPlace = new PlaceToSuggest(userId, name, description, localization, image, redMovility, redVision, colourBlind, deaf, foreigner);
+                //Toast.makeText(getActivity(), "Json a enviar: " + newPlace.toJson(), Toast.LENGTH_SHORT).show();
+                try {
+                    DBConnect.suggestPlace(getContext(), this, newPlace.toJson());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
         } else {
             Toast toast = Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT);
             toast.show();

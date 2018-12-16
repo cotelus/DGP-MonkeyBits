@@ -1,6 +1,7 @@
 <?php
 
 $MESSAGE = "";
+$imagenDescripcion = "";
 
 session_start();
 
@@ -31,6 +32,7 @@ if(isset($_POST["aniadir"])){
          $descripcion=$_POST['descripcion'];
          $localization=$_POST['localization'];
          $imagen=$_POST['imagen'];
+         $imagenDesc=$_POST['imagenDescripcion'];
          $email = $_SESSION['EMAIL'];
          $mov = $_POST['movilidad'];
          $vis = $_POST['vision'];
@@ -38,7 +40,7 @@ if(isset($_POST["aniadir"])){
          $sordo = $_POST['sordo'];
          $ext = $_POST['extranjero'];
         
-    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `RedMovility`, `RedVision`, `ColourBlind`, `Deaf`, `Foreigner`) VALUES (null, '$email', null, '$descripcion', '$localization', '$nombre', '$imagen', '$mov', '$vis', '$color', '$sordo', '$ext')"))){
+    if(!($QUERY = mysqli_query($conexion, "INSERT INTO `place`(`IdPlace`, `Email`, `MadeBy`, `Description`, `Localitation`, `Name`, `Image`, `ImageDescription`, `RedMovility`, `RedVision`, `ColourBlind`, `Deaf`, `Foreigner`) VALUES (null, '$email', null, '$descripcion', '$localization', '$nombre', '$imagen', '$imagenDesc', '$mov', '$vis', '$color', '$sordo', '$ext')"))){
     
         echo "Fallo del query de lugares";
         exit();
@@ -100,14 +102,27 @@ if(isset($_POST["aniadir"])){
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h4><b>Descripción del lugar</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><b>Descripción del lugar</b></h4>
+                                        <textarea required value="" name="descripcion" placeholder="Escribe la descripción del lugar..." maxlength="10000" style="width:100%; height: 50%; min-height: 320px;" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><b>Descripción de la imagen</b></h4>
+                                        <textarea required value="" name="imagenDescripcion" placeholder="Escribe la descripción de la imagen..." maxlength="10000" style="width:100%; height: 50%; min-height: 320px;" onFocus="if(this.value=='imagenDescripcion')this.value='' "></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <h4><b>Accesibilidad del lugar</b></h4><br />
 
-                                <div class="accesibilidad">
+                                <div class="accesibilidad" style="padding:16px;">
                                 <p class="icon-wheelchair">&nbsp&nbsp Movilidad Reducida: <select name="movilidad" id="movilidad">
 
                                     <option value=1>Si</option>
@@ -150,7 +165,7 @@ if(isset($_POST["aniadir"])){
                                 </div>
                             </div>
                             <div class="form-group">
-                                <h4><b>Localización del lugar</b></h4><br /><textarea required value="" name="localization" placeholder="Escribe la localización del lugar..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='localization')this.value='' "></textarea>
+                                <h4><b>Localización del lugar</b></h4><br /><textarea required value="" name="localization" placeholder="Escribe la localización del lugar..." maxlength="10000" rows="10" cols="56" style="width:100%; height: 50%; min-height: 320px;" onFocus="if(this.value=='localization')this.value='' "></textarea>
                             </div>
                             <hr>
                             <div>
