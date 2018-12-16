@@ -29,8 +29,6 @@ $json2 = array();
 			$ColourBlind = $_GET["ColourBlind"];
 		}
 
-		/*SELECT * FROM place WHERE (Name LIKE '%PLACE%' OR Name LIKE '%Alhambra%') AND RedMovility = 0 AND RedVision = 0 AND ColourBlind = 0 AND Deaf = 0 AND Foreigner = 0*/
-
 		if(!isset($_GET["Deaf"])){
 			$Deaf = 0;
 		}else{
@@ -57,9 +55,6 @@ $json2 = array();
 				$searchString .= ")";
 			}
 		}
-
-		echo $searchString;
-
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
