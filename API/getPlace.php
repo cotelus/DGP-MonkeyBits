@@ -9,15 +9,21 @@ $password="12345";
 $json=array();
 	if(isset($_GET["IdPlace"])){
 		$IdPlace=$_GET['IdPlace'];
-		$connection=mysqli_connect($hostname,$username,$password,$database);
+		$connection = mysqli_connect($hostname,$username,$password,$database);
 		
 		$sql1="SELECT * FROM place WHERE IdPlace = '{$IdPlace}'";
 		$result=mysqli_query($connection,$sql1);
 
+		if (!$connection->set_charset("utf8")) {
+    		printf("Error cargando el conjunto de caracteres utf8: %s\n", $connection->error);
+   		 	exit();
+		} 
+
 		if($sql1){
+			echo mysqli_error($connection);
 			$jsonTuple;
 			$json['OPERATIONS'][0]="GET_PLACE";
-			if($reg=mysqli_fetch_array($result)){
+			if($reg = mysqli_fetch_array($result)){
 				$jsonTuple1['IdPlace'] = $reg['IdPlace'];
 				$jsonTuple1['Email'] = $reg['Email'];
 				$jsonTuple1['MadeBy'] = $reg['MadeBy'];
@@ -35,10 +41,11 @@ $json=array();
 			}
 		}
 
-		$sql2 = "SELECT placecomments.IdPlace, placecomments.Email, placecomments.Content, placecomments.Date, placecomments.Time, placecomments.Reported, user.Name FROM placecomments, user WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 and placecomments.Email = user.Email order by placecomments.Date, placecomments.Time asc";
+		$sql2 = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}' and Reported = 0";
 		$result=mysqli_query($connection,$sql2);
 
 		if($sql2){
+			echo mysqli_error($connection);
 			$jsonTuple2;
 			$x = 0;
 			$json['OPERATIONS'][1]="GET_COMMENTS_FROM_PLACE";
@@ -49,6 +56,8 @@ $json=array();
 				$jsonTuple2['Date'] = $reg['Date'];
 				$jsonTuple2['Time'] = $reg['Time'];
 
+				//echo json_encode($jsonTuple2, JSON_UNESCAPED_UNICODE);
+
 				$json['GET_COMMENTS_FROM_PLACE'][$x]=$jsonTuple2;
 				$x++;
 			}
@@ -58,6 +67,7 @@ $json=array();
 		$result=mysqli_query($connection,$sql3);
 
 		if($sql3){
+			echo mysqli_error($connection);
 			$jsonTuple3;
 			$json['OPERATIONS'][2]="GET_AVERAGE_SCORE_PLACE";
 			if($reg=mysqli_fetch_array($result)){
@@ -68,7 +78,7 @@ $json=array();
 
 		if ($sql1 && $sql2 && $sql3) {
 			mysqli_close($connection);
-			echo json_encode($json);
+			echo json_encode($json, JSON_UNESCAPED_UNICODE);
 		}
 	}
 ?>
