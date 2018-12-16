@@ -56,6 +56,7 @@ $json2 = array();
 			}
 		}
 
+
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
 		$sql1="SELECT * FROM place WHERE {$searchString} AND RedMovility = {$RedMovility} AND RedVision = {$RedVision} AND ColourBlind = {$ColourBlind} AND Deaf = {$Deaf} AND Foreigner = {$Foreigner}";
