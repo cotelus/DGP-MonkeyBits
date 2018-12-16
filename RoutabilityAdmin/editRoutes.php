@@ -29,9 +29,10 @@ if(isset($_POST["editar"])){
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
+         $imageDescription = $_POST['Imagedescription'];
     
         //EDITAMOS TABLA RUTA
-        if(!($QUERY = mysqli_query($conexion, "UPDATE `route` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Image`='".$imagen."' WHERE `IdRoute`=".$id))){
+        if(!($QUERY = mysqli_query($conexion, "UPDATE `route` SET `Name`='".$nombre."', `Description`='".$descripcion."', `Image`='".$imagen."', `ImageDescription`='".$imageDescription."' WHERE `IdRoute`=".$id))){
 
             $MESSAGE = "ERROR AL EDITAR LA RUTA";
         }
@@ -69,6 +70,7 @@ if(isset($_POST["editar"])){
             $nomb=$nombre;
             $desc=$descripcion;
             $img=$imagen;
+            $imgdesc=$imageDescription;
             
             $MESSAGE = "RUTA EDITADA";
 
@@ -86,6 +88,7 @@ if(isset($_POST["editar"])){
         $nomb=$texto['Name'];
         $desc=$texto['Description'];
         $img=$texto['Image']; 
+        $imgdesc=$texto['ImageDescription']; 
 
 }
        
@@ -136,6 +139,9 @@ if(isset($_POST["editar"])){
                     </div>
                     <div class="col-md-6">
                         <?php echo "<div class='form-group'> <h4><b>Vista previa</b></h4><img title='Imagen Ruta' alt='Imagen Ruta' class='img-fluid d-block float-left p-2' style='border-radius: 15px 50px 30px;' src='".$img."' width='640' height='320'></div>"?>
+                    </div>
+                    <div class="col-md-6">
+                        <?php echo "<div class='form-group'> <h4><b>Descripción de la imagen</b></h4><br/><textarea name='Imagedescription' placeholder='Escribe la descripción de la imagen...' maxlength='10000' rows='10' cols='56' onFocus='if(this.value=='Imagedescription')this.value='' '>".$imgdesc."</textarea></div>";?>
                     </div>
 
                     <div class="col-md-6">

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-12-2018 a las 12:12:46
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.11
+-- Tiempo de generación: 14-12-2018 a las 13:28:40
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -83,9 +83,11 @@ CREATE TABLE `appearverified` (
 INSERT INTO `appearverified` (`IdPlace`, `IdRoute`, `Sequence`) VALUES
 (1, 8, 1),
 (1, 9, 1),
+(1, 18, 1),
 (2, 1, 1),
 (2, 8, 2),
 (2, 9, 3),
+(2, 18, 2),
 (16, 9, 4),
 (17, 9, 2),
 (21, 17, 1),
@@ -159,7 +161,9 @@ INSERT INTO `place` (`IdPlace`, `Email`, `MadeBy`, `Name`, `Description`, `Local
 (21, 'dgp.monkeybits@gmail.com', NULL, 'Alhambra', 'Es una ciudad palatina andalusí situada en Granada, en comunidad autónoma de Andalucía, España. Consiste en un conjunto de palacios, jardines y fortaleza que albergaba una verdadera ciudadela dentro de la propia ciudad de Granada, que servía como alojamiento al monarca y a la corte del Reino nazarí de Granada. Su verdadero atractivo, como en otras obras musulmanas de la época, no solo radica en los interiores, cuya decoración está entre las cumbres del arte andalusí, sino también en su localización y adaptación, generando un paisaje nuevo pero totalmente integrado con la naturaleza preexistente.', 'Calle Real de la Alhambra', 'https://cdn.getyourguide.com/img/tour_img-989388-148.jpg', '', 1, 1, 0, 0, 1),
 (22, 'dgp.monkeybits@gmail.com', NULL, 'Generalife', 'Es la villa con jardines habitada por los reyes musulmanes de Granada como lugar de descanso, situado en la ciudad española de Granada, en Andalucía. Fue concebida como villa rural, donde jardines ornamentales, huertos y arquitectura se integraban, en las cercanías de la Alhambra. El origen del nombre está discutido. Algunos abogan por Yannat al-Arif como «huerta del arquitecto», o «jardín del arquitecto» aunque pudo significar «el más excelso jardín». Ese huerto real era común en las cortes hispano-árabes y es fruto de las reformas y añadidos que le aportaron los diferentes sultanes.', ' Exterior de las murallas de la Alhambra, al este, en la ladera del Cerro del Sol.', 'https://media-cdn.tripadvisor.com/media/photo-s/11/7e/aa/fb/jardines-del-generalife.jpg', '', 1, 1, 0, 0, 1),
 (23, 'dgp.monkeybits@gmail.com', NULL, 'Patio de los leones', 'El Patio de los Leones es el centro del Palacio que lleva este nombre. Es diferente al del Palacio de Comares, debido al eje del jardín anterior, del siglo XIII, sobre el que se diseña y a que el baño de Comares tiene un eje Norte-Sur y el palacio de los Leones tiene un eje Este-Oeste.', 'Calle Real de la Alhambra.', 'http://cadenaser00.epimg.net/emisora/imagenes/2016/08/30/radio_granada/1472561813_422996_1472561946_noticia_normal.jpg', '', 1, 1, 0, 0, 1),
-(34, 'dgp.monkeybits@gmail.com', NULL, 'Palacio de Carlos V', 'El palacio de Carlos V es una construcción renacentista situada en la colina de la Alhambra de la ciudad española de Granada, en Andalucía. Desde 1958, es sede del Museo de Bellas Artes de Granada y, desde 1994, también es sede del Museo de la Alhambra.', 'calle de la Alhambra', 'https://www.101viajes.com/sites/default/files/palacio-carlos-v.jpg', '', 1, 1, 0, 0, 1);
+(34, 'dgp.monkeybits@gmail.com', NULL, 'Palacio de Carlos V', 'El palacio de Carlos V es una construcción renacentista situada en la colina de la Alhambra de la ciudad española de Granada, en Andalucía. Desde 1958, es sede del Museo de Bellas Artes de Granada y, desde 1994, también es sede del Museo de la Alhambra.', 'calle de la Alhambra', 'https://www.101viajes.com/sites/default/files/palacio-carlos-v.jpg', 'El palacio de Carlos V es una construcción renacentista situada en la colina de la Alhambra de la ciudad española de Granada.', 1, 1, 0, 0, 1),
+(35, 'dgp.monkeybits@gmail.com', NULL, 'ssss', 'ssss', 'ssssss', 'ssssssss', '', 1, 0, 1, 0, 1),
+(41, 'dgp.monkeybits@gmail.com', NULL, 'ssssss', 'sssss', 'sssss', 'sssss', 'sssss', 1, 0, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -210,12 +214,13 @@ INSERT INTO `route` (`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image
 (4, 'admin1@gmail.com', 'usuariobloqueado@gmail.com', 'Ruta de prueba 3', 'Prueba', 'Vacia', ''),
 (5, 'admin1@gmail.com', 'usuario1@gmail.com', 'Ruta de prueba 4', 'Prueba', 'Vacia', ''),
 (8, 'dgp.monkeybits@gmail.com', NULL, 'Ruta de prueba 5', 'Prueba', 'Vacia', ''),
-(9, 'dgp.monkeybits@gmail.com', NULL, 'Parques y Jardines de Granada', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg', ''),
+(9, 'dgp.monkeybits@gmail.com', NULL, 'Parques y Jardines de Granada', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.', 'https://guiasgranada.com/advisor/wp-content/uploads/2017/06/garcia1.jpg', 'Muchos jardines, florecicas, alguna que otra farola, y de vez en cuando te cae agua de las fuentes.'),
 (10, '', 'usuariobloqueado@gmail.com', 'Ruta de prueba 6', 'Prueba', 'Vacia', ''),
 (11, '', 'usuario1@gmail.com', 'Ruta de prueba 7', 'Prueba', 'Vacia', ''),
 (12, '', 'usuariobloqueado@gmail.com', 'Ruta de prueba 8', 'Prueba', 'VAcia', ''),
 (16, '', 'usuario1@gmail.com', 'Ruta de prueba 9', 'prueba', 'Vacia', ''),
-(17, 'dgp.monkeybits@gmail.com', NULL, 'Tour de la Alhambra', 'Ruta por algunos de los puntos turísticos más importantes de la Alhambra, recorriendo sus grandes puertas, palaciones y jardines.', 'https://images.placesonline.com/photos/46695_granada_alcazaba.jpg?quality=80&w=710&h=510&mode=crop', '');
+(17, 'dgp.monkeybits@gmail.com', NULL, 'Tour de la Alhambra', 'Ruta por algunos de los puntos turísticos más importantes de la Alhambra, recorriendo sus grandes puertas, palaciones y jardines.', 'https://images.placesonline.com/photos/46695_granada_alcazaba.jpg?quality=80&w=710&h=510&mode=crop', ''),
+(18, 'dgp.monkeybits@gmail.com', NULL, 'sssssssssssssssssssssss', 'ssssssssssssssssssssssssssssssssss', 'ssssssssssssssssssssssssssssssssss', 'Sae');
 
 -- --------------------------------------------------------
 
@@ -440,13 +445,13 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT de la tabla `place`
 --
 ALTER TABLE `place`
-  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `IdPlace` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `route`
 --
 ALTER TABLE `route`
-  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `IdRoute` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `suggestedplace`
