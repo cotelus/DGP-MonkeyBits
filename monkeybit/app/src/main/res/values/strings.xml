@@ -41,11 +41,21 @@
     <string name="places">Places</string>
     <string name="search">Search</string>
     <string name="suggest_place">Suggest Place</string>
+    <string name="suggest_route">Suggest Route</string>
+
+    <string name="suggest_route_title">New Route</string>
+    <string name="new_name_route">New Route\'s Name</string>
+    <string name="new_route_description">Route\'s Description</string>
+    <string name="route_localization">Route\'s Localization</string>
+
     <string name="suggest_place_title">New Place</string>
     <string name="new_name_place">New Place\'s Name</string>
     <string name="new_place_description">Place Description</string>
     <string name="place_localization">Place Localization</string>
+
+
     <string name="suggest_button">Suggest</string>
+
     <string name="rutes_menu">Rutes/Places</string>
     <string name="tittle_rute">Rute Name</string>
     <string name="tittle_place">Place Name</string>
@@ -87,7 +97,7 @@
 
     <!-- Favorites -->
     <string name="should_login">You should login</string>
-    <string name="added_favorites">This place </string>
+    <string name="added_favorites">This place has been added to favorites</string>
 
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
@@ -96,7 +106,11 @@
     <string name="title_boton">Check</string>
     <string name="login">CHECK ROUTE</string>
     <string name="id_bd_test">test</string>
-    <string name = "errorListRoute">Error al buscar en la base de datos</string>
+    <string name="title_place">Title of the place</string>
+    <string name="description_place">description of the place</string>
+
+
+    <string name="errorListRoute">Error al buscar en la base de datos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="place_suggested">Place successfully suggested.</string>
@@ -106,6 +120,11 @@
     <string name="accesibility_colour_blind">Colour Blind</string>
     <string name="accesibility_deaf">Deaf</string>
     <string name="accesibility_foreigner">Foreigner</string>
-
-
+    <string name="previous_page">Previous page</string>
+    <string name="next_page">Next page</string>
+    <string name="comment_sent">Página siguiente</string>
+    <string name="added_places_text">Added Places</string>
+    <string name="available_places_text">Available Places</string>
+    <string name="who_can_access">Select who can access this place</string>
+    <string name="suggested_route">Route successfully suggested</string>
 </resources>

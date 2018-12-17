@@ -2,13 +2,17 @@ package com.monkeybit.routability;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Route {
 
-
-    private String idRoute, email, madeBy, name, description, accesibility,image;
+    private String idRoute, email;
+    protected String madeBy, name, description, image;
+    protected ArrayList<Place> places = new ArrayList<>();
 
 
     public Route() {}
@@ -19,7 +23,6 @@ public class Route {
         this.madeBy = madeBy;
         this.name = name;
         this.description = description;
-        this.accesibility = accesibility;
         this.image = "";
 
     }
@@ -30,20 +33,16 @@ public class Route {
         this.madeBy = madeBy;
         this.name = name;
         this.description = description;
-        this.accesibility = accesibility;
         this.image = "";
-
-
     }
 
     public Route(String idRoute, String name, String description, String image) {
         this.idRoute = "";
-        this.email = email;
+        this.email = "";
         this.idRoute = idRoute;
         this.name = name;
         this.description = description;
         this.image = image;
-        this.accesibility = "";
     }
 
 
@@ -58,25 +57,44 @@ public class Route {
     }
 
     public static boolean isValidJson(JSONObject jsonRoute) {
+        //@TODO añadir imagen
         return jsonRoute.has("Email") && jsonRoute.has("MadeBy")
                 && jsonRoute.has("Name") && jsonRoute.has("Description");
     }
 
     public JSONObject toJson() {
-        JSONObject jsonPlace = new JSONObject();
+        JSONObject jsonRoute = new JSONObject();
         try {
+            //@TODO añadir imagen
             if (!this.getIdRoute().equals("")) {
-                jsonPlace.put("IdRoute", this.getIdRoute());
+                jsonRoute.put("IdRoute", this.getIdRoute());
             }
-            jsonPlace.put("Email", this.getEmail());
-            jsonPlace.put("MadeBy", this.getMadeBy());
-            jsonPlace.put("Name", this.getName());
-            jsonPlace.put("Description", this.getDescription());
+            jsonRoute.put("Email", this.getEmail());
+            jsonRoute.put("MadeBy", this.getMadeBy());
+            jsonRoute.put("Name", this.getName());
+            jsonRoute.put("Description", this.getDescription());
         } catch (JSONException e) {
             Log.d("DEBUG", "Error al pasar un objeto Route a JSON");
             e.printStackTrace();
         }
-        return jsonPlace;
+        return jsonRoute;
+    }
+
+    public JSONArray getPlacesInJson() {
+        JSONArray jsonPlaces = new JSONArray();
+        JSONObject jsonPlace = new JSONObject();
+        try {
+            for (Place place : places) {
+                jsonPlace.put("IdPlace", place.getIdPlace());
+                jsonPlace.put("IdRoute", idRoute);
+                jsonPlace.put("Sequence", places.indexOf(place));
+                jsonPlaces.put(jsonPlace);
+            }
+        } catch (JSONException e) {
+            Log.d("DEBUG", "Error al pasar la lista de lugares de la ruta a JSON");
+            e.printStackTrace();
+        }
+        return jsonPlaces;
     }
 
     public String getIdRoute() {
@@ -117,5 +135,29 @@ public class Route {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public ArrayList<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(ArrayList<Place> places) {
+        this.places = places;
+    }
+
+    public void addPlace(Place newPlace) {
+        places.add(newPlace);
+    }
+
+    public void removePlace(Place place) {
+        places.remove(place);
     }
 }
