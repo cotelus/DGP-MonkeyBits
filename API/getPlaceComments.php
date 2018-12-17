@@ -11,7 +11,7 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "SELECT placecomments.IdPlace, placecomments.Email, placecomments.Content, placecomments.Date, placecomments.Time, placecomments.Reported, user.Name FROM placecomments, user WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 and placecomments.Email = user.Email order by placecomments.Date, placecomments.Time asc";
+		$sql = "SELECT placecomments.IdPlace, placecomments.Email, placecomments.Content, placecomments.Date, placecomments.Time, user.Name FROM placecomments, user WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 and placecomments.Email = user.Email order by placecomments.Date, placecomments.Time asc";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
