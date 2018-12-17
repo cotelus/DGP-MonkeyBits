@@ -110,6 +110,7 @@
     <string name="accesibility_colour_blind">Colour Blind</string>
     <string name="accesibility_deaf">Deaf</string>
     <string name="accesibility_foreigner">Foreigner</string>
-
-
+    <string name="previous_page">Previous page</string>
+    <string name="next_page">Next page</string>
+    <string name="comment_sent">Página siguiente</string>
 </resources>

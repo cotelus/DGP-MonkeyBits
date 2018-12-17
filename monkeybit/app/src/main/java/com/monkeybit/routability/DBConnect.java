@@ -27,6 +27,7 @@ public final class DBConnect {
 
     public static void addPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String content){
         String url = "http://" + serverIP + "/" + folderName + "/addPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Content=" + content;
+        addTuple(context, responseListener, url);
     }
 
     public static void getAverageScorePlace(Context context, DBConnectInterface responseListener, String placeId) {

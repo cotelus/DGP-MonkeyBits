@@ -30,13 +30,14 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
     View view;
     private List<Comments> comments;
-    private RecyclerView listcomments;
+    private RecyclerView listComments;
     private CommentsAdapter adapter;
     private int result = 0;
     private boolean isFavorite = false;
     private String email;
     private String idPlace;
     private ImageButton favButton;
+    private TextInputEditText commentText;
 
     @Nullable
     @Override
@@ -62,34 +63,40 @@ public class PlaceView extends Fragment implements DBConnectInterface{
             }
         });
 
-        Button button = view.findViewById(R.id.sendComment);
+        commentText = view.findViewById(R.id.myComment);
+
+        Button button = view.findViewById(R.id.sendCommentPlace);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email != null){
+                if(email != null && !commentText.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Enviando comentario", Toast.LENGTH_SHORT).show();
                     addComment();
+                }
+                else if(email == null){
+                    Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
+                }
+                else if(commentText.getText().toString().equals("")){
+                    Toast.makeText(getContext(), R.string.empty_fields, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        listcomments = view.findViewById(R.id.list_comments);
+        listComments = view.findViewById(R.id.list_comments);
         LinearLayoutManager lim = new LinearLayoutManager(getContext());
         lim.setOrientation(LinearLayoutManager.VERTICAL);
-        listcomments.setLayoutManager(lim);
+        listComments.setLayoutManager(lim);
 
         dataComments();
-        initializedAdapter();
+        //initializedAdapter();
 
         DBConnect.getPlace(getContext(),this,idPlace);
-        //DBConnect.getAverageScorePlace(getContext(),this,idPlace);
-        //DBConnect.getPlaceComments(getContext(),this,idPlace);
 
         return view;
     }
 
     public void addComment(){
-        TextInputEditText text = view.findViewById(R.id.myComment);
-        DBConnect.addPlaceComment(getContext(),this, idPlace, email, text.getText().toString());
+        DBConnect.addPlaceComment(getContext(),this, idPlace, email, commentText.getText().toString());
     }
 
     public void addFavoritePlace(){
@@ -102,6 +109,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
 
     public void dataComments(){
         comments = new ArrayList<>();
+        /*comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
@@ -113,8 +121,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
+        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));*/
     }
 
     public void  initializedAdapter(){
@@ -124,7 +131,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
            recyclerView.getLayoutParams().height = 1300;
         }
         adapter = new CommentsAdapter(comments);
-        listcomments.setAdapter(adapter);
+        listComments.setAdapter(adapter);
     }
 
     //@Todo mandar id y que busque aquí en la base de datos
@@ -211,6 +218,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                 //Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
             }
         }
+        initializedAdapter();
     }
 
     public void setRating(int rating1){
@@ -265,6 +273,10 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                     if (operation.equals("REMOVE_FAVORITE_PLACE")) {
                         Toast.makeText(getContext(), R.string.remove_favorites, Toast.LENGTH_SHORT).show();
                         setFavButtonState(false);
+                    }
+                    if(operation.equals("ADD_PLACE_COMMENT")){
+                        Toast.makeText(getContext(), R.string.comment_sent, Toast.LENGTH_SHORT).show();
+                        this.commentText.getText().clear();
                     }
                 }
             } else {

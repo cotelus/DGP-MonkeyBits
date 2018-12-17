@@ -107,4 +107,7 @@
     <string name="accesibility_colour_blind">Daltónico</string>
     <string name="accesibility_deaf">Sordo</string>
     <string name="accesibility_foreigner">Idiomas</string>
+    <string name="previous_page">Página anterior</string>
+    <string name="next_page">Página siguiente</string>
+    <string name="comment_sent">Página siguiente</string>
 </resources>

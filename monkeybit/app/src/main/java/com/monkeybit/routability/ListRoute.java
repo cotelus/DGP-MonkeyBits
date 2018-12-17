@@ -11,7 +11,7 @@ public class ListRoute {
     private String description;
     private double rating;
     private double people;
-    String id;
+    String idRoute;
 
     public ListRoute(){
 
@@ -25,7 +25,7 @@ public class ListRoute {
         this.description = description;
         rating = 0;
         people = 0;
-        this.id = id;
+        this.idRoute = id;
     }
 
     public String get_Tittle() {
@@ -38,6 +38,10 @@ public class ListRoute {
 
     public String get_idImagen() {
         return idImage;
+    }
+
+    public String get_idRoute(){
+        return idRoute;
     }
 
     //people
