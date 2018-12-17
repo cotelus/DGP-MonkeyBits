@@ -22,10 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ListFavPlacesActivity extends Fragment implements DBConnectInterface{
+public class ListPlaceActivity extends Fragment implements DBConnectInterface {
     View view;
-    private int pagCurent;
-    private String email;
+    int pagCurent;
 
     @Nullable
     @Override
@@ -33,9 +32,7 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
         view = inflater.inflate(R.layout.list_place, container, false);
         pagCurent = 0;
 
-        email = ((MainActivity) getActivity()).getUserEmail();
-
-        DBConnect.getFavoritePlaces(getContext(),this, email, pagCurent);
+        DBConnect.getPlaces(getContext(),this,pagCurent);
 
         return view;
     }
@@ -104,6 +101,7 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
                     place.setArguments(bundle);
 
                     if (place != null) {
+                        //place.Array(choosen); //set
                         //change the fragment
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, place).commit(); //go to the fragment
 
@@ -119,14 +117,13 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "Error" + error, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public void onResponse(JSONObject response) {
         try {
-            if (response.has("GET_FAVORITE_PLACES")) {
-                JSONArray operationResult = response.getJSONArray("GET_FAVORITE_PLACES"); // Este elemento tendrá la/s tupla/s
+            if (response.has("GET_PLACES")) {
+                JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
                 LoadArray(operationResult);
             }
         } catch (JSONException e) {
@@ -134,4 +131,3 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
         }
     }
 }
-

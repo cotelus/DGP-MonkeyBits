@@ -11,15 +11,82 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql="SELECT IdRoute, Email, MadeBy, Name, Description FROM route WHERE IdRoute = '{$IdRoute}'";
-		$result=mysqli_query($connection,$sql);
+		$sql1="SELECT IdRoute, Email, MadeBy, Name, Description, Image FROM route WHERE IdRoute = '{$IdRoute}'";
+		$result=mysqli_query($connection,$sql1);
 
-		if($sql){
-		
+		if($sql1){
+			$json['OPERATIONS'][0]="GET_ROUTE";
+			$jsonTuple;
 			if($reg=mysqli_fetch_array($result)){
-				$json['data'][]=$reg;
-				$json['OPERATION']="GET_ROUTE";
+				$jsonTuple1['IdRoute'] = $reg['IdRoute'];
+				$jsonTuple1['Email'] = $reg['Email'];
+				$jsonTuple1['MadeBy'] = $reg['MadeBy'];
+				$jsonTuple1['Name'] = $reg['Name'];
+				$jsonTuple1['Description'] = $reg['Description'];
+				$jsonTuple1['Image'] = $reg['Image'];
+				$json['GET_ROUTE']=$jsonTuple1;
 			}
+		}
+
+		$sql2="SELECT * FROM place LEFT JOIN appearverified ON place.IdPlace = appearverified.IdPlace WHERE appearverified.IdRoute = '{$IdRoute}'";
+		$result=mysqli_query($connection,$sql2);
+
+		if($sql2){
+			$x = 0;
+			$json['OPERATIONS'][1]="GET_PLACES_FROM_ROUTE";
+			$jsonTuple2;
+			while($reg = mysqli_fetch_array($result)){
+				$jsonTuple2['IdPlace'] = $reg['IdPlace'];
+				$jsonTuple2['Email'] = $reg['Email'];
+				$jsonTuple2['MadeBy'] = $reg['MadeBy'];
+				$jsonTuple2['Name'] = $reg['Name'];
+				$jsonTuple2['Description'] = $reg['Description'];
+				$jsonTuple2['Localitation'] = $reg['Localitation'];
+				$jsonTuple2['Image'] = $reg['Image'];
+				$jsonTuple2['RedMovility'] = $reg['RedMovility'];
+				$jsonTuple2['RedVision'] = $reg['RedVision'];
+				$jsonTuple2['ColourBlind'] = $reg['ColourBlind'];
+				$jsonTuple2['Deaf'] = $reg['Deaf'];
+				$jsonTuple2['Foreigner'] = $reg['Foreigner'];
+
+				$json['GET_PLACES_FROM_ROUTE'][$x]=$jsonTuple2;
+				$x++;
+			}
+		}
+
+		// Tercera consulta:
+		$sql3="SELECT * FROM routecomments WHERE IdRoute = '{$IdRoute}'";
+		$result=mysqli_query($connection,$sql3);
+
+		if($sql3){
+			$jsonTuple3;
+			$x = 0;
+			$json['OPERATIONS'][2]="GET_COMMENTS_FROM_ROUTE";
+			while($reg = mysqli_fetch_array($result)){
+				$jsonTuple3['IdRoute'] = $reg['IdRoute'];
+				$jsonTuple3['Email'] = $reg['Email'];
+				$jsonTuple3['Content'] = $reg['Content'];
+				$jsonTuple3['Date'] = $reg['Date'];
+				$jsonTuple3['Time'] = $reg['Time'];
+
+				$json['GET_COMMENTS_FROM_ROUTE'][$x]=$jsonTuple3;
+				$x++;
+			}
+		}
+
+		$sql4 = "SELECT AVG(Rating) FROM visit WHERE IdRoute IN ('".$IdRoute."')";
+		$result=mysqli_query($connection,$sql4);
+
+		if($sql4){
+			$jsonTuple4;
+			$json['OPERATIONS'][3]="GET_AVERAGE_SCORE_ROUTE";
+			if($reg=mysqli_fetch_array($result)){
+				$jsonTuple4['score']=$reg[0];
+				$json['GET_AVERAGE_SCORE_ROUTE']=$jsonTuple4['score'];
+			}
+		}
+
+		if ($sql1 && $sql2  && $sql3 && $sql4) {
 			mysqli_close($connection);
 			echo json_encode($json);
 		}

@@ -6482,8 +6482,8 @@ html, body {
     background: linear-gradient(white, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)); }
 
     .icono {
-      width: 3%;
-      height: 60%;
+      width: 36px;
+      height: 36px;
       float: right;
       margin:5px;
     }
@@ -6496,8 +6496,8 @@ html, body {
     }
 
     .icono3 {
-      width:2.3%;
-      height:100%;
+      width:36px;
+      height:36px;
       float: right;
       margin-top: 0.3%;
       margin-right: 1%;

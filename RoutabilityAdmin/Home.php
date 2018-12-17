@@ -46,7 +46,7 @@
         <div class="col-md-7">
           <h1 class="display-3">Routability: Granada</h1>
         </div>
-        <div class="col-md-2"><a class="btn btn-light w-100 p-2 align-items-center icon-enter" href="index.php" onClick="cerrarSesion()">&nbsp;Cerrar Sesión</a></div>
+        <div class="col-md-2"><a class="btn btn-light w-100 p-2 align-items-center icon-enter" href="index.php" onClick="cerrarSesion()" style="min-width: 200px;">&nbsp;Cerrar Sesión</a></div>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <?php
 
 $MESSAGE = "";
+$imagenDescripcion = "";
 
 session_start();
 
@@ -30,9 +31,10 @@ if(isset($_POST["aniadir"])){
          $nombre=$_POST['nombre'];
          $descripcion=$_POST['descripcion'];
          $imagen=$_POST['imagen'];
+         $imagenDesc=$_POST['imagenDescripcion'];
          $email = $_SESSION['EMAIL'];
 
-        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen')"))){
+        if(!($QUERY = mysqli_query($conexion, "INSERT INTO `route`(`IdRoute`, `Email`, `MadeBy`, `Name`, `Description`, `Image`, `ImageDescription`) VALUES (null, '$email', null, '$nombre', '$descripcion', '$imagen', '$imagenDesc')"))){
 
             echo "Fallo del query de rutas";
             exit();
@@ -207,7 +209,15 @@ $consultaLugares = "SELECT * FROM place where";
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <h4><b>Descripción de la ruta:</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción de la ruta..." maxlength="10000" rows="10" cols="56" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                                <h4><b>Descripción de la ruta:</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción de la ruta..." maxlength="10000" rows="10" cols="56" style="width:100%; height: 50%;" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><b>Descripción de la imagen</b></h4>
+                                        <textarea required value="" name="imagenDescripcion" placeholder="Escribe la descripción de la imagen..." maxlength="10000" rows="10" cols="56" style="width:100%; height: 50%;" onFocus="if(this.value=='imagenDescripcion')this.value='' "></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -6,18 +6,18 @@ $database="bdr";
 $username="luis";
 $password="12345";
 $json=array();
-	if(isset($_GET["IdPlace"]) && isset($_GET["Email"])){
-		$IdPlace =$_GET['IdPlace'];
+	if(isset($_GET["IdRoute"]) && isset($_GET["Email"])){
+		$IdRoute =$_GET['IdRoute'];
 		$Email = $_GET['Email'];
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "INSERT INTO favoriteplaces (IdPlace, Email) VALUES ('{$IdPlace}', '{$Email}')";
+		$sql = "DELETE FROM favoriteroutes WHERE IdRoute = '{$IdROute}' AND Email = '{$Email}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
 			echo mysqli_error($connection);
-			$json['OPERATIONS'][0]="ADD_FAVORITE_PLACE";
+			$json['OPERATIONS'][0]="REMOVE_FAVORITE_ROUTE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}

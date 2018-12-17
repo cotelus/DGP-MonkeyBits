@@ -71,7 +71,8 @@
                     $id = $rutas["IdRoute"];
                     $nombre = $rutas["Name"];
                     $desc = $rutas["Description"];
-                    $img = $rutas["Image"]; 
+                    $img = $rutas["Image"];
+                    $imgdesc = $rutas["ImageDescription"];
                     
                     $movilidad=1;
                     $vision=1;
@@ -91,7 +92,7 @@
                         
                     echo '<div class="list-group-item list-group-item-action miembro-lista">';
                     echo '<h4><u><b>'.$nombre.'</b></u></h4>'; 
-                    echo '<img class="foto" title="foto de '.$nombre.'" alt="foto de '.$nombre.'" src="'.$img.'">';
+                    echo '<img class="foto" title="foto de '.$nombre.' Descripción:'.$imgdesc.'" alt="Foto de '.$nombre.'" src="'.$img.'">';
                     echo '<p><b>Descripción:</b><br><br>'.$desc.'</p>';
                     echo '<p><b>Accesibilidad:</b>
                     <br><br>';
@@ -165,7 +166,8 @@
                     <div class="py-2">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="viewRoutes.php" class="btn btn-light icon-map">&nbsp;Volver a vista de rutas</a>
+                                <?php echo"<a class='btn btn btn-primary btn-light icon-pencil' href='editRoutes.php?id=".$id."'>&nbspEditar</a>";?>
+                                <a href="viewRoutes.php" class="btn btn-light icon-map">&nbsp;Volver a lista de rutas</a>
                             </div>
                         </div>
                     </div>

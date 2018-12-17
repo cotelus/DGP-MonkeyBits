@@ -70,14 +70,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_rt_info_rating"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ratingPlace"
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="rating"
+                android:text= "@string/notrating"
                 android:textSize="18sp" />
 
             <TextView
@@ -93,6 +93,7 @@
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/descriptionAccesibilityPl"
                 android:text="accessibility"
                 android:textSize="18sp" />
 
@@ -108,7 +109,7 @@
                 android:id="@+id/list_comments"
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/myComments"
@@ -124,20 +125,20 @@
                 android:id="@+id/writeComments"
                 android:layout_width="match_parent"
                 style="@style/CustomTheme"
-                android:labelFor="@+id/UserName"
+                android:labelFor="@+id/MyComment"
                 android:accessibilityLiveRegion="polite"
                 android:hint="@string/write_comment"
                 app:errorEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/UserName"
+                    android:id="@+id/myComment"
                     style="@style/CustomTheme"
                     android:layout_width="match_parent"
                     android:inputType="textPersonName|textCapSentences|textAutoCorrect" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/sendComment"
+                android:id="@+id/sendCommentPlace"
                 style="@style/CustomTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

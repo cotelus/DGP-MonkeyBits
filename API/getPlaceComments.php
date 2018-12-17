@@ -11,17 +11,24 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}'";
+		$sql = "SELECT placecomments.IdPlace, placecomments.Email, placecomments.Content, placecomments.Date, placecomments.Time, placecomments.Reported, user.Name FROM placecomments, user WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 and placecomments.Email = user.Email order by placecomments.Date, placecomments.Time asc";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
 			$x = 0;
+			$json['OPERATIONS'][0] = "GET_PLACE_COMMENTS";
 			while($reg = mysqli_fetch_array($result)){
-				$json['data'][$x]=$reg;
+				$jsonTuple['IdPlace'] = $reg['IdPlace'];
+				$jsonTuple['Email'] = $reg['Email'];
+				$jsonTuple['Content'] = $reg['Content'];
+				$jsonTuple['Date'] = $reg['Date'];
+				$jsonTuple['Time'] = $reg['Time'];
+				$jsonTuple['Reported'] = $reg['Reported'];
+
+				$json['GET_PLACE_COMMENTS'][$x]=$jsonTuple;
 				$x++;
 			}
 			
-			$json['OPERATION']="GET_ROUTE_COMMENTS";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}

@@ -31,25 +31,29 @@
   $consultaUsuarios = "SELECT * from user where";
 
   if (isset($_POST['filtro-bloq-nobloq'])) {
-    if ($_POST['filtro-bloq-nobloq']=='Ambos') {
+    if ($_POST['filtro-bloq-nobloq']=='Cualquiera') {
       $consultaUsuarios .= " Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);
+      $busqueda = "Cualquiera";
     }
     else if ($_POST['filtro-bloq-nobloq']=='Bloqueados') {
       $consultaUsuarios .= " Banned='1' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);
+      $busqueda = "Bloqueados";
     }
     else if ($_POST['filtro-bloq-nobloq']=='Desbloqueados') {
       $consultaUsuarios .= " Banned='0' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);
+      $busqueda = "Desbloqueados";
     }
     else if ($_POST['filtro-bloq-nobloq'] == 'Denunciados') {
       $consultaUsuarios .= " Reported='1' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);
+      $busqueda = "Denunciados";
     }
   }
   else {
@@ -76,25 +80,35 @@
 
 </head>
 
-<body class="bg-primario">
+<body class="bg-primario" style="min-width: 600px;">
   <div class="py-2" style="">
       <div class="container py-3 px-3">
         <div class="row">
           <form action="" method="post" name="search_form" id="search_form" class="col-md-12">
             <div class="container">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form">
                       <input type="text" placeholder="Buscar usuario..." name="search" id="search">
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="form" style="background-color: white; padding:5px; height:50px; padding-top:12px;">
+                <div class="col-md-8">
+                  <div class="form" style="background-color: white; padding:5px; padding-top:12px; padding-bottom: 12px;">
                       <select style="margin-left: 3%;" name="filtro-bloq-nobloq" name="filtro-bloq-nobloq">
-                        <option>Cualquiera</option>
-                        <option>Bloqueados</option>
-                        <option>Desbloqueados</option>
-                        <option>Denunciados</option>
+
+                         <?php 
+                        if($busqueda == "Cualquiera"){ echo"<option selected>Cualquiera</option>";}
+                          else{ echo"<option>Cualquiera</option>";}
+                          
+                          if($busqueda == "Bloqueados"){ echo"<option selected>Bloqueados</option>";}
+                          else{ echo"<option>Bloqueados</option>";}
+                          
+                          if($busqueda == "Desbloqueados"){ echo"<option selected>Desbloqueados</option>";}
+                          else{ echo"<option>Desbloqueados</option>";}
+                          
+                          if($busqueda == "Denunciados"){ echo"<option selected>Denunciados</option>";}
+                          else{ echo"<option>Denunciados</option>";}
+                          ?>
                       </select>
                       <input type="submit" id="aplicar-cambios" name="aplicar-cambios" value="Buscar" style="margin-right: 4%; float:right;">
                   </div>

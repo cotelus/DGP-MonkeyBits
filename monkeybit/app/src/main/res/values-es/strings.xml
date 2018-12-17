@@ -81,6 +81,8 @@
     <string name="report">Denunciar Comentario</string>
 
     <!-- Rating -->
+    <string name="descriptionRatingRt">Valoración de la ruta</string>
+    <string name="descriptionRatingPl">Valoración del lugar</string>
     <string name="notrating">No hay actualmente valoraciones</string>
 
     <!-- Favorites -->
@@ -88,6 +90,8 @@
     <string name="added_favorites">Este lugar se ha añadido a favoritos</string>
 
     <!-- Accesibility-->
+    <string name="descriptionAccesibilityRt">Descripción de la accesibilidad de la ruta</string>
+    <string name="descriptionAccesibilityPl">Descripción de la accesibilidad del lugar</string>
     <string name="introduction">Este lugar cuenta con elementos de accesibilidad para </string>
     <string name="notintroduction">Este lugar no tiene elementos accesibles para las personas con discapacidad. </string>
     <string name="red_mobility">personas con movilidad reducida </string>
@@ -105,5 +109,16 @@
     <string name="id_bd_test">test</string>
     <string name = "errorListRoute"> An unexpected error happened.I can`t connect to database</string>
     <string name="place_suggested">Lugar sugerido correctamente.</string>
+    <string name="title_place">Titulo del lugar</string>
+    <string name="description_place">descripción del lugar</string>
+    <string name="image_link">URL de la imagen</string>
+    <string name="accesibility_red_movility">Movilidad reducida</string>
+    <string name="accesibility_red_vision">Visión reducida</string>
+    <string name="accesibility_colour_blind">Daltónico</string>
+    <string name="accesibility_deaf">Sordo</string>
+    <string name="accesibility_foreigner">Idiomas</string>
+    <string name="previous_page">Página anterior</string>
+    <string name="next_page">Página siguiente</string>
+    <string name="comment_sent">Página siguiente</string>
     <string name="suggest_route">Sugerir Ruta</string>
 </resources>

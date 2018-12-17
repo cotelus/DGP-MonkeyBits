@@ -12,12 +12,12 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "INSERT INTO favoriteplaces (IdPlace, Email) VALUES ('{$IdPlace}', '{$Email}')";
+		$sql = "DELETE FROM favoriteplaces WHERE IdPlace = '{$IdPlace}' AND Email = '{$Email}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
 			echo mysqli_error($connection);
-			$json['OPERATIONS'][0]="ADD_FAVORITE_PLACE";
+			$json['OPERATIONS'][0]="REMOVE_FAVORITE_PLACE";
 			mysqli_close($connection);
 			echo json_encode($json);
 		}

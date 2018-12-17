@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/list_rt"
+        android:id="@+id/listPlace"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>
