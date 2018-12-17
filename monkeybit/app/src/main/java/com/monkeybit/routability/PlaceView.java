@@ -127,8 +127,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
     public void  initializedAdapter(){
 
         if(comments.size() >=4){
-           RecyclerView recyclerView = view.findViewById(R.id.list_comments);
-           recyclerView.getLayoutParams().height = 1300;
+            listComments.getLayoutParams().height = 1300;
         }
         adapter = new CommentsAdapter(comments);
         listComments.setAdapter(adapter);

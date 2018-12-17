@@ -105,66 +105,38 @@
                     android:inputType="textMultiLine|textCapSentences|textAutoCorrect" />
             </android.support.design.widget.TextInputLayout>
 
-            <Switch
-                android:id="@+id/redMovility"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:checked="true"
-                android:text="Switch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description_text_input_layout"
-                tools:checked="true" />
+            <TextView
+                style="@style/CustomTheme"
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Añadidos" />
 
-            <Switch
-                android:id="@+id/redVision"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:checked="true"
-                android:text="Switch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/redMovility"
-                tools:checked="true" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/added_places"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/post_rt_scroll"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <Switch
-                android:id="@+id/colourBlind"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:checked="true"
-                android:text="Switch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/redVision"
-                tools:checked="true" />
+            <TextView
+                style="@style/CustomTheme"
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Disponibles" />
 
-            <Switch
-                android:id="@+id/deaf"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:checked="true"
-                android:text="Switch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/colourBlind"
-                tools:checked="true" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/available_places"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <Switch
-                android:id="@+id/foreigner"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:checked="true"
-                android:text="Switch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/deaf"
-                tools:checked="true" />
         </LinearLayout>
     </ScrollView>
-
 </android.support.constraint.ConstraintLayout>
