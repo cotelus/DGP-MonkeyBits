@@ -19,7 +19,7 @@ import java.net.URLEncoder;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "172.20.57.52";
+    private static final String serverIP =  "192.168.1.25";
     private static final String folderName =  "API";
 
     private DBConnect() {}

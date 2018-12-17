@@ -31,7 +31,6 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     View view;
     private TextInputEditText newName;
     private TextInputEditText newDescription;
-    private TextInputEditText newLocalization;
     private TextInputEditText newImage;
 
     @Nullable
@@ -41,7 +40,6 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
 
         newName = (TextInputEditText) view.findViewById(R.id.new_name);
         newDescription = (TextInputEditText) view.findViewById(R.id.description);
-        newLocalization = (TextInputEditText) view.findViewById(R.id.localization);
         newImage = (TextInputEditText) view .findViewById(R.id.image);
 
         suggestButton = view.findViewById(R.id.suggestButton);
@@ -66,7 +64,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         availablePlaces.setLayoutManager(lim2);
 
-        DBConnect.getPlaces(getContext(), this, 0);
+        DBConnect.getPlaces(getContext(), this, 1);
 
         this.initializePlaceAdapter(arrayAddedPlaces, addedPlaces);
         this.initializePlaceAdapter(arrayAvailablePlaces,availablePlaces);
@@ -92,31 +90,12 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
                 }
                 Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            //Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
-            // DEBUG
-            RouteToSuggest newRoute = new RouteToSuggest("test@gmail.com", "Test", "Test", "Test");
-            JSONArray tmp = new JSONArray();
-            JSONObject tmp2 = new JSONObject();
-            try {
-                tmp2.put("IdPlace", "1");
-                tmp2.put("Sequence", "1");
-                tmp.put(tmp2);
-                JSONObject tmp3 = new JSONObject();
-                tmp3.put("IdPlace", "2");
-                tmp3.put("Sequence", "2");
-                tmp.put(tmp3);
-                DBConnect.suggestRoute(getContext(), this, newRoute.toJson(), tmp);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(getActivity(), "Json a enviar: " + tmp, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "Error al sugerir lugar: "+ error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Error al sugerir ruta: "+ error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

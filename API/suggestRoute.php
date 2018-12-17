@@ -14,20 +14,19 @@ $places=array();
 		$Description = $_GET['Description'];
 		$Image = $_GET['Image'];
 		$places = json_decode($_GET["Places"]);
-		$routeId = -1;
-
+		$routeId = 0;
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
+
+		$json['OPERATIONS'][0] = "SUGGEST_ROUTE";
 		
 		$sql = "INSERT INTO suggestedroute (IdRoute, MadeBy, Name, Description, Image) VALUES (NULL, '{$MadeBy}', '{$Name}', '{$Description}', '{$Image}')";
 		$result=mysqli_query($connection,$sql);
-
-		$json['OPERATIONS'][0] = "SUGGEST_ROUTE";
-	
-		if (&sql) {
+		echo mysqli_error($connection);
+		if ($sql) {
 			$sql2 = "SELECT LAST_INSERT_ID()";
 			$result = mysqli_query($connection,$sql2);
-			
+			echo mysqli_error($connection);
 			if ($sql2) {
 				if ($reg=mysqli_fetch_array($result)) {
 					$routeId = $reg['LAST_INSERT_ID()'];
@@ -36,25 +35,25 @@ $places=array();
 			}
 		}
 
-		if ($routeId != -1) {
+		if ($routeId != 0) {
 			$stringTuples = "";
-			$count = 0;
 			foreach($places as $place) {
-				$idPlace = $place['IdPlace'];
-				$sequence = $place['Sequence'];
-				$stringTuples += " ('{$routeId}','{$idPlace}','{$sequence}'),"
+				$idPlace = $place->IdPlace;
+				$sequence = $place->Sequence;
+				$stringTuples .= " ('{$idPlace}','{$routeId}','{$sequence}'),";
 			}
 			$stringTuples = trim($stringTuples, ',');
 			
-			$sql3 = "INSERT INTO suggestedroute (IdRoute, MadeBy, Name, Description, Image) VALUES " + $stringTuples;
-			echo $sql3;
+			$sql3 = "INSERT INTO appearsuggested (IdPlace, IdRoute, Sequence) VALUES " . $stringTuples;
 			$result=mysqli_query($connection,$sql3);
 
-			if($sql && sql2 && $sql3){
+			if($sql && $sql2 && $sql3){
 				echo mysqli_error($connection);
 				mysqli_close($connection);
 				echo json_encode($json);
 			}
+		} else {
+			echo "ERROR";
 		}
 	}
 ?>
