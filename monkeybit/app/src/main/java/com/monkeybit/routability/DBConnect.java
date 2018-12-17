@@ -14,10 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public final class DBConnect {
 
-    private static final String serverIP =  "172.20.72.158";
-    private static final String folderName =  "RoutabilityAdmin";
+    private static final String serverIP =  "172.20.57.52";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
 
@@ -109,7 +112,12 @@ public final class DBConnect {
         suggestedRouteUrl += "&Name=" + suggestedRoute.getString("Name");
         suggestedRouteUrl += "&Description=" + suggestedRoute.getString("Description");
         suggestedRouteUrl += "&Image=" + suggestedRoute.getString("Image");
-        suggestedRouteUrl += "&Places=" + places;
+        try {
+            suggestedRouteUrl += "&Places=" + URLEncoder.encode(places.toString(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            Log.d("ERROR", e.toString());
+        }
         String url = "http://" + serverIP + "/" + folderName + "/suggestRoute.php?" + suggestedRouteUrl;
         addTuple(context, responseListener, url);
     }

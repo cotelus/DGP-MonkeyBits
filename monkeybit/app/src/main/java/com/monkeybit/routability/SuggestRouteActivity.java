@@ -93,8 +93,24 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
                 Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast toast = Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT);
-            toast.show();
+            //Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
+            // DEBUG
+            RouteToSuggest newRoute = new RouteToSuggest("test@gmail.com", "Test", "Test", "Test");
+            JSONArray tmp = new JSONArray();
+            JSONObject tmp2 = new JSONObject();
+            try {
+                tmp2.put("IdPlace", "1");
+                tmp2.put("Sequence", "1");
+                tmp.put(tmp2);
+                JSONObject tmp3 = new JSONObject();
+                tmp3.put("IdPlace", "2");
+                tmp3.put("Sequence", "2");
+                tmp.put(tmp3);
+                DBConnect.suggestRoute(getContext(), this, newRoute.toJson(), tmp);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(getActivity(), "Json a enviar: " + tmp, Toast.LENGTH_SHORT).show();
         }
     }
 
