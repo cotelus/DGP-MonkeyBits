@@ -121,4 +121,8 @@
     <string name="next_page">Página siguiente</string>
     <string name="comment_sent">Página siguiente</string>
     <string name="suggest_route">Sugerir Ruta</string>
+    <string name="added_places_text">Lugares añadidos</string>
+    <string name="available_places_text">Lugares Disponibles</string>
+    <string name="who_can_access">Selecciona para quién es apto el lugar</string>
+    <string name="suggested_route">Ruta sugerida correctamente</string>
 </resources>

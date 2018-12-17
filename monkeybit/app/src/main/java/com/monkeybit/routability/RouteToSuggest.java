@@ -2,6 +2,7 @@ package com.monkeybit.routability;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,18 +16,17 @@ public class RouteToSuggest extends Route {
     }
 
     public RouteToSuggest(JSONObject jsonRoute) {
-        //@TODO añadir imagen
         if (isValidJson(jsonRoute)) {
             this.setMadeBy(jsonRoute.optString("MadeBy"));
             this.setName(jsonRoute.optString("Name"));
             this.setDescription(jsonRoute.optString("Description"));
+            this.setDescription(jsonRoute.optString("Imagen"));
         }
     }
 
     public static boolean isValidJson(JSONObject jsonRoute) {
-        //@TODO añadir imagen
         return jsonRoute.has("MadeBy") && jsonRoute.has("Name")
-                && jsonRoute.has("Description");
+                && jsonRoute.has("Description") && jsonRoute.has("Image");
     }
 
     public JSONObject toJson() {
@@ -36,10 +36,27 @@ public class RouteToSuggest extends Route {
             jsonRoute.put("MadeBy", this.getMadeBy());
             jsonRoute.put("Name", this.getName());
             jsonRoute.put("Description", this.getDescription());
+            jsonRoute.put("Image", this.getImage());
         } catch (JSONException e) {
             Log.d("DEBUG", "Error al pasar un objeto RouteToSuggest a JSON");
             e.printStackTrace();
         }
         return jsonRoute;
+    }
+
+    public JSONArray getPlacesInJson() {
+        JSONArray jsonPlaces = new JSONArray();
+        JSONObject jsonPlace = new JSONObject();
+        try {
+            for (Place place : places) {
+                jsonPlace.put("IdPlace", place);
+                jsonPlace.put("Sequence", places.indexOf(place));
+                jsonPlaces.put(place);
+            }
+        } catch (JSONException e) {
+            Log.d("DEBUG", "Error al pasar la lista de lugares de la ruta a JSON");
+            e.printStackTrace();
+        }
+        return jsonPlaces;
     }
 }

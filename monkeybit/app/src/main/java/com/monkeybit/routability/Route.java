@@ -12,7 +12,7 @@ public class Route {
 
     private String idRoute, email;
     protected String madeBy, name, description, image;
-    protected ArrayList<String> places = new ArrayList<>();
+    protected ArrayList<Place> places = new ArrayList<>();
 
 
     public Route() {}
@@ -84,14 +84,14 @@ public class Route {
         JSONArray jsonPlaces = new JSONArray();
         JSONObject jsonPlace = new JSONObject();
         try {
-            for (String place : places) {
-                jsonPlace.put("IdPlace", place);
-                jsonPlace.put("IdRoute", "PROBLEMA"); // @TODO como solucionar problema del ID
+            for (Place place : places) {
+                jsonPlace.put("IdPlace", place.getIdPlace());
+                jsonPlace.put("IdRoute", idRoute);
                 jsonPlace.put("Sequence", places.indexOf(place));
-                jsonPlaces.put(place);
+                jsonPlaces.put(jsonPlace);
             }
         } catch (JSONException e) {
-            Log.d("DEBUG", "Error al pasar un objeto Route a JSON");
+            Log.d("DEBUG", "Error al pasar la lista de lugares de la ruta a JSON");
             e.printStackTrace();
         }
         return jsonPlaces;
@@ -145,19 +145,19 @@ public class Route {
         this.image = image;
     }
 
-    public ArrayList<String> getPlaces() {
+    public ArrayList<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(ArrayList<String> places) {
+    public void setPlaces(ArrayList<Place> places) {
         this.places = places;
     }
 
-    public void addPlace(String newPlace) {
+    public void addPlace(Place newPlace) {
         places.add(newPlace);
     }
 
-    public void removePlace(String place) {
+    public void removePlace(Place place) {
         places.remove(place);
     }
 }

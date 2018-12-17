@@ -123,4 +123,8 @@
     <string name="previous_page">Previous page</string>
     <string name="next_page">Next page</string>
     <string name="comment_sent">Página siguiente</string>
+    <string name="added_places_text">Added Places</string>
+    <string name="available_places_text">Available Places</string>
+    <string name="who_can_access">Select who can access this place</string>
+    <string name="suggested_route">Route successfully suggested</string>
 </resources>

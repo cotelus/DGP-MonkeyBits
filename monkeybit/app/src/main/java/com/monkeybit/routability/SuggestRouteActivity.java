@@ -3,16 +3,13 @@ package com.monkeybit.routability;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.style.LineHeightSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -32,11 +29,20 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     ArrayList<Place> arrayAddedPlaces = new ArrayList<>();
     ArrayList<Place> arrayAvailablePlaces = new ArrayList<>();
     View view;
+    private TextInputEditText newName;
+    private TextInputEditText newDescription;
+    private TextInputEditText newLocalization;
+    private TextInputEditText newImage;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_suggest_route, container, false);
+
+        newName = (TextInputEditText) view.findViewById(R.id.new_name);
+        newDescription = (TextInputEditText) view.findViewById(R.id.description);
+        newLocalization = (TextInputEditText) view.findViewById(R.id.localization);
+        newImage = (TextInputEditText) view .findViewById(R.id.image);
 
         suggestButton = view.findViewById(R.id.suggestButton);
         suggestButton.setOnClickListener(new View.OnClickListener()
@@ -69,7 +75,27 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     }
 
     protected void OnSuggest(android.view.View view) {
+        String name = newName.getText().toString();
+        String description = newDescription.getText().toString();
+        String image = newImage.getText().toString();
 
+        if (!(name.isEmpty() || description.isEmpty() || image.isEmpty() || arrayAddedPlaces.isEmpty())) {
+            String userId = ((MainActivity) getActivity()).getUserEmail();
+            if (userId != null) {
+                RouteToSuggest newRoute = new RouteToSuggest(userId, name, description, image);
+                newRoute.setPlaces(arrayAddedPlaces);
+                Toast.makeText(getActivity(), "Json a enviar: " + newRoute.toJson() + "\n" + newRoute.getPlacesInJson(), Toast.LENGTH_SHORT).show();
+                try {
+                    DBConnect.suggestRoute(getContext(), this, newRoute.toJson(), newRoute.getPlacesInJson());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast toast = Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override
@@ -80,16 +106,30 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     @Override
     public void onResponse(JSONObject response) {
         try {
+            if (response.has("SUGGEST_ROUTE")) {
+                Toast.makeText(getContext(), getString(R.string.suggested_route), Toast.LENGTH_SHORT).show();
+            }
             if (response.has("GET_PLACES")) {
                 JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
-                for (int i = 0; i < operationResult.length(); i++) {
+                /*for (int i = 0; i < operationResult.length(); i++) {
                     Place place = new Place(operationResult.getJSONObject(i));
                     arrayAvailablePlaces.add(place);
-                }
+                }*/
+                this.fillAvailablePlaced(operationResult);
                 this.initializePlaceAdapter(arrayAvailablePlaces, availablePlaces);
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void fillAvailablePlaced(JSONArray places) throws JSONException {
+        for (int i = 0; i < places.length(); i++) {
+            Place place = new Place(places.getJSONObject(i));
+            // Para no añadir aquellos que ya están en la lista de añadidos (al modificar ruta existente)
+            if (!arrayAddedPlaces.contains(place)) {
+                arrayAvailablePlaces.add(place);
+            }
         }
     }
 

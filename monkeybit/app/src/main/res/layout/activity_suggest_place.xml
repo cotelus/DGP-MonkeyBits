@@ -124,6 +124,13 @@
                     android:inputType="textCapSentences|textAutoCorrect" />
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                style="@style/CustomTheme"
+                android:id="@+id/accesibility_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/who_can_access" />
+
             <Switch
                 android:id="@+id/redMovility"
                 android:layout_width="wrap_content"
@@ -133,7 +140,7 @@
                 android:checked="true"
                 android:text="@string/accesibility_red_movility"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description_text_input_layout"
+                app:layout_constraintTop_toBottomOf="@+id/accesibility_instruction"
                 tools:checked="true" />
 
             <Switch
