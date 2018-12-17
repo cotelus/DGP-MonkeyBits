@@ -6,14 +6,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlacesViewHolder> {
+public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlacesViewHolder> implements View.OnClickListener{
 
     private List<Place> places;
+    private View.OnClickListener listener;
 
     public PlaceAdapter(List<Place> places) {
         this.places = places;
@@ -27,6 +31,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlacesViewHo
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_place,null,false);
 
+        view.setOnClickListener(this);
+
         return new PlacesViewHolder(view);
     }
 
@@ -36,7 +42,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlacesViewHo
         Place place = this.places.get(posicion);
         placesViewHolder.name.setText(place.getName());
         placesViewHolder.description.setText(place.getDescription());
-        placesViewHolder.image.setText(place.getImage());
+        Picasso.get().load(place.getImage()).into(placesViewHolder.image);
     }
 
     @Override
@@ -44,24 +50,28 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlacesViewHo
         return places.size();
     }
 
-    public class PlacesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (listener != null){
+            listener.onClick(view);
+        }
+    }
+
+    public class PlacesViewHolder extends RecyclerView.ViewHolder{
         private TextView name;
         private TextView description;
-        private TextView image;
+        private ImageView image;
 
         public PlacesViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tittlePlace);
             description = itemView.findViewById(R.id.descriptionPlace);
             image = itemView.findViewById(R.id.imgPlacee);
-        }
-
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition(); // gets item position
-            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Log.d("DEBUG:", "Pulsado elemento " + position);
-            }
         }
     }
 }

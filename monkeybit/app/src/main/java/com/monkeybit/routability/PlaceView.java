@@ -88,7 +88,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         listComments.setLayoutManager(lim);
 
         dataComments();
-        //initializedAdapter();
+        initializedAdapter();
 
         DBConnect.getPlace(getContext(),this,idPlace);
 

@@ -159,7 +159,7 @@ public class UserProfileActivity extends Fragment implements AlertDialogResponse
     }
 
     protected void OnSuggestRoute(android.view.View view) {
-        ((MainActivity)getActivity()).LoadNewFragment(new SuggestPlaceActivity());
+        ((MainActivity)getActivity()).LoadNewFragment(new SuggestRouteActivity());
     }
 
 

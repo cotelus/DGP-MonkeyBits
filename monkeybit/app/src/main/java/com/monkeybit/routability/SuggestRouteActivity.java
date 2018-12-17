@@ -1,20 +1,19 @@
 package com.monkeybit.routability;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.style.LineHeightSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -37,7 +36,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_suggest_place, container, false);
+        view = inflater.inflate(R.layout.activity_suggest_route, container, false);
 
         suggestButton = view.findViewById(R.id.suggestButton);
         suggestButton.setOnClickListener(new View.OnClickListener()
@@ -51,8 +50,10 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
 
         addedPlaces = view.findViewById(R.id.added_places);
         LinearLayoutManager lim = new LinearLayoutManager(getContext());
-        lim.setOrientation(LinearLayoutManager.VERTICAL);
-        addedPlaces.setLayoutManager(lim);
+        if(lim != null) {
+            lim.setOrientation(LinearLayoutManager.VERTICAL);
+            addedPlaces.setLayoutManager(lim);
+        }
 
         availablePlaces = view.findViewById(R.id.available_places);
         LinearLayoutManager lim2 = new LinearLayoutManager(getContext());
@@ -60,6 +61,9 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         availablePlaces.setLayoutManager(lim2);
 
         DBConnect.getPlaces(getContext(), this, 0);
+
+        this.initializePlaceAdapter(arrayAddedPlaces, addedPlaces);
+        this.initializePlaceAdapter(arrayAvailablePlaces,availablePlaces);
 
         return view;
     }
@@ -75,7 +79,6 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
 
     @Override
     public void onResponse(JSONObject response) {
-        Toast.makeText(getContext(), getString(R.string.place_suggested), Toast.LENGTH_SHORT).show();
         try {
             if (response.has("GET_PLACES")) {
                 JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
@@ -90,11 +93,32 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         }
     }
 
-    public void  initializePlaceAdapter(ArrayList<Place> places, RecyclerView placeView){
+    public void  initializePlaceAdapter(ArrayList<Place> places, final RecyclerView placeView){
         if(places.size() >=4){
             placeView.getLayoutParams().height = 1300;
         }
-        PlaceAdapter adapter = new PlaceAdapter(places);
+        else if(places.size() < 4){
+            placeView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT; ///Se coge el wrap content para ajustar el tamaño
+        }
+        final PlaceAdapter adapter = new PlaceAdapter(places);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = placeView.getChildAdapterPosition(v); // gets item position
+                if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                    if(placeView == addedPlaces){
+                        arrayAvailablePlaces.add(arrayAddedPlaces.get(position));
+                        arrayAddedPlaces.remove(position);
+                    }
+                    else if(placeView == availablePlaces){
+                        arrayAddedPlaces.add(arrayAvailablePlaces.get(position));
+                        arrayAvailablePlaces.remove(position);
+                    }
+                    initializePlaceAdapter(arrayAddedPlaces, addedPlaces);
+                    initializePlaceAdapter(arrayAvailablePlaces,availablePlaces);
+                }
+            }
+        });
         placeView.setAdapter(adapter);
     }
 }

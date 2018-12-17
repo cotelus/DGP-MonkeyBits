@@ -106,7 +106,6 @@
     <string name="title_boton">Check</string>
     <string name="login">CHECK ROUTE</string>
     <string name="id_bd_test">test</string>
-    <string name = "errorListRoute">Error al buscar en la base de datos</string>
     <string name="title_place">Title of the place</string>
     <string name="description_place">description of the place</string>
 
