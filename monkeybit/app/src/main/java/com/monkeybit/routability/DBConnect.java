@@ -10,13 +10,17 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public final class DBConnect {
 
-    private static final String serverIP =  "172.20.72.158";
-    private static final String folderName =  "RoutabilityAdmin";
+    private static final String serverIP =  "172.20.57.52";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
 
@@ -99,6 +103,22 @@ public final class DBConnect {
 
     public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
         String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void suggestRoute(Context context, DBConnectInterface responseListener, JSONObject suggestedRoute, JSONArray places) throws JSONException {
+        String suggestedRouteUrl = "";
+        suggestedRouteUrl += "MadeBy=" + suggestedRoute.getString("MadeBy");
+        suggestedRouteUrl += "&Name=" + suggestedRoute.getString("Name");
+        suggestedRouteUrl += "&Description=" + suggestedRoute.getString("Description");
+        suggestedRouteUrl += "&Image=" + suggestedRoute.getString("Image");
+        try {
+            suggestedRouteUrl += "&Places=" + URLEncoder.encode(places.toString(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            Log.d("ERROR", e.toString());
+        }
+        String url = "http://" + serverIP + "/" + folderName + "/suggestRoute.php?" + suggestedRouteUrl;
         addTuple(context, responseListener, url);
     }
 

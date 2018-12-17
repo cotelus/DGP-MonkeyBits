@@ -36,32 +36,30 @@ $json=array();
 				$jsonTuple1['ColourBlind'] = $reg['ColourBlind'];
 				$jsonTuple1['Deaf'] = $reg['Deaf'];
 				$jsonTuple1['Foreigner'] = $reg['Foreigner'];
-
 				$json['GET_PLACE'] = $jsonTuple1;
 			}
 		}
+		echo json_encode($json, JSON_UNESCAPED_UNICODE);
 
-		$sql2 = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}' and Reported = 0";
+		$sql2 = "SELECT * FROM placecomments LEFT JOIN user ON placecomments.Email = user.Email WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 order by placecomments.Date, placecomments.Time asc";
 		$result=mysqli_query($connection,$sql2);
 
 		if($sql2){
 			echo mysqli_error($connection);
-			$jsonTuple2;
 			$x = 0;
-			$json['OPERATIONS'][1]="GET_COMMENTS_FROM_PLACE";
+			$json['OPERATIONS'][1] = "GET_PLACE_COMMENTS";
 			while($reg = mysqli_fetch_array($result)){
 				$jsonTuple2['IdPlace'] = $reg['IdPlace'];
-				$jsonTuple2['Email'] = $reg['Email'];
+				$jsonTuple2['Name'] = $reg['Name'];
 				$jsonTuple2['Content'] = $reg['Content'];
 				$jsonTuple2['Date'] = $reg['Date'];
 				$jsonTuple2['Time'] = $reg['Time'];
 
-				//echo json_encode($jsonTuple2, JSON_UNESCAPED_UNICODE);
-
-				$json['GET_COMMENTS_FROM_PLACE'][$x]=$jsonTuple2;
+				$json['GET_PLACE_COMMENTS'][$x]=$jsonTuple2;
 				$x++;
 			}
 		}
+
 
 		$sql3 = "SELECT AVG(Rating) FROM visit WHERE IdPlace IN ('".$IdPlace."')";
 		$result=mysqli_query($connection,$sql3);
