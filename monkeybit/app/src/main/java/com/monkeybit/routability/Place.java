@@ -63,7 +63,7 @@ public class Place {
             this.setRedMovility(jsonPlace.optInt("RedMovility") == 1);
             this.setRedVision(jsonPlace.optInt("RedVision") == 1);
             this.setColourBlind(jsonPlace.optInt("ColourBlind") == 1);
-            this.setDeaf(jsonPlace.optInt("Dead") == 1);
+            this.setDeaf(jsonPlace.optInt("Deaf") == 1);
             this.setForeigner(jsonPlace.optInt("Foreigner") == 1);
         }
     }

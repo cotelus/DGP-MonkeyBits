@@ -13,7 +13,7 @@ $json2 = array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql="SELECT * FROM place LIMIT $Start,10";
+		$sql="SELECT * FROM place LIMIT $Start,4";
 		$result=mysqli_query($connection,$sql);
 
 		if (!$connection->set_charset("utf8")) {
