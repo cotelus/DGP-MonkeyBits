@@ -25,18 +25,16 @@ import java.util.ArrayList;
 
 public class ListFavRouteActivity extends Fragment implements DBConnectInterface{
     View view;
-    private int pagCurent;
     private String email;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-        pagCurent = 0;
 
         email = ((MainActivity) getActivity()).getUserEmail();
 
-        DBConnect.getFavoriteRoutes(getContext(),this, email, pagCurent);
+        DBConnect.getFavoriteRoutes(getContext(),this, email);
 
         return view;
     }
@@ -53,7 +51,7 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                 String tittle = json.getString("Name");
                 String description = json.getString("Description");
                 /*String rating = json.getString("");*/
-                String idRoute = json.getString("IdPlace");
+                String idRoute = json.getString("IdRoute");
 
                 list.add(new ListRoute(idImage, tittle,description , idRoute));
 
@@ -62,8 +60,6 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                 e.printStackTrace();
             }
         }
-        pagCurent = pagCurent + 10;
-
         this.Conf_List_Route(list);
     }
 

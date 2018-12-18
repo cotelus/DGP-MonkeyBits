@@ -50,7 +50,7 @@ public class RuteView extends Fragment implements DBConnectInterface{
         email = ((MainActivity) getActivity()).getUserEmail();
         dbInter = this;
         if(email != null) {
-            DBConnect.getFavoriteRoutes(getContext(), this,email, 0);
+            DBConnect.getFavoriteRoutes(getContext(), this,email);
             favButton = view.findViewById(R.id.posRtFav);
             favButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
