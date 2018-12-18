@@ -11,9 +11,25 @@ $json2 = array();
 	if(isset($_GET["Start"])){
 		$Start = $_GET['Start'];
 
-		$connection=mysqli_connect($hostname,$username,$password,$database);
+		$connection=mysqli_connect($hostname,$username,$password,$database); 
+
+		$except = "";
+
+		if (isset($_GET["PlacesException"])) {
+			$placesException = array();
+			$placesException = json_decode($_GET["PlacesException"]);
+			$except = " WHERE ";
+			foreach($placesException as $exception) {
+				$except .= "IdPlace!=" . $exception->IdPlace;
+				$except .= " and ";
+			}
+			$except = trim($except, " and ");
+			//echo $except;
+		}
+
 		
-		$sql="SELECT * FROM place LIMIT $Start,4";
+		
+		$sql="SELECT * FROM place $except LIMIT $Start,4";
 		$result=mysqli_query($connection,$sql);
 
 		if (!$connection->set_charset("utf8")) {
