@@ -15,7 +15,7 @@ $json=array();
 		$result=mysqli_query($connection,$sql1);
 
 		if($sql1){
-			$jsonTuple;
+			$jsonTuple1;
 			$json['OPERATIONS'][0]="GET_PLACE";
 			if($reg = mysqli_fetch_array($result)){
 				$jsonTuple1['IdPlace'] = $reg['IdPlace'];
