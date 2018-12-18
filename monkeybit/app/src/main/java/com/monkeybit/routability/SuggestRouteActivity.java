@@ -33,7 +33,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     ArrayList<Place> arrayAvailablePlaces = new ArrayList<>();
     final PlaceAdapter adapterAddedPlaces = new PlaceAdapter(arrayAddedPlaces);
     final PlaceAdapter adapterAvailablePlaces = new PlaceAdapter(arrayAvailablePlaces);
-    private int currentPageIndex = -1;
+    private int currentPageIndex = -4;
     View view;
     private TextInputEditText newName;
     private TextInputEditText newDescription;

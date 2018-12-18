@@ -194,4 +194,9 @@ public class Place {
     public void setForeigner(boolean foreigner) {
         this.foreigner = foreigner;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getIdPlace().equals(((Place) obj).getIdPlace());
+    }
 }
