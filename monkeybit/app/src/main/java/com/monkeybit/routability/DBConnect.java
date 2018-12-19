@@ -10,19 +10,28 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.27";
-    private static final String folderName =  "API";
+    private static final String serverIP =  "192.168.1.36";
+    private static final String folderName =  "RoutabilityAdmin";
 
     private DBConnect() {}
 
     public static void getPlace(Context context, DBConnectInterface responseListener, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlace.php?IdPlace=" + placeId;
         getTuple(context, responseListener, url);
+    }
+
+    public static void addPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String content){
+        String url = "http://" + serverIP + "/" + folderName + "/addPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Content=" + content;
+        addTuple(context, responseListener, url);
     }
 
     public static void getAverageScorePlace(Context context, DBConnectInterface responseListener, String placeId) {
@@ -44,17 +53,17 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
+        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?Start=" + firstPlaceIndex;
         getTuple(context, responseListener, url);
     }
 
-    public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavoritePlaces.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+    public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail) {
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoritePlaces.php?Email=" + userEmail;
         addTuple(context, responseListener, url);
     }
 
     public static void removeFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/removeFavouritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavoritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
 
@@ -89,8 +98,8 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
-    public static void getFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+    public static void getFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail) {
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail;
         getTuple(context, responseListener, url);
     }
 
@@ -102,6 +111,22 @@ public final class DBConnect {
 
     public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
         String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void suggestRoute(Context context, DBConnectInterface responseListener, JSONObject suggestedRoute, JSONArray places) throws JSONException {
+        String suggestedRouteUrl = "";
+        suggestedRouteUrl += "MadeBy=" + suggestedRoute.getString("MadeBy");
+        suggestedRouteUrl += "&Name=" + suggestedRoute.getString("Name");
+        suggestedRouteUrl += "&Description=" + suggestedRoute.getString("Description");
+        suggestedRouteUrl += "&Image=" + suggestedRoute.getString("Image");
+        try {
+            suggestedRouteUrl += "&Places=" + URLEncoder.encode(places.toString(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            Log.d("ERROR", e.toString());
+        }
+        String url = "http://" + serverIP + "/" + folderName + "/suggestRoute.php?" + suggestedRouteUrl;
         addTuple(context, responseListener, url);
     }
 

@@ -9,15 +9,15 @@ $password="12345";
 $json=array();
 	if(isset($_GET["IdPlace"])){
 		$IdPlace=$_GET['IdPlace'];
-		$connection=mysqli_connect($hostname,$username,$password,$database);
+		$connection = mysqli_connect($hostname,$username,$password,$database);
 		
 		$sql1="SELECT * FROM place WHERE IdPlace = '{$IdPlace}'";
 		$result=mysqli_query($connection,$sql1);
 
 		if($sql1){
-			$jsonTuple;
+			$jsonTuple1;
 			$json['OPERATIONS'][0]="GET_PLACE";
-			if($reg=mysqli_fetch_array($result)){
+			if($reg = mysqli_fetch_array($result)){
 				$jsonTuple1['IdPlace'] = $reg['IdPlace'];
 				$jsonTuple1['Email'] = $reg['Email'];
 				$jsonTuple1['MadeBy'] = $reg['MadeBy'];
@@ -30,29 +30,29 @@ $json=array();
 				$jsonTuple1['ColourBlind'] = $reg['ColourBlind'];
 				$jsonTuple1['Deaf'] = $reg['Deaf'];
 				$jsonTuple1['Foreigner'] = $reg['Foreigner'];
-
 				$json['GET_PLACE'] = $jsonTuple1;
 			}
 		}
 
-		$sql2 = "SELECT * FROM placecomments WHERE IdPlace = '{$IdPlace}' and Reported = 0";
+		$sql2 = "SELECT * FROM placecomments LEFT JOIN user ON placecomments.Email = user.Email WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 order by placecomments.Date desc, placecomments.Time desc";
 		$result=mysqli_query($connection,$sql2);
 
 		if($sql2){
-			$jsonTuple2;
+			echo mysqli_error($connection);
 			$x = 0;
-			$json['OPERATIONS'][1]="GET_COMMENTS_FROM_PLACE";
+			$json['OPERATIONS'][1] = "GET_PLACE_COMMENTS";
 			while($reg = mysqli_fetch_array($result)){
 				$jsonTuple2['IdPlace'] = $reg['IdPlace'];
-				$jsonTuple2['Email'] = $reg['Email'];
+				$jsonTuple2['Name'] = $reg['Name'];
 				$jsonTuple2['Content'] = $reg['Content'];
 				$jsonTuple2['Date'] = $reg['Date'];
 				$jsonTuple2['Time'] = $reg['Time'];
 
-				$json['GET_COMMENTS_FROM_PLACE'][$x]=$jsonTuple2;
+				$json['GET_PLACE_COMMENTS'][$x]=$jsonTuple2;
 				$x++;
 			}
 		}
+
 
 		$sql3 = "SELECT AVG(Rating) FROM visit WHERE IdPlace IN ('".$IdPlace."')";
 		$result=mysqli_query($connection,$sql3);

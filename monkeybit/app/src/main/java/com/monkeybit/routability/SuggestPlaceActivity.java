@@ -70,7 +70,7 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
 
         if (!(name.isEmpty() || description.isEmpty() || localization.isEmpty() || image.isEmpty())) {
             String userId = ((MainActivity) getActivity()).getUserEmail();
-            if (userId == null) {
+            if (userId != null) {
                 PlaceToSuggest newPlace = new PlaceToSuggest(userId, name, description, localization, image, redMovility, redVision, colourBlind, deaf, foreigner);
                 //Toast.makeText(getActivity(), "Json a enviar: " + newPlace.toJson(), Toast.LENGTH_SHORT).show();
                 try {

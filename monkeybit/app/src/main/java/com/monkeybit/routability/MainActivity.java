@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment selectedFragment = null;
+        // @TODO: cargar pantalla por defecto
+        selectedFragment = new RouteActivity();
         switch (item.getItemId()) {
             case R.id.menu_rutas:
                 selectedFragment = new RouteActivity();
