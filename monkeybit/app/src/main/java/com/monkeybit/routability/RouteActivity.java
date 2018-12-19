@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 
 public class RouteActivity extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -31,15 +30,12 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = new RuteView();
+        Fragment selectedFragment = new ListRouteActivity();
         switch (item.getItemId()) {
             case R.id.menu_rutas:
                 //@TODO selectedFragment = new ListRouteActivity();
-                selectedFragment = new RuteView();
-                //to send the id
-                Bundle bundleRoute = new Bundle();
-                bundleRoute.putString("routeId", "8");
-                selectedFragment.setArguments(bundleRoute);
+                selectedFragment = new ListRouteActivity();
+
 
                 break;
             case R.id.menu_places:

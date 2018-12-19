@@ -95,7 +95,7 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                     //toast.show();
 
                     ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
-                    RuteView route = new RuteView();
+                    RouteView route = new RouteView();
                     Bundle bundle = new Bundle();
                     bundle.putString("ruteId", choosen.get_idRoute());
                     route.setArguments(bundle);

@@ -19,8 +19,8 @@ import java.net.URLEncoder;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.36";
-    private static final String folderName =  "RoutabilityAdmin";
+    private static final String serverIP =  "192.168.1.27";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
 
@@ -94,7 +94,7 @@ public final class DBConnect {
     }
 
     public static void getRoutes(Context context, DBConnectInterface responseListener, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?StartIndex=" + firstRouteIndex;
+        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?Start=" + firstRouteIndex;
         getTuple(context, responseListener, url);
     }
 

@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.VolleyError;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +25,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
     View view;
     int pag;
-    int tam = 10;
+    int max = 10;
     private int result = 0;
     @Nullable
     @Override
@@ -37,30 +39,8 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
     }
 
 
-    public void CargarArray(JSONArray jsonArray){
-        ArrayList<Route> Lista = new ArrayList<>(); //@TODO si lo hacemos con rote tal cual
 
-        for(int i=0;i<jsonArray.length();i++){
-            try {
-                JSONObject json = jsonArray.getJSONObject(i);
-                //Get and save data
-                String idImage = json.getString("Image");
-                String tittle = json.getString("tittle");
-                String description = json.getString("description");
-                String id = json.getString("idRoute");
-
-                Lista.add(new Route(id,tittle,description,idImage));
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        pag = pag + tam;
-        this.Conf_List_Route(Lista);
-    }
-
-    protected void Conf_List_Route(ArrayList<Route> dataList){
+    protected void Conf_List_Route(ArrayList<ListRoute> dataList){
 
         ListView list = view.findViewById(R.id.list_rt);
         //adapt to the list
@@ -70,16 +50,15 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                 if(post != null){
                     TextView pt_tittle =  view.findViewById(R.id.post_tittle);
                     if(pt_tittle != null)
-                        pt_tittle.setText(((Route) post).getName());
+                        pt_tittle.setText(((ListRoute) post).get_Tittle());
 
                     TextView pt_desc =  view.findViewById(R.id.post_desc);
                     if(pt_desc != null)
-                        pt_desc.setText(((Route) post).getDescription());
+                        pt_desc.setText(((ListRoute) post).get_Description());
 
-                    //ImageView pt_img =  view.findViewById(R.id.post_img);
-                    //if(pt_img != null)
-                      //  pt_img.setImageResource(((ListRoute) post).get_idImagen());
-
+                    ImageView img = view.findViewById(R.id.imgPlacee);
+                    if (img != null)
+                        Picasso.get().load(((ListRoute) post).get_idImagen()).into(img);
 
                 }
 
@@ -89,17 +68,17 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
-                //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
-              /*  //toast.show();
                 ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
-                RuteView route = new RuteView();
-                @TODO: mandar
-                if(route != null){
-                   // route.SetChoosen(choosen.getId); //set
-                    //change the fragment
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view,route).commit(); //go to the fragment
+                RouteView route = new RouteView();
+                Bundle bundle = new Bundle();
+                bundle.putString("routeId", choosen.get_idRoute());
+                route.setArguments(bundle);
 
-                }*/
+                if (route != null) {
+
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, route).commit(); //go to the fragment
+
+                }
 
 
 
@@ -122,8 +101,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                     if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
 
                         if (operation.equals("GET_ROUTES")) {
-                            JSONObject operationResult = response.getJSONObject(operation); // Este elemento tendrá la/s tupla/s
-                            //Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                            JSONArray operationResult = response.getJSONArray("GET_ROUTES"); // Este elemento tendrá la/s tupla/s
                             SetView(operationResult);
                         }
                         
@@ -140,7 +118,31 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
         
     }
 
-    private void SetView(JSONObject operationResult) {
+    private void SetView(JSONArray operationResult) throws JSONException {
+        ArrayList<ListRoute> list = new ArrayList<>();
+
+        for(int i=0;i<operationResult.length();i++){
+            try {
+                JSONObject json = operationResult.getJSONObject(i);
+                //Get and save data
+
+                String idImage = json.getString("Image");
+                String tittle = json.getString("Name");
+                String description = json.getString("Description");
+                /*String rating = json.getString("");*/
+                String idRoute = json.getString("IdRoute");
+
+                list.add(new ListRoute(idImage, tittle,description,idRoute));
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        pag = pag + max;
+
+        this.Conf_List_Route(list);
+
     }
 
 }

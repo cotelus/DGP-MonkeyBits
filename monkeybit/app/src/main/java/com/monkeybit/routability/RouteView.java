@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RuteView extends Fragment implements DBConnectInterface{
+public class RouteView extends Fragment implements DBConnectInterface{
     View view;
     String choosen = null;
     private List<Comments> comments;
