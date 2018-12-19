@@ -31,14 +31,14 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = new ListRouteActivity();
+        Fragment selectedFragment = new RuteView();
         switch (item.getItemId()) {
             case R.id.menu_rutas:
                 //@TODO selectedFragment = new ListRouteActivity();
                 selectedFragment = new RuteView();
                 //to send the id
                 Bundle bundleRoute = new Bundle();
-                bundleRoute.putString("routeId", "2");
+                bundleRoute.putString("routeId", "8");
                 selectedFragment.setArguments(bundleRoute);
 
                 break;

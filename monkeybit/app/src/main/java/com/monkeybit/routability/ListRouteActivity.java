@@ -19,36 +19,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ListRouteActivity extends Fragment {
-    DBConnectInterface db_inter;
+public class ListRouteActivity extends Fragment implements DBConnectInterface{
+
     View view;
     int pag;
     int tam = 10;
+    private int result = 0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-
         pag = 0;
-        db_inter = new DBConnectInterface() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
-                errorText.show();
-            }
-
-            @Override
-            public void onResponse(JSONObject response) {
-                //{} objects [] array
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = response.getJSONArray("data");
-                    CargarArray(jsonArray);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+        DBConnect.getRoutes(getContext(),this,pag);
+        
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -123,4 +106,41 @@ public class ListRouteActivity extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
+        errorText.show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        try {
+            if (response.has("OPERATIONS")) {
+                for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
+                    String operation = response.getJSONArray("OPERATIONS").getString(i);
+                    if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
+
+                        if (operation.equals("GET_ROUTES")) {
+                            JSONObject operationResult = response.getJSONObject(operation); // Este elemento tendrá la/s tupla/s
+                            //Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                            SetView(operationResult);
+                        }
+                        
+                    }
+
+                }
+
+            } else {
+                Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        
+    }
+
+    private void SetView(JSONObject operationResult) {
+    }
+
 }

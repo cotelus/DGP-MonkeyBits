@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class RuteView extends Fragment implements DBConnectInterface{
     String choosen = null;
     private List<Comments> comments;
     private RecyclerView listcomments;
+    private ArrayList<Place> places;
     private CommentsAdapter adapter;
     private int result = 0;
     private boolean isFavorite = false;
@@ -46,16 +48,18 @@ public class RuteView extends Fragment implements DBConnectInterface{
 
         view = inflater.inflate(R.layout.view_rute, container, false);
         //Receive the id
-        choosen = getArguments().getString("routeId");
+        //choosen = getArguments().getString("routeId");
+        choosen = "2";
         email = ((MainActivity) getActivity()).getUserEmail();
         dbInter = this;
+        places = null;
         if(email != null) {
             DBConnect.getFavoriteRoutes(getContext(), this,email);
             favButton = view.findViewById(R.id.posRtFav);
             favButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     if (isFavorite){
-                        DBConnect.removeFavoriteRoutes(getContext(),dbInter ,email, choosen);
+                        DBConnect.removeFavoriteRoutes(getContext(),dbInter,email, choosen);
                     }
                     else{
                         DBConnect.addAsFavoriteRoute(getContext(),dbInter,email,choosen);
@@ -83,11 +87,14 @@ public class RuteView extends Fragment implements DBConnectInterface{
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         listcomments.setLayoutManager(lim);
 
-        dataComments();
+       // Conf_List_Route(places);
 
-        DBConnect.getPlace(getContext(),this,choosen);
-        DBConnect.getAverageScorePlace(getContext(),this,choosen);
-        DBConnect.getPlaceComments(getContext(),this,choosen);
+        dataComments();
+        initializedAdapter();
+
+        DBConnect.getRoute(getContext(),this,choosen);
+        //DBConnect.getAverageScoreRoute(getContext(),this,choosen);
+        //DBConnect.getRouteComments(getContext(),this,choosen);
 
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
@@ -104,48 +111,35 @@ public class RuteView extends Fragment implements DBConnectInterface{
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
         comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));*/
     }
-    private void SetRoutes(JSONArray jsonArray) {
-        ArrayList<Place> Lista = new ArrayList<>();
 
-        for(int i=0;i<jsonArray.length();i++){
-            try {
-                JSONObject json = jsonArray.getJSONObject(i);
-                //Get and save data
-
-                Lista.add(new Place(jsonArray.getJSONObject(i)));
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        this.Conf_List_Route(Lista);
-    }
     protected void Conf_List_Route(ArrayList<Place> dataList) {
+        if(dataList != null){
+            ListView list = view.findViewById(R.id.postListLug);
+            //adapt to the list
+            list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
+                @Override
+                public void onPost(Object post, View view) {
+                    if (post != null) {
+                        TextView pt_tittle = view.findViewById(R.id.post_tittle);
+                        if (pt_tittle != null)
+                            pt_tittle.setText(((Place) post).getName());
 
-        ListView list = view.findViewById(R.id.postListLug);
-        //adapt to the list
-        list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
-            @Override
-            public void onPost(Object post, View view) {
-                if (post != null) {
-                    TextView pt_tittle = view.findViewById(R.id.post_tittle);
-                    if (pt_tittle != null)
-                        pt_tittle.setText(((Place) post).getName());
+                        TextView pt_desc = view.findViewById(R.id.post_desc);
+                        if (pt_desc != null)
+                            pt_desc.setText(((Place) post).getDescription());
 
-                    TextView pt_desc = view.findViewById(R.id.post_desc);
-                    if (pt_desc != null)
-                        pt_desc.setText(((Place) post).getDescription());
-
-                    //ImageView pt_img =  view.findViewById(R.id.post_img);
-                    //if(pt_img != null)
-                    //  pt_img.setImageResource(((Place) post).get_idImagen());
-
+                        ImageView image = view.findViewById(R.id.imageRoute);
+                        if (image != null && ((Place) post).getImage() != null){
+                                Picasso.get().load(((Place) post).getImage()).into(image);
+                        }
+                    }
 
                 }
+            });
+        }
 
-            }
-        });
+
+
 
     }
 
@@ -157,91 +151,30 @@ public class RuteView extends Fragment implements DBConnectInterface{
 
     public void SetView(JSONObject bdelements ) throws JSONException {
 
-        if (!bdelements.has("data")) {
-        }
-
-        else{
-
-            JSONArray query = bdelements.optJSONArray("data");
-
+            Route ruta = new Route(bdelements);
             TextView tittle = view.findViewById(R.id.postTittleRt);
-            if (tittle != null && query.getJSONObject(0).has("Name"))
-                tittle.setText(query.getJSONObject(0).optString("Name"));
+            if (tittle != null){
+               // Log.d("Debug", ruta.getName());
+                if(ruta.getName()!=null)
+                    tittle.setText(ruta.getName());
+            }
+
 
             ImageView image = view.findViewById(R.id.imageRoute);
-            if (image != null && query.getJSONObject(0).has("Image"))
-                Picasso.get().load(query.getJSONObject(0).optString("Image")).into(image);
+            if (image != null && bdelements.has("Image")){
+                if(bdelements.optString("Image") != "")
+                    Picasso.get().load(bdelements.optString("Image")).into(image);
+            }
+
 
             TextView description = view.findViewById(R.id.postDescRt);
-            if (description != null && query.getJSONObject(0).has("Description"))
-                description.setText(query.getJSONObject(0).optString("Description"));
-
-            TextView rating = view.findViewById(R.id.postRtRating);
-            if (rating != null) {
-                rating.setText(getString(R.string.notrating));
-            }
-            if (query.getJSONObject(0).has("AVG(Rating)") && !query.getJSONObject(0).optString("AVG(Rating)").equals("null")) {
-                rating.setText(query.getJSONObject(0).optString("AVG(Rating)" + "/5"));
+            if (description != null){
+               // Log.d("Debug", ruta.getDescription());
+                if(ruta.getDescription() != null)
+                    description.setText(ruta.getDescription());
             }
 
 
-            TextView accessibility = view.findViewById(R.id.accessibilityRoute);
-            if (accessibility != null && query.getJSONObject(0).has("RedMovility")) {
-
-                String message = "";
-
-                int mobility = query.getJSONObject(0).optInt("RedMovility");
-                int vision = query.getJSONObject(0).optInt("RedVision");
-                int deaf = query.getJSONObject(0).optInt("Deaf");
-                int colourblind = query.getJSONObject(0).optInt("ColourBlind");
-                int foreigner = query.getJSONObject(0).optInt("Foreigner");
-
-                if (mobility == 1) {
-                    message += getString(R.string.red_mobility) + ", ";
-                }
-                if (vision == 1) {
-                    message += getString(R.string.red_vision) + ", ";
-                }
-                if (colourblind == 1) {
-                    message += getString(R.string.colour_blind) + ", ";
-                }
-                if (deaf == 1) {
-                    message += getString(R.string.deaf) + ", ";
-                }
-                if (foreigner == 1) {
-                    message += getString(R.string.foreigner);
-                }
-
-                if (mobility == 1 || vision == 1 || deaf == 1 || colourblind == 1 || foreigner == 1) {
-                    accessibility.setText(getString(R.string.introduction) + " " + message);
-                } else {
-                    accessibility.setText(getString(R.string.notintroduction));
-                }
-            }
-
-            //Comments
-            String author="";
-            if (query.getJSONObject(0).has("Email")) {
-                author = query.getJSONObject(0).optString("Email");
-            }
-
-            String comment="";
-            if (query.getJSONObject(0).has("Content")) {
-                comment = query.getJSONObject(0).optString("Content");
-            }
-
-            String date="";
-            if (query.getJSONObject(0).has("Date")) {
-                date = query.getJSONObject(0).optString("Date");
-            }
-
-            String time="";
-            if (query.getJSONObject(0).has("Time")) {
-                time = query.getJSONObject(0).optString("Time");
-                comments.add(new Comments(author,comment,date,time));
-                //Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     @Override
@@ -254,6 +187,7 @@ public class RuteView extends Fragment implements DBConnectInterface{
     public void onResponse(JSONObject response) {
         try {
             if (response.has("OPERATIONS")) {
+
                 for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
                     String operation = response.getJSONArray("OPERATIONS").getString(i);
                     if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
@@ -261,14 +195,33 @@ public class RuteView extends Fragment implements DBConnectInterface{
                         if (operation.equals("GET_ROUTE")) {
                             JSONObject operationResult = response.getJSONObject(operation); // Este elemento tendrá la/s tupla/s
                             //Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                            SetView(operationResult);
                         }
                         if (operation.equals("GET_ROUTE_COMMENTS")) {
                             JSONArray operationResult = response.getJSONArray(operation); // Este elemento tendrá la/s tupla/s
                             //Toast.makeText(getContext(), "Comentarios\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
+                           // SetViewComments(operationResult);
                         }
                         if (operation.equals("GET_AVERAGE_SCORE_ROUTE")) {
-                            int operationResult = response.getInt(operation); // Este elemento tendrá la/s tupla/s
-                            //Toast.makeText(getContext(), "Puntuación: " + operationResult, Toast.LENGTH_LONG).show();
+                            double aux = -1;
+                           try{
+                               Double operationResult = response.getDouble(operation);
+
+
+                                if( !operationResult.isNaN() || operationResult != null ){
+                                    aux = operationResult;
+
+                                }
+
+                               SetViewRating(aux);
+                           }
+                           catch (JSONException e){
+                               aux = -1;
+
+                               SetViewRating(aux);
+                           }
+
+
                         }
                         if (operation.equals("GET_FAVORITE_ROUTES")) {
                             JSONArray operationResult = response.getJSONArray(operation);
@@ -278,6 +231,19 @@ public class RuteView extends Fragment implements DBConnectInterface{
                                     setFavButtonState(true);
                                 }
                             }
+                        }
+                        if(operation.equals("GET_PLACES_FROM_ROUTE")){
+                            places = new ArrayList<Place>();
+                            JSONArray operationResult = response.getJSONArray(operation);
+                            Place aux;
+                            Log.d("Debug", "size: "+ operationResult.length());
+                            for (int j = 0; j < operationResult.length(); j++) {
+                                Log.d("Debug", "obj: "+ operationResult.getJSONObject(i));
+                                Log.d("Debug","otra linea");
+                                aux = new Place(operationResult.getJSONObject(i));
+                                places.add(aux);
+                            }
+                            this.Conf_List_Route(places);
                         }
                     }
                     // Estas operaciones, no necesitan datos de vuelta, por eso no están dentro del if anterior
@@ -306,6 +272,29 @@ public class RuteView extends Fragment implements DBConnectInterface{
         }
     }
 
+    private void SetViewComments(JSONArray operationResult) {
+
+    }
+
+    private void SetViewRating(double rat){
+
+        TextView rating = view.findViewById(R.id.postRtRating);
+
+        if (rating != null) {
+
+            if(rat == -1){
+
+                rating.setText(getString(R.string.notrating));
+            }
+            else{
+
+                rating.setText(" "+rat);
+            }
+
+        }
+
+
+    }
     private void setFavButtonState(boolean activate) {
         isFavorite = activate;
         favButton.setSelected(activate);
