@@ -24,14 +24,14 @@ import java.util.ArrayList;
 public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
     View view;
-    int pag;
+    int pag = 0;
     int max = 10;
     private int result = 0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-        pag = 0;
+
         DBConnect.getRoutes(getContext(),this,pag);
         
         return view;
@@ -44,46 +44,45 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
         ListView list = view.findViewById(R.id.list_rt);
         //adapt to the list
-        list.setAdapter(new AdapterList(getContext(), R.layout.post_rute,dataList){
-            @Override
-            public void onPost(Object post, View view){
-                if(post != null){
-                    TextView pt_tittle =  view.findViewById(R.id.post_tittle);
-                    if(pt_tittle != null)
-                        pt_tittle.setText(((ListRoute) post).get_Tittle());
+        if(list!=null) {
+            list.setAdapter(new AdapterList(getContext(), R.layout.post_rute,dataList){
+                @Override
+                public void onPost(Object post, View view){
+                    if(post != null){
+                        TextView pt_tittle =  view.findViewById(R.id.post_tittle);
+                        if(pt_tittle != null)
+                            pt_tittle.setText(((ListRoute) post).get_Tittle());
 
-                    TextView pt_desc =  view.findViewById(R.id.post_desc);
-                    if(pt_desc != null)
-                        pt_desc.setText(((ListRoute) post).get_Description());
+                        TextView pt_desc =  view.findViewById(R.id.post_desc);
+                        if(pt_desc != null)
+                            pt_desc.setText(((ListRoute) post).get_Description());
 
-                    ImageView img = view.findViewById(R.id.imgPlacee);
-                    if (img != null)
-                        Picasso.get().load(((ListRoute) post).get_idImagen()).into(img);
+                        ImageView img = view.findViewById(R.id.imgPlacee);
+                        if (img != null)
+                            Picasso.get().load(((ListRoute) post).get_idImagen()).into(img);
 
-                }
-
-            }
-        });
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
-                ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
-                RouteView route = new RouteView();
-                Bundle bundle = new Bundle();
-                bundle.putString("routeId", choosen.get_idRoute());
-                route.setArguments(bundle);
-
-                if (route != null) {
-
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, route).commit(); //go to the fragment
+                    }
 
                 }
+            });
 
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
+                    ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
+                    RouteView route = new RouteView();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("routeId", choosen.get_idRoute());
+                    route.setArguments(bundle);
 
+                    if (route != null) {
 
-            }
-        });
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, route).commit(); //go to the fragment
+
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -129,7 +128,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                 String idImage = json.getString("Image");
                 String tittle = json.getString("Name");
                 String description = json.getString("Description");
-                /*String rating = json.getString("");*/
+
                 String idRoute = json.getString("IdRoute");
 
                 list.add(new ListRoute(idImage, tittle,description,idRoute));

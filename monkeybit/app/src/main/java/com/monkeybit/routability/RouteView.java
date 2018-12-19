@@ -3,6 +3,7 @@ package com.monkeybit.routability;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,8 +34,8 @@ import java.util.List;
 public class RouteView extends Fragment implements DBConnectInterface{
     View view;
     String choosen = null;
-    private List<Comments> comments;
-    private RecyclerView listcomments;
+    private List<Comments> comments = new ArrayList<>();
+    private RecyclerView listComments;
     private ArrayList<Place> places;
     private CommentsAdapter adapter;
     private int result = 0;
@@ -42,6 +43,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
     private String email;
     private ImageButton favButton;
     private DBConnectInterface dbInter;
+    private TextInputEditText commentText;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,11 +60,14 @@ public class RouteView extends Fragment implements DBConnectInterface{
             favButton = view.findViewById(R.id.posRtFav);
             favButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (isFavorite){
-                        DBConnect.removeFavoriteRoutes(getContext(),dbInter,email, choosen);
-                    }
-                    else{
-                        DBConnect.addAsFavoriteRoute(getContext(),dbInter,email,choosen);
+                    if (email != null) {
+                        if (isFavorite) {
+                            removeFavoritePlace();
+                        } else {
+                            addFavoritePlace();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -82,34 +87,48 @@ public class RouteView extends Fragment implements DBConnectInterface{
             }
         });
 
-        listcomments = view.findViewById(R.id.list_comments);
+        commentText = view.findViewById(R.id.myComment);
+
+        Button button2 = view.findViewById(R.id.sendComment);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(email != null && !commentText.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Enviando comentario", Toast.LENGTH_SHORT).show();
+                    addComment();
+                }
+                else if(email == null){
+                    Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
+                }
+                else if(commentText.getText().toString().equals("")){
+                    Toast.makeText(getContext(), R.string.empty_fields, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        listComments = view.findViewById(R.id.list_comments);
         LinearLayoutManager lim = new LinearLayoutManager(getContext());
         lim.setOrientation(LinearLayoutManager.VERTICAL);
-        listcomments.setLayoutManager(lim);
+        listComments.setLayoutManager(lim);
 
-       // Conf_List_Route(places);
-
-        dataComments();
         initializedAdapter();
 
         DBConnect.getRoute(getContext(),this,choosen);
-        //DBConnect.getAverageScoreRoute(getContext(),this,choosen);
-        //DBConnect.getRouteComments(getContext(),this,choosen);
+
 
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
+    public void addComment(){
+        DBConnect.addPlaceComment(getContext(),this, choosen, email, commentText.getText().toString());
+    }
 
-    public void dataComments(){
-        comments = new ArrayList<>();
-        /*comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        /*comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));
-        comments.add(new Comments( "Pepe", "Espectacular lugar", "23/23/23", "12:22"));*/
+    public void addFavoritePlace(){
+        DBConnect.addAsFavoritePlace(getContext(), this, email, choosen);
+    }
+
+    public void removeFavoritePlace(){
+        DBConnect.removeFavoritePlace(getContext(), this, email, choosen);
     }
 
     protected void Conf_List_Route(ArrayList<Place> dataList) {
@@ -136,6 +155,26 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
                 }
             });
+
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
+                    //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
+                    //toast.show();
+
+                    Place choosen = (Place) post.getItemAtPosition(pos);
+                    PlaceView place = new PlaceView();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("placeId", choosen.getIdPlace());
+                    place.setArguments(bundle);
+
+                    if (place != null) {
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, place).commit(); //go to the fragment
+                    }
+
+
+                }
+            });
         }
 
 
@@ -144,8 +183,46 @@ public class RouteView extends Fragment implements DBConnectInterface{
     }
 
     public void initializedAdapter () {
-        adapter = new CommentsAdapter(comments);
-        listcomments.setAdapter(adapter);
+        if(comments.size() >=4){
+            listComments.getLayoutParams().height = 1300;
+        }
+        else{
+            listComments.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
+        }
+        CommentsAdapter adapter = new CommentsAdapter(comments);
+        listComments.setAdapter(adapter);
+    }
+
+    public void setComments(JSONArray query1) throws JSONException {
+
+        for(int i=0; i<query1.length(); i++) {
+
+            JSONObject query = query1.getJSONObject(i);
+
+            //Comments
+            String author = "";
+            if (query.has("Name")) {
+                author = query.optString("Name");
+            }
+
+            String comment = "";
+            if (query.has("Content")) {
+                comment = query.optString("Content");
+            }
+
+            String date = "";
+            if (query.has("Date")) {
+                date = query.optString("Date");
+            }
+
+            String time = "";
+            if (query.has("Time")) {
+                time = query.optString("Time");
+                comments.add(new Comments(author, comment, date, time));
+                //Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
+            }
+        }
+        initializedAdapter();
     }
 
 
@@ -199,20 +276,17 @@ public class RouteView extends Fragment implements DBConnectInterface{
                         }
                         if (operation.equals("GET_ROUTE_COMMENTS")) {
                             JSONArray operationResult = response.getJSONArray(operation); // Este elemento tendrá la/s tupla/s
-                            //Toast.makeText(getContext(), "Comentarios\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
-                           // SetViewComments(operationResult);
+                            this.setComments(operationResult);
                         }
                         if (operation.equals("GET_AVERAGE_SCORE_ROUTE")) {
                             double aux = -1;
                            try{
                                Double operationResult = response.getDouble(operation);
 
-
                                 if( !operationResult.isNaN() || operationResult != null ){
                                     aux = operationResult;
 
                                 }
-
                                SetViewRating(aux);
                            }
                            catch (JSONException e){
@@ -220,7 +294,6 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
                                SetViewRating(aux);
                            }
-
 
                         }
                         if (operation.equals("GET_FAVORITE_ROUTES")) {
@@ -272,9 +345,6 @@ public class RouteView extends Fragment implements DBConnectInterface{
         }
     }
 
-    private void SetViewComments(JSONArray operationResult) {
-
-    }
 
     private void SetViewRating(double rat){
 
