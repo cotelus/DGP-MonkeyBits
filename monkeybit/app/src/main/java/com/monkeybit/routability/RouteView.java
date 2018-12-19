@@ -147,7 +147,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
                         if (pt_desc != null)
                             pt_desc.setText(((Place) post).getDescription());
 
-                        ImageView image = view.findViewById(R.id.imageRoute);
+                        ImageView image = view.findViewById(R.id.post_img);
                         if (image != null && ((Place) post).getImage() != null){
                                 Picasso.get().load(((Place) post).getImage()).into(image);
                         }
