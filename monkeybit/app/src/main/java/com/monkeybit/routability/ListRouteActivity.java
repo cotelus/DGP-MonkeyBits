@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,8 +88,9 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
-        errorText.show();
+        /*Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
+        errorText.show();*/
+        //Log.d("Debug",getContext().getString(R.string.errorListRoute));
     }
 
     @Override
