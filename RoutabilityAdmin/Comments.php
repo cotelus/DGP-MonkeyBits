@@ -72,6 +72,14 @@
     <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
     <link rel="stylesheet" href="theme.css">
     <link rel="stylesheet" href="fonts.css" type="text/css">
+    <script>
+      function mostrarAlertEliminar() {
+        alert("Comentario eliminado");
+      }
+      function mostrarAlertPermitir() {
+        alert("Comentario permitido");
+      }
+    </script>
 
 </head>
 
@@ -148,8 +156,8 @@
                         $content = $fila["Content"];
 
                         echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
-                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
-                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=3"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" /></a></p>';
+                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=1"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" onclick="mostrarAlertEliminar()" /></a>';
+                        echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=3"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" onclick="mostrarAlertPermitir()" /></a></p>';
                         
                     }
                   }
@@ -163,8 +171,8 @@
                           $content = $fila["Content"];
 
                           echo '<p class="list-group-item list-group-item-action miembro-lista"><b>'.$email.':</b> '. $content;
-                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" /></a>';
-                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=2"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" /></a></p>';
+                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=0"><img title="Eliminar comentario" alt="Eliminar comentario" class="icono" src="./img/cruz.svg" onclick="mostrarAlertEliminar()" /></a>';
+                          echo '<a href="Comments.php?id='.$id.'&email='.$email.'&date='.$date.'&time='.$time.'&tipo=2"><img title="Permitir comentario" alt="Eliminar comentario" class="icono" src="./img/tick.png" onclick="mostrarAlertPermitir()" /></a></p>';
                       }
                     }
               }

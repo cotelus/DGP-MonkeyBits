@@ -25,18 +25,18 @@ import java.util.ArrayList;
 
 public class ListFavRouteActivity extends Fragment implements DBConnectInterface{
     View view;
-    private int pagCurent;
     private String email;
+    int pag = 0;
+    int max = 10;
+    private int result = 0;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-        pagCurent = 0;
 
         email = ((MainActivity) getActivity()).getUserEmail();
-
-        DBConnect.getFavoriteRoutes(getContext(),this, email, pagCurent);
+        DBConnect.getFavoriteRoutes(getContext(),this, email);
 
         return view;
     }
@@ -52,8 +52,8 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                 String idImage = json.getString("Image");
                 String tittle = json.getString("Name");
                 String description = json.getString("Description");
-                /*String rating = json.getString("");*/
-                String idRoute = json.getString("IdPlace");
+
+                String idRoute = json.getString("IdRoute");
 
                 list.add(new ListRoute(idImage, tittle,description , idRoute));
 
@@ -62,8 +62,7 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                 e.printStackTrace();
             }
         }
-        pagCurent = pagCurent + 10;
-
+        pag = pag + max;
         this.Conf_List_Route(list);
     }
 
@@ -99,7 +98,7 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                     //toast.show();
 
                     ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
-                    RuteView route = new RuteView();
+                    RouteView route = new RouteView();
                     Bundle bundle = new Bundle();
                     bundle.putString("ruteId", choosen.get_idRoute());
                     route.setArguments(bundle);

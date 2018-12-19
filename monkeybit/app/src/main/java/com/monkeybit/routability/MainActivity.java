@@ -87,9 +87,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 // selectedFragment = new MapsActivity();
                 break;
             case R.id.menu_fav:
-                // @TODO: asignar a selectedFragment el Fragmen de favoritos
-                //@TODO: estoy hay que cambiarlo
-                 selectedFragment = new FavActivity();
+                 selectedFragment = new ListFavRouteActivity();
                 break;
         }
         if (selectedFragment != null) {

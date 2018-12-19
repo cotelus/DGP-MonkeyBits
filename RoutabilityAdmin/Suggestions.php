@@ -162,6 +162,13 @@
           var envio = $("#search").val();
         })
         $('#')
+
+      function mostrarAlertEliminar() {
+        alert("Sugerencia eliminada");
+      }
+      function mostrarAlertAceptar() {
+        alert("Sugerencia aceptada");
+      }
     </script>
 
 </head>
@@ -295,8 +302,8 @@
                     $image = $fila['Image'];
                      echo '<p class="list-group-item list-group-item-action"><b>Ruta';
                       echo '('.$id.'):</b>'.$name;
-                      echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
-                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
+                      echo '<a href="Suggestions.php?id='.$id.'&tipo=1" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" onclick="mostrarAlertEliminar()" /></a>';
+                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&name='.$name.'&image='.$image.'&tipo=3" alt="eliminar"><img title="Aceptar sugerencia" onclick="mostrarAlertAceptar()" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
 
                   } 
                 }
@@ -311,8 +318,8 @@
 
                      echo '<p class="list-group-item list-group-item-action"><b>Lugar';
                       echo '('.$id.'):</b>'.$name;
-                      echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" /></a>';
-                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&localitation='.$localitation.'&name='.$name.'&image='.$image.'&tipo=2" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" /></a></p>';
+                      echo '<a href="Suggestions.php?id='.$id.'&tipo=0" alt="añadir"><img title="Borrar sugerencia" alt="Borrar sugerencia" class="icono" src="./img/cruz.svg" onclick="mostrarAlertEliminar()" /></a>';
+                      echo '<a href="Suggestions.php?id='.$id.'&madeby='.$madeby.'&description='.$description.'&localitation='.$localitation.'&name='.$name.'&image='.$image.'&tipo=2" alt="eliminar"><img title="Aceptar sugerencia" alt="Aceptar sugerencia" class="icono" src="./img/incluir.png" onclick="mostrarAlertAceptar()"/></a></p>';
 
                   } 
                 }

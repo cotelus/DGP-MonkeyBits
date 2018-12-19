@@ -150,6 +150,18 @@ $consultaLugares = "SELECT * FROM place where";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="./theme.css" type="text/css">
     <link rel="stylesheet" href="./fonts.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      function mostrarAccion(mens) {
+        alert(mens);
+      }
+      $(document).ready(function() {
+        var men = '<?php echo $MESSAGE; ?>';
+        if (men != "")
+          mostrarAccion(men);
+      });
+      
+    </script>
 </head>
 
 <body class="bg-primario">
@@ -160,9 +172,8 @@ $consultaLugares = "SELECT * FROM place where";
                     <h1 class="display-3"><b>Routability: Granada</b></h1>
                 </div>
             </div>
-
-            <?php if (!empty($MESSAGE)) {echo "<p class=\"ERROR\">" . "MENSAJE: ". $MESSAGE . "</p>";}
-          ?>
+          <h1>Añadir una ruta</h1>
+          <h4><b>Lugares:</b></h4>
             <div class="py-2" style="">
               <div class="container py-3 px-3">
                 <div class="row">
@@ -190,12 +201,25 @@ $consultaLugares = "SELECT * FROM place where";
                 </div>
             <fieldset>
 
-                <h1>Añadir una ruta</h1>
-
                 <form action="addRoutes.php" method="post">
                     <div class="row">
-
-                        <div class="col-md-6">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                              <div class="scroll" style="border-radius:5px; background-color:white;">
+                                  <?php
+    
+                                  if ($total) {
+                                      while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
+                                          echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado['IdPlace']."' value=".$array_resultado['IdPlace']."<br/>&nbsp&nbsp<b>".$array_resultado['Name']." (".$array_resultado['IdPlace'].")</b></p>";
+                                      }
+                                  }
+                                  ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
                             <div class="form-group">
                                 <h4><b>Nombre de la ruta:</b></h4><input type="nombre" class="form-control" required value="" name="nombre" placeholder="Introducir el nombre" onBlur="if(this.value=='')this.value='nombre'" onFocus="if(this.value=='nombre')this.value='' ">
                             </div>
@@ -211,34 +235,18 @@ $consultaLugares = "SELECT * FROM place where";
                             <div class="form-group">
                                 <h4><b>Descripción de la ruta:</b></h4><br /><textarea required value="" name="descripcion" placeholder="Escribe la descripción de la ruta..." maxlength="10000" rows="10" cols="56" style="width:100%; height: 50%;" onFocus="if(this.value=='descripcion')this.value='' "></textarea>
                             </div>
+                          </div>
+                          <div class="col-md-6">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
                                         <h4><b>Descripción de la imagen</b></h4>
-                                        <textarea required value="" name="imagenDescripcion" placeholder="Escribe la descripción de la imagen..." maxlength="10000" rows="10" cols="56" style="width:100%; height: 50%;" onFocus="if(this.value=='imagenDescripcion')this.value='' "></textarea>
-                                    </div>
-                                </div>
+                                        <textarea style="margin-top: 22px;" required value="" name="imagenDescripcion" placeholder="Escribe la descripción de la imagen..." maxlength="10000" rows="10" cols="56" style="width:100%; height: 50%;" onFocus="if(this.value=='imagenDescripcion')this.value='' "></textarea>
                             </div>
                         </div>
+                      </div>
+                      <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <h4><b>Lugares:</b></h4>
-                                <div class="scroll" style="border-radius:5px; background-color:white;">
-                                    <?php
-      
-                                    if ($total) {
-                                        while($array_resultado =  mysqli_fetch_assoc($resultado_lugares)) {
-                                            echo"<p>&nbsp&nbsp<input name='lugares[]' type='checkbox' id='".$array_resultado['IdPlace']."' value=".$array_resultado['IdPlace']."<br/>&nbsp&nbsp<b>".$array_resultado['Name']." (".$array_resultado['IdPlace'].")</b></p>";
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                                <hr>
-                                <div>
                                     <input class="btn btn btn-primary btn-light icon-home" type="submit" name="aniadir" value="Añadir">
                                     &nbsp<a class="btn btn btn-primary btn-light icon-home" href="Home.php">&nbsp;Volver a administración</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </form>

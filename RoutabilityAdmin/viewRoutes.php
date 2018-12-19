@@ -105,6 +105,11 @@
     <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
     <link rel="stylesheet" href="theme.css">
     <link rel="stylesheet" href="fonts.css" type="text/css">
+    <script>
+      function mostrarAlert() {
+        alert("Ruta eliminada");
+      }
+    </script>
 
 </head>
 
@@ -166,7 +171,7 @@
 
                     echo '<p class="list-group-item list-group-item-action miembro-lista"><a href="Route.php?id='.$id.'">'.$nombre.'</a>'; 
                       
-                    echo '<a href="viewRoutes.php?id='.$id.'"><img class="icono" title="Eliminar ruta" alt="Eliminar ruta" src="./img/cruz.svg" /></a>';
+                    echo '<a href="viewRoutes.php?id='.$id.'"><img class="icono" title="Eliminar ruta" alt="Eliminar ruta" src="./img/cruz.svg" onclick="mostrarAlert()" /></a>';
                     echo '<a href="editRoutes.php?id='.$id.'"><img class="icono3" title="Editar ruta" alt="Editar ruta" src="./img/editar.png" /></a></p>';   
                   }
                 }
