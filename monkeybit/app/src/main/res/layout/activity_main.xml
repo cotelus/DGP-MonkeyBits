@@ -62,7 +62,7 @@
             app:elevation="0dp"
             app:itemIconSize="30dp"
             app:itemIconTint="@color/nav_item_color_select"
-            app:itemTextColor="@color/colorFont"
+            app:itemTextColor="@color/nav_item_color_select"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

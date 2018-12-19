@@ -6,5 +6,7 @@
     <color name="colorFont">#050505</color>
     <color name="color_selec_true">#FFFF</color>
     <color name="color_selec_false">#00574B</color>
+    <color name="colorBackDark">#1dad90</color>
+
 
 </resources>
