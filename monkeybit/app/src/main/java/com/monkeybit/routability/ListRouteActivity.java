@@ -24,14 +24,14 @@ import java.util.ArrayList;
 public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
     View view;
-    int pag;
+    int pag = 0;
     int max = 10;
     private int result = 0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
-        pag = 0;
+
         DBConnect.getRoutes(getContext(),this,pag);
         
         return view;
@@ -129,7 +129,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                 String idImage = json.getString("Image");
                 String tittle = json.getString("Name");
                 String description = json.getString("Description");
-                /*String rating = json.getString("");*/
+
                 String idRoute = json.getString("IdRoute");
 
                 list.add(new ListRoute(idImage, tittle,description,idRoute));
