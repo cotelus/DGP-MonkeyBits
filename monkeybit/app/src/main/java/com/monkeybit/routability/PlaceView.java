@@ -241,7 +241,6 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                 for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
                     String operation = response.getJSONArray("OPERATIONS").getString(i);
                     if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
-
                         if (operation.equals("GET_PLACE")) {
                             JSONObject operationResult = response.getJSONObject(operation); // Este elemento tendrá la/s tupla/s
                             this.SetView(operationResult);
