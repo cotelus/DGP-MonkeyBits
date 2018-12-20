@@ -25,6 +25,8 @@ $json2 = array();
 				$jsonTuple['MadeBy'] = $reg['MadeBy'];
 				$jsonTuple['Name'] = $reg['Name'];
 				$jsonTuple['Description'] = $reg['Description'];
+				$jsonTuple['Image'] = $reg['Image'];
+				$jsonTuple['ImageDescription'] = $reg['ImageDescription'];
 
 				$json['GET_ROUTES'][$x]=$jsonTuple;
 				$x++;
