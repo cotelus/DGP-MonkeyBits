@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public DrawerLayout mainDrawerLayout;
     private Fragment selectedFragment;
 
-    // Prueba BD
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         LoadNewFragment(this.selectedFragment);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         navigationView = findViewById(R.id.nav_view);
-        selectedFragment = new RouteActivity();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {

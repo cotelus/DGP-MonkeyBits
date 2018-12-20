@@ -94,5 +94,10 @@ public class SuggestPlaceActivity extends Fragment implements DBConnectInterface
     @Override
     public void onResponse(JSONObject response) {
         Toast.makeText(getContext(), getString(R.string.place_suggested), Toast.LENGTH_SHORT).show();
+        newName.getText().clear();
+        newDescription.getText().clear();
+        newLocalization.getText().clear();
+        newImage.getText().clear();
+
     }
 }

@@ -91,6 +91,9 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
                 Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
             }
         }
+        else {
+            Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -103,6 +106,11 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         try {
             if (response.has("SUGGEST_ROUTE")) {
                 Toast.makeText(getContext(), getString(R.string.suggested_route), Toast.LENGTH_SHORT).show();
+
+                newName.getText().clear();
+                newDescription.getText().clear();
+                newImage.getText().clear();
+
             }
             if (response.has("GET_PLACES")) {
                 JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
