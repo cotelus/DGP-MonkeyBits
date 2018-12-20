@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.27";
+    private static final String serverIP =  "192.168.1.43";
     private static final String folderName =  "API";
 
     private DBConnect() {}
@@ -189,6 +189,21 @@ public final class DBConnect {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, responseListener);
         requestQueue.add(jsonRequest);
+    }
+
+    public static void searchByName(Context context, DBConnectInterface responseListener, String search){
+        String url = "http://" + serverIP + "/" + folderName + "/searchByName.php?Search=" + search;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void searchRoutesByName(Context context, DBConnectInterface responseListener, String search){
+        String url = "http://" + serverIP + "/" + folderName + "/searchRoutesByName.php?Search=" + search;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void searchPlacesByName(Context context, DBConnectInterface responseListener, String search){
+        String url = "http://" + serverIP + "/" + folderName + "/searchPlacesByName.php?Search=" + search;
+        getTuple(context, responseListener, url);
     }
 }
 

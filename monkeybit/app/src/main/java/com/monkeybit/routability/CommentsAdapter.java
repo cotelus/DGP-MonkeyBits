@@ -80,7 +80,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     @Override
     public void PositiveResponse(AlertID alertID) {
-        DBConnect.reportPlaceComment(context, this, idPlace, email, date, time );
+        //DBConnect.reportPlaceComment(context, this, idPlace, email, date, time );
     }
 
     @Override

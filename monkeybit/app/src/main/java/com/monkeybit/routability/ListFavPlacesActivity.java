@@ -33,7 +33,7 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
 
         email = ((MainActivity) getActivity()).getUserEmail();
 
-        DBConnect.getFavoritePlaces(getContext(),this, email);
+        //DBConnect.getFavoritePlaces(getContext(),this, email);
 
         return view;
     }
