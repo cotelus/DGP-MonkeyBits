@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -32,6 +33,14 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
     RadioButton radioButtonFilterPlaces;
     RadioButton radioButtonFilterRoutes;
 
+    EditText wordsFromSearchBox;
+    CheckBox checkForeigner;
+    CheckBox checkRedVision;
+    CheckBox checkRedMovility;
+    CheckBox checkDeaf;
+    CheckBox checkColorBlind;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -43,19 +52,30 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
         radioButtonFilterRoutes = rootview.findViewById(R.id.filterCheckBoxRoutes);
         radioButtonFilterPlaces = rootview.findViewById(R.id.filterCheckBoxPlaces);
 
+        wordsFromSearchBox = rootview.findViewById(R.id.searchBox);
+        checkForeigner = rootview.findViewById(R.id.filterCheckBoxForeigner);
+        checkRedVision = rootview.findViewById(R.id.filterCheckBoxRedvision);
+        checkRedMovility = rootview.findViewById(R.id.filterCheckBoxRedmovility);
+        checkDeaf = rootview.findViewById(R.id.filterCheckBoxDeaf);
+        checkColorBlind = rootview.findViewById(R.id.filterCheckBoxColorblind);
+
+        petition = "";
+
         search = rootview.findViewById(R.id.searchButton);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // ADEMAS HAZLE UN getPetition() A CADA UNO PARA ENVIARLE LA PETICION
                 if(radioButtonFilterRoutes.isChecked()){
+                    fillPetition();
                     Fragment selectedFragment = new SearchRoutesResult();
-                    ((SearchRoutesResult) selectedFragment).setPetition("petition");
+                    ((SearchRoutesResult) selectedFragment).setPetition(petition);
                     getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
                     //Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
                 }else{
+                    fillPetition();
                     Fragment selectedFragment = new SearchPlacesResult();
-                    ((SearchPlacesResult) selectedFragment).setPetition("petition");
+                    ((SearchPlacesResult) selectedFragment).setPetition(petition);
                     getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
                     //Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
                 }
@@ -76,8 +96,21 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void collectPetition(){
+    private void fillPetition(){
+        petition +=  wordsFromSearchBox.getText().toString();
 
+        if(checkForeigner.isChecked())
+            petition += "&Foreigner=1";
+        if(checkColorBlind.isChecked())
+            petition += "&ColorBlind=1";
+        if(checkDeaf.isChecked())
+            petition += "&Deaf=1";
+        if(checkRedMovility.isChecked())
+            petition += "&RedMovility=1";
+        if(checkRedVision.isChecked())
+            petition += "&RedVision=1";
+
+        petition = petition.replaceAll(" ", "%20");
     }
     /*
     public void replaceFragment(Fragment someFragment) {

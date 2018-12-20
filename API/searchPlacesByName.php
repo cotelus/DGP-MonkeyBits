@@ -101,7 +101,6 @@ $json2 = array();
 
 				$json['SEARCH_BY_NAME_PLACES'][$x]=$jsonTuple1;
 				$x++;
-
 			}
 
 			mysqli_close($connection);

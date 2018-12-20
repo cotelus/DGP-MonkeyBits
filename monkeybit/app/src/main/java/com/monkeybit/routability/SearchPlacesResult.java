@@ -36,7 +36,9 @@ public class SearchPlacesResult extends Fragment implements DBConnectInterface{
         view = inflater.inflate(R.layout.list_place, container, false);
         pagCurent = 0;
 
-        DBConnect.getPlaces(getContext(),this,pagCurent);
+        DBConnect.searchPlacesByName(getContext(),this, petition);
+
+        //TEST
         //Toast.makeText(getContext(), petition, Toast.LENGTH_SHORT).show();
         return view;
     }
@@ -128,8 +130,8 @@ public class SearchPlacesResult extends Fragment implements DBConnectInterface{
     @Override
     public void onResponse(JSONObject response) {
         try {
-            if (response.has("GET_PLACES")) {
-                JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
+            if (response.has("SEARCH_BY_NAME_PLACES")) {
+                JSONArray operationResult = response.getJSONArray("SEARCH_BY_NAME_PLACES"); // Este elemento tendrá la/s tupla/s
                 LoadArray(operationResult);
             }
         } catch (JSONException e) {

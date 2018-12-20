@@ -39,7 +39,7 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
 
-        DBConnect.getRoutes(getContext(),this,pag);
+        DBConnect.searchRoutesByName(getContext(),this, petition);
         //Toast.makeText(getContext(), petition, Toast.LENGTH_SHORT).show();
 
         return view;
@@ -108,8 +108,8 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
                     String operation = response.getJSONArray("OPERATIONS").getString(i);
                     if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
 
-                        if (operation.equals("GET_ROUTES")) {
-                            JSONArray operationResult = response.getJSONArray("GET_ROUTES"); // Este elemento tendrá la/s tupla/s
+                        if (operation.equals("SEARCH_BY_NAME_ROUTES")) {
+                            JSONArray operationResult = response.getJSONArray("SEARCH_BY_NAME_ROUTES"); // Este elemento tendrá la/s tupla/s
                             SetView(operationResult);
                         }
 
@@ -139,7 +139,7 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
                 String description = json.getString("Description");
 
                 String idRoute = json.getString("IdRoute");
-                Log.d("Debug",idImage);
+                //Log.d("Debug",idImage);
 
                 list.add(new ListRoute(idImage, tittle,description,idRoute));
 

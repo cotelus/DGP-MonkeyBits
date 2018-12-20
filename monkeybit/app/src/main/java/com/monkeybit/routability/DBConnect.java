@@ -195,5 +195,15 @@ public final class DBConnect {
         String url = "http://" + serverIP + "/" + folderName + "/searchByName.php?Search=" + search;
         getTuple(context, responseListener, url);
     }
+
+    public static void searchRoutesByName(Context context, DBConnectInterface responseListener, String search){
+        String url = "http://" + serverIP + "/" + folderName + "/searchRoutesByName.php?Search=" + search;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void searchPlacesByName(Context context, DBConnectInterface responseListener, String search){
+        String url = "http://" + serverIP + "/" + folderName + "/searchPlacesByName.php?Search=" + search;
+        getTuple(context, responseListener, url);
+    }
 }
 
