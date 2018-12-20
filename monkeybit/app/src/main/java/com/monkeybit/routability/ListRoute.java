@@ -30,6 +30,16 @@ public class ListRoute {
         this.imageDescription = imageDescription;
     }
 
+    @SuppressLint("ValidFragment")
+    public ListRoute (String idImage, String tittle, String description,String id) {
+        this.idImage = idImage;
+        this.tittle = tittle;
+        this.description = description;
+        rating = 0;
+        people = 0;
+        this.idRoute = id;
+    }
+
     public String get_Tittle() {
         return tittle;
     }
