@@ -19,8 +19,8 @@ import java.net.URLEncoder;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.27";
-    private static final String folderName =  "API";
+    private static final String serverIP =  "192.168.1.36";
+    private static final String folderName =  "RoutabilityAdmin";
 
     private DBConnect() {}
 
@@ -31,6 +31,16 @@ public final class DBConnect {
 
     public static void addPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String content){
         String url = "http://" + serverIP + "/" + folderName + "/addPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Content=" + content;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void hasVisited(Context context, DBConnectInterface responseListener, String placeId, String email){
+        String url = "http://" + serverIP + "/" + folderName + "/hasVisited.php?IdPlace=" + placeId + "&Email=" + email;
+        updateTuple(context, responseListener, url);
+    }
+
+    public static void reportPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String date, String time){
+        String url = "http://" + serverIP + "/" + folderName + "/reportPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Date=" + date + "&Time=" + time;
         addTuple(context, responseListener, url);
     }
 
@@ -144,6 +154,14 @@ public final class DBConnect {
     }
 
     private static void addTuple(Context context, DBConnectInterface responseListener, String url) {
+        url = url.replaceAll(" ", "%20");
+        Log.d("URL_DBConnect", url);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, responseListener);
+        requestQueue.add(jsonRequest);
+    }
+
+    private static void updateTuple(Context context, DBConnectInterface responseListener, String url) {
         url = url.replaceAll(" ", "%20");
         Log.d("URL_DBConnect", url);
         RequestQueue requestQueue = Volley.newRequestQueue(context);

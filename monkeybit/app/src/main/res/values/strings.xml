@@ -124,7 +124,9 @@
 
     <string name="NoPlaceTittle">Sorry</string>
     <string name="NoPlaceDesc">There is no place</string>
-
+    <string name="is_visited_place">You have not visited this site and therefore can not comment</string>
+    <string name="message_ban_place">ban this comment</string>
+    <string name="message_ban_place_ok">The current message has been reported correctly.</string>
 
     <string name="previous_page">Previous page</string>
     <string name="next_page">Next page</string>

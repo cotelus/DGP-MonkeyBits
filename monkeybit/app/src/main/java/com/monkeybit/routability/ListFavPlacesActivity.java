@@ -49,10 +49,10 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
                 String idImage = json.getString("Image");
                 String tittle = json.getString("Name");
                 String description = json.getString("Description");
-                /*String rating = json.getString("");*/
+                String imageDescription = json.getString("ImageDescription");
                 String idPlace = json.getString("IdPlace");
 
-                list.add(new ListPlace(idPlace,idImage, tittle,description));
+                list.add(new ListPlace(idPlace,idImage, tittle,description,imageDescription));
 
 
             } catch (JSONException e) {
@@ -81,8 +81,10 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
                             description.setText(((ListPlace) post).getDescription());
 
                         ImageView img = view.findViewById(R.id.imgPlacee);
-                        if (img != null)
+                        if (img != null) {
                             Picasso.get().load(((ListPlace) post).getIdImage()).into(img);
+                            img.setContentDescription( ((ListPlace) post).getImageDescription() );
+                        }
                     }
                 }
             });

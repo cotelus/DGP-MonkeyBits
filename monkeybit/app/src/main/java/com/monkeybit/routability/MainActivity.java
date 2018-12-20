@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public BottomNavigationView bottomNavigationView;
     public NavigationView navigationView;
     public DrawerLayout mainDrawerLayout;
+    private Fragment selectedFragment = null;
+
     // Prueba BD
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         LoadNewFragment(new MenuActivity());
         mainDrawerLayout = findViewById(R.id.main_drawer);
         bottomNavigationView =  findViewById(R.id.NavigationViewRutes);
+        this.selectedFragment = new RouteActivity();
+        LoadNewFragment(this.selectedFragment);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -75,23 +79,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = null;
         // @TODO: cargar pantalla por defecto
-        selectedFragment = new RouteActivity();
+        this.selectedFragment = new RouteActivity();
         switch (item.getItemId()) {
             case R.id.menu_rutas:
-                selectedFragment = new RouteActivity();
+                this.selectedFragment = new RouteActivity();
                 break;
             case R.id.menu_maps:
                 // @TODO: asignar a selectedFragment el Fragmen de mapas
                 // selectedFragment = new MapsActivity();
                 break;
             case R.id.menu_fav:
-                 selectedFragment = new ListFavRouteActivity();
+                this.selectedFragment = new FavActivity();
                 break;
         }
-        if (selectedFragment != null) {
-            LoadNewFragment(selectedFragment);
+        if (this.selectedFragment != null) {
+            LoadNewFragment(this.selectedFragment);
         }
         return true;
     }
