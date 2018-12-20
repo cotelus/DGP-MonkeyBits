@@ -53,10 +53,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {
                 int aux = bottomNavigationView.getMenu().size();
-
+                //cogemos el tamaño
                 for(int i = 0; i < aux; i++){
                     bottomNavigationView.getMenu().getItem(i).setChecked(false);
-                }
+                }//desactivamos todos
 
                 selectedFragment = new MenuActivity();
                 switch (menuItem.getItemId()) {
