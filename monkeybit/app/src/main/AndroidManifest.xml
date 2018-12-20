@@ -22,7 +22,6 @@
         </activity>
         <activity android:name=".SuggestPlaceActivity" />
         <activity android:name=".SuggestRouteActivity" />
-        <activity android:name=".searchActivity"></activity>
     </application>
 
 </manifest>

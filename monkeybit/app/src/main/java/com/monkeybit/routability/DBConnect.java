@@ -20,8 +20,8 @@ import java.util.ArrayList;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.27";
-    private static final String folderName =  "API";
+    private static final String serverIP =  "192.168.1.43";
+    private static final String folderName =  "RoutabilityDB";
 
     private DBConnect() {}
 
