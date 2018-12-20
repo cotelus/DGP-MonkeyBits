@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,16 +26,37 @@ import java.util.ArrayList;
 public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
     View view;
-    int pag = 0;
-    int max = 10;
+
+    int tam = 10;
+    private int currentPageIndex = 0;
     private int result = 0;
+    private Button nextPageButton,previousPageButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_routes, container, false);
 
-        DBConnect.getRoutes(getContext(),this,pag);
-        
+        DBConnect.getRoutes(getContext(),this,currentPageIndex);
+        nextPageButton = view.findViewById(R.id.next_places_button);
+        nextPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showNextPage();
+            }
+        });
+
+        previousPageButton = view.findViewById(R.id.previous_places_button);
+        previousPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showPreviousPage();
+            }
+        });
+
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -84,6 +106,8 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                     }
                 }
             });
+
+
         }
     }
 
@@ -143,10 +167,34 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                 e.printStackTrace();
             }
         }
-        pag = pag + max;
+        currentPageIndex = currentPageIndex + tam;
 
         this.Conf_List_Route(list);
 
     }
 
+
+    private void showNextPage() {
+        currentPageIndex += tam;
+        this.fillRoutes();
+    }
+
+    private void showPreviousPage() {
+        if (currentPageIndex >= tam) {
+            currentPageIndex -= tam;
+            if (currentPageIndex < 0) {
+                currentPageIndex = 0;
+
+            }
+            this.fillRoutes();
+
+        } else {
+            Toast.makeText(getContext(), "No hay páginas anteriores", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void fillRoutes() {
+        DBConnect.getRoutes(getContext(),this,currentPageIndex);
+    }
+    
 }

@@ -463,7 +463,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
             }
         }
         else{
-
+            Toast.makeText(getContext(), "No hay páginas  siguientes", Toast.LENGTH_SHORT).show();
         }
 
         this.Conf_List_Route(placesShown);
