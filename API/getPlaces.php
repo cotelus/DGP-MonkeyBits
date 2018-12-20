@@ -20,7 +20,7 @@ $json2 = array();
 			$placesException = json_decode($_GET["PlacesException"]);
 			$except = " WHERE ";
 			foreach($placesException as $exception) {
-				$except .= "IdPlace!=" . $exception->IdPlace;
+				$except .= "IdPlace!=" . $exception;
 				$except .= " and ";
 			}
 			$except = trim($except, " and ");
@@ -29,7 +29,7 @@ $json2 = array();
 
 		
 		
-		$sql="SELECT * FROM place $except LIMIT $Start,4";
+		$sql="SELECT * FROM place $except LIMIT $Start,7";
 		$result=mysqli_query($connection,$sql);
 
 		if (!$connection->set_charset("utf8")) {

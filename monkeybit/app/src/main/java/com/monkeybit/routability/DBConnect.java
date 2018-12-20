@@ -16,10 +16,11 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.27";
+    private static final String serverIP =  "192.168.1.67";
     private static final String folderName =  "API";
 
     private DBConnect() {}
@@ -54,6 +55,22 @@ public final class DBConnect {
     }
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?Start=" + firstPlaceIndex;
+        getTuple(context, responseListener, url);
+    }
+    public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex, ArrayList<Place> placesException) {
+        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?Start=" + firstPlaceIndex;
+        if (!placesException.isEmpty()) {
+            JSONArray jsonPlacesException = new JSONArray();
+            for (Place place : placesException) {
+                jsonPlacesException.put(place.getIdPlace());
+            }
+            try {
+                url += "&PlacesException=" + URLEncoder.encode(jsonPlacesException.toString(), "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                Log.d("ERROR", e.toString());
+            }
+        }
         getTuple(context, responseListener, url);
     }
 

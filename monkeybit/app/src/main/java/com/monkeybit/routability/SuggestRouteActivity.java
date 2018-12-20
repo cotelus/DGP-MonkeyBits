@@ -33,7 +33,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     ArrayList<Place> arrayAvailablePlaces = new ArrayList<>();
     final PlaceAdapter adapterAddedPlaces = new PlaceAdapter(arrayAddedPlaces);
     final PlaceAdapter adapterAvailablePlaces = new PlaceAdapter(arrayAvailablePlaces);
-    private int currentPageIndex = -4;
+    private int currentPageIndex = 0;
     View view;
     private TextInputEditText newName;
     private TextInputEditText newDescription;
@@ -90,7 +90,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         availablePlaces.setLayoutManager(lim2);
 
-        this.showNextPage();
+        this.updateCurrentPage();
 
         this.initializePlaceAdapter(arrayAddedPlaces, addedPlaces, adapterAddedPlaces);
         this.initializePlaceAdapter(arrayAvailablePlaces,availablePlaces, adapterAvailablePlaces);
@@ -183,10 +183,12 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
                     if(placeView == addedPlaces){
                         arrayAvailablePlaces.add(arrayAddedPlaces.get(position));
                         arrayAddedPlaces.remove(position);
+                        updateCurrentPage();
                     }
                     else if(placeView == availablePlaces){
                         arrayAddedPlaces.add(arrayAvailablePlaces.get(position));
                         arrayAvailablePlaces.remove(position);
+                        updateCurrentPage();
                     }
                     updatePlaceAdapter(arrayAddedPlaces, addedPlaces, adapterAddedPlaces);
                     updatePlaceAdapter(arrayAvailablePlaces,availablePlaces, adapterAvailablePlaces);
@@ -196,9 +198,13 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         placeView.setAdapter(adapter);
     }
 
+    private void updateCurrentPage() {
+        DBConnect.getPlaces(getContext(), this, currentPageIndex, arrayAddedPlaces);
+    }
+
     private void showNextPage() {
         currentPageIndex += 4;
-        DBConnect.getPlaces(getContext(), this, currentPageIndex);
+        DBConnect.getPlaces(getContext(), this, currentPageIndex, arrayAddedPlaces);
     }
 
     private void showPreviousPage() {
@@ -207,7 +213,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
             if (currentPageIndex < 0) {
                 currentPageIndex = 0;
             }
-            DBConnect.getPlaces(getContext(), this, currentPageIndex);
+            DBConnect.getPlaces(getContext(), this, currentPageIndex, arrayAddedPlaces);
         } else {
             Toast.makeText(getContext(), "No hay páginas anteriores", Toast.LENGTH_SHORT).show();
         }
