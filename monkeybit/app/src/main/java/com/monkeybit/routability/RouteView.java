@@ -162,9 +162,16 @@ public class RouteView extends Fragment implements DBConnectInterface{
     }
 
     protected void Conf_List_Route(ArrayList<Place> dataList) {
+
         if(dataList != null){
             ListView list = view.findViewById(R.id.postListLug);
             //adapt to the list
+            if(placesShown.size() >=4){
+                list.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT *4;
+            } else if(placesShown.size() < 4){
+                list.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT * places.size(); ///Se coge el wrap content para ajustar el tamaño
+            }
+
             list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
                 @Override
                 public void onPost(Object post, View view) {
@@ -429,7 +436,11 @@ public class RouteView extends Fragment implements DBConnectInterface{
     //change pag
 
     private void showNextPage() {
-        currentPageIndex += tam;
+        if(currentPageIndex + tam > places.size())
+            currentPageIndex += places.size() % tam;
+
+        else
+            currentPageIndex += tam;
     }
 
     private void showPreviousPage() {
