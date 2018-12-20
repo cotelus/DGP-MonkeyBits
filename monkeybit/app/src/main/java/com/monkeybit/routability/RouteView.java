@@ -50,8 +50,8 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
         view = inflater.inflate(R.layout.view_rute, container, false);
         //Receive the id
-        //choosen = getArguments().getString("routeId");
-        choosen = "2";
+        choosen = getArguments().getString("routeId");
+        //choosen = "2";
         email = ((MainActivity) getActivity()).getUserEmail();
         dbInter = this;
         places = null;
@@ -62,9 +62,9 @@ public class RouteView extends Fragment implements DBConnectInterface{
                 public void onClick(View v) {
                     if (email != null) {
                         if (isFavorite) {
-                            removeFavoritePlace();
+                            removeFavoriteRoute();
                         } else {
-                            addFavoritePlace();
+                            addFavoriteRoute();
                         }
                     } else {
                         Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
@@ -87,22 +87,25 @@ public class RouteView extends Fragment implements DBConnectInterface{
             }
         });
 
-        commentText = view.findViewById(R.id.myComment);
+        commentText = view.findViewById(R.id.myCommentRoute);
 
         Button button2 = view.findViewById(R.id.sendComment);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email != null && !commentText.getText().toString().equals("")){
-                    Toast.makeText(getContext(), "Enviando comentario", Toast.LENGTH_SHORT).show();
-                    addComment();
+                if(choosen != null){
+                    if(email != null && !commentText.getText().toString().equals("")){
+                        Toast.makeText(getContext(), "Enviando comentario", Toast.LENGTH_SHORT).show();
+                        addComment();
+                    }
+                    else if(email == null){
+                        Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
+                    }
+                    else if(commentText.getText().toString().equals("")){
+                        Toast.makeText(getContext(), R.string.empty_fields, Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else if(email == null){
-                    Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT).show();
-                }
-                else if(commentText.getText().toString().equals("")){
-                    Toast.makeText(getContext(), R.string.empty_fields, Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
 
@@ -120,15 +123,15 @@ public class RouteView extends Fragment implements DBConnectInterface{
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
     public void addComment(){
-        DBConnect.addPlaceComment(getContext(),this, choosen, email, commentText.getText().toString());
+        DBConnect.addRouteComment(getContext(),this,choosen,email,commentText.getText().toString());
     }
 
-    public void addFavoritePlace(){
-        DBConnect.addAsFavoritePlace(getContext(), this, email, choosen);
+    public void addFavoriteRoute(){
+        DBConnect.addAsFavoriteRoute(getContext(), this, email, choosen);
     }
 
-    public void removeFavoritePlace(){
-        DBConnect.removeFavoritePlace(getContext(), this, email, choosen);
+    public void removeFavoriteRoute(){
+        DBConnect.removeFavoriteRoutes(getContext(), this, email, choosen);
     }
 
     protected void Conf_List_Route(ArrayList<Place> dataList) {
@@ -279,7 +282,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
                             //Toast.makeText(getContext(), "Lugar\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
                             SetView(operationResult);
                         }
-                        if (operation.equals("GET_ROUTE_COMMENTS")) {
+                        if (operation.equals("GET_COMMENTS_FROM_ROUTE")) {
                             JSONArray operationResult = response.getJSONArray(operation); // Este elemento tendrá la/s tupla/s
                             this.setComments(operationResult);
                         }
@@ -304,22 +307,26 @@ public class RouteView extends Fragment implements DBConnectInterface{
                         if (operation.equals("GET_FAVORITE_ROUTES")) {
                             JSONArray operationResult = response.getJSONArray(operation);
                             for (int j = 0; j < operationResult.length(); j++) {
-                                String favRoute = operationResult.getJSONObject(j).getString("IdRoute");
-                                if (choosen.equals(favRoute)) {
-                                    setFavButtonState(true);
+                                JSONObject aux = operationResult.getJSONObject(j);
+                                if(aux != null){
+                                    String favRoute = aux.getString("IdRoute");
+                                    if (choosen.equals(favRoute) && choosen != null) {
+                                        setFavButtonState(true);
+                                    }
                                 }
+
                             }
                         }
                         if(operation.equals("GET_PLACES_FROM_ROUTE")){
                             places = new ArrayList<Place>();
                             JSONArray operationResult = response.getJSONArray(operation);
                             Place aux;
-                            Log.d("Debug", "size: "+ operationResult.length());
+                            //find and add the place to the list of places
                             for (int j = 0; j < operationResult.length(); j++) {
-                                Log.d("Debug", "obj: "+ operationResult.getJSONObject(i));
-                                Log.d("Debug","otra linea");
-                                aux = new Place(operationResult.getJSONObject(i));
-                                places.add(aux);
+                                if (operationResult.getJSONObject(j) != null){
+                                    aux = new Place(operationResult.getJSONObject(j));
+                                    places.add(aux);
+                                }
                             }
                             this.Conf_List_Route(places);
                         }
@@ -332,6 +339,10 @@ public class RouteView extends Fragment implements DBConnectInterface{
                     if (operation.equals("REMOVE_FAVORITE_ROUTE")) {
                         Toast.makeText(getContext(), R.string.remove_favorites, Toast.LENGTH_SHORT).show();
                         setFavButtonState(false);
+                    }
+                    if(operation.equals("ADD_ROUTE_COMMENT")){
+                        Log.d("Debug","respuesta add comment");
+                        DBConnect.getRouteComments(getContext(),this,choosen);
                     }
                 }
                 SetView(response);
