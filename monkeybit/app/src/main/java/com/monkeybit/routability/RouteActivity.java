@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 public class RouteActivity extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
     public BottomNavigationView menuRutes;
-
+    private Fragment selectedFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
         getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, new ListRouteActivity()).commit(); //by default
         menuRutes = view.findViewById(R.id.NavViewRutePlace); //the fragment
         menuRutes.setOnNavigationItemSelectedListener(this); //listener, when click an option, the listener is called
-
+        selectedFragment =  new ListRouteActivity();
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -30,7 +30,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment selectedFragment = new ListRouteActivity();
+
         switch (item.getItemId()) {
             case R.id.menu_rutas:
                 //@TODO selectedFragment = new ListRouteActivity();

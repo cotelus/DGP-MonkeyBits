@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public BottomNavigationView bottomNavigationView;
     public NavigationView navigationView;
     public DrawerLayout mainDrawerLayout;
-    private Fragment selectedFragment = null;
+    private Fragment selectedFragment;
 
     // Prueba BD
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -47,10 +47,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         LoadNewFragment(this.selectedFragment);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         navigationView = findViewById(R.id.nav_view);
+        selectedFragment = new RouteActivity();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {
-                Fragment selectedFragment = null;
+
                 switch (menuItem.getItemId()) {
                     case R.id.nav_profile:
                         if (mAuth.getCurrentUser() == null) {
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         break;
                     case R.id.nav_accesibility:
                         // @TODO: asignar a selectedFragment el Fragmen de opciones de accesibilidad
-                        // selectedFragment = new FavActivity();
+                         //selectedFragment = new FavActivity();
                         break;
                 }
                 if (selectedFragment != null) {
@@ -79,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // @TODO: cargar pantalla por defecto
-        this.selectedFragment = new RouteActivity();
+
+
         switch (item.getItemId()) {
             case R.id.menu_rutas:
                 this.selectedFragment = new RouteActivity();

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +58,8 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                         if(pt_desc != null)
                             pt_desc.setText(((ListRoute) post).get_Description());
 
-                        ImageView img = view.findViewById(R.id.imgPlacee);
-                        if (img != null)
+                        ImageView img = view.findViewById(R.id.post_img);
+                        if (img != null && ((ListRoute) post).get_idImagen() != null)
                             Picasso.get().load(((ListRoute) post).get_idImagen()).into(img);
 
                     }
@@ -87,8 +88,9 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
-        errorText.show();
+        /*Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
+        errorText.show();*/
+        //Log.d("Debug",getContext().getString(R.string.errorListRoute));
     }
 
     @Override
@@ -130,6 +132,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                 String description = json.getString("Description");
 
                 String idRoute = json.getString("IdRoute");
+                Log.d("Debug",idImage);
 
                 list.add(new ListRoute(idImage, tittle,description,idRoute));
 
