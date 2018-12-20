@@ -38,6 +38,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
     private String idPlace;
     private ImageButton favButton;
     private TextInputEditText commentText;
+    private boolean isVisited = false;
 
     @Nullable
     @Override
@@ -47,6 +48,8 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         assert getArguments() != null;
         idPlace = getArguments().getString("placeId");
         email = ((MainActivity) Objects.requireNonNull(getActivity())).getUserEmail();
+
+        DBConnect.hasVisited(getContext(),this,idPlace,email);
 
         DBConnect.getFavoritePlaces(getContext(), this,email);
         favButton = view.findViewById(R.id.placeFav);
@@ -70,7 +73,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email != null && !commentText.getText().toString().equals("")){
+                if(email != null && !commentText.getText().toString().equals("") && isVisited){
                     Toast.makeText(getContext(), "Enviando comentario", Toast.LENGTH_SHORT).show();
                     addComment();
                 }
@@ -79,6 +82,9 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                 }
                 else if(commentText.getText().toString().equals("")){
                     Toast.makeText(getContext(), R.string.empty_fields, Toast.LENGTH_SHORT).show();
+                }
+                else if(!isVisited){
+                    Toast.makeText(getContext(), "No has visitado este sitio y por ello no puedes comentar", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -115,7 +121,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         else{
             listComments.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
         }
-        CommentsAdapter adapter = new CommentsAdapter(comments);
+        CommentsAdapter adapter = new CommentsAdapter(comments, getActivity(), getString(R.string.message_ban_place), getString(R.string.message_ban_place_ok), idPlace);
         listComments.setAdapter(adapter);
     }
 
@@ -128,8 +134,13 @@ public class PlaceView extends Fragment implements DBConnectInterface{
             tittle.setText(query.optString("Name"));
 
         ImageView image = view.findViewById(R.id.imagePlace);
-        if (image != null && query.has("Image"))
+        if (image != null && query.has("Image")) {
             Picasso.get().load(query.optString("Image")).into(image);
+        }
+
+        if(image != null && query.has("ImageDescription")){
+            image.setContentDescription(query.optString("ImageDescription"));
+        }
 
         TextView description = view.findViewById(R.id.descriptionPlace);
         if (description != null && query.has("Description"))
@@ -187,6 +198,11 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                 author = query.optString("Name");
             }
 
+            String email = "";
+            if (query.has("Email")) {
+                email = query.optString("Email");
+            }
+
             String comment = "";
             if (query.has("Content")) {
                 comment = query.optString("Content");
@@ -200,7 +216,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
             String time = "";
             if (query.has("Time")) {
                 time = query.optString("Time");
-                comments.add(new Comments(author, comment, date, time));
+                comments.add(new Comments(author, comment, date, time, email));
                 //Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
             }
         }
@@ -236,7 +252,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                             this.setComments(operationResult);
                             //Toast.makeText(getContext(), "Comentarios\n" + operationResult.toString(), Toast.LENGTH_LONG).show();
                         }
-                        if (operation.equals("GET_AVERAGE_SCORE_PLACE")) {
+                        if (operation.equals("GET_AVERAGE_SCORE_PLACE") && !response.getString(operation).equals("null")) {
                             int operationResult = response.getInt(operation); // Este elemento tendrá la/s tupla/s
                             setRating(operationResult);
                             //Toast.makeText(getContext(), "Puntuación: " + operationResult, Toast.LENGTH_LONG).show();
@@ -249,6 +265,9 @@ public class PlaceView extends Fragment implements DBConnectInterface{
                                     setFavButtonState(true);
                                 }
                             }
+                        }
+                        if(operation.equals("HAS_VISITED")){
+                            isVisited = response.getBoolean("HAS_VISITED");
                         }
                     }
                     // Estas operaciones, no necesitan datos de vuelta, por eso no están dentro del if anterior

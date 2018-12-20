@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public NavigationView navigationView;
     public DrawerLayout mainDrawerLayout;
     private Fragment selectedFragment;
-    // Prueba BD
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +41,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         LoadNewFragment(new MenuActivity());
         mainDrawerLayout = findViewById(R.id.main_drawer);
         bottomNavigationView =  findViewById(R.id.NavigationViewRutes);
+        this.selectedFragment = new RouteActivity();
+        LoadNewFragment(this.selectedFragment);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         navigationView = findViewById(R.id.nav_view);
-        selectedFragment = new RouteActivity();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {
@@ -81,18 +81,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         switch (item.getItemId()) {
             case R.id.menu_rutas:
-                selectedFragment = new RouteActivity();
+                this.selectedFragment = new RouteActivity();
                 break;
             case R.id.menu_maps:
                 // @TODO: asignar a selectedFragment el Fragmen de mapas
                 // selectedFragment = new MapsActivity();
                 break;
             case R.id.menu_fav:
-                 selectedFragment = new ListFavRouteActivity();
+                this.selectedFragment = new FavActivity();
                 break;
         }
-        if (selectedFragment != null) {
-            LoadNewFragment(selectedFragment);
+        if (this.selectedFragment != null) {
+            LoadNewFragment(this.selectedFragment);
         }
         return true;
     }

@@ -7,12 +7,14 @@ public class Comments {
     private String author;
     private String description;
     private String time;
+    private String email;
 
-    public Comments(String author, String description, String date, String time){
+    public Comments(String author, String description, String date, String time, String email){
         this.date = date;
         this.author = author;
         this.description = description;
         this.time = time;
+        this.email = email;
     }
 
     public String getDate() {
@@ -41,5 +43,13 @@ public class Comments {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

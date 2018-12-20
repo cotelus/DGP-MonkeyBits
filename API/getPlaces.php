@@ -33,6 +33,7 @@ $json2 = array();
 				$jsonTuple1['Description'] = $reg->Description;
 				$jsonTuple1['Localitation'] = $reg->Localitation;
 				$jsonTuple1['Image'] = $reg->Image;
+				$jsonTuple1['ImageDescription'] = $reg->ImageDescription;
 				$jsonTuple1['RedMovility'] = $reg->RedMovility;
 				$jsonTuple1['RedVision'] = $reg->RedVision;
 				$jsonTuple1['ColourBlind'] = $reg->ColourBlind;

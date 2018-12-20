@@ -45,16 +45,16 @@
 
 
     <string name="suggest_route_title">Creación Ruta</string>
-    <string name="new_name_route">Nombre de la Ruta</string>
-    <string name="new_route_description">Descripción de la Ruta</string>
-    <string name="route_localization">Ubicación de la Ruta</string>
+    <string name="new_name_route">Nombre de la Ruta *</string>
+    <string name="new_route_description">Descripción de la Ruta *</string>
+    <string name="route_localization">Ubicación de la Ruta *</string>
     <string name="suggest_button">Sugerir</string>
 
 
     <string name="suggest_place_title">Creación Lugar</string>
-    <string name="new_name_place">Nombre del Lugar</string>
-    <string name="new_place_description">Descripción del Lugar</string>
-    <string name="place_localization">Ubicación del Lugar</string>
+    <string name="new_name_place">Nombre del Lugar * </string>
+    <string name="new_place_description">Descripción del Lugar * </string>
+    <string name="place_localization">Ubicación del Lugar *</string>
 
 
     <string name="rutes_menu">Rutas/Lugares</string>
@@ -111,7 +111,7 @@
     <string name="place_suggested">Lugar sugerido correctamente.</string>
     <string name="title_place">Titulo del lugar</string>
     <string name="description_place">descripción del lugar</string>
-    <string name="image_link">URL de la imagen</string>
+    <string name="image_link">URL de la imagen * </string>
     <string name="accesibility_red_movility">Movilidad reducida</string>
     <string name="accesibility_red_vision">Visión reducida</string>
     <string name="accesibility_colour_blind">Daltónico</string>
@@ -121,12 +121,14 @@
 
     <!--Route List Place-->
     <string name="NoPlaceTittle">Lo sentimos</string>
-    <string name="NoPlaceDesc">No hay ningun lugar asociado</string>
-
+    <string name="NoPlaceDesc">No hay ningún lugar asociado</string>
+    <string name="is_visited_place">No has visitado este sitio y por ello no puedes comentar</string>
+    <string name="message_ban_place">denunciar este comentario</string>
+    <string name="message_ban_place_ok">Se ha denunciado correctamente el mensaje actualice</string>
 
     <string name="previous_page">Página anterior</string>
     <string name="next_page">Página siguiente</string>
-    <string name="comment_sent">Comentario enviado con exito</string>
+    <string name="comment_sent">Comentario enviado con éxito</string>
     <string name="suggest_route">Sugerir Ruta</string>
     <string name="added_places_text">Lugares añadidos</string>
     <string name="available_places_text">Lugares Disponibles</string>

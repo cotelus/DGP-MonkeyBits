@@ -189,7 +189,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
         else{
             listComments.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
         }
-        CommentsAdapter adapter = new CommentsAdapter(comments);
+        CommentsAdapter adapter = new CommentsAdapter(comments, getActivity(), getString(R.string.message_ban_place), getString(R.string.message_ban_place_ok), choosen);
         listComments.setAdapter(adapter);
     }
 
@@ -205,6 +205,11 @@ public class RouteView extends Fragment implements DBConnectInterface{
                 author = query.optString("Name");
             }
 
+            String email = "";
+            if (query.has("Email")) {
+                email = query.optString("Email");
+            }
+
             String comment = "";
             if (query.has("Content")) {
                 comment = query.optString("Content");
@@ -218,7 +223,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
             String time = "";
             if (query.has("Time")) {
                 time = query.optString("Time");
-                comments.add(new Comments(author, comment, date, time));
+                comments.add(new Comments(author, comment, date, time, email));
                 //Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
             }
         }

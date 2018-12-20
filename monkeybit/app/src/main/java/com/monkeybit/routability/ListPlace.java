@@ -6,16 +6,16 @@ public class ListPlace {
     private String idImage;
     private String tittle;
     private String description;
-    private String rating;
+    private String imageDescription;
     private String idPlace;
 
     @SuppressLint("ValidFragment")
-    public ListPlace(String idPlace, String idImage, String tittle, String description/*, String rating*/){
+    public ListPlace(String idPlace, String idImage, String tittle, String description, String imageDescription ){
         this.idPlace = idPlace;
         this.idImage = idImage;
         this.tittle = tittle;
         this.description = description;
-        /*this.rating = rating;*/
+        this.imageDescription = imageDescription;
     }
 
     public String getIdImage() {
@@ -42,12 +42,12 @@ public class ListPlace {
         this.description = description;
     }
 
-    public String getRating() {
-        return rating;
+    public String getImageDescription() {
+        return imageDescription;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public void setImageDescription(String imageDescription) {
+        this.imageDescription = imageDescription;
     }
 
     public String getIdPlace() {
