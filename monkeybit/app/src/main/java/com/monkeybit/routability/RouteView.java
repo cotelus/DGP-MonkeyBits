@@ -154,6 +154,9 @@ public class RouteView extends Fragment implements DBConnectInterface{
                         if (image != null && ((Place) post).getImage() != null){
                                 Picasso.get().load(((Place) post).getImage()).into(image);
                         }
+                        if(image != null && ((Place) post).getDescriptionImage()!= null){
+                            image.setContentDescription(((Place) post).getDescriptionImage());
+                        }
                     }
 
                 }
@@ -251,13 +254,15 @@ public class RouteView extends Fragment implements DBConnectInterface{
                     Picasso.get().load(bdelements.optString("Image")).into(image);
             }
 
-            if(image != null && bdelements.has("ImageDescription")){
-                image.setContentDescription(bdelements.optString("ImageDescription"));
-            }
+            //if(image != null && bdelements.has("ImageDescription")){
+            //    image.setContentDescription(bdelements.optString("ImageDescription"));
+            //}
 
+            if(image != null && bdelements.has("ImageDescription")){
+               image.setContentDescription("Desc");
+            }
             TextView description = view.findViewById(R.id.postDescRt);
             if (description != null){
-               // Log.d("Debug", ruta.getDescription());
                 if(ruta.getDescription() != null)
                     description.setText(ruta.getDescription());
             }

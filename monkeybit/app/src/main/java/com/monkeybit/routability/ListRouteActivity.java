@@ -59,9 +59,10 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                             pt_desc.setText(((ListRoute) post).get_Description());
 
                         ImageView img = view.findViewById(R.id.post_img);
-                        if (img != null && ((ListRoute) post).get_idImagen() != null)
+                        if (img != null && ((ListRoute) post).get_idImagen() != null) {
                             Picasso.get().load(((ListRoute) post).get_idImagen()).into(img);
-
+                            img.setContentDescription(((ListRoute) post).getImageDescription());
+                        }
                     }
 
                 }

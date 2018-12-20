@@ -11,7 +11,7 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql1="SELECT IdRoute, Email, MadeBy, Name, Description, Image FROM route WHERE IdRoute = '{$IdRoute}'";
+		$sql1="SELECT IdRoute, Email, MadeBy, Name, Description, Image, ImageDescription FROM route WHERE IdRoute = '{$IdRoute}'";
 		$result=mysqli_query($connection,$sql1);
 
 		if($sql1){
@@ -24,6 +24,7 @@ $json=array();
 				$jsonTuple1['Name'] = $reg['Name'];
 				$jsonTuple1['Description'] = $reg['Description'];
 				$jsonTuple1['Image'] = $reg['Image'];
+				$jsonTuple1['ImageDescription'] = $reg['ImageDescription'];
 				$json['GET_ROUTE']=$jsonTuple1;
 			}
 		}

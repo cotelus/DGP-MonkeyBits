@@ -53,8 +53,13 @@ public class Route {
             this.setMadeBy(jsonRoute.optString("MadeBy"));
             this.setName(jsonRoute.optString("Name"));
             this.setDescription(jsonRoute.optString("Description"));
+            this.setDescriptionImage(jsonRoute.optString("ImageDescription"));
+            this.setImage(jsonRoute.optString("Image"));
+
         }
     }
+
+
 
     public static boolean isValidJson(JSONObject jsonRoute) {
         //@TODO añadir imagen
@@ -159,5 +164,13 @@ public class Route {
 
     public void removePlace(Place place) {
         places.remove(place);
+    }
+
+    public void setDescriptionImage(String description) {
+        descImagen = description;
+    }
+
+    public String getDescriptionImage() {
+        return descImagen;
     }
 }
