@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class Place {
 
     private String idPlace, email;
-    protected String madeBy, name, description, localization, image;
+    protected String madeBy, name, description, localization, image,imageDesc;
     protected boolean redMovility, redVision, colourBlind, deaf, foreigner;
 
     public Place(){
@@ -65,6 +65,7 @@ public class Place {
             this.setColourBlind(jsonPlace.optInt("ColourBlind") == 1);
             this.setDeaf(jsonPlace.optInt("Deaf") == 1);
             this.setForeigner(jsonPlace.optInt("Foreigner") == 1);
+            this.setDescriptionImage(jsonPlace.optString("ImageDescription"));
         }
     }
 
@@ -195,6 +196,13 @@ public class Place {
         this.foreigner = foreigner;
     }
 
+    public void setDescriptionImage(String description) {
+        imageDesc = description;
+    }
+
+    public String getDescriptionImage() {
+        return imageDesc;
+    }
     @Override
     public boolean equals(Object obj) {
         return this.getIdPlace().equals(((Place) obj).getIdPlace());

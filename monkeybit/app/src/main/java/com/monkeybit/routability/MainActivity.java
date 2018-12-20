@@ -2,10 +2,12 @@ package com.monkeybit.routability;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +23,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.security.AccessControlContext;
 import java.util.ArrayList;
 
 import static com.android.volley.VolleyLog.TAG;
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener, AlertDialogResponseInterface {
     private FirebaseAuth mAuth;
@@ -48,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {
+                int aux = bottomNavigationView.getMenu().size();
+                //cogemos el tamaño
+                for(int i = 0; i < aux; i++){
+                    bottomNavigationView.getMenu().getItem(i).setChecked(false);
+                }//desactivamos todos
+
                 selectedFragment = new MenuActivity();
                 switch (menuItem.getItemId()) {
                     case R.id.nav_profile:
@@ -77,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+       // this.selectedFragment = new RouteActivity();
 
         switch (item.getItemId()) {
             case R.id.menu_rutas:
