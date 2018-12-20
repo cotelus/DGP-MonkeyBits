@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,15 @@ import java.util.ArrayList;
 public class SuggestRouteActivity extends Fragment implements DBConnectInterface {
 
     private Button suggestButton;
+    private Button nextPageButton;
+    private Button previousPageButton;
     private RecyclerView addedPlaces;
     private RecyclerView availablePlaces;
     ArrayList<Place> arrayAddedPlaces = new ArrayList<>();
     ArrayList<Place> arrayAvailablePlaces = new ArrayList<>();
+    final PlaceAdapter adapterAddedPlaces = new PlaceAdapter(arrayAddedPlaces);
+    final PlaceAdapter adapterAvailablePlaces = new PlaceAdapter(arrayAvailablePlaces);
+    private int currentPageIndex = 0;
     View view;
     private TextInputEditText newName;
     private TextInputEditText newDescription;
@@ -52,6 +58,26 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
             }
         });
 
+        nextPageButton = view.findViewById(R.id.next_places_button);
+        nextPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showNextPage();
+            }
+        });
+
+        previousPageButton = view.findViewById(R.id.previous_places_button);
+        previousPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showPreviousPage();
+            }
+        });
+
         addedPlaces = view.findViewById(R.id.added_places);
         LinearLayoutManager lim = new LinearLayoutManager(getContext());
         if(lim != null) {
@@ -64,10 +90,10 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         availablePlaces.setLayoutManager(lim2);
 
-        DBConnect.getPlaces(getContext(), this, 1);
+        this.updateCurrentPage();
 
-        this.initializePlaceAdapter(arrayAddedPlaces, addedPlaces);
-        this.initializePlaceAdapter(arrayAvailablePlaces,availablePlaces);
+        this.initializePlaceAdapter(arrayAddedPlaces, addedPlaces, adapterAddedPlaces);
+        this.initializePlaceAdapter(arrayAvailablePlaces,availablePlaces, adapterAvailablePlaces);
 
         return view;
     }
@@ -82,7 +108,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
             if (userId != null) {
                 RouteToSuggest newRoute = new RouteToSuggest(userId, name, description, image);
                 newRoute.setPlaces(arrayAddedPlaces);
-                Toast.makeText(getActivity(), "Json a enviar: " + newRoute.toJson() + "\n" + newRoute.getPlacesInJson(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Json a enviar: " + newRoute.toJson().toString() + "\n" + newRoute.getPlacesInJson().toString(), Toast.LENGTH_SHORT).show();
                 try {
                     DBConnect.suggestRoute(getContext(), this, newRoute.toJson(), newRoute.getPlacesInJson());
                 } catch (JSONException e) {
@@ -90,9 +116,8 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
                 }
                 Toast.makeText(getActivity(), "Se enviarán los datos a la base de datos...", Toast.LENGTH_SHORT).show();
             }
-        }
-        else {
-            Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -104,22 +129,21 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     @Override
     public void onResponse(JSONObject response) {
         try {
-            if (response.has("SUGGEST_ROUTE")) {
-                Toast.makeText(getContext(), getString(R.string.suggested_route), Toast.LENGTH_SHORT).show();
-
-                newName.getText().clear();
-                newDescription.getText().clear();
                 newImage.getText().clear();
-
-            }
-            if (response.has("GET_PLACES")) {
-                JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
-                /*for (int i = 0; i < operationResult.length(); i++) {
-                    Place place = new Place(operationResult.getJSONObject(i));
-                    arrayAvailablePlaces.add(place);
-                }*/
-                this.fillAvailablePlaced(operationResult);
-                this.initializePlaceAdapter(arrayAvailablePlaces, availablePlaces);
+            for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
+                String operation = response.getJSONArray("OPERATIONS").getString(i);
+                if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
+                    if (operation.equals("SUGGEST_ROUTE")) {
+                        Toast.makeText(getContext(), getString(R.string.suggested_route), Toast.LENGTH_SHORT).show();
+                    }
+                    if (operation.equals("GET_PLACES")) {
+                        JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
+                        this.fillAvailablePlaced(operationResult);
+                        this.updatePlaceAdapter(arrayAvailablePlaces, availablePlaces, adapterAvailablePlaces);
+                    }
+                } else if (operation.equals("GET_PLACES")) {
+                    currentPageIndex--;
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -127,6 +151,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     }
 
     private void fillAvailablePlaced(JSONArray places) throws JSONException {
+        arrayAvailablePlaces.clear();
         for (int i = 0; i < places.length(); i++) {
             Place place = new Place(places.getJSONObject(i));
             // Para no añadir aquellos que ya están en la lista de añadidos (al modificar ruta existente)
@@ -136,14 +161,21 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         }
     }
 
-    public void  initializePlaceAdapter(ArrayList<Place> places, final RecyclerView placeView){
+    public void  updatePlaceAdapter(ArrayList<Place> places, final RecyclerView placeView, final PlaceAdapter adapter){
         if(places.size() >=4){
-            placeView.getLayoutParams().height = 1300;
+            placeView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT *4;
+        } else if(places.size() < 4){
+            placeView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT * places.size(); ///Se coge el wrap content para ajustar el tamaño
         }
-        else if(places.size() < 4){
-            placeView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT; ///Se coge el wrap content para ajustar el tamaño
+        placeView.setAdapter(adapter);
+    }
+
+    public void  initializePlaceAdapter(ArrayList<Place> places, final RecyclerView placeView, final PlaceAdapter adapter){
+        if(places.size() >=4){
+            placeView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT *4;
+        } else if(places.size() < 4){
+            placeView.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT * places.size(); ///Se coge el wrap content para ajustar el tamaño
         }
-        final PlaceAdapter adapter = new PlaceAdapter(places);
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,16 +184,39 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
                     if(placeView == addedPlaces){
                         arrayAvailablePlaces.add(arrayAddedPlaces.get(position));
                         arrayAddedPlaces.remove(position);
+                        updateCurrentPage();
                     }
                     else if(placeView == availablePlaces){
                         arrayAddedPlaces.add(arrayAvailablePlaces.get(position));
                         arrayAvailablePlaces.remove(position);
+                        updateCurrentPage();
                     }
-                    initializePlaceAdapter(arrayAddedPlaces, addedPlaces);
-                    initializePlaceAdapter(arrayAvailablePlaces,availablePlaces);
+                    updatePlaceAdapter(arrayAddedPlaces, addedPlaces, adapterAddedPlaces);
+                    updatePlaceAdapter(arrayAvailablePlaces,availablePlaces, adapterAvailablePlaces);
                 }
             }
         });
         placeView.setAdapter(adapter);
+    }
+
+    private void updateCurrentPage() {
+        DBConnect.getPlaces(getContext(), this, currentPageIndex, arrayAddedPlaces);
+    }
+
+    private void showNextPage() {
+        currentPageIndex += 4;
+        DBConnect.getPlaces(getContext(), this, currentPageIndex, arrayAddedPlaces);
+    }
+
+    private void showPreviousPage() {
+        if (currentPageIndex >= 4) {
+            currentPageIndex -= 4;
+            if (currentPageIndex < 0) {
+                currentPageIndex = 0;
+            }
+            DBConnect.getPlaces(getContext(), this, currentPageIndex, arrayAddedPlaces);
+        } else {
+            Toast.makeText(getContext(), "No hay páginas anteriores", Toast.LENGTH_SHORT).show();
+        }
     }
 }
