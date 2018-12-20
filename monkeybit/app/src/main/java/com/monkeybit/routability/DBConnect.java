@@ -13,6 +13,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
 public final class DBConnect {
 
     private static final String serverIP =  "192.168.1.43";
@@ -34,9 +38,33 @@ public final class DBConnect {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaceComments.php?IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
+    public static void getRouteComments(Context context, DBConnectInterface responseListener, String routeId){
+        String url = "http://" + serverIP + "/" + folderName + "/getRouteComments.php?IdRoute=" + routeId;
+        getTuple(context, responseListener, url);
+    }
+    public static void addRouteComment(Context context, DBConnectInterface responseListener, String routeId, String email, String content){
+        String url = "http://" + serverIP + "/" + folderName + "/addRouteComment.php?IdRoute=" + routeId + "&Email=" + email + "&Content=" + content;
+        addTuple(context, responseListener, url);
+    }
 
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
+        getTuple(context, responseListener, url);
+    }
+    public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex, ArrayList<Place> placesException) {
+        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?Start=" + firstPlaceIndex;
+        if (!placesException.isEmpty()) {
+            JSONArray jsonPlacesException = new JSONArray();
+            for (Place place : placesException) {
+                jsonPlacesException.put(place.getIdPlace());
+            }
+            try {
+                url += "&PlacesException=" + URLEncoder.encode(jsonPlacesException.toString(), "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                Log.d("ERROR", e.toString());
+            }
+        }
         getTuple(context, responseListener, url);
     }
 

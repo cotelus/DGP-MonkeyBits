@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,7 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                         ImageView img = view.findViewById(R.id.post_img);
                         if (img != null)
                             Picasso.get().load(((ListRoute) post).get_idImagen()).into(img);
+                            //img.setContentDescription( ((ListRoute) post).getImageDescription() );
                     }
                 }
             });
@@ -96,15 +98,14 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                 public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
                     //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
                     //toast.show();
-
                     ListRoute choosen = (ListRoute) post.getItemAtPosition(pos);
                     RouteView route = new RouteView();
                     Bundle bundle = new Bundle();
-                    bundle.putString("ruteId", choosen.get_idRoute());
+                    bundle.putString("routeId", choosen.get_idRoute());
                     route.setArguments(bundle);
-
+                    Log.d("Debug","choosen: "+choosen);
                     if (route != null) {
-                        //change the fragment
+
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, route).commit(); //go to the fragment
 
                     }

@@ -46,12 +46,12 @@ public class RouteToSuggest extends Route {
 
     public JSONArray getPlacesInJson() {
         JSONArray jsonPlaces = new JSONArray();
-        JSONObject jsonPlace = new JSONObject();
         try {
             for (Place place : places) {
-                jsonPlace.put("IdPlace", place);
+                JSONObject jsonPlace = new JSONObject();
+                jsonPlace.put("IdPlace", place.getIdPlace());
                 jsonPlace.put("Sequence", places.indexOf(place));
-                jsonPlaces.put(place);
+                jsonPlaces.put(jsonPlace);
             }
         } catch (JSONException e) {
             Log.d("DEBUG", "Error al pasar la lista de lugares de la ruta a JSON");
