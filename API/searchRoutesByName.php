@@ -87,13 +87,15 @@ $json2 = array();
 			$json['OPERATIONS'][0]="SEARCH_BY_NAME_ROUTES";
 			while($reg = mysqli_fetch_array($result)){
 				echo mysqli_error($connection);
-				$jsonTuple2['IdRoute'] = $reg['IdRoute'];
-				$jsonTuple2['Email'] = $reg['Email'];
-				$jsonTuple2['MadeBy'] = $reg['MadeBy'];
-				$jsonTuple2['Name'] = $reg['Name'];
-				$jsonTuple2['Description'] = $reg['Description'];
+				$jsonTuple['IdRoute'] = $reg['IdRoute'];
+				$jsonTuple['Email'] = $reg['Email'];
+				$jsonTuple['MadeBy'] = $reg['MadeBy'];
+				$jsonTuple['Name'] = $reg['Name'];
+				$jsonTuple['Description'] = $reg['Description'];
+				$jsonTuple['Image'] = $reg['Image'];
+				$jsonTuple['ImageDescription'] = $reg['ImageDescription'];
 
-				$json['SEARCH_BY_NAME_ROUTES'][$x]=$jsonTuple2;
+				$json['SEARCH_BY_NAME_ROUTES'][$x]=$jsonTuple;
 				$x++;
 			}
 

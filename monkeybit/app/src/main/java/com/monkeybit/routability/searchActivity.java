@@ -67,13 +67,13 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 // ADEMAS HAZLE UN getPetition() A CADA UNO PARA ENVIARLE LA PETICION
                 if(radioButtonFilterRoutes.isChecked()){
-                    fillPetition();
+                    fillPetitionForRoute();
                     Fragment selectedFragment = new SearchRoutesResult();
                     ((SearchRoutesResult) selectedFragment).setPetition(petition);
                     getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
                     //Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
                 }else{
-                    fillPetition();
+                    fillPetitionForPlace();
                     Fragment selectedFragment = new SearchPlacesResult();
                     ((SearchPlacesResult) selectedFragment).setPetition(petition);
                     getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
@@ -96,7 +96,7 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void fillPetition(){
+    private void fillPetitionForPlace(){
         petition +=  wordsFromSearchBox.getText().toString();
 
         if(checkForeigner.isChecked())
@@ -109,6 +109,12 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
             petition += "&RedMovility=1";
         if(checkRedVision.isChecked())
             petition += "&RedVision=1";
+
+        petition = petition.replaceAll(" ", "%20");
+    }
+
+    private void fillPetitionForRoute(){
+        petition +=  wordsFromSearchBox.getText().toString();
 
         petition = petition.replaceAll(" ", "%20");
     }

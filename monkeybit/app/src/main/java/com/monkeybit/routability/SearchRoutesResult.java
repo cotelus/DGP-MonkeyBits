@@ -40,6 +40,7 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
         view = inflater.inflate(R.layout.list_routes, container, false);
 
         DBConnect.searchRoutesByName(getContext(),this, petition);
+        //DBConnect.getRoutes(getContext(), this,result);
         //Toast.makeText(getContext(), petition, Toast.LENGTH_SHORT).show();
 
         return view;
@@ -49,7 +50,6 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
 
 
     protected void Conf_List_Route(ArrayList<ListRoute> dataList){
-
         ListView list = view.findViewById(R.id.list_rt);
         //adapt to the list
         if(list!=null) {
@@ -95,8 +95,8 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        /*Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
-        errorText.show();*/
+        Toast errorText = Toast.makeText(getContext(),getContext().getString(R.string.errorListRoute),Toast.LENGTH_SHORT);
+        errorText.show();
         //Log.d("Debug",getContext().getString(R.string.errorListRoute));
     }
 
@@ -107,7 +107,8 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
                 for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
                     String operation = response.getJSONArray("OPERATIONS").getString(i);
                     if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
-
+                        //if (operation.equals("GET_ROUTES")) {
+                            //JSONArray operationResult = response.getJSONArray("GET_ROUTES"); // Este elemento tendrá la/s tupla/s
                         if (operation.equals("SEARCH_BY_NAME_ROUTES")) {
                             JSONArray operationResult = response.getJSONArray("SEARCH_BY_NAME_ROUTES"); // Este elemento tendrá la/s tupla/s
                             SetView(operationResult);
@@ -126,20 +127,21 @@ public class SearchRoutesResult extends Fragment implements DBConnectInterface{
 
     }
 
-    private void SetView(JSONArray operationResult) throws JSONException {
+
+
+    private void SetView(JSONArray operationResult){
         ArrayList<ListRoute> list = new ArrayList<>();
 
         for(int i=0;i<operationResult.length();i++){
             try {
                 JSONObject json = operationResult.getJSONObject(i);
                 //Get and save data
-
                 String idImage = json.getString("Image");
                 String tittle = json.getString("Name");
                 String description = json.getString("Description");
 
                 String idRoute = json.getString("IdRoute");
-                //Log.d("Debug",idImage);
+                Log.d("Debug",idImage);
 
                 list.add(new ListRoute(idImage, tittle,description,idRoute));
 
