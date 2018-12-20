@@ -20,8 +20,8 @@ import java.util.ArrayList;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.43";
-    private static final String folderName =  "RoutabilityDB";
+    private static final String serverIP =  "192.168.1.27";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
 
@@ -30,8 +30,28 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
+    public static void addPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String content){
+        String url = "http://" + serverIP + "/" + folderName + "/addPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Content=" + content;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void hasVisited(Context context, DBConnectInterface responseListener, String placeId, String email){
+        String url = "http://" + serverIP + "/" + folderName + "/hasVisited.php?IdPlace=" + placeId + "&Email=" + email;
+        updateTuple(context, responseListener, url);
+    }
+
+    public static void reportPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String date, String time){
+        String url = "http://" + serverIP + "/" + folderName + "/reportPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Date=" + date + "&Time=" + time;
+        addTuple(context, responseListener, url);
+    }
+
     public static void getAverageScorePlace(Context context, DBConnectInterface responseListener, String placeId) {
         String url = "http://" + serverIP + "/" + folderName + "/getAverageScorePlace.php?IdPlace=" + placeId;
+        getTuple(context, responseListener, url);
+    }
+
+    public static void getAverageScoreRoute(Context context, DBConnectInterface responseListener, String routeId) {
+        String url = "http://" + serverIP + "/" + folderName + "/getAverageScoreRoute.php?IdRoute=" + routeId;
         getTuple(context, responseListener, url);
     }
 
@@ -49,7 +69,7 @@ public final class DBConnect {
     }
 
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?StartIndex=" + firstPlaceIndex;
+        String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?Start=" + firstPlaceIndex;
         getTuple(context, responseListener, url);
     }
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex, ArrayList<Place> placesException) {
@@ -69,13 +89,13 @@ public final class DBConnect {
         getTuple(context, responseListener, url);
     }
 
-    public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavoritePlaces.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+    public static void getFavoritePlaces(Context context, DBConnectInterface responseListener, String userEmail) {
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoritePlaces.php?Email=" + userEmail;
         addTuple(context, responseListener, url);
     }
 
     public static void removeFavoritePlace(Context context, DBConnectInterface responseListener, String userEmail, String placeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/removeFavouritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavoritePlace.php?Email=" + userEmail + "&IdPlace=" + placeId;
         getTuple(context, responseListener, url);
     }
 
@@ -106,12 +126,12 @@ public final class DBConnect {
     }
 
     public static void getRoutes(Context context, DBConnectInterface responseListener, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?StartIndex=" + firstRouteIndex;
+        String url = "http://" + serverIP + "/" + folderName + "/getRoutes.php?Start=" + firstRouteIndex;
         getTuple(context, responseListener, url);
     }
 
-    public static void getFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, int firstRouteIndex) {
-        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail + "&StartIndex=" + Integer.toString(firstRouteIndex);
+    public static void getFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail) {
+        String url = "http://" + serverIP + "/" + folderName + "/getFavoriteRoutes.php?Email=" + userEmail;
         getTuple(context, responseListener, url);
     }
 
@@ -123,6 +143,22 @@ public final class DBConnect {
 
     public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
         String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void suggestRoute(Context context, DBConnectInterface responseListener, JSONObject suggestedRoute, JSONArray places) throws JSONException {
+        String suggestedRouteUrl = "";
+        suggestedRouteUrl += "MadeBy=" + suggestedRoute.getString("MadeBy");
+        suggestedRouteUrl += "&Name=" + suggestedRoute.getString("Name");
+        suggestedRouteUrl += "&Description=" + suggestedRoute.getString("Description");
+        suggestedRouteUrl += "&Image=" + suggestedRoute.getString("Image");
+        try {
+            suggestedRouteUrl += "&Places=" + URLEncoder.encode(places.toString(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            Log.d("ERROR", e.toString());
+        }
+        String url = "http://" + serverIP + "/" + folderName + "/suggestRoute.php?" + suggestedRouteUrl;
         addTuple(context, responseListener, url);
     }
 
@@ -140,6 +176,14 @@ public final class DBConnect {
     }
 
     private static void addTuple(Context context, DBConnectInterface responseListener, String url) {
+        url = url.replaceAll(" ", "%20");
+        Log.d("URL_DBConnect", url);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JsonRequest jsonRequest = new JsonObjectRequest(Request.Method.PUT, url, null, responseListener, responseListener);
+        requestQueue.add(jsonRequest);
+    }
+
+    private static void updateTuple(Context context, DBConnectInterface responseListener, String url) {
         url = url.replaceAll(" ", "%20");
         Log.d("URL_DBConnect", url);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
