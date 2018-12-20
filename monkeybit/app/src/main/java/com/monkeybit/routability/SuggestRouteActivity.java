@@ -119,9 +119,6 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
         } else {
             Toast.makeText(getContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
         }
-        else {
-            Toast.makeText(getActivity(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
