@@ -63,6 +63,11 @@ public final class DBConnect {
         String url = "http://" + serverIP + "/" + folderName + "/getRouteComments.php?IdRoute=" + routeId;
         getTuple(context, responseListener, url);
     }
+    public static void addRouteComment(Context context, DBConnectInterface responseListener, String routeId, String email, String content){
+        String url = "http://" + serverIP + "/" + folderName + "/addRouteComment.php?IdRoute=" + routeId + "&Email=" + email + "&Content=" + content;
+        addTuple(context, responseListener, url);
+    }
+
     public static void getPlaces(Context context, DBConnectInterface responseListener, int firstPlaceIndex) {
         String url = "http://" + serverIP + "/" + folderName + "/getPlaces.php?Start=" + firstPlaceIndex;
         getTuple(context, responseListener, url);
