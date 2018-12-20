@@ -16,7 +16,7 @@ $json=array();
 
 		if($sql1){
 			$json['OPERATIONS'][0]="GET_ROUTE";
-			$jsonTuple;
+			$jsonTuple1;
 			if($reg=mysqli_fetch_array($result)){
 				$jsonTuple1['IdRoute'] = $reg['IdRoute'];
 				$jsonTuple1['Email'] = $reg['Email'];

@@ -28,7 +28,7 @@
     $search = $_POST['search'];
   }
 
-  $consultaUsuarios = "SELECT * from user where";
+  $consultaUsuarios = "SELECT * from user where (Reported='1' or Banned='1') and ";
 
   if (isset($_POST['filtro-bloq-nobloq'])) {
     if ($_POST['filtro-bloq-nobloq']=='Cualquiera') {
@@ -38,26 +38,20 @@
       $busqueda = "Cualquiera";
     }
     else if ($_POST['filtro-bloq-nobloq']=='Bloqueados') {
-      $consultaUsuarios .= " Banned='1' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
+      $consultaUsuarios .= " Banned='1' and Reported='0' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);
       $busqueda = "Bloqueados";
     }
-    else if ($_POST['filtro-bloq-nobloq']=='Desbloqueados') {
-      $consultaUsuarios .= " Banned='0' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
-      $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
-      $total = mysqli_num_rows($resUsuarios);
-      $busqueda = "Desbloqueados";
-    }
     else if ($_POST['filtro-bloq-nobloq'] == 'Denunciados') {
-      $consultaUsuarios .= " Reported='1' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
+      $consultaUsuarios = "Select * from user where Reported='1' and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
       $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
       $total = mysqli_num_rows($resUsuarios);
       $busqueda = "Denunciados";
     }
   }
   else {
-    $consultaUsuarios .= " Email like '%".$search."%' or Name like '%".$search."%' ORDER BY Email";
+    $consultaUsuarios = "Select * from user where (Reported='1' or Banned='1') and (Email like '%".$search."%' or Name like '%".$search."%') ORDER BY Email";
     $resUsuarios = mysqli_query($conexion, $consultaUsuarios);
     $total = mysqli_num_rows($resUsuarios);
   }
@@ -77,6 +71,17 @@
     <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
     <link rel="stylesheet" href="theme.css">
     <link rel="stylesheet" href="fonts.css" type="text/css">
+    <script>
+      function mostrarAlertBloquear() {
+        alert("Usuario bloqueado");
+      }
+      function mostrarAlertDesbloquear() {
+        alert("Usuario desbloqueado");
+      }
+      function mostarAlertAceptar() {
+        alert("Usuario aceptado");
+      }
+    </script>
 
 </head>
 
@@ -102,9 +107,6 @@
                           
                           if($busqueda == "Bloqueados"){ echo"<option selected>Bloqueados</option>";}
                           else{ echo"<option>Bloqueados</option>";}
-                          
-                          if($busqueda == "Desbloqueados"){ echo"<option selected>Desbloqueados</option>";}
-                          else{ echo"<option>Desbloqueados</option>";}
                           
                           if($busqueda == "Denunciados"){ echo"<option selected>Denunciados</option>";}
                           else{ echo"<option>Denunciados</option>";}
@@ -150,13 +152,13 @@
 
                   echo '<p class="list-group-item list-group-item-action"><b>'.$email.':</b> '.$name;
                   if ($reported == 1) {
-                    echo '<a href="Users.php?email='.$email.'&banned=2&reported='.$reported.'"><img title="Permitir usuario" alt="Permitir usuario" class="icono" src="./img/tick.png" /></a><a href="Users.php?email='.$email.'&banned=2&reported='.$reported.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" /></a></p>';
+                    echo '<a href="Users.php?email='.$email.'&banned=2&reported='.$reported.'"><img title="Permitir usuario" alt="Permitir usuario" class="icono" src="./img/tick.png" onclick="mostarAlertAceptar()" /></a><a href="Users.php?email='.$email.'&banned=2&reported='.$reported.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" onclick="mostrarAlertBloquear()" /></a></p>';
                   }
                   else if ($banned == 0) {
-                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'&reported='.$reported.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" /></a></p>';
+                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'&reported='.$reported.'"><img title="Bloquear usuario" alt="Bloquear usuario" class="icono" src="./img/bloquear.png" onclick="mostrarAlertBloquear()"/></a></p>';
                   }
                   else {
-                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'&reported='.$reported.'"><img title="Desbloquear usuario" alt="Desbloquear usuario" class="icono2" src="./img/desbloquear.png"/></a></p>';
+                    echo '<a href="Users.php?email='.$email.'&banned='.$banned.'&reported='.$reported.'"><img title="Desbloquear usuario" alt="Desbloquear usuario" class="icono2" src="./img/desbloquear.png" onclick="mostrarAlertDesbloquear()" /></a></p>';
                     }
                   }
               }

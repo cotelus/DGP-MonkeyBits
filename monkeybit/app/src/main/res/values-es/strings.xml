@@ -107,7 +107,7 @@
     <string name="title_boton">Comprobar</string>
     <string name="login">COMPROBAR RUTA</string>
     <string name="id_bd_test">test</string>
-    <string name = "errorListRoute"> An unexpected error happened.I can`t connect to database</string>
+    <string name = "errorListRoute"> Un error inersperado, no puedo conectar a la Base de Datos</string>
     <string name="place_suggested">Lugar sugerido correctamente.</string>
     <string name="title_place">Titulo del lugar</string>
     <string name="description_place">descripción del lugar</string>
@@ -117,12 +117,20 @@
     <string name="accesibility_colour_blind">Daltónico</string>
     <string name="accesibility_deaf">Sordo</string>
     <string name="accesibility_foreigner">Idiomas</string>
+
+
+    <!--Route List Place-->
+    <string name="NoPlaceTittle">Lo sentimos</string>
+    <string name="NoPlaceDesc">No hay ningun lugar asociado</string>
+
+
     <string name="previous_page">Página anterior</string>
     <string name="next_page">Página siguiente</string>
-    <string name="comment_sent">Página siguiente</string>
+    <string name="comment_sent">Comentario enviado con exito</string>
     <string name="suggest_route">Sugerir Ruta</string>
     <string name="added_places_text">Lugares añadidos</string>
     <string name="available_places_text">Lugares Disponibles</string>
     <string name="who_can_access">Selecciona para quién es apto el lugar</string>
     <string name="suggested_route">Ruta sugerida correctamente</string>
+
 </resources>

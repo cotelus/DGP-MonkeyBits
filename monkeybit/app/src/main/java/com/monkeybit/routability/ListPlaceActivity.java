@@ -101,8 +101,7 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
                     place.setArguments(bundle);
 
                     if (place != null) {
-                        //place.Array(choosen); //set
-                        //change the fragment
+
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, place).commit(); //go to the fragment
 
                     }

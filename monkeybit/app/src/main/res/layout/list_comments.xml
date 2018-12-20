@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/author"
         style="@style/CustomTheme"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="6dp"
@@ -33,7 +33,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_toStartOf="@+id/imageButton3"
+        android:layout_toStartOf="@+id/banButton"
         android:layout_toEndOf="@+id/author"
         android:text="Comment"
         android:textColor="@color/colorFont"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/comment"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/author"
         android:text="Date"
@@ -66,7 +66,7 @@
         android:textSize="18sp" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/banButton"
         style="@style/CustomTheme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -97,6 +97,18 @@ if(isset($_POST["editar"])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="theme.css" type="text/css">
     <link rel="stylesheet" href="fonts.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      function mostrarAccion(mens) {
+        alert(mens);
+      }
+      $(document).ready(function() {
+        var men = '<?php echo $MESSAGE; ?>';
+        if (men != "")
+          mostrarAccion(men);
+      });
+      
+    </script>
 </head>
 
 <body class="bg-primario">
@@ -107,9 +119,6 @@ if(isset($_POST["editar"])){
                     <h1 class="display-3"><b>Routability: Granada</b></h1>
                 </div>
             </div>
-
-            <?php if (!empty($MESSAGE)) {echo "<p class=\"ERROR\">" . "MENSAJE: ". $MESSAGE . "</p>";}
-          ?>
 
             <fieldset>
 

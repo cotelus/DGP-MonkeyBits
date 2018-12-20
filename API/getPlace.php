@@ -14,14 +14,8 @@ $json=array();
 		$sql1="SELECT * FROM place WHERE IdPlace = '{$IdPlace}'";
 		$result=mysqli_query($connection,$sql1);
 
-		if (!$connection->set_charset("utf8")) {
-    		printf("Error cargando el conjunto de caracteres utf8: %s\n", $connection->error);
-   		 	exit();
-		} 
-
 		if($sql1){
-			echo mysqli_error($connection);
-			$jsonTuple;
+			$jsonTuple1;
 			$json['OPERATIONS'][0]="GET_PLACE";
 			if($reg = mysqli_fetch_array($result)){
 				$jsonTuple1['IdPlace'] = $reg['IdPlace'];
@@ -39,9 +33,8 @@ $json=array();
 				$json['GET_PLACE'] = $jsonTuple1;
 			}
 		}
-		echo json_encode($json, JSON_UNESCAPED_UNICODE);
 
-		$sql2 = "SELECT * FROM placecomments LEFT JOIN user ON placecomments.Email = user.Email WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 order by placecomments.Date, placecomments.Time asc";
+		$sql2 = "SELECT * FROM placecomments LEFT JOIN user ON placecomments.Email = user.Email WHERE IdPlace = '{$IdPlace}'  AND placecomments.Reported = 0 order by placecomments.Date desc, placecomments.Time desc";
 		$result=mysqli_query($connection,$sql2);
 
 		if($sql2){
@@ -65,7 +58,6 @@ $json=array();
 		$result=mysqli_query($connection,$sql3);
 
 		if($sql3){
-			echo mysqli_error($connection);
 			$jsonTuple3;
 			$json['OPERATIONS'][2]="GET_AVERAGE_SCORE_PLACE";
 			if($reg=mysqli_fetch_array($result)){
@@ -76,7 +68,7 @@ $json=array();
 
 		if ($sql1 && $sql2 && $sql3) {
 			mysqli_close($connection);
-			echo json_encode($json, JSON_UNESCAPED_UNICODE);
+			echo json_encode($json);
 		}
 	}
 ?>

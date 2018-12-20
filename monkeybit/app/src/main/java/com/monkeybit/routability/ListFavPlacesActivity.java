@@ -24,18 +24,16 @@ import java.util.ArrayList;
 
 public class ListFavPlacesActivity extends Fragment implements DBConnectInterface{
     View view;
-    private int pagCurent;
     private String email;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_place, container, false);
-        pagCurent = 0;
 
         email = ((MainActivity) getActivity()).getUserEmail();
 
-        DBConnect.getFavoritePlaces(getContext(),this, email, pagCurent);
+        DBConnect.getFavoritePlaces(getContext(),this, email);
 
         return view;
     }
@@ -61,8 +59,6 @@ public class ListFavPlacesActivity extends Fragment implements DBConnectInterfac
                 e.printStackTrace();
             }
         }
-        pagCurent = pagCurent + 10;
-
         this.Conf_List_Place(list);
     }
 

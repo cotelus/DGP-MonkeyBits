@@ -63,7 +63,7 @@
     <string name="list_desc_route">Description of the Image</string>
     <string name="post_desc_img">Description of the image</string>
     <string name="post_text_tittle"> tittle of the route</string>
-    <string name="post_text_desc">description of the route</string>
+    <string name="post_text_desc">Description of the route</string>
     <string name="post_rt_info_places">Places through the route </string>
     <string name="post_rt_info_rating">Rating</string>
     <string name="post_rt_info_location">Location</string>
@@ -101,8 +101,8 @@
 
     <!-- BD TEST-->
     <string name="title_fragment">Inicio de Sesión</string>
-    <string name="title_user">Usuario: </string>
-    <string name="title_pwd">Contraseña: </string>
+    <string name="title_user">User: </string>
+    <string name="title_pwd">Password: </string>
     <string name="title_boton">Check</string>
     <string name="login">CHECK ROUTE</string>
     <string name="id_bd_test">test</string>
@@ -120,11 +120,18 @@
     <string name="accesibility_colour_blind">Colour Blind</string>
     <string name="accesibility_deaf">Deaf</string>
     <string name="accesibility_foreigner">Foreigner</string>
+
+
+    <string name="NoPlaceTittle">Sorry</string>
+    <string name="NoPlaceDesc">There is no place</string>
+
+
     <string name="previous_page">Previous page</string>
     <string name="next_page">Next page</string>
-    <string name="comment_sent">Página siguiente</string>
+    <string name="comment_sent">Comment sent successfully</string>
     <string name="added_places_text">Added Places</string>
     <string name="available_places_text">Available Places</string>
     <string name="who_can_access">Select who can access this place</string>
     <string name="suggested_route">Route successfully suggested</string>
+
 </resources>

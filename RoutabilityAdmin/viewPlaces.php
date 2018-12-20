@@ -110,6 +110,11 @@
     <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
     <link rel="stylesheet" href="theme.css">
     <link rel="stylesheet" href="fonts.css" type="text/css">
+    <script>
+      function mostrarAlert() {
+        alert("Lugar eliminado");
+      }
+    </script>
 
 </head>
 
@@ -172,7 +177,7 @@
 
                     echo '<p class="list-group-item list-group-item-action miembro-lista"><a href="Place.php?id='.$id.'">'.$nombre.'</a>';  
                       
-                    echo '<a href="viewPlaces.php?id='.$id.'"><img class="icono" title="Eliminar Lugar" alt="Eliminar Lugar" src="./img/cruz.svg" /></a>';
+                    echo '<a href="viewPlaces.php?id='.$id.'"><img class="icono" title="Eliminar Lugar" alt="Eliminar Lugar" src="./img/cruz.svg" onclick="mostrarAlert()" /></a>';
                     echo '<a href="editPlaces.php?id='.$id.'"><img class="icono3" title="Editar Lugar" alt="Editar Lugar" src="./img/editar.png" /></a></p>';   
                   }
                 }
