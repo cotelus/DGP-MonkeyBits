@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {
-
+                selectedFragment = new MenuActivity();
                 switch (menuItem.getItemId()) {
                     case R.id.nav_profile:
                         if (mAuth.getCurrentUser() == null) {

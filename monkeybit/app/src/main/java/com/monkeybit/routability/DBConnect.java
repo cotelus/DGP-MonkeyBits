@@ -19,8 +19,8 @@ import java.net.URLEncoder;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.36";
-    private static final String folderName =  "RoutabilityAdmin";
+    private static final String serverIP =  "192.168.1.27";
+    private static final String folderName =  "API";
 
     private DBConnect() {}
 

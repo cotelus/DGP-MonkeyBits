@@ -75,7 +75,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                     Bundle bundle = new Bundle();
                     bundle.putString("routeId", choosen.get_idRoute());
                     route.setArguments(bundle);
-
+                    Log.d("Debug","choosen: "+choosen);
                     if (route != null) {
 
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, route).commit(); //go to the fragment

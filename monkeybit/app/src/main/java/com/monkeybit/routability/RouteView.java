@@ -50,8 +50,8 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
         view = inflater.inflate(R.layout.view_rute, container, false);
         //Receive the id
-        //choosen = getArguments().getString("routeId");
-        choosen = "2";
+        choosen = getArguments().getString("routeId");
+        //choosen = "2";
         email = ((MainActivity) getActivity()).getUserEmail();
         dbInter = this;
         places = null;
@@ -120,15 +120,15 @@ public class RouteView extends Fragment implements DBConnectInterface{
         // return super.onCreateView(inflater, container, savedInstanceState);
     }
     public void addComment(){
-        DBConnect.addPlaceComment(getContext(),this, choosen, email, commentText.getText().toString());
+       // DBConnect
     }
 
     public void addFavoritePlace(){
-        DBConnect.addAsFavoritePlace(getContext(), this, email, choosen);
+        DBConnect.addAsFavoriteRoute(getContext(), this, email, choosen);
     }
 
     public void removeFavoritePlace(){
-        DBConnect.removeFavoritePlace(getContext(), this, email, choosen);
+        DBConnect.removeFavoriteRoutes(getContext(), this, email, choosen);
     }
 
     protected void Conf_List_Route(ArrayList<Place> dataList) {
@@ -314,12 +314,12 @@ public class RouteView extends Fragment implements DBConnectInterface{
                             places = new ArrayList<Place>();
                             JSONArray operationResult = response.getJSONArray(operation);
                             Place aux;
-                            Log.d("Debug", "size: "+ operationResult.length());
+                            //find and add the place to the list of places
                             for (int j = 0; j < operationResult.length(); j++) {
-                                Log.d("Debug", "obj: "+ operationResult.getJSONObject(i));
-                                Log.d("Debug","otra linea");
-                                aux = new Place(operationResult.getJSONObject(i));
-                                places.add(aux);
+                                if (operationResult.getJSONObject(j) != null){
+                                    aux = new Place(operationResult.getJSONObject(j));
+                                    places.add(aux);
+                                }
                             }
                             this.Conf_List_Route(places);
                         }
