@@ -37,7 +37,7 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
         view = inflater.inflate(R.layout.list_routes, container, false);
 
         email = ((MainActivity) getActivity()).getUserEmail();
-        DBConnect.getFavoriteRoutes(getContext(),this, email);
+        //DBConnect.getFavoriteRoutes(getContext(),this, email);
 
         return view;
     }

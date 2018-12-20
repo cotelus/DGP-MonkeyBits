@@ -136,4 +136,16 @@
     <string name="who_can_access">Select who can access this place</string>
     <string name="suggested_route">Route successfully suggested</string>
 
+    <!-- SEARCH-->
+    <string name="search_box">Search...</string>
+    <string name="search_accessibility">Accessibility:</string>
+    <string name="search_type">Type:</string>
+    <string name="search_filters">FILTERS:</string>
+    <string name="search_check_route">Routes</string>
+    <string name="search_check_place">Places</string>
+    <string name="search_check_redmovility">Red Movility</string>
+    <string name="search_check_redvision">Red Vision</string>
+    <string name="search_check_colorblind">Color-blind</string>
+    <string name="search_check_deaf">Deaf</string>
+    <string name="search_check_foreigner">Foreigner</string>
 </resources>
