@@ -20,12 +20,12 @@
 
             <TextView
                 android:id="@+id/postTittleRt"
+                style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_text_tittle"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                style="@style/CustomTheme" />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageRoute"
@@ -53,9 +53,9 @@
                 style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/post_text_desc"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:text="@string/post_text_desc" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/postDescRt"
@@ -94,6 +94,30 @@
                 android:id="@+id/postListLug"
                 android:layout_width="match_parent"
                 android:layout_height="205dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/previous_places_button"
+                    style="@style/CustomTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/prevButton" />
+
+                <Button
+                    android:id="@+id/next_places_button"
+                    style="@style/CustomTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nextButton" />
+
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/postRtInfoRating"
@@ -139,11 +163,11 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/writeComments"
-                android:layout_width="match_parent"
                 style="@style/CustomTheme"
-                android:labelFor="@+id/UserName"
+                android:layout_width="match_parent"
                 android:accessibilityLiveRegion="polite"
                 android:hint="@string/write_comment"
+                android:labelFor="@+id/UserName"
                 app:errorEnabled="true">
 
                 <android.support.design.widget.TextInputEditText

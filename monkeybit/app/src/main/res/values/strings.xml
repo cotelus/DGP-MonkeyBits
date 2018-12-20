@@ -148,4 +148,8 @@
     <string name="search_check_colorblind">Color-blind</string>
     <string name="search_check_deaf">Deaf</string>
     <string name="search_check_foreigner">Foreigner</string>
+
+    <string name="prevButton">Previous</string>
+    <string name="nextButton">Next</string>
+
 </resources>

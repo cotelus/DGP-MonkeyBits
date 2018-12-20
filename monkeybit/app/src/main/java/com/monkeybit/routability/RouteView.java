@@ -34,9 +34,11 @@ import java.util.List;
 public class RouteView extends Fragment implements DBConnectInterface{
     View view;
     String choosen = null;
+    private Button nextPageButton,previousPageButton;
     private List<Comments> comments = new ArrayList<>();
     private RecyclerView listComments;
     private ArrayList<Place> places;
+    private ArrayList<Place> placesShown;
     private CommentsAdapter adapter;
     private int result = 0;
     private boolean isFavorite = false;
@@ -44,6 +46,10 @@ public class RouteView extends Fragment implements DBConnectInterface{
     private ImageButton favButton;
     private DBConnectInterface dbInter;
     private TextInputEditText commentText;
+    private int tam= 4;
+
+    private int currentPageIndex = 0;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +57,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
         view = inflater.inflate(R.layout.view_rute, container, false);
         //Receive the id
         choosen = getArguments().getString("routeId");
-        //choosen = "2";
+
         email = ((MainActivity) getActivity()).getUserEmail();
         dbInter = this;
         places = null;
@@ -109,6 +115,28 @@ public class RouteView extends Fragment implements DBConnectInterface{
             }
         });
 
+
+        nextPageButton = view.findViewById(R.id.next_places_button);
+        nextPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showNextPage();
+            }
+        });
+
+        previousPageButton = view.findViewById(R.id.previous_places_button);
+        previousPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showPreviousPage();
+            }
+        });
+
+
         listComments = view.findViewById(R.id.list_comments);
         LinearLayoutManager lim = new LinearLayoutManager(getContext());
         lim.setOrientation(LinearLayoutManager.VERTICAL);
@@ -117,7 +145,6 @@ public class RouteView extends Fragment implements DBConnectInterface{
         initializedAdapter();
 
         DBConnect.getRoute(getContext(),this,choosen);
-
 
         return view;
         // return super.onCreateView(inflater, container, savedInstanceState);
@@ -326,9 +353,11 @@ public class RouteView extends Fragment implements DBConnectInterface{
                             }
                         }
                         if(operation.equals("GET_PLACES_FROM_ROUTE")){
-                            places = new ArrayList<Place>();
+
                             JSONArray operationResult = response.getJSONArray(operation);
                             Place aux;
+                            places = new ArrayList<>();
+                            placesShown = new ArrayList<>();
                             //find and add the place to the list of places
                             for (int j = 0; j < operationResult.length(); j++) {
                                 if (operationResult.getJSONObject(j) != null){
@@ -336,7 +365,9 @@ public class RouteView extends Fragment implements DBConnectInterface{
                                     places.add(aux);
                                 }
                             }
-                            this.Conf_List_Route(places);
+                            this.fillPlacesNext();
+
+
                         }
                     }
                     // Estas operaciones, no necesitan datos de vuelta, por eso no están dentro del if anterior
@@ -393,5 +424,51 @@ public class RouteView extends Fragment implements DBConnectInterface{
         isFavorite = activate;
         favButton.setSelected(activate);
     }
+
+
+    //change pag
+
+    private void showNextPage() {
+        currentPageIndex += tam;
+    }
+
+    private void showPreviousPage() {
+        if (currentPageIndex >= tam) {
+            currentPageIndex -= tam;
+            if (currentPageIndex < 0) {
+                currentPageIndex = 0;
+                this.fillPlacesNext();
+            }
+            else
+                this.fillPlacesPrev();
+
+        } else {
+            Toast.makeText(getContext(), "No hay páginas anteriores", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void fillPlacesPrev() {
+        placesShown.clear();
+        for(int i = currentPageIndex; i < currentPageIndex-tam && i<0 ;i--){
+            placesShown.add(places.get(i));
+        }
+        this.Conf_List_Route(placesShown);
+    }
+
+    private void fillPlacesNext() {
+        if(currentPageIndex > places.size()){
+            Toast.makeText(getContext(), "No hay páginas siguientes", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            placesShown.clear();
+            for (int i = currentPageIndex; i < currentPageIndex + tam && i < places.size(); i++) {
+                placesShown.add(places.get(i));
+            }
+            this.Conf_List_Route(placesShown);
+        }
+
+
+    }
+
 }
 

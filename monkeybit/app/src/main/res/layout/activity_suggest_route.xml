@@ -133,7 +133,7 @@
 
                 <Button
                     style="@style/CustomTheme"
-                    android:id="@+id/next_places_button"
+                    android:id="@+id/previous_places_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -141,11 +141,12 @@
 
                 <Button
                     style="@style/CustomTheme"
-                    android:id="@+id/previous_places_button"
+                    android:id="@+id/next_places_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Button" />
+
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

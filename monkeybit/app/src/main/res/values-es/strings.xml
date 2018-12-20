@@ -134,6 +134,7 @@
     <string name="available_places_text">Lugares Disponibles</string>
     <string name="who_can_access">Selecciona para quién es apto el lugar</string>
     <string name="suggested_route">Ruta sugerida correctamente</string>
+    <string name="search_check_foreigner">Extranjero</string>
 
     <!-- SEARCH-->
     <string name="search_box">Buscar...</string>
@@ -146,6 +147,7 @@
     <string name="search_check_redvision">Visión reducida</string>
     <string name="search_check_colorblind">Daltónico</string>
     <string name="search_check_deaf">Sordo</string>
-    <string name="search_check_foreigner">Extranjero</string>
 
+    <string name="prevButton">Anterior</string>
+    <string name="nextButton">Siguiente</string>
 </resources>
