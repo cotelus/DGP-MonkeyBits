@@ -135,4 +135,17 @@
     <string name="who_can_access">Selecciona para quién es apto el lugar</string>
     <string name="suggested_route">Ruta sugerida correctamente</string>
 
+    <!-- SEARCH-->
+    <string name="search_box">Buscar...</string>
+    <string name="search_accessibility">Accesibilidad:</string>
+    <string name="search_type">Tipo:</string>
+    <string name="search_filters">FILTROSS:</string>
+    <string name="search_check_route">Rutas</string>
+    <string name="search_check_place">Lugares</string>
+    <string name="search_check_redmovility">Movilidad reducida</string>
+    <string name="search_check_redvision">Visión reducida</string>
+    <string name="search_check_colorblind">Daltónico</string>
+    <string name="search_check_deaf">Sordo</string>
+    <string name="search_check_foreigner">Extranjero</string>
+
 </resources>
