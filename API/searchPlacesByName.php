@@ -77,7 +77,7 @@ $json2 = array();
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
 		//$sql1="SELECT * FROM place WHERE {$searchString}/* OR {$searchDescription} OR {$searchLocalitation} */AND RedMovility = {$RedMovility} AND RedVision = {$RedVision} AND ColourBlind = {$ColourBlind} AND Deaf = {$Deaf} AND Foreigner = {$Foreigner}";
-		$sql1="SELECT * FROM place WHERE {$searchString} OR {$searchDescription} OR {$searchLocalitation} {$searchAccessibility}";
+		$sql1="SELECT * FROM place WHERE ({$searchString} OR {$searchDescription} OR {$searchLocalitation}) {$searchAccessibility}";
 		$result=mysqli_query($connection,$sql1);
 
 		if($sql1){

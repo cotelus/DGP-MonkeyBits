@@ -102,7 +102,7 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
         if(checkForeigner.isChecked())
             petition += "&Foreigner=1";
         if(checkColorBlind.isChecked())
-            petition += "&ColorBlind=1";
+            petition += "&ColourBlind=1";
         if(checkDeaf.isChecked())
             petition += "&Deaf=1";
         if(checkRedMovility.isChecked())
