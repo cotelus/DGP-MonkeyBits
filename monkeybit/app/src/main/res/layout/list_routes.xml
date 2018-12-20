@@ -4,8 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/list_rt"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/list_rt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_butt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignBottom="@id/list_rt">
+
+            <Button
+                android:id="@+id/previous_places_button"
+                style="@style/CustomTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/prevButton" />
+
+            <Button
+                android:id="@+id/next_places_button"
+                style="@style/CustomTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nextButton" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
 </FrameLayout>

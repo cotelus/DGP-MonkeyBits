@@ -162,16 +162,9 @@ public class RouteView extends Fragment implements DBConnectInterface{
     }
 
     protected void Conf_List_Route(ArrayList<Place> dataList) {
-
         if(dataList != null){
             ListView list = view.findViewById(R.id.postListLug);
             //adapt to the list
-            if(placesShown.size() >=4){
-                list.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT *4;
-            } else if(placesShown.size() < 4){
-                list.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT * places.size(); ///Se coge el wrap content para ajustar el tamaño
-            }
-
             list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
                 @Override
                 public void onPost(Object post, View view) {
@@ -436,11 +429,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
     //change pag
 
     private void showNextPage() {
-        if(currentPageIndex + tam > places.size())
-            currentPageIndex += places.size() % tam;
-
-        else
-            currentPageIndex += tam;
+        currentPageIndex += tam;
     }
 
     private void showPreviousPage() {
@@ -467,18 +456,17 @@ public class RouteView extends Fragment implements DBConnectInterface{
     }
 
     private void fillPlacesNext() {
-        if(currentPageIndex > places.size()){
-            Toast.makeText(getContext(), "No hay páginas siguientes", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        if(currentPageIndex+tam <= places.size()){
             placesShown.clear();
-            for (int i = currentPageIndex; i < currentPageIndex + tam && i < places.size(); i++) {
+            for(int i = currentPageIndex; i < currentPageIndex+tam && i<places.size();i++){
                 placesShown.add(places.get(i));
             }
-            this.Conf_List_Route(placesShown);
+        }
+        else{
+
         }
 
-
+        this.Conf_List_Route(placesShown);
     }
 
 }
