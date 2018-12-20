@@ -251,6 +251,9 @@ public class RouteView extends Fragment implements DBConnectInterface{
                     Picasso.get().load(bdelements.optString("Image")).into(image);
             }
 
+            if(image != null && bdelements.has("ImageDescription")){
+                image.setContentDescription(bdelements.optString("ImageDescription"));
+            }
 
             TextView description = view.findViewById(R.id.postDescRt);
             if (description != null){

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Route {
 
     private String idRoute, email;
-    protected String madeBy, name, description, image;
+    protected String madeBy, name, description, image,descImagen;
     protected ArrayList<Place> places = new ArrayList<>();
 
 

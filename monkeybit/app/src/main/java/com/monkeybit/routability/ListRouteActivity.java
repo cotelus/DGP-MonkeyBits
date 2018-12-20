@@ -133,8 +133,9 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
 
                 String idRoute = json.getString("IdRoute");
                 Log.d("Debug",idImage);
+                String desc_imagen = json.getString("ImageDescription");
+                list.add(new ListRoute(idImage, tittle,description , idRoute,desc_imagen));
 
-                list.add(new ListRoute(idImage, tittle,description,idRoute));
 
 
             } catch (JSONException e) {

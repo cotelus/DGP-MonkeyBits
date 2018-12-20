@@ -55,8 +55,8 @@ public class ListFavRouteActivity extends Fragment implements DBConnectInterface
                 String description = json.getString("Description");
 
                 String idRoute = json.getString("IdRoute");
-
-                list.add(new ListRoute(idImage, tittle,description , idRoute));
+                String desc_imagen = json.getString("ImageDescription");
+                list.add(new ListRoute(idImage, tittle,description , idRoute,desc_imagen));
 
 
             } catch (JSONException e) {
