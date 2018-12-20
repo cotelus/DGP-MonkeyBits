@@ -42,6 +42,7 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
                 break;
         }
         if (selectedFragment != null) {
+            // dis linea
             getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
         }
 
