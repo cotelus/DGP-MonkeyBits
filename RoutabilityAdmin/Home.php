@@ -96,7 +96,7 @@
                       <h1 class="">Feedback:</h1>
                     </div>
                     <div class="col-md-3 py-1">
-                      <a href="Comments.php" class="btn btn-primary bg-primario ancho icon-bubble tam-letra">&nbsp;Comentarios</a>
+                      <a href="Comments.php" class="btn btn-primary bg-primario ancho icon-bubble tam-letra">&nbsp;Denunciados</a>
                     </div> 
                     <div class="col-md-3 py-1">
                       <a href="Suggestions.php" class="btn btn-primary bg-primario ancho icon-drawer tam-letra">&nbsp;Sugerencias</a>
