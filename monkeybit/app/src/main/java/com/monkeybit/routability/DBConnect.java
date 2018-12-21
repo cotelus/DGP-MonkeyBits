@@ -20,8 +20,8 @@ import java.util.ArrayList;
 
 public final class DBConnect {
 
-    private static final String serverIP =  "192.168.1.27";
-    private static final String folderName =  "API";
+    private static final String serverIP =  "172.20.49.251";
+    private static final String folderName =  "RoutabilityAdmin";
 
     private DBConnect() {}
 
@@ -42,6 +42,11 @@ public final class DBConnect {
 
     public static void reportPlaceComment(Context context, DBConnectInterface responseListener, String placeId, String email, String date, String time){
         String url = "http://" + serverIP + "/" + folderName + "/reportPlaceComment.php?IdPlace=" + placeId + "&Email=" + email + "&Date=" + date + "&Time=" + time;
+        addTuple(context, responseListener, url);
+    }
+
+    public static void reportRouteComment(Context context, DBConnectInterface responseListener, String placeId, String email, String date, String time){
+        String url = "http://" + serverIP + "/" + folderName + "/reportRouteComment.php?IdRoute=" + placeId + "&Email=" + email + "&Date=" + date + "&Time=" + time;
         addTuple(context, responseListener, url);
     }
 
@@ -136,10 +141,9 @@ public final class DBConnect {
     }
 
     public static void removeFavoriteRoutes(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
-        String url = "http://" + serverIP + "/" + folderName + "/removeFavouriteRoutes.php?Email=" + userEmail + "&IdRoute=" + routeId;
+        String url = "http://" + serverIP + "/" + folderName + "/removeFavoriteRoute.php?Email=" + userEmail + "&IdRoute=" + routeId;
         getTuple(context, responseListener, url);
     }
-
 
     public static void addAsFavoriteRoute(Context context, DBConnectInterface responseListener, String userEmail, String routeId) {
         String url = "http://" + serverIP + "/" + folderName + "/addFavoriteRoute.php?Email=" + userEmail + "&IdRoute="+ routeId;

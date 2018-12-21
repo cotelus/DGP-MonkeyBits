@@ -78,7 +78,14 @@ $json2 = array();
 		
 		//$sql1="SELECT * FROM place WHERE {$searchString}/* OR {$searchDescription} OR {$searchLocalitation} */AND RedMovility = {$RedMovility} AND RedVision = {$RedVision} AND ColourBlind = {$ColourBlind} AND Deaf = {$Deaf} AND Foreigner = {$Foreigner}";
 		
-		$sql2 = "SELECT * FROM route WHERE {$searchString} OR {$searchDescription}";
+		//$sql2 = "SELECT * FROM route WHERE {$searchString} OR {$searchDescription}";
+		if(isset($_GET["Email"])){
+		   $Email = $_GET['Email'];
+		   $sql2="SELECT * FROM route LEFT JOIN favoriteroutes ON route.IdRoute = favoriteroutes.IdRoute WHERE favoriteroutes.Email = '{$Email}' AND ({$searchString} OR {$searchDescription})";
+			//$sql2 = "SELECT * FROM route WHERE {$searchString} OR {$searchDescription}";
+		}else{
+		  	$sql2 = "SELECT * FROM route WHERE {$searchString} OR {$searchDescription}";
+		  }
 		$result=mysqli_query($connection,$sql2);
 
 		if($sql2){

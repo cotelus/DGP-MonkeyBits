@@ -24,9 +24,10 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
 
 
-public class SearchActivity extends Fragment implements View.OnClickListener{
+public class searchActivity extends Fragment implements View.OnClickListener{
 
     private String petition;
     Button search;
@@ -39,6 +40,8 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
     CheckBox checkRedMovility;
     CheckBox checkDeaf;
     CheckBox checkColorBlind;
+
+    boolean imInFav;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +62,8 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
         checkDeaf = rootview.findViewById(R.id.filterCheckBoxDeaf);
         checkColorBlind = rootview.findViewById(R.id.filterCheckBoxColorblind);
 
+        //Toast.makeText(getContext(), imInFav+"", Toast.LENGTH_SHORT).show();
+
         petition = "";
 
         search = rootview.findViewById(R.id.searchButton);
@@ -68,16 +73,22 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
                 // ADEMAS HAZLE UN getPetition() A CADA UNO PARA ENVIARLE LA PETICION
                 if(radioButtonFilterRoutes.isChecked()){
                     fillPetitionForRoute();
+                    if(imInFav == true)
+                        fillPetitionFav();
                     Fragment selectedFragment = new SearchRoutesResult();
                     ((SearchRoutesResult) selectedFragment).setPetition(petition);
                     getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
                     //Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
+
                 }else{
                     fillPetitionForPlace();
                     Fragment selectedFragment = new SearchPlacesResult();
+                    if(imInFav == true)
+                        fillPetitionFav();
                     ((SearchPlacesResult) selectedFragment).setPetition(petition);
                     getFragmentManager().beginTransaction().replace(R.id.frame_rp_view, selectedFragment).commit();
                     //Toast.makeText(getContext(), "Test", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), petition, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -118,6 +129,17 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
 
         petition = petition.replaceAll(" ", "%20");
     }
+
+    public void setFav(boolean fav){
+        this.imInFav = fav;
+    }
+
+    private void fillPetitionFav(){
+        String user = ((MainActivity) Objects.requireNonNull(getActivity())).getUserEmail();
+
+        petition += "&Email=" + user.toString();
+    }
+
     /*
     public void replaceFragment(Fragment someFragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

@@ -24,6 +24,7 @@ $json=array();
 				$jsonTuple1['Name'] = $reg['Name'];
 				$jsonTuple1['Description'] = $reg['Description'];
 				$jsonTuple1['Image'] = $reg['Image'];
+				$jsonTuple1['ImageDescription'] = $reg['ImageDescription'];
 
 				$json['GET_FAVORITE_ROUTES'][$x] = $jsonTuple1;
 				$x++;

@@ -121,7 +121,7 @@ public class PlaceView extends Fragment implements DBConnectInterface{
         else{
             listComments.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
         }
-        CommentsAdapter adapter = new CommentsAdapter(comments, getActivity(), getString(R.string.message_ban_place), getString(R.string.message_ban_place_ok), idPlace);
+        CommentsAdapter adapter = new CommentsAdapter(comments, getActivity(), getString(R.string.message_ban_place), getString(R.string.message_ban_place_ok), idPlace, true);
         listComments.setAdapter(adapter);
     }
 
