@@ -18,6 +18,7 @@ public abstract class AdapterList extends BaseAdapter {
         this.context = context;
         this.list = list;
         this.layout = layout_IdView;
+
     }
 
 
@@ -30,6 +31,7 @@ public abstract class AdapterList extends BaseAdapter {
         onPost(list.get(posicion), view);
         return view;
     }
+
 
     @Override
     public int getCount(){

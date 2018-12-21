@@ -116,8 +116,6 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
-                    //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
-                    //toast.show();
 
                     ListPlace choosen = (ListPlace) post.getItemAtPosition(pos);
                     PlaceView place = new PlaceView();
@@ -145,29 +143,36 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
 
     @Override
     public void onResponse(JSONObject response) {
-        try {
-            /*if (response.has("GET_PLACES")) {
+       /* try {
+            if (response.has("GET_PLACES")) {
                 JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
                 LoadArray(operationResult);
-            }*/
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+        try {
+            if (response.has("OPERATIONS")) {
+                for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
+                    String operation = response.getJSONArray("OPERATIONS").getString(i);
+                    if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
 
-            for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
-                String operation = response.getJSONArray("OPERATIONS").getString(i);
-                if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
+                        if (operation.equals("GET_PLACES")) {
+                            JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
+                            LoadArray(operationResult);
+                        }
 
-                    if (operation.equals("GET_PLACES")) {
-                        JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
-                        LoadArray(operationResult);
+                    }
+                    else if (operation.equals("GET_PLACES")) {
+                        currentPageIndex -=tam;
+                        Toast.makeText(getContext(),getString(R.string.infoNextButton), Toast.LENGTH_SHORT).show();
                     }
 
                 }
-                else if (operation.equals("GET_PLACES")) {
-                    currentPageIndex -=tam;
-                    Toast.makeText(getContext(),getString(R.string.infoNextButton), Toast.LENGTH_SHORT).show();
-                }
 
+            } else {
+                Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

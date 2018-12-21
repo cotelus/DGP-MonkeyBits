@@ -1,5 +1,6 @@
 package com.monkeybit.routability;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -164,12 +166,13 @@ public class RouteView extends Fragment implements DBConnectInterface{
             ListView list = view.findViewById(R.id.postListLug);
             //adapt to the list
 
-            if(dataList.size() >= 4){
+            if(dataList.size() >= tam){
                 list.getLayoutParams().height = 1000;
             }
             else{
-                list.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
+                list.getLayoutParams().height = 500;
             }
+
 
             list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
                 @Override
@@ -194,6 +197,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
                     }
 
                 }
+
             });
 
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -483,7 +487,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
             placesShown.clear();
 
-            for(int i = currentPageIndex; i < currentPageIndex+tam && i<places.size();i++){
+            for(int i = currentPageIndex; i < (currentPageIndex*tam)+tam && i<places.size();i++){
                 placesShown.add(places.get(i));
             }
 
