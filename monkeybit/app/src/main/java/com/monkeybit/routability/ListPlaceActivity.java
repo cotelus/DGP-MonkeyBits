@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,10 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
 
     public void LoadArray(JSONArray jsonArray){
         ArrayList<ListPlace> list = new ArrayList<>();
-
+        Log.d("Debug","Load");
         for(int i=0;i<jsonArray.length();i++){
             try {
+                Log.d("Debug","For"+i);
                 JSONObject json = jsonArray.getJSONObject(i);
                 //Get and save data
 
@@ -81,6 +83,7 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
                 e.printStackTrace();
             }
         }
+
         currentPageIndex = currentPageIndex + tam;
 
         this.Conf_List_Place(list);
@@ -116,6 +119,8 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> post, View view, int pos, long id) {
+                    //Toast toast = Toast.makeText(getContext()," Pulsado", Toast.LENGTH_SHORT);
+                    //toast.show();
 
                     ListPlace choosen = (ListPlace) post.getItemAtPosition(pos);
                     PlaceView place = new PlaceView();
@@ -143,35 +148,16 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
 
     @Override
     public void onResponse(JSONObject response) {
-       /* try {
+        try {
             if (response.has("GET_PLACES")) {
                 JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
+                Log.d("Debug","OPER"+operationResult);
                 LoadArray(operationResult);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
-        try {
-            if (response.has("OPERATIONS")) {
-                for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
-                    String operation = response.getJSONArray("OPERATIONS").getString(i);
-                    if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
-
-                        if (operation.equals("GET_PLACES")) {
-                            JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
-                            LoadArray(operationResult);
-                        }
-
-                    }
-                    else if (operation.equals("GET_PLACES")) {
-                        currentPageIndex -=tam;
-                        Toast.makeText(getContext(),getString(R.string.infoNextButton), Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-            } else {
-                Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
+            else if (response.equals("GET_PLACES")) {
+                Log.d("Debug","Else");
+                currentPageIndex -=tam;
+                Toast.makeText(getContext(),getString(R.string.infoNextButton), Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -180,7 +166,7 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
 
     private void showNextPage() {
         currentPageIndex += tam;
-        this.fillPlaces();
+        this.fillRoutes();
     }
 
     private void showPreviousPage() {
@@ -190,14 +176,14 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
                 currentPageIndex = 0;
 
             }
-            this.fillPlaces();
+            this.fillRoutes();
 
         } else {
             Toast.makeText(getContext(), "No hay páginas anteriores", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void fillPlaces() {
-        DBConnect.getPlaces(getContext(),this,currentPageIndex);
+    private void fillRoutes() {
+        DBConnect.getRoutes(getContext(),this,currentPageIndex);
     }
 }
