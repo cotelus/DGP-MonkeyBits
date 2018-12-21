@@ -47,8 +47,8 @@ public class RouteView extends Fragment implements DBConnectInterface{
     private ImageButton favButton;
     private DBConnectInterface dbInter;
     private TextInputEditText commentText;
-    private int tam= 4;
-
+    private float tam= 4;
+    private int paginas_totales = 0;
     private int currentPageIndex = 0;
 
 
@@ -160,6 +160,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
     protected void Conf_List_Route(ArrayList<Place> dataList) {
         if(dataList != null){
+
             ListView list = view.findViewById(R.id.postListLug);
             //adapt to the list
             list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
@@ -168,6 +169,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
                     if (post != null) {
                         TextView pt_tittle = view.findViewById(R.id.post_tittle);
                         if (pt_tittle != null)
+
                             pt_tittle.setText(((Place) post).getName());
 
                         TextView pt_desc = view.findViewById(R.id.post_desc);
@@ -353,18 +355,30 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
                             JSONArray operationResult = response.getJSONArray(operation);
                             Place aux;
-                            places = new ArrayList<>();
+                            places = new ArrayList<Place>();
                             placesShown = new ArrayList<>();
                             //find and add the place to the list of places
                             for (int j = 0; j < operationResult.length(); j++) {
+
                                 if (operationResult.getJSONObject(j) != null){
                                     aux = new Place(operationResult.getJSONObject(j));
                                     places.add(aux);
+
                                 }
+                                Log.d("Debug","Tam"+places.size());
+
+                                float aux_pag = places.size()/tam;
+                                int aux_pag_i = (int) (places.size()/tam);
+                                if(aux_pag > aux_pag_i){
+                                    paginas_totales = aux_pag_i +1;
+                                }
+                                else{
+                                    paginas_totales = aux_pag_i;
+                                }
+
+
                             }
                             this.fillPlacesNext();
-
-
                         }
                     }
                     // Estas operaciones, no necesitan datos de vuelta, por eso no están dentro del if anterior
@@ -427,12 +441,13 @@ public class RouteView extends Fragment implements DBConnectInterface{
     //change pag
 
     private void showNextPage() {
-        currentPageIndex += tam;
+        currentPageIndex ++;
+        fillPlacesNext();
     }
 
     private void showPreviousPage() {
         if (currentPageIndex >= tam) {
-            currentPageIndex -= tam;
+            currentPageIndex --;
             if (currentPageIndex < 0) {
                 currentPageIndex = 0;
                 this.fillPlacesNext();
@@ -454,17 +469,23 @@ public class RouteView extends Fragment implements DBConnectInterface{
     }
 
     private void fillPlacesNext() {
-        if(currentPageIndex+tam <= places.size()){
+
+        if(currentPageIndex < paginas_totales){
+
             placesShown.clear();
+
             for(int i = currentPageIndex; i < currentPageIndex+tam && i<places.size();i++){
                 placesShown.add(places.get(i));
             }
+
+
+            this.Conf_List_Route(placesShown);
         }
         else{
-            Toast.makeText(getContext(), "No hay páginas  siguientes", Toast.LENGTH_SHORT).show();
+            Log.d("Debug", "else");
+            Toast.makeText(getContext(), getString(R.string.infoNextButton), Toast.LENGTH_SHORT).show();
         }
 
-        this.Conf_List_Route(placesShown);
     }
 
 }

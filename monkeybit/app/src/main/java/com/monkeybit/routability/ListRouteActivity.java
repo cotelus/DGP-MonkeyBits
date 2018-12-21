@@ -99,7 +99,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                     Bundle bundle = new Bundle();
                     bundle.putString("routeId", choosen.get_idRoute());
                     route.setArguments(bundle);
-                    Log.d("Debug","choosen: "+choosen);
+                    //Log.d("Debug","choosen: "+choosen);
                     if (route != null) {
 
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_rp_view, route).commit(); //go to the fragment
@@ -133,6 +133,10 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                         }
                         
                     }
+                    else if (operation.equals("GET_ROUTES")) {
+                        currentPageIndex -=tam;
+                        Toast.makeText(getContext(),getString(R.string.infoNextButton), Toast.LENGTH_SHORT).show();
+                    }
 
                 }
 
@@ -158,7 +162,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                 String description = json.getString("Description");
 
                 String idRoute = json.getString("IdRoute");
-                Log.d("Debug",idImage);
+               // Log.d("Debug",idImage);
                 String desc_imagen = json.getString("ImageDescription");
                 list.add(new ListRoute(idImage, tittle,description , idRoute,desc_imagen));
 
@@ -168,7 +172,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
                 e.printStackTrace();
             }
         }
-        currentPageIndex = currentPageIndex + tam;
+       // currentPageIndex = currentPageIndex + tam;
 
         this.Conf_List_Route(list);
 

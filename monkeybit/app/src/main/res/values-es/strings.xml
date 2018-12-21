@@ -150,4 +150,6 @@
 
     <string name="prevButton">Anterior</string>
     <string name="nextButton">Siguiente</string>
+
+    <string name="infoNextButton">No more next page</string>
 </resources>

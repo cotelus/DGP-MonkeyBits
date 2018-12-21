@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/prevButton" />
+                android:text="string/previous_page" />
 
             <Button
                 android:id="@+id/next_places_button"
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-               android:text="@string/nextButton" />
+               android:text="@string/next_page" />
 
 
         </LinearLayout>
