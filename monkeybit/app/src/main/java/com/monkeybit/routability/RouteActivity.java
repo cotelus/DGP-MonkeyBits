@@ -33,11 +33,9 @@ public class RouteActivity extends Fragment implements BottomNavigationView.OnNa
                 selectedFragment = new ListRouteActivity();
                 break;
             case R.id.menu_places:
-                // @TODO: asignar a selectedFragment el Fragmen de opciones de lugares
                 selectedFragment = new ListPlaceActivity();
                 break;
             case R.id.menu_search:
-                // @TODO: asignar a selectedFragment el Fragmen de opciones de busqueda
                 selectedFragment = new searchActivity();
                 ((searchActivity) selectedFragment).setFav(false);
                 break;

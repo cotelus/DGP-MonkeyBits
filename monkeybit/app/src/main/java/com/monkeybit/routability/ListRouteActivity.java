@@ -37,6 +37,7 @@ public class ListRouteActivity extends Fragment implements DBConnectInterface{
         view = inflater.inflate(R.layout.list_routes, container, false);
 
         DBConnect.getRoutes(getContext(),this,currentPageIndex);
+
         nextPageButton = view.findViewById(R.id.next_places_button);
         nextPageButton.setOnClickListener(new View.OnClickListener()
         {
