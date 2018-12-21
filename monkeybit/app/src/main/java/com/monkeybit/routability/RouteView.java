@@ -170,7 +170,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
             else{
                 list.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
             }
-           
+
             list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
                 @Override
                 public void onPost(Object post, View view) {

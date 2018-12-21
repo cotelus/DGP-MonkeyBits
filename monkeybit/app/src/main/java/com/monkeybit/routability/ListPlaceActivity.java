@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,15 +26,37 @@ import java.util.ArrayList;
 public class ListPlaceActivity extends Fragment implements DBConnectInterface {
     View view;
     int pagCurent;
+    int tam = 10;
+    private int currentPageIndex = 0;
+    private int result = 0;
+    private Button nextPageButton,previousPageButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.list_place, container, false);
-        pagCurent = 0;
+        currentPageIndex = 0;
 
-        DBConnect.getPlaces(getContext(),this,pagCurent);
+        DBConnect.getPlaces(getContext(),this,currentPageIndex);
+        nextPageButton = view.findViewById(R.id.next_places_button);
+        nextPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showNextPage();
+            }
+        });
 
+        previousPageButton = view.findViewById(R.id.previous_places_button);
+        previousPageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showPreviousPage();
+            }
+        });
         return view;
     }
 
@@ -58,7 +81,7 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
                 e.printStackTrace();
             }
         }
-        pagCurent = pagCurent + 10;
+        currentPageIndex = currentPageIndex + tam;
 
         this.Conf_List_Place(list);
     }
@@ -123,12 +146,53 @@ public class ListPlaceActivity extends Fragment implements DBConnectInterface {
     @Override
     public void onResponse(JSONObject response) {
         try {
-            if (response.has("GET_PLACES")) {
+            /*if (response.has("GET_PLACES")) {
                 JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
                 LoadArray(operationResult);
+            }*/
+
+            for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
+                String operation = response.getJSONArray("OPERATIONS").getString(i);
+                if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
+
+                    if (operation.equals("GET_PLACES")) {
+                        JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
+                        LoadArray(operationResult);
+                    }
+
+                }
+                else if (operation.equals("GET_PLACES")) {
+                    currentPageIndex -=tam;
+                    Toast.makeText(getContext(),getString(R.string.infoNextButton), Toast.LENGTH_SHORT).show();
+                }
+
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showNextPage() {
+        currentPageIndex += tam;
+        this.fillPlaces();
+    }
+
+    private void showPreviousPage() {
+        if (currentPageIndex >= tam) {
+            currentPageIndex -= tam;
+            if (currentPageIndex < 0) {
+                currentPageIndex = 0;
+
+            }
+            this.fillPlaces();
+
+        } else {
+            Toast.makeText(getContext(), "No hay páginas anteriores", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void fillPlaces() {
+        DBConnect.getPlaces(getContext(),this,currentPageIndex);
     }
 }

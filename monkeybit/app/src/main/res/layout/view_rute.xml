@@ -58,8 +58,8 @@
                 android:textStyle="bold" />
 
             <TextView
-                style="@style/CustomTheme"
                 android:id="@+id/postDescRt"
+                style="@style/CustomTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_text_desc"
@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/next_page" />
+                    android:text="@string/previous_page"/>
 
                 <Button
                     android:id="@+id/next_places_button"
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/previous_page" />
+                    android:text="@string/next_page" />
 
 
             </LinearLayout>
