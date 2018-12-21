@@ -36,6 +36,8 @@ public class FavActivity extends Fragment implements BottomNavigationView.OnNavi
                 break;
             case R.id.menu_search:
                 // @TODO: asignar a selectedFragment el Fragmen de opciones de busqueda
+                 selectedFragment = new searchActivity();
+                 ((searchActivity) selectedFragment).setFav(true);
 
                 break;
         }
