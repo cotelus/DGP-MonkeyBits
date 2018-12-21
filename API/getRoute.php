@@ -56,7 +56,7 @@ $json=array();
 		}
 
 		// Tercera consulta:
-		$sql3="SELECT * FROM routecomments WHERE IdRoute = '{$IdRoute}'";
+		$sql3= "SELECT routecomments.IdRoute, routecomments.Email, routecomments.Content, routecomments.Date, routecomments.Time, routecomments.Reported, user.Name FROM routecomments, user WHERE IdRoute = '{$IdRoute}'  AND routecomments.Reported = 0 and routecomments.Email = user.Email order by routecomments.Date desc, routecomments.Time desc";
 		$result=mysqli_query($connection,$sql3);
 
 		if($sql3){

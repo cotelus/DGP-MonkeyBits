@@ -12,7 +12,7 @@ $json=array();
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "DELETE FROM favoriteroutes WHERE IdRoute = '{$IdROute}' AND Email = '{$Email}'";
+		$sql = "DELETE FROM favoriteroutes WHERE IdRoute = '{$IdRoute}' AND Email = '{$Email}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){

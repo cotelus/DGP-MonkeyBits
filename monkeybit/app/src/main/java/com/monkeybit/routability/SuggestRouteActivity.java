@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SuggestRouteActivity extends Fragment implements DBConnectInterface {
 
@@ -129,12 +130,24 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
     @Override
     public void onResponse(JSONObject response) {
         try {
-                newImage.getText().clear();
             for (int i = 0; i < response.getJSONArray("OPERATIONS").length(); i++) {
                 String operation = response.getJSONArray("OPERATIONS").getString(i);
                 if (response.has(operation)) { // Si no lo cumple, significa que no ha devuelto tuplas
                     if (operation.equals("SUGGEST_ROUTE")) {
                         Toast.makeText(getContext(), getString(R.string.suggested_route), Toast.LENGTH_SHORT).show();
+                        Objects.requireNonNull(newImage.getText()).clear();
+                        Objects.requireNonNull(this.newName.getText()).clear();
+                        Objects.requireNonNull(newDescription.getText()).clear();
+
+                        for(int j=0; j<arrayAddedPlaces.size(); j++) {
+                            arrayAvailablePlaces.add(arrayAddedPlaces.get(j));
+                            arrayAddedPlaces.remove(j);
+                        }
+                        updateCurrentPage();
+                        updatePlaceAdapter(arrayAddedPlaces, addedPlaces, adapterAddedPlaces);
+                        updatePlaceAdapter(arrayAvailablePlaces,availablePlaces, adapterAvailablePlaces);
+
+
                     }
                     if (operation.equals("GET_PLACES")) {
                         JSONArray operationResult = response.getJSONArray("GET_PLACES"); // Este elemento tendrá la/s tupla/s
@@ -142,7 +155,7 @@ public class SuggestRouteActivity extends Fragment implements DBConnectInterface
                         this.updatePlaceAdapter(arrayAvailablePlaces, availablePlaces, adapterAvailablePlaces);
                     }
                 } else if (operation.equals("GET_PLACES")) {
-                    currentPageIndex--;
+                    currentPageIndex -=4;
                 }
             }
         } catch (JSONException e) {

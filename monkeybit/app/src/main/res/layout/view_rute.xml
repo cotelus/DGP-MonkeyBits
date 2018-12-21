@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/imageRoute"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
                 android:contentDescription="@string/image_description" />
@@ -58,6 +58,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                style="@style/CustomTheme"
                 android:id="@+id/postDescRt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,6 +131,8 @@
 
             <TextView
                 android:id="@+id/postRtRating"
+                style="@style/CustomTheme"
+
                 android:layout_width="match_parent"
                 android:layout_height="27dp"
                 android:contentDescription="descriptionRatingRt"
