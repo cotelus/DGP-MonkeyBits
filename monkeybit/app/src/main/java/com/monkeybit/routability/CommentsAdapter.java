@@ -23,18 +23,20 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private Activity activity;
     private String message;
     private String messageOk;
-    private String idPlace;
+    private String idPlaceRoute;
     private String email;
     private String date;
     private String time;
     private Context context;
+    private Boolean isPlace;
 
-    public CommentsAdapter (List<Comments> comments, Activity activity, String message, String messageOk, String idPlace) {
+    public CommentsAdapter (List<Comments> comments, Activity activity, String message, String messageOk, String idPlaceRoute, Boolean isPlace ) {
         this.comments = comments;
         this.activity = activity;
         this.message = message;
-        this.idPlace = idPlace;
+        this.idPlaceRoute = idPlaceRoute;
         this.messageOk = messageOk;
+        this.isPlace = isPlace;
     }
 
     @NonNull
@@ -80,7 +82,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     @Override
     public void PositiveResponse(AlertID alertID) {
-        //DBConnect.reportPlaceComment(context, this, idPlace, email, date, time );
+        if(isPlace) {
+            DBConnect.reportPlaceComment(context, this, idPlaceRoute, email, date, time);
+        }
+        else {
+            DBConnect.reportRouteComment(context,this,idPlaceRoute,email,date,time);
+        }
     }
 
     @Override

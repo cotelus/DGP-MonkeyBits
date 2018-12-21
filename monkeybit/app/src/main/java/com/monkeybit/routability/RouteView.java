@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class RouteView extends Fragment implements DBConnectInterface{
@@ -61,8 +62,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
         email = ((MainActivity) getActivity()).getUserEmail();
         dbInter = this;
         places = null;
-        if(email != null) {
-            //DBConnect.getFavoriteRoutes(getContext(), this,email);
+            DBConnect.getFavoriteRoutes(getContext(), this,email);
             favButton = view.findViewById(R.id.posRtFav);
             favButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -77,9 +77,6 @@ public class RouteView extends Fragment implements DBConnectInterface{
                     }
                 }
             });
-        } else {
-            Toast.makeText(getContext(), R.string.should_login, Toast.LENGTH_SHORT);
-        }
 
 
         final Button button = view.findViewById(R.id.postFollowBtRt);
@@ -229,7 +226,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
         else{
             listComments.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
         }
-        CommentsAdapter adapter = new CommentsAdapter(comments, getActivity(), getString(R.string.message_ban_place), getString(R.string.message_ban_place_ok), choosen);
+        CommentsAdapter adapter = new CommentsAdapter(comments, getActivity(), getString(R.string.message_ban_place), getString(R.string.message_ban_place_ok), choosen, false);
         listComments.setAdapter(adapter);
     }
 
@@ -388,6 +385,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
                     }
                     if(operation.equals("ADD_ROUTE_COMMENT")){
                         Log.d("Debug","respuesta add comment");
+                        Objects.requireNonNull(this.commentText.getText()).clear();
                         DBConnect.getRouteComments(getContext(),this,choosen);
                     }
                 }

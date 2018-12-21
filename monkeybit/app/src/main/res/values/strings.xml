@@ -62,7 +62,7 @@
     <string name="desc_rute">Description</string>
     <string name="list_desc_route">Description of the Image</string>
     <string name="post_desc_img">Description of the image</string>
-    <string name="post_text_tittle"> tittle of the route</string>
+    <string name="post_text_tittle"> Tittle of the route</string>
     <string name="post_text_desc">Description of the route</string>
     <string name="post_rt_info_places">Places through the route </string>
     <string name="post_rt_info_rating">Rating</string>
@@ -106,7 +106,7 @@
     <string name="title_boton">Check</string>
     <string name="login">CHECK ROUTE</string>
     <string name="id_bd_test">test</string>
-    <string name="title_place">Title of the place</string>
+    <string name="title_place">Tittle of the place</string>
     <string name="description_place">description of the place</string>
 
 

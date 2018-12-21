@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 
 
-public class SearchActivity extends Fragment implements View.OnClickListener{
+public class searchActivity extends Fragment implements View.OnClickListener{
 
     private String petition;
     Button search;

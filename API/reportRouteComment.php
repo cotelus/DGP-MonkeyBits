@@ -7,13 +7,15 @@ $username="luis";
 $password="12345";
 $json=array();
 
-	if(isset($_GET["IdRoute"]) && isset($_GET["Email"])){
+	if(isset($_GET["IdRoute"]) && isset($_GET["Email"]) && isset($_GET["Date"]) && isset($_GET["Time"])){
 		$IdRoute =$_GET['IdRoute'];
 		$Email = $_GET['Email'];
+		$Date = $_GET['Date'];
+		$Time = $_GET['Time'];
 
 		$connection=mysqli_connect($hostname,$username,$password,$database);
 		
-		$sql = "UPDATE `routecomments` SET `Reported`=1 WHERE `IdRoute`= {$IdRoute} AND `Email`= '{$Email}'";
+		$sql = "UPDATE `routecomments` SET `Reported`=1 WHERE `IdRoute`= {$IdRoute} AND `Email`= '{$Email}' AND `Date`= '{$Date}' AND `Time`= '{$Time}'";
 		$result=mysqli_query($connection,$sql);
 
 		if($sql){
