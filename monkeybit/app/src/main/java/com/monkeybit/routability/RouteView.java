@@ -139,7 +139,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         listComments.setLayoutManager(lim);
 
-        initializedAdapter();
+        initializedAdapterComments();
 
         DBConnect.getRoute(getContext(),this,choosen);
 
@@ -163,6 +163,14 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
             ListView list = view.findViewById(R.id.postListLug);
             //adapt to the list
+
+            if(dataList.size() >= 4){
+                list.getLayoutParams().height = 1000;
+            }
+            else{
+                list.getLayoutParams().height = RecyclerView.LayoutParams.WRAP_CONTENT;
+            }
+           
             list.setAdapter(new AdapterList(getContext(), R.layout.post_rute, dataList) {
                 @Override
                 public void onPost(Object post, View view) {
@@ -214,7 +222,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
     }
 
-    public void initializedAdapter () {
+    public void initializedAdapterComments () {
         if(comments.size() >=4){
             listComments.getLayoutParams().height = 1300;
         }
@@ -224,6 +232,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
         CommentsAdapter adapter = new CommentsAdapter(comments, getActivity(), getString(R.string.message_ban_place), getString(R.string.message_ban_place_ok), choosen, false);
         listComments.setAdapter(adapter);
     }
+
 
     public void setComments(JSONArray query1) throws JSONException {
 
@@ -259,7 +268,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
                 //Toast.makeText(getContext(), time, Toast.LENGTH_SHORT).show();
             }
         }
-        initializedAdapter();
+        initializedAdapterComments();
     }
 
 
@@ -407,7 +416,7 @@ public class RouteView extends Fragment implements DBConnectInterface{
 
         //@TODO se deberia mejorar esta comprobacion
         if (result >= 0){
-            initializedAdapter();
+            initializedAdapterComments();
             result = 0;
         }
     }
@@ -487,6 +496,8 @@ public class RouteView extends Fragment implements DBConnectInterface{
         }
 
     }
+
+
 
 }
 
